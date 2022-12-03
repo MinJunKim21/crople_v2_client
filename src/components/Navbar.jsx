@@ -8,7 +8,7 @@ function Navbar() {
   const userObject = useContext(myContext);
   const logout = () => {
     axios
-      .get('https://localhost:5001/auth/logout', {
+      .get('http://localhost:5001/auth/logout', {
         withCredentials: true,
       })
       .then((res) => {
