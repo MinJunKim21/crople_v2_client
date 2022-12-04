@@ -2,21 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { myContext } from '../context/Context';
-import axios from 'axios';
+// import axios from 'axios';
 
 function Navbar() {
   const userObject = useContext(myContext);
   const logout = () => {
-    axios
-      .get('http://localhost:5001/auth/logout', {
-        withCredentials: true,
-      })
-      .then((res) => {
-        if (res.data === 'done') {
-          window.location.href = '/';
-        }
-      });
+    window.open('http://localhost:5001/auth/logout', '_self');
+    // axios
+    //   .get('http://localhost:5001/auth/logout', {
+    //     withCredentials: true,
+    //   })
+    //   .then((res) => {
+    //     if (res.data === 'done') {
+    //       window.location.href = '/';
+    //       console.log('hi');
+    //     }
+    //   });
   };
+
   return (
     <div>
       <span>navbar</span>
