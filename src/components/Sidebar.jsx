@@ -1,3 +1,5 @@
+import { Users } from '../dummyData';
+import CloseFriend from './CloseFriend';
 function Sidebar() {
   return (
     <div>
@@ -15,10 +17,9 @@ function Sidebar() {
         <button>Show More</button>
         <hr />
         <ul>
-          <li>
-            <img src="/assets/person/2.jpeg" alt="" />
-            <span>Mj</span>
-          </li>
+          {Users.map((u) => (
+            <CloseFriend key={u.id} user={u} />
+          ))}
         </ul>
       </div>
     </div>
