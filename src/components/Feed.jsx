@@ -1,4 +1,4 @@
-import Post from '../pages/Post';
+import Post from './Post';
 import Share from './Share';
 import { Posts } from '../dummyData';
 

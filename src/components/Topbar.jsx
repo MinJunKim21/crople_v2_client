@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom';
 function Topbar() {
   return (
     <div>
       <div>
-        <span>Crople</span>
+        <Link to="/">
+          <span>Crople</span>
+        </Link>
       </div>
       <div>
         <div>

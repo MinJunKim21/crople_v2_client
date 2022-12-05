@@ -1,6 +1,8 @@
 import { Users } from '../dummyData';
 import Online from './Online';
 function Rightbar({ profile }) {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
   const HomeRightbar = () => {
     return (
       <>
@@ -40,15 +42,15 @@ function Rightbar({ profile }) {
         <h4>user friends</h4>
         <div>
           <div>
-            <img src="assets/person/1.jpeg" alt="" className="w-6" />
+            <img src={`${PF}person/1.jpeg`} alt="" className="w-6" />
             <span>juholee</span>
           </div>
           <div>
-            <img src="assets/person/2.jpeg" alt="" className="w-6" />
+            <img src={`${PF}person/2.jpeg`} alt="" className="w-6" />
             <span>sunzo</span>
           </div>
           <div>
-            <img src="assets/person/3.jpeg" alt="" className="w-6" />
+            <img src={`${PF}person/3.jpeg`} alt="" className="w-6" />
             <span>sunnysun</span>
           </div>
         </div>
