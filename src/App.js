@@ -5,6 +5,7 @@ import Post from './pages/Post';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { myContext } from './context/Context';
+import Profile from './pages/Profile';
 
 function App() {
   const userObject = useContext(myContext);
@@ -24,6 +25,7 @@ function App() {
             element={userObject ? <Post /> : <Navigate to="/login" />}
           />
         </Routes>
+        <Profile />
       </div>
     </BrowserRouter>
   );
