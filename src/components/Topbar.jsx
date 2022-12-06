@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 function Topbar() {
   return (
-    <div>
+    <div className="bg-yellow-200">
       <div>
         <Link to="/">
           <span>Crople</span>

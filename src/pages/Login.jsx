@@ -2,7 +2,7 @@ import React from 'react';
 
 function Login() {
   const google = () => {
-    window.open('http://localhost:5001/auth/google', '_self');
+    window.open('http://localhost:5001/googleauth/google', '_self');
   };
   return (
     <div>

@@ -2,7 +2,7 @@ import { Users } from '../dummyData';
 import CloseFriend from './CloseFriend';
 function Sidebar() {
   return (
-    <div>
+    <div className="bg-green-200">
       <div>
         <ul>
           <li>feedicon</li>

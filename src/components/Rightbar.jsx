@@ -5,7 +5,7 @@ function Rightbar({ profile }) {
 
   const HomeRightbar = () => {
     return (
-      <>
+      <div className="bg-red-200">
         <div>
           <img src="assets/gift.png" alt="" className="w-6" />
           <span>happy bday my friends</span>
@@ -17,13 +17,13 @@ function Rightbar({ profile }) {
             <Online key={u.id} user={u} />
           ))}
         </ul>
-      </>
+      </div>
     );
   };
 
   const ProfileRightbar = () => {
     return (
-      <>
+      <div className="bg-orang-200">
         <h4>user information</h4>
         <div>
           <div>
@@ -54,7 +54,7 @@ function Rightbar({ profile }) {
             <span>sunnysun</span>
           </div>
         </div>
-      </>
+      </div>
     );
   };
   return (

@@ -6,7 +6,7 @@ export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   return (
-    <div>
+    <div className="bg-purple-200">
       <Topbar />
       <div>
         <Sidebar />

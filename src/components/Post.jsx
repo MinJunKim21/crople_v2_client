@@ -1,10 +1,22 @@
-import { useState } from 'react';
-import { Users } from '../dummyData';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Post({ post }) {
-  const [like, setLike] = useState(post.like);
+  const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
+  const [user, setUser] = useState({});
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await axios.get(
+        `http://localhost:5001/api/users/${post.userId}`
+      );
+      setUser(res.data);
+      console.log(res.data);
+    };
+    fetchUser();
+  }, []);
 
   const likeHandler = () => {
     setLike(isLiked ? like - 1 : like + 1);
@@ -16,11 +28,11 @@ function Post({ post }) {
         <div>
           <div>
             <img
-              src={Users.filter((u) => u.id === post.userId)[0].profilePicture}
+              src={user.profilePicture || PF + 'person/noAvatar.png'}
               alt=""
               className="w-6"
             />
-            <span>{Users.filter((u) => u.id === post.userId)[0].username}</span>
+            <span>{user.username}</span>
             <span>{post.date}</span>
           </div>
           <div>
@@ -29,7 +41,7 @@ function Post({ post }) {
         </div>
         <div>
           <span>{post?.desc}</span>
-          <img src={PF + post.photo} alt="" className="w-20" />
+          <img src={PF + post.img} alt="" className="w-20" />
         </div>
         <div>
           <div>
