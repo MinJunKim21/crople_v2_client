@@ -1,6 +1,7 @@
 import { Users } from '../dummyData';
 import Online from './Online';
-function Rightbar({ profile }) {
+
+function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const HomeRightbar = () => {
@@ -23,20 +24,26 @@ function Rightbar({ profile }) {
 
   const ProfileRightbar = () => {
     return (
-      <div className="bg-orang-200">
+      <div className="bg-orange-200">
         <h4>user information</h4>
         <div>
           <div>
-            <span>city</span>
-            <span>NewYork</span>
+            <span>city : </span>
+            <span>{user.city}</span>
           </div>
           <div>
-            <span>From:</span>
-            <span>Madrid</span>
+            <span>From : </span>
+            <span>{user.from}</span>
           </div>
           <div>
-            <span>Relationship</span>
-            <span>Single</span>
+            <span>Relationship : </span>
+            <span>
+              {user.relationship === 1
+                ? 'Single'
+                : user.relationship === 2
+                ? 'Married'
+                : '-'}
+            </span>
           </div>
         </div>
         <h4>user friends</h4>
@@ -59,7 +66,9 @@ function Rightbar({ profile }) {
   };
   return (
     <div>
-      <div>{profile ? <ProfileRightbar /> : <HomeRightbar />}</div>
+      {/* <div>{user ? <HomeRightbar /> : <ProfileRightbar />}</div> */}
+      <HomeRightbar />
+      <ProfileRightbar />
     </div>
   );
 }

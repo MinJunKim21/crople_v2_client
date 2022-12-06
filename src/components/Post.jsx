@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { format } from 'timeago.js';
+import { Link } from 'react-router-dom';
 
 function Post({ post }) {
   const [like, setLike] = useState(post.likes.length);
@@ -10,13 +12,13 @@ function Post({ post }) {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
-        `http://localhost:5001/api/users/${post.userId}`
+        `http://localhost:5001/api/users?userId=${post.userId}`
       );
       setUser(res.data);
       console.log(res.data);
     };
     fetchUser();
-  }, []);
+  }, [post.userId]);
 
   const likeHandler = () => {
     setLike(isLiked ? like - 1 : like + 1);
@@ -27,13 +29,15 @@ function Post({ post }) {
       <div>
         <div>
           <div>
-            <img
-              src={user.profilePicture || PF + 'person/noAvatar.png'}
-              alt=""
-              className="w-6"
-            />
+            <Link to={`profile/${user.username}`}>
+              <img
+                src={user.profilePicture || PF + 'person/noAvatar.png'}
+                alt=""
+                className="w-6"
+              />
+            </Link>
             <span>{user.username}</span>
-            <span>{post.date}</span>
+            <span>{format(post.createdAt)}</span>
           </div>
           <div>
             <span>threedoticon</span>
