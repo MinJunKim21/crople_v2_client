@@ -15,7 +15,6 @@ function Post({ post }) {
         `http://localhost:5001/api/users?userId=${post.userId}`
       );
       setUser(res.data);
-      console.log(res.data);
     };
     fetchUser();
   }, [post.userId]);

@@ -66,9 +66,9 @@ function Rightbar({ user }) {
   };
   return (
     <div>
-      {/* <div>{user ? <HomeRightbar /> : <ProfileRightbar />}</div> */}
-      <HomeRightbar />
-      <ProfileRightbar />
+      <div>{true ? <HomeRightbar /> : <ProfileRightbar />}</div>
+      {/* <HomeRightbar />
+      <ProfileRightbar /> */}
     </div>
   );
 }
