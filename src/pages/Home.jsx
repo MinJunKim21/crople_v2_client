@@ -8,9 +8,9 @@ function Home() {
     <div>
       <Topbar />
       <div>
-        <Sidebar />
-        <Feed />
-        <Rightbar />
+        {/* <Sidebar /> */}
+        {/* <Feed /> */}
+        {/* <Rightbar /> */}
       </div>
     </div>
   );
