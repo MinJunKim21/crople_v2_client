@@ -9,7 +9,7 @@ function Home() {
       <Topbar />
       <div>
         {/* <Sidebar /> */}
-        {/* <Feed /> */}
+        <Feed />
         {/* <Rightbar /> */}
       </div>
     </div>

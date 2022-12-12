@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
 import { useRef } from 'react';
+import { useContext } from 'react';
+import { myContext } from '../context/Context';
 
 const SPORTS_LIST = [
   { id: 0, data: '헬스' },
@@ -36,6 +38,9 @@ export default function Profile() {
   const [sportsCheckedList, setSportsCheckedList] = useState([]);
   const [locationsCheckedList, setLocationsCheckedList] = useState([]);
   const [showGenderChecked, setShowGenderChecked] = useState([]);
+
+  const userObject = useContext(myContext);
+  console.log(userObject);
 
   const username = useParams().username;
   const nickName = useRef();

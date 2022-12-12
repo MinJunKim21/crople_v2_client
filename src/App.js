@@ -7,9 +7,11 @@ import { useContext } from 'react';
 import { myContext } from './context/Context';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
+import { AuthContext } from './context/AuthContext';
 
 function App() {
   const userObject = useContext(myContext);
+  // const {user} = useContext(AuthContext)
   console.log(userObject);
   return (
     <BrowserRouter>
