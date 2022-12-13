@@ -14,6 +14,10 @@ function Rightbar({ user }) {
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
   );
+  console.log(user, 'user');
+  console.log(userObject.followings, 'userObject.followings');
+  console.log(followed, '1');
+  console.log(userObject.followings.includes(user?._id), '2');
 
   useEffect(() => {
     setFollowed(userObject.followings.includes(user?._id));

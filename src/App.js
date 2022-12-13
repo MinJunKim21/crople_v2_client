@@ -7,11 +7,9 @@ import { useContext } from 'react';
 import { myContext } from './context/Context';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
-import { AuthContext } from './context/AuthContext';
 
 function App() {
   const userObject = useContext(myContext);
-  // const {user} = useContext(AuthContext)
   return (
     <BrowserRouter>
       <Navbar />
@@ -30,7 +28,8 @@ function App() {
         />
         <Route
           path="/profile/:username"
-          element={userObject ? <Profile /> : <Navigate to="/" />}
+          // element={userObject ? <Profile /> : <Navigate to="/" />}
+          element=<Profile />
         />
         <Route
           path="/post/:id"

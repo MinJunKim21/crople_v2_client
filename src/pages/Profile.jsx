@@ -15,15 +15,14 @@ export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState({});
   const username = useParams().username;
+  console.log(username);
 
   useEffect(() => {
-    console.log(username);
     const fetchUser = async () => {
       const res = await axios.get(
         `http://localhost:5001/api/users?username=${username}`
       );
       setUser(res.data);
-      console.log(res.data);
     };
     fetchUser();
   }, [username]);
@@ -71,7 +70,7 @@ export default function Profile() {
           <div>
             {/* <Feed username={username} /> */}
             {username === userObject.username && <Infoedit />}
-            <Rightbar user={user} />
+            {/* <Rightbar user={user} /> */}
           </div>
         </div>
       </div>
