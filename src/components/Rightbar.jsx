@@ -12,25 +12,25 @@ function Rightbar({ user }) {
   const [friends, setFriends] = useState([]);
   const userObject = useContext(myContext);
   const [followed, setFollowed] = useState(
-    userObject.followings.includes(user?.id)
+    userObject.followings.includes(user?._id)
   );
 
   useEffect(() => {
-    setFollowed(userObject.followings.includes(user?.id));
+    setFollowed(userObject.followings.includes(user?._id));
   }, [userObject, user.id]);
 
   const handleClick = async () => {
     try {
       if (followed) {
         await axios.put(
-          'http://localhost:5001/api/users/' + user._id + '/follow',
+          'http://localhost:5001/api/users/' + user._id + '/unfollow',
           {
             userId: userObject._id,
           }
         );
       } else {
         await axios.put(
-          'http://localhost:5001/api/users/' + user._id + '/unfollow',
+          'http://localhost:5001/api/users/' + user._id + '/follow',
           {
             userId: userObject._id,
           }
@@ -79,7 +79,7 @@ function Rightbar({ user }) {
       <div className="bg-orange-200">
         {user.username !== userObject.username && (
           <button onClick={handleClick}>
-            {followed ? 'Follow' : 'Unfollow'}
+            {followed ? 'Unfollow' : 'Follow'}
           </button>
         )}
         <h4>user information</h4>
