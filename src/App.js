@@ -28,7 +28,10 @@ function App() {
           path="/register"
           element={userObject ? <Navigate to="/" /> : <Register />}
         />
-        <Route path="/profile/:username" element={<Profile />} />
+        <Route
+          path="/profile/:username"
+          element={userObject ? <Profile /> : <Navigate to="/" />}
+        />
         <Route
           path="/post/:id"
           element={userObject ? <Post /> : <Navigate to="/login" />}
