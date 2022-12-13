@@ -10,7 +10,6 @@ import { myContext } from '../context/Context';
 function Feed({ username }) {
   const [posts, setPosts] = useState([]);
   const userObject = useContext(myContext);
-  console.log(userObject, 'hi');
 
   useEffect(() => {
     const fetchPosts = async () => {

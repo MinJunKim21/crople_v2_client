@@ -1,8 +1,30 @@
+import { useState } from 'react';
+import { useEffect } from 'react';
 import { Users } from '../dummyData';
 import Online from './Online';
+import axios from 'axios';
+import { useContext } from 'react';
+import { myContext } from '../context/Context';
+import { Link } from 'react-router-dom';
 
 function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [friends, setFriends] = useState([]);
+  const userObject = useContext(myContext);
+
+  useEffect(() => {
+    const getFriends = async () => {
+      try {
+        const friendList = await axios.get(
+          'http://localhost:5001/api/users/friends/' + userObject._id
+        );
+        setFriends(friendList.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getFriends();
+  }, [userObject._id]);
 
   const HomeRightbar = () => {
     return (
@@ -26,47 +48,33 @@ function Rightbar({ user }) {
     return (
       <div className="bg-orange-200">
         <h4>user information</h4>
-        <div>
-          <div>
-            <span>city : </span>
-            <span>{user.city}</span>
-          </div>
-          <div>
-            <span>From : </span>
-            <span>{user.from}</span>
-          </div>
-          <div>
-            <span>Relationship : </span>
-            <span>
-              {user.relationship === 1
-                ? 'Single'
-                : user.relationship === 2
-                ? 'Married'
-                : '-'}
-            </span>
-          </div>
-        </div>
         <h4>user friends</h4>
         <div>
-          <div>
-            <img src={`${PF}person/1.jpeg`} alt="" className="w-6" />
-            <span>juholee</span>
-          </div>
-          <div>
-            <img src={`${PF}person/2.jpeg`} alt="" className="w-6" />
-            <span>sunzo</span>
-          </div>
-          <div>
-            <img src={`${PF}person/3.jpeg`} alt="" className="w-6" />
-            <span>sunnysun</span>
-          </div>
+          {friends.map((friend) => (
+            <Link to={'/profile/' + friend.username} key={userObject._id}>
+              <div key={userObject._id}>
+                <img
+                  src={
+                    friend.profilePicture
+                      ? PF + friend.profilePicture
+                      : PF + 'person/noAvatar.png'
+                  }
+                  alt=""
+                />
+                <span>{friend.username}</span>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     );
   };
   return (
     <div>
-      <div>{true ? <HomeRightbar /> : <ProfileRightbar />}</div>
+      <div>{/* <HomeRightbar /> */}</div>
+      <div>
+        <ProfileRightbar />
+      </div>
       {/* <HomeRightbar />
       <ProfileRightbar /> */}
     </div>

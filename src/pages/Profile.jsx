@@ -4,7 +4,7 @@ import Feed from '../components/Feed';
 import Rightbar from '../components/Rightbar';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import { useContext } from 'react';
 import { myContext } from '../context/Context';
@@ -33,20 +33,30 @@ const GENDER_LIST = [
 ];
 
 export default function Profile() {
+  const userObject = useContext(myContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState({});
+  const username = useParams().username;
   const [sportsCheckedList, setSportsCheckedList] = useState([]);
   const [locationsCheckedList, setLocationsCheckedList] = useState([]);
   const [showGenderChecked, setShowGenderChecked] = useState([]);
 
-  const userObject = useContext(myContext);
-  console.log(userObject);
-
-  const username = useParams().username;
+  console.log(userObject, 'profile');
   const nickName = useRef();
   const likeSports = useRef();
   const locations = useRef();
-  // const showGender = useRef();
+
+  useEffect(() => {
+    console.log(username);
+    const fetchUser = async () => {
+      const res = await axios.get(
+        `http://localhost:5001/api/users?username=${username}`
+      );
+      setUser(res.data);
+      console.log(res.data);
+    };
+    fetchUser();
+  }, [username]);
 
   const onCheckedSportsElement = (checked, item) => {
     if (checked) {
@@ -74,17 +84,6 @@ export default function Profile() {
       userId: user._id,
     });
   };
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const res = await axios.get(
-        `http://localhost:5001/api/users?username=${username}`
-      );
-      setUser(res.data);
-      console.log(res.data);
-    };
-    fetchUser();
-  }, [username]);
 
   return (
     <div className="bg-purple-200">
@@ -152,7 +151,7 @@ export default function Profile() {
                           sportsCheckedList.includes(item.data) ? true : false
                         }
                       />
-                      <type>{item.data}</type>
+                      <div>{item.data}</div>
                     </label>
                   );
                 })}
@@ -177,7 +176,7 @@ export default function Profile() {
                             : false
                         }
                       />
-                      <type>{item.data}</type>
+                      <div>{item.data}</div>
                     </label>
                   );
                 })}
@@ -192,7 +191,7 @@ export default function Profile() {
                     setShowGenderChecked(e.target.value);
                   }}
                 />
-                <label for="man">man</label>
+                <label htmlFor="man">man</label>
                 <input
                   type="radio"
                   name="1"
@@ -202,7 +201,7 @@ export default function Profile() {
                     setShowGenderChecked(e.target.value);
                   }}
                 />
-                <label for="woman">woman</label>
+                <label htmlFor="woman">woman</label>
                 <input
                   type="radio"
                   name="1"
@@ -212,14 +211,14 @@ export default function Profile() {
                     setShowGenderChecked(e.target.value);
                   }}
                 />
-                <label for="both">both</label>
+                <label htmlFor="both">both</label>
               </div>
               <button type="submit">입력</button>
             </form>
           </div>
           <div>
             {/* <Feed username={username} /> */}
-            {/* <Rightbar user={user} /> */}
+            <Rightbar user={user} />
           </div>
         </div>
       </div>

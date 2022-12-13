@@ -1,10 +1,14 @@
+import { useEffect, useState } from 'react';
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import { myContext } from '../context/Context';
 
 function Topbar() {
-  const userobject = useContext(myContext);
+  const userObject = useContext(myContext);
+  const [user, setUser] = useState(userObject);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  console.log(userObject, 'hi');
+
   return (
     <div className="bg-yellow-200">
       <div>
@@ -12,37 +16,12 @@ function Topbar() {
           <span>Crople</span>
         </Link>
       </div>
-      {/* <div>
-        <div>
-          <span>searchicon</span>
-          <input placeholder="Search friend, post or video" />
-        </div>
-      </div> */}
-
       <div>
-        {/* <div>
-          <span>Homepage</span>
-          <span>TimeLine</span>
-        </div> */}
-        <div>
-          <div>
-            <span>personicon</span>
-            <span>1</span>
-          </div>
-          <div>
-            <span>chaticon</span>
-            <span>2</span>
-          </div>
-          <div>
-            <span>notificationicon</span>
-            <span>1</span>
-          </div>
-        </div>
-        <Link to={`/profile/${userobject.username}`}>
+        <Link to={'/profile/' + user.username}>
           <img
             src={
-              userobject.profilePicture
-                ? userobject.profilePicture
+              user.profilePicture
+                ? user.profilePicture
                 : PF + 'person/noAvatar.png'
             }
             alt=""
