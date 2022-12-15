@@ -4,9 +4,9 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-export const myContext = createContext({});
-export default function Context(props) {
-  const [userObject, setUserObject] = useState();
+export const AuthContext = createContext();
+export default function Context({ children }) {
+  const [userObject, setUserObject] = useState({});
   useEffect(() => {
     axios
       .get('http://localhost:5001/getuser', { withCredentials: true })
@@ -16,7 +16,8 @@ export default function Context(props) {
         }
       });
   }, []);
+  console.log(userObject, 'ddd');
   return (
-    <myContext.Provider value={userObject}>{props.children}</myContext.Provider>
+    <AuthContext.Provider value={userObject}>{children}</AuthContext.Provider>
   );
 }

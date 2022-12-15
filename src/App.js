@@ -4,12 +4,15 @@ import Login from './pages/Login';
 import Post from './components/Post';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { myContext } from './context/Context';
+import { AuthContext } from './context/AuthContext';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
+import Messenger from './components/Messenger';
 
 function App() {
-  const userObject = useContext(myContext);
+  const userObject = useContext(AuthContext);
+  console.log(userObject, '11f');
+
   return (
     <BrowserRouter>
       <Navbar />
@@ -26,15 +29,13 @@ function App() {
           path="/register"
           element={userObject ? <Navigate to="/" /> : <Register />}
         />
-        <Route
-          path="/profile/:username"
-          // element={userObject ? <Profile /> : <Navigate to="/" />}
-          element=<Profile />
-        />
-        <Route
+        {/* <Route path="/profile" element={<Profile />} /> */}
+        <Route path="/profile/:username" element={<Profile />} />
+        {/* <Route
           path="/post/:id"
           element={userObject ? <Post /> : <Navigate to="/login" />}
-        />
+        /> */}
+        <Route path="/messenger" element={<Messenger />} />
       </Routes>
     </BrowserRouter>
   );

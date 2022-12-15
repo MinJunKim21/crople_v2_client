@@ -1,15 +1,15 @@
 import Topbar from '../components/Topbar';
 import Sidebar from '../components/Sidebar';
-import Feed from '../components/Feed';
 import Rightbar from '../components/Rightbar';
 import { useContext } from 'react';
-import { myContext } from '../context/Context';
+import { AuthContext } from '../context/AuthContext';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 
 function Home() {
   const [allUsers, setAllUsers] = useState([]);
+  const userObject = useContext(AuthContext);
   useEffect(() => {
     const fetchAll = async () => {
       const res = await axios.get(`http://localhost:5001/api/users/all`);
@@ -18,20 +18,17 @@ function Home() {
     };
     fetchAll();
   }, []);
-  const userObject = useContext(myContext);
-  console.log(userObject);
-  console.log(allUsers);
+
   return (
     <div>
       <Topbar />
       <div>
         <div>
           {allUsers.map((user) => (
-            <div>{user.username}</div>
+            <div key={user._id}>{user.username}</div>
           ))}
         </div>
         {/* <Sidebar /> */}
-        {/* <Feed /> */}
         {/* <Rightbar /> */}
       </div>
     </div>

@@ -1,28 +1,27 @@
 import Topbar from '../components/Topbar';
 import Sidebar from '../components/Sidebar';
-import Feed from '../components/Feed';
 import Rightbar from '../components/Rightbar';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import { useContext } from 'react';
-import { myContext } from '../context/Context';
+import { AuthContext } from '../context/AuthContext';
 import Infoedit from '../components/Infoedit';
 
 export default function Profile() {
-  const userObject = useContext(myContext);
+  const userObject = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState({});
   const username = useParams().username;
-  console.log(username);
 
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
-        `http://localhost:5001/api/users?username=${username}`
+        'http://localhost:5001/api/users?username=' + username
       );
       setUser(res.data);
+      console.log(res.data, 'iii');
     };
     fetchUser();
   }, [username]);
@@ -68,8 +67,7 @@ export default function Profile() {
             </div>
           </div>
           <div>
-            {/* <Feed username={username} /> */}
-            {username === userObject.username && <Infoedit />}
+            {/* {username === userObject.username && <Infoedit />} */}
             {/* <Rightbar user={user} /> */}
           </div>
         </div>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { myContext } from '../context/Context';
+import { AuthContext } from '../context/AuthContext';
 import Profile from '../pages/Profile';
 // import axios from 'axios';
 
 function Navbar() {
-  const userObject = useContext(myContext);
+  const userObject = useContext(AuthContext);
   const logout = () => {
     window.open('http://localhost:5001/googleauth/logout', '_self');
   };

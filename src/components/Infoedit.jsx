@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import { useContext } from 'react';
-import { myContext } from '../context/Context';
+import { AuthContext } from '../context/AuthContext';
 
 const SPORTS_LIST = [
   { id: 0, data: '헬스' },
@@ -24,7 +24,7 @@ const LOCATION_LIST = [
 ];
 
 export default function Infoedit() {
-  const userObject = useContext(myContext);
+  const user = useContext(AuthContext);
   const [sportsCheckedList, setSportsCheckedList] = useState([]);
   const [locationsCheckedList, setLocationsCheckedList] = useState([]);
   const [showGenderChecked, setShowGenderChecked] = useState([]);
@@ -51,12 +51,12 @@ export default function Infoedit() {
 
   const updateData = (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:5001/api/users/${userObject._id}`, {
+    axios.put(`http://localhost:5001/api/users/${user._id}`, {
       nickName: nickName.current.value,
       likeSports: sportsCheckedList,
       locations: locationsCheckedList,
       showGender: showGenderChecked,
-      userId: userObject._id,
+      userId: user._id,
     });
   };
   return (

@@ -4,13 +4,13 @@ import { Users } from '../dummyData';
 import Online from './Online';
 import axios from 'axios';
 import { useContext } from 'react';
-import { myContext } from '../context/Context';
+import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
-  const userObject = useContext(myContext);
+  const userObject = useContext(AuthContext);
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
   );
