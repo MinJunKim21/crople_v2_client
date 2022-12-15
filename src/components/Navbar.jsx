@@ -10,14 +10,14 @@ function Navbar() {
   const logout = () => {
     window.open('http://localhost:5001/googleauth/logout', '_self');
   };
-
+  console.log(userObject, 'navbar');
   return (
     <div className="bg-gray-300">
       <span>navbar</span>
       <span className="bg-red-500">
         <Link to="/">crople</Link>
       </span>
-      {userObject ? (
+      {userObject._id ? (
         <span>
           <span>{userObject.displayName}</span>
           <button onClick={logout}>logout</button>
@@ -25,9 +25,6 @@ function Navbar() {
       ) : (
         <Link to="/login">Login</Link>
       )}
-      <Link to="/profile/:id">
-        <span>profile page</span>
-      </Link>
     </div>
   );
 }

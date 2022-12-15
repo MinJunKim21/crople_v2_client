@@ -21,10 +21,7 @@ function App() {
           path="/"
           element={userObject ? <Home /> : <Navigate to="/login" />}
         />
-        <Route
-          path="/login"
-          element={userObject ? <Navigate to="/" /> : <Login />}
-        />
+        <Route path="/login" element={<Login />} />
         <Route
           path="/register"
           element={userObject ? <Navigate to="/" /> : <Register />}
