@@ -19,12 +19,12 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={userObject ? <Home /> : <Navigate to="/login" />}
+          element={userObject._id ? <Home /> : <Navigate to="/login" />}
         />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={userObject._id ? <Home /> : <Login />} />
         <Route
           path="/register"
-          element={userObject ? <Navigate to="/" /> : <Register />}
+          element={userObject._id ? <Navigate to="/" /> : <Register />}
         />
         {/* <Route path="/profile" element={<Profile />} /> */}
         <Route path="/profile/:username" element={<Profile />} />
