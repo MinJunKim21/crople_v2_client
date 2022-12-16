@@ -9,6 +9,7 @@ function Login() {
 
   const google = () => {
     window.open('http://localhost:5001/googleauth/google', '_self');
+    loginCall();
   };
 
   return (

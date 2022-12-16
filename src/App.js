@@ -27,12 +27,18 @@ function App() {
           element={userObject._id ? <Navigate to="/" /> : <Register />}
         />
         {/* <Route path="/profile" element={<Profile />} /> */}
-        <Route path="/profile/:username" element={<Profile />} />
+        <Route
+          path="/profile/:username"
+          element={userObject._id ? <Profile /> : null}
+        />
         {/* <Route
           path="/post/:id"
           element={userObject ? <Post /> : <Navigate to="/login" />}
         /> */}
-        <Route path="/messenger" element={<Messenger />} />
+        <Route
+          path="/messenger"
+          element={userObject._id ? <Messenger /> : null}
+        />
       </Routes>
     </BrowserRouter>
   );
