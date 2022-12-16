@@ -5,7 +5,7 @@ import App from './App';
 import AuthContext from './context/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-console.log(AuthContext);
+
 root.render(
   <React.StrictMode>
     <AuthContext>

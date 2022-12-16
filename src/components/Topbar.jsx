@@ -8,7 +8,6 @@ import { AuthContext } from '../context/AuthContext';
 function Topbar() {
   const userObject = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  console.log(userObject, 'sss');
 
   return (
     <div className="bg-yellow-200">

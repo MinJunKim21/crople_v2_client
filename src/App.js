@@ -11,7 +11,6 @@ import Messenger from './components/Messenger';
 
 function App() {
   const userObject = useContext(AuthContext);
-  console.log(userObject, '11f');
 
   return (
     <BrowserRouter>

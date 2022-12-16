@@ -10,7 +10,6 @@ function Navbar() {
   const logout = () => {
     window.open('http://localhost:5001/googleauth/logout', '_self');
   };
-  console.log(userObject, 'navbar');
   return (
     <div className="bg-gray-300">
       <span>navbar</span>
