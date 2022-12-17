@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
-import Messenger from './components/Messenger';
+import Messenger from './pages/Messenger';
 
 function App() {
   const userObject = useContext(AuthContext);
@@ -20,7 +20,10 @@ function App() {
           path="/"
           element={userObject._id ? <Home /> : <Navigate to="/login" />}
         />
-        <Route path="/login" element={userObject._id ? <Home /> : <Login />} />
+        <Route
+          path="/login"
+          element={userObject._id ? <Navigate to="/" /> : <Login />}
+        />
         <Route
           path="/register"
           element={userObject._id ? <Navigate to="/" /> : <Register />}
