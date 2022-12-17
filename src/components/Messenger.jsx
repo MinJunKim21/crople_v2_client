@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useRef } from 'react';
 import { useContext } from 'react';
 import Topbar from '../components/Topbar';
 import { AuthContext } from '../context/AuthContext';
@@ -15,6 +16,7 @@ export default function Messenger() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const userObject = useContext(AuthContext);
+  const scrollRef = useRef();
 
   useEffect(() => {
     const getConversations = async () => {
@@ -64,6 +66,10 @@ export default function Messenger() {
     }
   };
 
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   return (
     <>
       <Topbar />
@@ -85,7 +91,9 @@ export default function Messenger() {
             <>
               <div className="h-60 overflow-y-scroll">
                 {messages.map((m) => (
-                  <Message message={m} own={m.sender === userObject._id} />
+                  <div key={m._id} ref={scrollRef}>
+                    <Message message={m} own={m.sender === userObject._id} />
+                  </div>
                 ))}
               </div>
               <div>
