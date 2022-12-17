@@ -27,12 +27,14 @@ export default function Conversations({ conversation, currentUser }) {
     <div>
       <img
         src={
-          user.profilePicture ? user.profilePicture : PF + 'person/noAvatar.png'
+          user?.profilePicture
+            ? user.profilePicture
+            : PF + 'person/noAvatar.png'
         }
         alt=""
         className="w-6"
       />
-      <span>{user.username}</span>
+      <span>{user?.username}</span>
     </div>
   );
 }

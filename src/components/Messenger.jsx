@@ -13,6 +13,7 @@ export default function Messenger() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
   const userObject = useContext(AuthContext);
 
   useEffect(() => {
@@ -29,6 +30,40 @@ export default function Messenger() {
     getConversations();
   }, [userObject._id]);
 
+  useEffect(() => {
+    const getMessages = async () => {
+      try {
+        const res = await axios.get(
+          'http://localhost:5001/api/messages/' + currentChat?._id
+        );
+        setMessages(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getMessages();
+  }, [currentChat]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const message = {
+      sender: userObject._id,
+      text: newMessage,
+      conversationId: currentChat._id,
+    };
+
+    try {
+      const res = await axios.post(
+        'http://localhost:5001/api/messages/',
+        message
+      );
+      setMessages([...messages, res.data]);
+      setNewMessage('');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <Topbar />
@@ -36,20 +71,22 @@ export default function Messenger() {
         <div>
           <input placeholder="serach friends" />
           {conversations.map((c) => (
-            <Conversations
-              conversation={c}
-              currentUser={userObject}
-              key={c._id}
-            />
+            <div onClick={() => setCurrentChat(c)} key={c._id}>
+              <Conversations
+                conversation={c}
+                currentUser={userObject}
+                key={c._id}
+              />
+            </div>
           ))}
         </div>
         <div>
           {currentChat ? (
             <>
-              <div>
-                <Message />
-                <Message own={true} />
-                <Message />
+              <div className="h-60 overflow-y-scroll">
+                {messages.map((m) => (
+                  <Message message={m} own={m.sender === userObject._id} />
+                ))}
               </div>
               <div>
                 <textarea
@@ -59,8 +96,12 @@ export default function Messenger() {
                   cols="30"
                   rows="10"
                   placeholder="write message here"
+                  onChange={(e) => {
+                    setNewMessage(e.target.value);
+                  }}
+                  value={newMessage}
                 ></textarea>
-                <button>Send</button>
+                <button onClick={handleSubmit}>Send</button>
               </div>
             </>
           ) : (

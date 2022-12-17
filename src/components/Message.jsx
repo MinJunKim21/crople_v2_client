@@ -1,6 +1,7 @@
 import React from 'react';
+import { format } from 'timeago.js';
 
-export default function Message({ own }) {
+export default function Message({ message, own }) {
   return (
     <div
       className={
@@ -15,12 +16,9 @@ export default function Message({ own }) {
           alt=""
           className="w-6 h-6"
         />
-        <p>
-          accusamus reiciendis repellendus nostrum adipisci consequuntur ea!
-          Delectus quos cupiditate incidunt!
-        </p>
+        <p>{message.text}</p>
       </div>
-      <div>1 minute ago</div>
+      <div>{format(message.createdAt)}</div>
     </div>
   );
 }
