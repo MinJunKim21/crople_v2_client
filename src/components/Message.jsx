@@ -6,7 +6,7 @@ export default function Message({ message, own }) {
     <div
       className={
         own
-          ? 'flex flex-col flex-row-reverse text-right font-bold mb-5'
+          ? 'flex flex-row-reverse text-right font-bold mb-5'
           : 'flex flex-col mb-5'
       }
     >

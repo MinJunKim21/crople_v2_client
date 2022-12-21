@@ -67,8 +67,8 @@ export default function Profile() {
             </div>
           </div>
           <div>
-            {/* {username === userObject.username && <Infoedit />} */}
-            {/* <Rightbar user={user} /> */}
+            {username === userObject.username && <Infoedit />}
+            <Rightbar user={user} />
           </div>
         </div>
       </div>

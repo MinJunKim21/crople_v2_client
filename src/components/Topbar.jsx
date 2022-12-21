@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
 import { useContext } from 'react';
-import { Link, redirect } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../context/AuthContext';
 
@@ -18,16 +16,15 @@ function Topbar() {
       </div>
       <div>
         <Link to={`/profile/${userObject.username}`}>
-          {/* <img
+          <img
             src={
-              user.profilePicture
-                ? user.profilePicture
+              userObject.profilePicture
+                ? userObject.profilePicture
                 : PF + 'person/noAvatar.png'
             }
             alt=""
             className="w-6"
-          /> */}
-          a
+          />
         </Link>
       </div>
     </div>
