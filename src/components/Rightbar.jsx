@@ -14,13 +14,16 @@ function Rightbar({ user }) {
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
   );
-  console.log(userObject, 'userObject');
 
   console.log(userObject.followings, 'userObject.followings');
-  console.log(followed, 'followed');
+  console.log(
+    userObject.followings.includes(user?._id),
+    'userObject.followings.includes(user?._id)'
+  );
+  // console.log(userObject.followers, 'followed');
   useEffect(() => {
     setFollowed(userObject.followings.includes(user?._id));
-  }, [userObject, user.id]);
+  }, [userObject.followings.includes(user?._id)]);
 
   const handleClick = async () => {
     try {
@@ -68,8 +71,7 @@ function Rightbar({ user }) {
               {followed ? 'Unfollow' : 'Follow'}
             </button>
           )}
-          <h4>user information</h4>
-          <h4>user friends</h4>
+          <h4>로그인한 아이디의 맞팔인 friends</h4>
           <div>
             {friends.map((friend) => (
               <Link to={'/profile/' + friend.username} key={userObject._id}>
