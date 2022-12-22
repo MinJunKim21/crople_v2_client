@@ -17,9 +17,9 @@ export default function Messenger() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [arrivalMessage, setArrivalMessage] = useState(null);
-  const [onlineUsers, setOnlineUsers] = useState([]);
+  // const [onlineUsers, setOnlineUsers] = useState([]);
   // const [socket, setSocket] = useState(null);
-  const socket = useRef(io('ws://localhost:8900'));
+  const socket = useRef();
   const userObject = useContext(AuthContext);
   const scrollRef = useRef();
 
@@ -43,10 +43,11 @@ export default function Messenger() {
   useEffect(() => {
     socket.current.emit('addUser', userObject._id);
     socket.current.on('getUsers', (users) => {
-      setOnlineUsers(
-        userObject.followings.filter((f) => users.some((u) => u.userId === f))
-        // users
-      );
+      // setOnlineUsers(
+      //   userObject.followings.filter((f) => users.some((u) => u.userId === f))
+      //   // users
+      //   );
+      console.log(users);
     });
   }, [userObject]);
 
@@ -111,7 +112,7 @@ export default function Messenger() {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-  console.log(conversations);
+
   return (
     <>
       <Topbar />
