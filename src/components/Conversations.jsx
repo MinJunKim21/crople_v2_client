@@ -9,13 +9,14 @@ export default function Conversations({ conversation, currentUser }) {
 
   useEffect(() => {
     const friendId = conversation.members.find((m) => m !== currentUser._id);
-
+    console.log(friendId);
     const getUser = async () => {
       try {
         const res = await axios(
           'http://localhost:5001/api/users?userId=' + friendId
         );
-        setUser(res.data);
+        console.log(res);
+        // setUser(res.data);
       } catch (err) {
         console.log(err);
       }

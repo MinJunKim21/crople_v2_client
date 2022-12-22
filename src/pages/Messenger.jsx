@@ -49,8 +49,7 @@ export default function Messenger() {
       );
     });
   }, [userObject]);
-  console.log(userObject.followings, 'followings');
-  console.log(userObject, 'userobject');
+
   useEffect(() => {
     const getConversations = async () => {
       try {
@@ -112,13 +111,13 @@ export default function Messenger() {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-
+  console.log(conversations);
   return (
     <>
       <Topbar />
       <div className="flex justify-between">
         <div>
-          <input placeholder="serach friends" />
+          <input placeholder="search friends" />
           {conversations.map((c) => (
             <div onClick={() => setCurrentChat(c)} key={c._id}>
               <Conversations
@@ -164,11 +163,11 @@ export default function Messenger() {
           )}
         </div>
         <div>
-          <ChatOnline
+          {/* <ChatOnline
             onlineUsers={onlineUsers}
             currentId={userObject._id}
             setCurrentChat={setCurrentChat}
-          />
+          /> */}
         </div>
       </div>
     </>
