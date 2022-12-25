@@ -1,15 +1,13 @@
 import axios from 'axios';
 import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { useRef } from 'react';
-import { useContext } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import Topbar from '../components/Topbar';
 import { AuthContext } from '../context/AuthContext';
 import ChatOnline from '../components/ChatOnline';
 import Conversations from '../components/Conversations';
 import Message from '../components/Message';
 import { io } from 'socket.io-client';
+import { Link } from 'react-router-dom';
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
@@ -22,6 +20,7 @@ export default function Messenger() {
   const socket = useRef();
   const userObject = useContext(AuthContext);
   const scrollRef = useRef();
+  const [friendEachother, setFriendEachother] = useState([]);
 
   useEffect(() => {
     socket.current = io('ws://localhost:8900');
@@ -113,6 +112,17 @@ export default function Messenger() {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  useEffect(() => {
+    const getFriendEachother = async () => {
+      const res = await axios.get(
+        `http://localhost:5001/api/users/friendsearch/` + userObject._id
+      );
+      setFriendEachother(res.data);
+      console.log(friendEachother, 'friendeachother');
+    };
+    getFriendEachother();
+  }, []);
+
   return (
     <>
       <Topbar />
@@ -120,7 +130,11 @@ export default function Messenger() {
         <div>
           <input placeholder="search friends" />
           {conversations.map((c) => (
-            <div onClick={() => setCurrentChat(c)} key={c._id}>
+            <div
+              className="bg-gray-200"
+              onClick={() => setCurrentChat(c)}
+              key={c._id}
+            >
               <Conversations
                 conversation={c}
                 currentUser={userObject}
@@ -128,6 +142,16 @@ export default function Messenger() {
               />
             </div>
           ))}
+        </div>
+        <div>
+          <span>following each other friend</span>
+          <div>
+            {friendEachother.map((user) => (
+              <Link to={`/profile/${user.username}`}>
+                <div key={user._id}>{user.username || user.email}</div>
+              </Link>
+            ))}
+          </div>
         </div>
         <div>
           {currentChat ? (
