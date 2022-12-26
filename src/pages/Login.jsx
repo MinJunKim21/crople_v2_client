@@ -21,9 +21,8 @@ function Login() {
   };
 
   return (
-    <div>
-      <div>
-        <div>login page</div>
+    <div className="max-w-md">
+      <div className="bg-green-200 flex flex-col">
         <h1>choose login method</h1>
         <button onClick={google}>google</button>
         <button onClick={kakao}>kakao</button>

@@ -71,11 +71,11 @@ function Rightbar({ user }) {
               {followed ? 'Unfollow' : 'Follow'}
             </button>
           )}
-          <h4>로그인한 아이디의 맞팔인 friends</h4>
+          <h4>로그인한 아이디가 팔로우중인 friends</h4>
           <div>
             {friends.map((friend) => (
-              <Link to={'/profile/' + friend.username} key={userObject._id}>
-                <div key={userObject._id}>
+              <Link to={'/profile/' + friend.username} key={friend.username}>
+                <div>
                   <img
                     src={
                       friend.profilePicture

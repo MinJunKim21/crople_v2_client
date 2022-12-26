@@ -11,8 +11,8 @@ function Navbar() {
     window.open('http://localhost:5001/googleauth/logout', '_self');
   };
   return (
-    <div className="bg-gray-300">
-      <span>navbar</span>
+    <div className="bg-gray-300 max-w-md">
+      <span>navbar 이거는 무시해도됨</span>
       <span className="bg-red-500">
         <Link to="/">crople</Link>
       </span>

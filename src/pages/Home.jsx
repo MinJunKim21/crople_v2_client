@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 function Home() {
   const [allUsers, setAllUsers] = useState([]);
+  const [nickName, setNickName] = useState(undefined);
   const userObject = useContext(AuthContext);
   useEffect(() => {
     const fetchAll = async () => {
@@ -18,21 +19,24 @@ function Home() {
       // console.log(allUsers);
     };
     fetchAll();
+    if (userObject.nickName === undefined) {
+      setNickName('기본설정부터 하셔야합니당');
+    }
   }, []);
-
+  console.log(userObject.nickName);
   return (
     <div>
       <Topbar />
-      <div>
-        <div>
+      <div className="flex flex-col">
+        <span>{nickName}</span>
+        <span>매칭될 수 있는 사람들 리스트</span>
+        <div className="bg-blue-200">
           {allUsers.map((user) => (
-            <Link to={`/profile/${user.username}`}>
-              <div key={user._id}>{user.username || user.email}</div>
+            <Link to={`/profile/${user.username}`} key={user._id}>
+              <div>{user.username || user.email}</div>
             </Link>
           ))}
         </div>
-        {/* <Sidebar /> */}
-        {/* <Rightbar /> */}
       </div>
     </div>
   );

@@ -14,6 +14,9 @@ export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState({});
   const username = useParams().username;
+  const [followed, setFollowed] = useState(
+    userObject.followings.includes(user?._id)
+  );
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -25,6 +28,29 @@ export default function Profile() {
     };
     fetchUser();
   }, [username]);
+
+  const handleClick = async () => {
+    try {
+      if (followed) {
+        await axios.put(
+          'http://localhost:5001/api/users/' + user._id + '/unfollow',
+          {
+            userId: userObject._id,
+          }
+        );
+      } else {
+        await axios.put(
+          'http://localhost:5001/api/users/' + user._id + '/follow',
+          {
+            userId: userObject._id,
+          }
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setFollowed(!followed);
+  };
 
   return (
     <div className="bg-purple-200">
@@ -66,10 +92,18 @@ export default function Profile() {
               <span>{user.showGender}</span>
             </div>
           </div>
+          <div>{username === userObject.username && <Infoedit />}</div>
           <div>
-            {username === userObject.username && <Infoedit />}
-            <Rightbar user={user} />
+            {username === userObject.username && <Rightbar user={user} />}
           </div>
+          <div>
+            {user.username !== userObject.username && (
+              <button onClick={handleClick}>
+                {followed ? 'Unfollow' : 'Follow'}
+              </button>
+            )}
+          </div>
+          {/* <Rightbar user={user} /> */}
         </div>
       </div>
     </div>
