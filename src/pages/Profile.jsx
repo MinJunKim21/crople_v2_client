@@ -12,7 +12,7 @@ import Infoedit from '../components/Infoedit';
 export default function Profile() {
   const userObject = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState('');
   const username = useParams().username;
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
@@ -28,7 +28,7 @@ export default function Profile() {
     fetchUser();
     setFollowed(userObject.followings.includes(user?._id));
     console.log(userObject.followings.includes(user?._id));
-  }, [userObject.followings.includes(user?._id), user._id]);
+  }, [user._id]);
 
   const handleClick = async () => {
     try {
@@ -51,6 +51,7 @@ export default function Profile() {
       console.log(err);
     }
     setFollowed(!followed);
+    window.location.reload(); // 원인 알게되면 이거 바꾸기...
   };
 
   return (
