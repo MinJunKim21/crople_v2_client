@@ -24,6 +24,7 @@ function Home() {
     }
   }, []);
   console.log(userObject.nickName);
+  console.log('hi');
   return (
     <div>
       <Topbar />

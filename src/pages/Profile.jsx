@@ -24,10 +24,11 @@ export default function Profile() {
         'http://localhost:5001/api/users?username=' + username
       );
       setUser(res.data);
-      console.log(res.data, 'iii');
     };
     fetchUser();
-  }, [username]);
+    setFollowed(userObject.followings.includes(user?._id));
+    console.log(userObject.followings.includes(user?._id));
+  }, [userObject.followings.includes(user?._id), user._id]);
 
   const handleClick = async () => {
     try {
@@ -99,7 +100,7 @@ export default function Profile() {
           <div>
             {user.username !== userObject.username && (
               <button onClick={handleClick}>
-                {followed ? 'Unfollow' : 'Follow'}
+                {followed === true ? 'Unfollow' : 'Follow'}
               </button>
             )}
           </div>
