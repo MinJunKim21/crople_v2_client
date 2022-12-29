@@ -64,6 +64,19 @@ export default function Messenger() {
     getConversations();
   }, [userObject._id]);
 
+  //create conversation
+  const createConversation = async (user) => {
+    try {
+      console.log(user);
+      await axios.post('http://localhost:5001/api/conversations', {
+        senderId: userObject._id,
+        receiverId: user._id,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     const getMessages = async () => {
       try {
@@ -150,6 +163,21 @@ export default function Messenger() {
               <Link to={`/profile/${user.username}`}>
                 <div key={user._id}>{user.username || user.email}</div>
               </Link>
+            ))}
+          </div>
+
+          <span>맞팔 대화창 만들기</span>
+          <div>
+            {friendEachother.map((user) => (
+              <div key={user._id}>
+                <button
+                  onClick={() => {
+                    createConversation(user);
+                  }}
+                >
+                  {user.username || user.email}
+                </button>
+              </div>
             ))}
           </div>
         </div>

@@ -7,6 +7,10 @@ function Topbar() {
   const userObject = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
+  const logout = () => {
+    window.open('http://localhost:5001/googleauth/logout', '_self');
+  };
+
   return (
     <div className="bg-yellow-200 flex">
       <span>탭바역할</span>
@@ -36,6 +40,9 @@ function Topbar() {
           <div>messenger</div>
         </Link>
       </div>
+      <span>
+        <button onClick={logout}>logout</button>
+      </span>
     </div>
   );
 }

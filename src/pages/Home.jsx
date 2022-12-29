@@ -7,6 +7,8 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import NeedProfile from '../components/NeedProfile';
 
 function Home() {
   const [allUsers, setAllUsers] = useState([]);
@@ -19,26 +21,29 @@ function Home() {
       // console.log(allUsers);
     };
     fetchAll();
-    if (userObject.nickName === undefined) {
-      setNickName('기본설정부터 하셔야합니당');
-    }
   }, []);
   console.log(userObject.nickName);
   console.log('hi');
   return (
     <div>
-      <Topbar />
-      <div className="flex flex-col">
-        <span>{nickName}</span>
-        <span>매칭될 수 있는 사람들 리스트</span>
-        <div className="bg-blue-200">
-          {allUsers.map((user) => (
-            <Link to={`/profile/${user.username}`} key={user._id}>
-              <div>{user.username || user.email}</div>
-            </Link>
-          ))}
+      {userObject.nickName === undefined ? (
+        <NeedProfile />
+      ) : (
+        <div>
+          <Topbar />
+          <div className="flex flex-col">
+            <span>{nickName}</span>
+            <span>매칭될 수 있는 사람들 리스트</span>
+            <div className="bg-blue-200">
+              {allUsers.map((user) => (
+                <Link to={`/profile/${user.username}`} key={user._id}>
+                  <div>{user.username || user.email}</div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

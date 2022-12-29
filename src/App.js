@@ -1,20 +1,20 @@
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Post from './components/Post';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Messenger from './pages/Messenger';
+import NeedProfile from './components/NeedProfile';
 
 function App() {
   const userObject = useContext(AuthContext);
 
   return (
     <BrowserRouter>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
         <Route
           path="/"
@@ -33,10 +33,7 @@ function App() {
           path="/profile/:username"
           element={userObject._id ? <Profile /> : null}
         />
-        {/* <Route
-          path="/post/:id"
-          element={userObject ? <Post /> : <Navigate to="/login" />}
-        /> */}
+
         <Route
           path="/messenger"
           element={userObject._id ? <Messenger /> : null}

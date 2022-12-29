@@ -17,6 +17,7 @@ export default function Profile() {
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
   );
+  const [profileChange, setProfileChange] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -53,6 +54,7 @@ export default function Profile() {
     setFollowed(!followed);
     window.location.reload(); // 원인 알게되면 이거 바꾸기...
   };
+
   return (
     <div className="bg-purple-200">
       <Topbar />
@@ -102,7 +104,10 @@ export default function Profile() {
               <span>{user.showGender}</span>
             </div>
           </div>
-          <div>{username === userObject.username && <Infoedit />}</div>
+          {username === userObject.username && (
+            <button onClick={() => setProfileChange(true)}>수정하기</button>
+          )}
+          <div>{profileChange && <Infoedit />}</div>
           <div>
             {username === userObject.username && <Rightbar user={user} />}
           </div>
