@@ -63,7 +63,7 @@ export default function Profile() {
             <div>
               <img
                 src={
-                  user.coverPicture === '' || 'undefined'
+                  user.coverPicture === '' || user.profilePicture === undefined
                     ? PF + 'person/noCover.png'
                     : PF + user.coverPicture
                 }
@@ -72,7 +72,8 @@ export default function Profile() {
               />
               <img
                 src={
-                  user.profilePicture === '' || 'undefined'
+                  user.profilePicture === '' ||
+                  user.profilePicture === undefined
                     ? PF + 'person/noAvatar.png'
                     : PF + user.profilePicture
                 }
