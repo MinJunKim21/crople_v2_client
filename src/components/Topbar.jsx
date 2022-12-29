@@ -20,9 +20,9 @@ function Topbar() {
           <div className="flex">
             <img
               src={
-                userObject.profilePicture
-                  ? userObject.profilePicture
-                  : PF + 'person/noAvatar.png'
+                userObject.profilePicture === ''
+                  ? PF + 'person/noAvatar.png'
+                  : PF + userObject.profilePicture
               }
               alt=""
               className="w-6"

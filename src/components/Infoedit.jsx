@@ -28,6 +28,7 @@ export default function Infoedit() {
   const [sportsCheckedList, setSportsCheckedList] = useState([]);
   const [locationsCheckedList, setLocationsCheckedList] = useState([]);
   const [showGenderChecked, setShowGenderChecked] = useState([]);
+  const [file, setFile] = useState(null);
 
   const nickName = useRef();
   const likeSports = useRef();
@@ -49,19 +50,68 @@ export default function Infoedit() {
     }
   };
 
-  const updateData = (e) => {
+  // const updateData = (e) => {
+  //   e.preventDefault();
+  //   axios.put(`http://localhost:5001/api/users/${user._id}`, {
+  //     nickName: nickName.current.value,
+  //     likeSports: sportsCheckedList,
+  //     locations: locationsCheckedList,
+  //     showGender: showGenderChecked,
+  //     userId: user._id,
+  //   });
+  // };
+
+  const updateData = async (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:5001/api/users/${user._id}`, {
+    const updatedUser = {
       nickName: nickName.current.value,
       likeSports: sportsCheckedList,
       locations: locationsCheckedList,
       showGender: showGenderChecked,
       userId: user._id,
-    });
+    };
+    if (file) {
+      const data = new FormData();
+      const filename = Date.now() + file.name;
+      data.append('name', filename);
+      data.append('file', file);
+      updatedUser.profilePicture = filename;
+      try {
+        await axios.post('http://localhost:5001/api/upload', data);
+      } catch (err) {}
+    }
+    try {
+      const res = await axios.put(
+        `http://localhost:5001/api/users/${user._id}`,
+        updatedUser
+      );
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
   };
+  console.log(user.profilePicture);
+
   return (
     <div>
       <form onSubmit={updateData}>
+        <label>프로필 사진</label>
+        <div>
+          <img
+            src={file ? URL.createObjectURL(file) : user.profilePic}
+            alt=""
+          />
+          <label htmlFor="fileInput">
+            <span>profile pic upload</span>
+          </label>
+          <input
+            type="file"
+            id="fileInput"
+            onChange={(e) => {
+              setFile(e.target.files[0]);
+            }}
+          />
+        </div>
         <span>캐릭터 이름을 입력하세요</span>
         <input ref={nickName} type="text" placeholder="handsomeJ" required />
         <div>

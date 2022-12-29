@@ -53,7 +53,6 @@ export default function Profile() {
     setFollowed(!followed);
     window.location.reload(); // 원인 알게되면 이거 바꾸기...
   };
-
   return (
     <div className="bg-purple-200">
       <Topbar />
@@ -63,12 +62,20 @@ export default function Profile() {
           <div>
             <div>
               <img
-                src={user.coverPicture || PF + 'person/noCover.png'}
+                src={
+                  user.coverPicture === '' || 'undefined'
+                    ? PF + 'person/noCover.png'
+                    : PF + user.coverPicture
+                }
                 alt=""
                 className="w-20"
               />
               <img
-                src={user.profilePicture || PF + 'person/noAvatar.png'}
+                src={
+                  user.profilePicture === '' || 'undefined'
+                    ? PF + 'person/noAvatar.png'
+                    : PF + user.profilePicture
+                }
                 alt=""
                 className="w-6"
               />
