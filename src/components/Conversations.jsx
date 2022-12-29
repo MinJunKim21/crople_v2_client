@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 export default function Conversations({ conversation, currentUser }) {
-  const [friend, setFriend] = useState('');
+  const [user, setUser] = useState('');
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function Conversations({ conversation, currentUser }) {
           'http://localhost:5001/api/users?userId=' + friendId
         );
         console.log(res);
-        setFriend(res.data);
+        setUser(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -27,14 +27,14 @@ export default function Conversations({ conversation, currentUser }) {
     <div>
       <img
         src={
-          friend.profilePicture === '' || friend.profilePicture === undefined
+          user.profilePicture === '' || user.profilePicture === undefined
             ? PF + 'person/noAvatar.png'
-            : PF + friend.profilePicture
+            : PF + user.profilePicture
         }
         alt=""
         className="w-6"
       />
-      <span>{friend?.username}</span>
+      <span>{user?.username}</span>
     </div>
   );
 }
