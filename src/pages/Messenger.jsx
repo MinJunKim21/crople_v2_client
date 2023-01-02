@@ -21,6 +21,8 @@ export default function Messenger() {
   const userObject = useContext(AuthContext);
   const scrollRef = useRef();
   const [friendEachother, setFriendEachother] = useState([]);
+  const [convExist, setConvExist] = useState(false);
+  const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
     socket.current = io('ws://localhost:8900');
@@ -46,7 +48,6 @@ export default function Messenger() {
       //   userObject.followings.filter((f) => users.some((u) => u.userId === f))
       //   // users
       //   );
-      console.log(users);
     });
   }, [userObject]);
 
@@ -136,6 +137,18 @@ export default function Messenger() {
     getFriendEachother();
   }, []);
 
+  const getConversationsOfTwo = async (user) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5001/api/conversations/find/${userObject._id}/${user._id}`
+      );
+      setConvExist(res.data);
+      console.log(res.data, 'hiiiiii');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <Topbar />
@@ -166,17 +179,32 @@ export default function Messenger() {
             ))}
           </div>
 
-          <span>맞팔 대화창 만들기</span>
+          <span>맞팔 리스트 중에 클릭하면 대화창 만들어짐</span>
+
           <div>
             {friendEachother.map((user) => (
               <div key={user._id}>
                 <button
                   onClick={() => {
-                    createConversation(user);
+                    getConversationsOfTwo(user);
+                    setShowButton(true);
                   }}
                 >
                   {user.username || user.email}
                 </button>
+                {showButton && (
+                  <button
+                    onClick={() => {
+                      if (convExist === null) {
+                        createConversation(user);
+                      } else {
+                        setCurrentChat(convExist);
+                      }
+                    }}
+                  >
+                    대화하기
+                  </button>
+                )}
               </div>
             ))}
           </div>
