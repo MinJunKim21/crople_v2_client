@@ -3,7 +3,7 @@ import React from 'react';
 import { useState, useEffect, useRef, useContext } from 'react';
 import Topbar from '../components/Topbar';
 import { AuthContext } from '../context/AuthContext';
-import ChatOnline from '../components/ChatOnline';
+// import ChatOnline from '../components/ChatOnline';
 import Conversations from '../components/Conversations';
 import Message from '../components/Message';
 import { io } from 'socket.io-client';
