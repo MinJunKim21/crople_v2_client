@@ -29,14 +29,16 @@ function Rightbar({ user }) {
     try {
       if (followed) {
         await axios.put(
-          'http://localhost:5001/api/users/' + user._id + '/unfollow',
+          `${process.env.REACT_APP_API_ROOT}/api/users/` +
+            user._id +
+            '/unfollow',
           {
             userId: userObject._id,
           }
         );
       } else {
         await axios.put(
-          'http://localhost:5001/api/users/' + user._id + '/follow',
+          `${process.env.REACT_APP_API_ROOT}/api/users/` + user._id + '/follow',
           {
             userId: userObject._id,
           }
@@ -52,7 +54,8 @@ function Rightbar({ user }) {
     const getFriends = async () => {
       try {
         const friendList = await axios.get(
-          'http://localhost:5001/api/users/friends/' + userObject._id
+          `${process.env.REACT_APP_API_ROOT}/api/users/friends/` +
+            userObject._id
         );
         setFriends(friendList.data);
       } catch (err) {

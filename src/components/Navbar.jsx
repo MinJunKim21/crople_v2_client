@@ -8,7 +8,7 @@ import Profile from '../pages/Profile';
 function Navbar() {
   const userObject = useContext(AuthContext);
   const logout = () => {
-    window.open('http://localhost:5001/googleauth/logout', '_self');
+    window.open(`${process.env.REACT_APP_API_ROOT}/googleauth/logout`, '_self');
   };
   return (
     <div className="bg-gray-300 max-w-md">

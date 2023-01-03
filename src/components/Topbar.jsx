@@ -8,7 +8,7 @@ function Topbar() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const logout = () => {
-    window.open('http://localhost:5001/googleauth/logout', '_self');
+    window.open(`${process.env.REACT_APP_API_ROOT}/googleauth/logout`, '_self');
   };
 
   return (
@@ -43,6 +43,7 @@ function Topbar() {
       <span>
         <button onClick={logout}>logout</button>
       </span>
+      <span>{process.env.REACT_APP_HOME_URL}</span>
     </div>
   );
 }

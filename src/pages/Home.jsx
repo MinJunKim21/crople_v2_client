@@ -16,14 +16,15 @@ function Home() {
   const userObject = useContext(AuthContext);
   useEffect(() => {
     const fetchAll = async () => {
-      const res = await axios.get(`http://localhost:5001/api/users/all`);
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_ROOT}/api/users/all`
+      );
       setAllUsers(res.data);
       // console.log(allUsers);
     };
     fetchAll();
   }, []);
-  console.log(userObject.nickName);
-  console.log('hi');
+
   return (
     <div>
       {userObject.nickName === undefined ? (

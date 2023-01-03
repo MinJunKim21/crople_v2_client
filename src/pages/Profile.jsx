@@ -22,7 +22,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
-        'http://localhost:5001/api/users?username=' + username
+        `${process.env.REACT_APP_API_ROOT}/api/users?username=` + username
       );
       setUser(res.data);
     };
@@ -35,14 +35,16 @@ export default function Profile() {
     try {
       if (followed) {
         await axios.put(
-          'http://localhost:5001/api/users/' + user._id + '/unfollow',
+          `${process.env.REACT_APP_API_ROOT}/api/users/` +
+            user._id +
+            '/unfollow',
           {
             userId: userObject._id,
           }
         );
       } else {
         await axios.put(
-          'http://localhost:5001/api/users/' + user._id + '/follow',
+          `${process.env.REACT_APP_API_ROOT}/api/users/` + user._id + '/follow',
           {
             userId: userObject._id,
           }

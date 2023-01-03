@@ -8,16 +8,16 @@ function Login() {
   const password = useRef();
 
   const google = () => {
-    window.open('http://localhost:5001/googleauth/google', '_self');
+    window.open(`${process.env.REACT_APP_API_ROOT}/googleauth/google`, '_self');
     loginCall();
   };
 
   const kakao = () => {
-    window.open('http://localhost:5001/kakaoauth/kakao', '_self');
+    window.open(`${process.env.REACT_APP_API_ROOT}/kakaoauth/kakao`, '_self');
   };
 
   const naver = () => {
-    window.open('http://localhost:5001/naverauth/naver', '_self');
+    window.open(`${process.env.REACT_APP_API_ROOT}/naverauth/naver`, '_self');
   };
 
   return (
@@ -27,6 +27,8 @@ function Login() {
         <button onClick={google}>google</button>
         <button onClick={kakao}>kakao</button>
         <button onClick={naver}>naver</button>
+        {/* <span>{process.env.REACT_APP_HOME_URL}</span>
+        <span>{process.env.REACT_APP_API_ROOT}</span> */}
       </div>
     </div>
   );

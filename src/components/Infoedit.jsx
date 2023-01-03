@@ -77,12 +77,12 @@ export default function Infoedit() {
       data.append('file', file);
       updatedUser.profilePicture = filename;
       try {
-        await axios.post('http://localhost:5001/api/upload', data);
+        await axios.post(`${process.env.REACT_APP_API_ROOT}/api/upload`, data);
       } catch (err) {}
     }
     try {
       const res = await axios.put(
-        `http://localhost:5001/api/users/${user._id}`,
+        `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
         updatedUser
       );
       window.location.reload();

@@ -55,7 +55,8 @@ export default function Messenger() {
     const getConversations = async () => {
       try {
         const res = await axios.get(
-          'http://localhost:5001/api/conversations/' + userObject._id
+          `${process.env.REACT_APP_API_ROOT}/api/conversations/` +
+            userObject._id
         );
         setConversations(res.data);
       } catch (err) {
@@ -69,7 +70,7 @@ export default function Messenger() {
   const createConversation = async (user) => {
     try {
       console.log(user);
-      await axios.post('http://localhost:5001/api/conversations', {
+      await axios.post(`${process.env.REACT_APP_API_ROOT}/api/conversations`, {
         senderId: userObject._id,
         receiverId: user._id,
       });
@@ -82,7 +83,7 @@ export default function Messenger() {
     const getMessages = async () => {
       try {
         const res = await axios.get(
-          'http://localhost:5001/api/messages/' + currentChat?._id
+          `${process.env.REACT_APP_API_ROOT}/api/messages/` + currentChat?._id
         );
         setMessages(res.data);
       } catch (err) {
@@ -112,7 +113,7 @@ export default function Messenger() {
 
     try {
       const res = await axios.post(
-        'http://localhost:5001/api/messages/',
+        `${process.env.REACT_APP_API_ROOT}/api/messages/`,
         message
       );
       setMessages([...messages, res.data]);
@@ -129,7 +130,8 @@ export default function Messenger() {
   useEffect(() => {
     const getFriendEachother = async () => {
       const res = await axios.get(
-        `http://localhost:5001/api/users/friendsearch/` + userObject._id
+        `${process.env.REACT_APP_API_ROOT}/api/users/friendsearch/` +
+          userObject._id
       );
       setFriendEachother(res.data);
       console.log(friendEachother, 'friendeachother');
@@ -140,7 +142,7 @@ export default function Messenger() {
   const getConversationsOfTwo = async (user) => {
     try {
       const res = await axios.get(
-        `http://localhost:5001/api/conversations/find/${userObject._id}/${user._id}`
+        `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
       );
       setConvExist(res.data);
       console.log(res.data, 'hiiiiii');
