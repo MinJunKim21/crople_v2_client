@@ -27,8 +27,8 @@ function Login() {
         <button onClick={google}>google</button>
         <button onClick={kakao}>kakao</button>
         <button onClick={naver}>naver</button>
-        {/* <span>{process.env.REACT_APP_HOME_URL}</span>
-        <span>{process.env.REACT_APP_API_ROOT}</span> */}
+        <span>{process.env.REACT_APP_HOME_URL}</span>
+        <span>{process.env.REACT_APP_API_ROOT}</span>
       </div>
     </div>
   );
