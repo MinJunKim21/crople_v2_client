@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Users } from '../dummyData';
-import Online from './Online';
+
 import axios from 'axios';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
@@ -23,7 +22,7 @@ function Rightbar({ user }) {
   // console.log(userObject.followers, 'followed');
   useEffect(() => {
     setFollowed(userObject.followings.includes(user?._id));
-  }, [userObject.followings.includes(user?._id)]);
+  }, [user?._id, userObject.followings]);
 
   const handleClick = async () => {
     try {

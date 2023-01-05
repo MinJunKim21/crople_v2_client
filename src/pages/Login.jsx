@@ -1,11 +1,11 @@
 import React from 'react';
-import { useContext } from 'react';
+// import { useContext } from 'react';
 import { useRef } from 'react';
 import { loginCall } from '../apiCalls';
 
 function Login() {
-  const email = useRef();
-  const password = useRef();
+  // const email = useRef();
+  // const password = useRef();
 
   const google = () => {
     window.open(`${process.env.REACT_APP_API_ROOT}/googleauth/google`, '_self');
