@@ -1,4 +1,4 @@
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { AuthContext } from './context/AuthContext';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Messenger from './pages/Messenger';
-import NeedProfile from './components/NeedProfile';
+// import NeedProfile from './components/NeedProfile';
 
 function App() {
   const userObject = useContext(AuthContext);
