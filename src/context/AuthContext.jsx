@@ -9,7 +9,9 @@ export default function Context({ children }) {
   const [userObject, setUserObject] = useState({});
   useEffect(() => {
     axios
-      .get('http://localhost:5001/getuser', { withCredentials: true })
+      .get(`${process.env.REACT_APP_API_ROOT}/getuser`, {
+        withCredentials: true,
+      })
       .then((res) => {
         if (res.data) {
           setUserObject(res.data);
