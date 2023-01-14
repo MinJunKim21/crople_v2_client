@@ -24,7 +24,6 @@ function Home() {
     };
     fetchAll();
   }, []);
-  console.log(userObject.nickName);
   return (
     <div>
       {userObject.nickName === undefined ? (

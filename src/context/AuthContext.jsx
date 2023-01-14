@@ -29,16 +29,10 @@ export default function Context({ children }) {
       const res = await axios.get(`${process.env.REACT_APP_API_ROOT}/getuser`, {
         withCredentials: true,
       });
-      if (res.data) {
-        console.log(res.data, 'res.data 존재');
-        setUserObject(res.data);
-        console.log('did set object');
-      }
+      setUserObject(res.data);
     };
     getUserObject();
   }, [userObject._id]);
-
-  console.log(userObject, 'authContext2');
 
   return (
     <AuthContext.Provider value={userObject}>{children}</AuthContext.Provider>
