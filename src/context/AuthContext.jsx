@@ -9,20 +9,35 @@ export default function Context({ children }) {
   const [userObject, setUserObject] = useState({});
   console.log(`${process.env.REACT_APP_API_ROOT}/getuser`);
   console.log(userObject, 'authContext');
+  // useEffect(() => {
+  //   axios
+  //     .get(`${process.env.REACT_APP_API_ROOT}/getuser`, {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       console.log(res, 'got res');
+  //       if (res.data) {
+  //         console.log(res.data, 'res.data 존재');
+  //         setUserObject(res.data);
+  //         console.log('did set object');
+  //       }
+  //     });
+  // }, [userObject._id]);
+
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_ROOT}/getuser`, {
+    const getUserObject = async () => {
+      const res = await axios.get(`${process.env.REACT_APP_API_ROOT}/getuser`, {
         withCredentials: true,
-      })
-      .then((res) => {
-        console.log(res, 'got res');
-        if (res.data) {
-          console.log(res.data, 'res.data 존재');
-          setUserObject(res.data);
-          console.log('did set object');
-        }
       });
+      if (res.data) {
+        console.log(res.data, 'res.data 존재');
+        setUserObject(res.data);
+        console.log('did set object');
+      }
+    };
+    getUserObject();
   }, [userObject._id]);
+
   console.log(userObject, 'authContext2');
 
   return (
