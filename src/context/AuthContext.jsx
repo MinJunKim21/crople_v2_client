@@ -30,6 +30,7 @@ export default function Context({ children }) {
         withCredentials: true,
       });
       setUserObject(res.data);
+      console.log(res, 'res');
     };
     getUserObject();
   }, [userObject._id]);
