@@ -8,6 +8,7 @@ export const AuthContext = createContext();
 export default function Context({ children }) {
   const [userObject, setUserObject] = useState({});
   console.log(`${process.env.REACT_APP_API_ROOT}/getuser`);
+  console.log(userObject, 'authContext');
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_ROOT}/getuser`, {

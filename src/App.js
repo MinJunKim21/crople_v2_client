@@ -11,6 +11,7 @@ import Messenger from './pages/Messenger';
 
 function App() {
   const userObject = useContext(AuthContext);
+  console.log(userObject, 'userob');
 
   return (
     <BrowserRouter>
