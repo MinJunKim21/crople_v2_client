@@ -17,9 +17,9 @@ export default function Context({ children }) {
       .then((res) => {
         console.log(res, 'got res');
         if (res.data) {
-          console.log(res.data, 'have res.data');
+          console.log(res.data, 'res.data 존재');
           setUserObject(res.data);
-          console.log(userObject, 'did set object');
+          console.log('did set object');
         }
       });
   }, [userObject._id]);
