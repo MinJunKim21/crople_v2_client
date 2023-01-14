@@ -23,6 +23,8 @@ export default function Context({ children }) {
         }
       });
   }, [userObject._id]);
+  console.log(userObject, 'authContext2');
+
   return (
     <AuthContext.Provider value={userObject}>{children}</AuthContext.Provider>
   );
