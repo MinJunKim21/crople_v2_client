@@ -15,7 +15,7 @@ export default function Context({ children }) {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('got res');
+        console.log(res, 'got res');
         if (res.data) {
           setUserObject(res.data);
           console.log('did set object');
