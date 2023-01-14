@@ -26,7 +26,7 @@ export default function Context({ children }) {
 
   useEffect(() => {
     const getUserObject = async () => {
-      const res = await axios.get('http://localhost:5001/getuser', {
+      const res = await axios.get(`${process.env.REACT_APP_API_ROOT}/getuser`, {
         withCredentials: true,
       });
       setUserObject(res.data);
