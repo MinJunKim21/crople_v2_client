@@ -26,12 +26,9 @@ export default function Context({ children }) {
 
   useEffect(() => {
     const getUserObject = async () => {
-      const res = await axios.get(
-        'https://real-gold-vulture-fez.cyclic.app/getuser',
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.get('http://localhost:5001/getuser', {
+        withCredentials: true,
+      });
       setUserObject(res.data);
       console.log(res, 'res');
     };
