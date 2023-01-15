@@ -11,7 +11,7 @@ export default function Context({ children }) {
   console.log(userObject, 'authContext');
   useEffect(() => {
     axios
-      .get('http://localhost:5001/getuser', {
+      .get(`${process.env.REACT_APP_API_ROOT}/getuser`, {
         withCredentials: true,
       })
       .then((res) => {
