@@ -17,18 +17,12 @@ function App() {
     <BrowserRouter>
       {/* <Navbar /> */}
       <Routes>
-        <Route
-          path="/"
-          element={userObject._id ? <Home /> : <Navigate to="/login" />}
-        />
+        <Route path="/" element={<Home />} />
         <Route
           path="/login"
           element={userObject._id ? <Navigate to="/" /> : <Login />}
         />
-        <Route
-          path="/register"
-          element={userObject._id ? <Navigate to="/" /> : <Register />}
-        />
+        <Route path="/register" element={<Register />} />
         {/* <Route path="/profile" element={<Profile />} /> */}
         <Route
           path="/profile/:username"
