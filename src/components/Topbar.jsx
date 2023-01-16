@@ -46,9 +46,7 @@ function Topbar() {
       <span>
         <button onClick={logout}>logout</button>
       </span>
-      <span>{process.env.REACT_APP_HOME_URL}</span>
       <span>{`${process.env.REACT_APP_PUBLIC_FOLDER}/person/noAvatar.png`}</span>
-      <span>{PF + 'person/noAvatar.png'}</span>
     </div>
   );
 }
