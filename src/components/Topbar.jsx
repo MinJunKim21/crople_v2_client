@@ -31,6 +31,7 @@ function Topbar() {
               alt=""
               className="w-6"
             />
+            <span>{PF + 'person/noAvatar.png'}</span>
             <span>
               {userObject.username ? userObject.username : userObject.email}
             </span>
