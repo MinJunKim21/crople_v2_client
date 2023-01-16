@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
@@ -81,7 +81,7 @@ export default function Infoedit() {
       } catch (err) {}
     }
     try {
-      const res = await axios.put(
+      await axios.put(
         `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
         updatedUser
       );

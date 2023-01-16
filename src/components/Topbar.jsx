@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 
 function Topbar() {
   const userObject = useContext(AuthContext);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const logout = () => {
     window.open(`${process.env.REACT_APP_API_ROOT}/googleauth/logout`, '_self');
@@ -22,16 +22,19 @@ function Topbar() {
       <div>
         <Link to={`/profile/${userObject.username}`}>
           <div className="flex">
-            <img
+            {/* <img
               src={
                 userObject.profilePicture === ''
-                  ? PF + 'person/noAvatar.png'
-                  : PF + userObject.profilePicture
+                  ? `${process.env.REACT_APP_PUBLIC_FOLDER}/person/noAvatar.png`
+                  : `${process.env.REACT_APP_PUBLIC_FOLDER}/${userObject.profilePicture}`
               }
               alt=""
               className="w-6"
-            />
-            <span>{userObject.username}</span>
+            /> */}
+
+            <span>
+              {userObject.username ? userObject.username : userObject.email}
+            </span>
           </div>
         </Link>
       </div>
@@ -43,7 +46,9 @@ function Topbar() {
       <span>
         <button onClick={logout}>logout</button>
       </span>
-      <span>{process.env.REACT_APP_HOME_URL}</span>
+      {/* <span>{process.env.REACT_APP_HOME_URL}</span>
+      <span>{`${process.env.REACT_APP_PUBLIC_FOLDER}/person/noAvatar.png`}</span>
+      <span>{PF + 'person/noAvatar.png'}</span> */}
     </div>
   );
 }

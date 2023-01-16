@@ -1,10 +1,10 @@
 import Topbar from '../components/Topbar';
-import Sidebar from '../components/Sidebar';
+// import Sidebar from '../components/Sidebar';
 import Rightbar from '../components/Rightbar';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { useRef } from 'react';
+// import { useRef } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import Infoedit from '../components/Infoedit';
@@ -29,7 +29,7 @@ export default function Profile() {
     fetchUser();
     setFollowed(userObject.followings.includes(user?._id));
     console.log(userObject.followings.includes(user?._id));
-  }, [user._id]);
+  }, [user?._id, userObject.followings, username]);
 
   const handleClick = async () => {
     try {

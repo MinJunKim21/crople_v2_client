@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export default function Register() {
   const username = useRef();
@@ -9,6 +10,8 @@ export default function Register() {
   const passwordAgain = useRef();
 
   const navigate = useNavigate();
+
+  const [userObject, setUserObject] = useState({});
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -31,6 +34,21 @@ export default function Register() {
       }
     }
   };
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_ROOT}/getuser`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res, 'got res');
+        if (res.data) {
+          console.log(res.data, 'res.data 존재');
+          setUserObject(res.data);
+          console.log('did set object');
+        }
+      });
+  }, [userObject._id]);
 
   return (
     <div>

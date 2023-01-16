@@ -1,14 +1,17 @@
 import React from 'react';
-import { useContext } from 'react';
-import { useRef } from 'react';
+// import { useContext } from 'react';
+// import { useRef } from 'react';
 import { loginCall } from '../apiCalls';
 
 function Login() {
-  const email = useRef();
-  const password = useRef();
+  // const email = useRef();
+  // const password = useRef();
 
   const google = () => {
-    window.open(`${process.env.REACT_APP_API_ROOT}/googleauth/google`, '_self');
+    window.open(
+      'https://real-gold-vulture-fez.cyclic.app/googleauth/google/callback',
+      '_self'
+    );
     loginCall();
   };
 
@@ -27,8 +30,9 @@ function Login() {
         <button onClick={google}>google</button>
         <button onClick={kakao}>kakao</button>
         <button onClick={naver}>naver</button>
-        {/* <span>{process.env.REACT_APP_HOME_URL}</span>
-        <span>{process.env.REACT_APP_API_ROOT}</span> */}
+        <span>{process.env.REACT_APP_MODE}</span>
+        <span>{process.env.REACT_APP_HOME_URL}</span>
+        <span>{process.env.REACT_APP_API_ROOT}</span>
       </div>
     </div>
   );
