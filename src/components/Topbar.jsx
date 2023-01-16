@@ -32,6 +32,7 @@ function Topbar() {
               className="w-6"
             />
             <span>{PF + 'person/noAvatar.png'}</span>
+            <span>{`${process.env.REACT_APP_API_ROOT}/person/noAvatar.png`}</span>
             <span>
               {userObject.username ? userObject.username : userObject.email}
             </span>
