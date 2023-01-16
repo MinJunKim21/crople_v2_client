@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 
 function Topbar() {
   const userObject = useContext(AuthContext);
-  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const logout = () => {
     window.open(`${process.env.REACT_APP_API_ROOT}/googleauth/logout`, '_self');
@@ -26,7 +26,7 @@ function Topbar() {
               src={
                 userObject.profilePicture === ''
                   ? `${process.env.REACT_APP_PUBLIC_FOLDER}/person/noAvatar.png`
-                  : userObject.profilePicture
+                  : PF + '/' + userObject.profilePicture
               }
               alt=""
               className="w-6"
@@ -46,7 +46,9 @@ function Topbar() {
       <span>
         <button onClick={logout}>logout</button>
       </span>
+      <span>{process.env.REACT_APP_HOME_URL}</span>
       <span>{`${process.env.REACT_APP_PUBLIC_FOLDER}/person/noAvatar.png`}</span>
+      <span>{PF + 'person/noAvatar.png'}</span>
     </div>
   );
 }
