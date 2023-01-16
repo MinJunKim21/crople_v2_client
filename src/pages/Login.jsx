@@ -12,7 +12,7 @@ function Login() {
       'https://real-gold-vulture-fez.cyclic.app/googleauth/google/callback',
       '_self'
     );
-    loginCall();
+    // loginCall();
   };
 
   const kakao = () => {
