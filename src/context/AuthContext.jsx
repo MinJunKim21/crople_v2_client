@@ -11,7 +11,7 @@ export default function Context({ children }) {
   console.log(userObject, 'authContext');
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_ROOT}/getuser`, {
+      .get('https://real-gold-vulture-fez.cyclic.app/getuser', {
         withCredentials: true,
       })
       .then((res) => {

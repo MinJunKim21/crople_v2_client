@@ -8,7 +8,10 @@ function Login() {
   // const password = useRef();
 
   const google = () => {
-    window.open(`${process.env.REACT_APP_API_ROOT}/googleauth/google`, '_self');
+    window.open(
+      'https://real-gold-vulture-fez.cyclic.app/googleauth/google/callback',
+      '_self'
+    );
     loginCall();
   };
 

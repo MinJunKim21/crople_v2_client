@@ -31,7 +31,9 @@ function Topbar() {
               alt=""
               className="w-6"
             />
-            <span>{userObject.username}</span>
+            <span>
+              {userObject.username ? userObject.username : userObject.email}
+            </span>
           </div>
         </Link>
       </div>
