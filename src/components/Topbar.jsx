@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 
 function Topbar() {
   const userObject = useContext(AuthContext);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const logout = () => {
     window.open(`${process.env.REACT_APP_API_ROOT}/googleauth/logout`, '_self');
