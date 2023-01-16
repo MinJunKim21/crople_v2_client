@@ -26,7 +26,7 @@ function Topbar() {
               src={
                 userObject.profilePicture === ''
                   ? `${process.env.REACT_APP_PUBLIC_FOLDER}/person/noAvatar.png`
-                  : process.env.REACT_APP_PUBLIC_FOLDER +
+                  : `${process.env.REACT_APP_PUBLIC_FOLDER}` +
                     '/' +
                     userObject.profilePicture
               }
