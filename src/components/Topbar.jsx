@@ -22,17 +22,15 @@ function Topbar() {
       <div>
         <Link to={`/profile/${userObject.username}`}>
           <div className="flex">
-            <img
+            {/* <img
               src={
                 userObject.profilePicture === ''
                   ? `${process.env.REACT_APP_PUBLIC_FOLDER}/person/noAvatar.png`
-                  : `${process.env.REACT_APP_PUBLIC_FOLDER}` +
-                    '/' +
-                    userObject.profilePicture
+                  : `${process.env.REACT_APP_PUBLIC_FOLDER}/${userObject.profilePicture}`
               }
               alt=""
               className="w-6"
-            />
+            /> */}
 
             <span>
               {userObject.username ? userObject.username : userObject.email}
