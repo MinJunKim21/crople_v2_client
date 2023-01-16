@@ -25,14 +25,13 @@ function Topbar() {
             <img
               src={
                 userObject.profilePicture === ''
-                  ? PF + 'person/noAvatar.png'
-                  : PF + userObject.profilePicture
+                  ? `${process.env.REACT_APP_PUBLIC_FOLDER}/person/noAvatar.png`
+                  : userObject.profilePicture
               }
               alt=""
               className="w-6"
             />
-            <span>{PF + 'person/noAvatar.png'}</span>
-            <span>{`${process.env.REACT_APP_API_ROOT}/person/noAvatar.png`}</span>
+
             <span>
               {userObject.username ? userObject.username : userObject.email}
             </span>
@@ -48,6 +47,8 @@ function Topbar() {
         <button onClick={logout}>logout</button>
       </span>
       <span>{process.env.REACT_APP_HOME_URL}</span>
+      <span>{`${process.env.REACT_APP_PUBLIC_FOLDER}/person/noAvatar.png`}</span>
+      <span>{PF + 'person/noAvatar.png'}</span>
     </div>
   );
 }
