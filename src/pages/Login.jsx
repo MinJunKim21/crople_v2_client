@@ -40,37 +40,41 @@ function Login() {
     setPopup(popup);
   };
 
-  // useEffect(() => {
-  //   const currentUrl = window.location.href;
-  //   const searchParams = new URL(currentUrl).searchParams;
-  //   const code = searchParams.get('code');
-  //   if (code) {
-  //     window.opener.postMessage({ code }, window.location.origin);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const currentUrl = window.location.href;
+    const searchParams = new URL(currentUrl).searchParams;
+    const code = searchParams.get('code');
+    if (code) {
+      window.opener.postMessage({ code }, window.location.origin);
+    }
+  }, []);
 
+  // 로그인 팝입이 열리면 로그인 로직을 처리합니다.
   useEffect(() => {
     if (!popup) {
       return;
     }
 
-    const timer = setInterval(() => {
-      if (!popup) {
-        timer && clearInterval(timer);
+    const githubOAuthCodeListener = (e) => {
+      // 동일한 Origin 의 이벤트만 처리하도록 제한
+      if (e.origin !== window.location.origin) {
         return;
       }
-      const currentUrl = popup.location.href;
-      if (!currentUrl) {
-        return;
-      }
-      const searchParams = new URL(currentUrl).searchParams;
-      const code = searchParams.get('code');
+      const { code } = e.data;
       if (code) {
-        popup.close();
         console.log(`The popup URL has URL code param = ${code}`);
-        // 가져온 code 로 다른 정보를 가져오는 API 호출
       }
-    }, 500);
+      popup?.close();
+      setPopup(null);
+    };
+
+    window.addEventListener('message', githubOAuthCodeListener, false);
+
+    return () => {
+      window.removeEventListener('message', githubOAuthCodeListener);
+      popup?.close();
+      setPopup(null);
+    };
   }, [popup]);
 
   return (
