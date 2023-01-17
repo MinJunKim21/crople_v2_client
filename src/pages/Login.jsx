@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import OauthPopup from 'react-oauth-popup';
 
 // import { useContext } from 'react';
 // import { useRef } from 'react';
@@ -77,6 +78,15 @@ function Login() {
     };
   }, [popup]);
 
+  const onCode = (code, params) => {
+    console.log('wooooo a code', code);
+    console.log(
+      'alright! the URLSearchParams interface from the popup url',
+      params
+    );
+  };
+  const onClose = () => console.log('closed!');
+
   return (
     <div className="max-w-md">
       <div className="bg-green-200 flex flex-col">
@@ -89,6 +99,13 @@ function Login() {
         <span>{process.env.REACT_APP_HOME_URL}</span>
         <span>{process.env.REACT_APP_API_ROOT}</span>
       </div>
+      <OauthPopup
+        url="https://real-gold-vulture-fez.cyclic.app/googleauth/google/callback"
+        onCode={onCode}
+        onClose={onClose}
+      >
+        <div>Click me to open a Popup</div>
+      </OauthPopup>
     </div>
   );
 }
