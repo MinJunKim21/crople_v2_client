@@ -33,6 +33,12 @@ export default function NeedProfile() {
   const locations = useRef();
   const selfIntroduction = useRef();
 
+  const [focused, setFocused] = useState(false);
+
+  const handleFocus = (e) => {
+    setFocused(true);
+  };
+
   const onCheckedSportsElement = (checked, item) => {
     if (checked) {
       setSportsCheckedList([...sportsCheckedList, item]);
@@ -179,9 +185,11 @@ export default function NeedProfile() {
               <span>메이트를 만날 준비가 다 됐어요</span>
             </div>
             {/* <label>프로필 사진</label> */}
-            <div class="border border-2 border-orange-400 p-5 w-24 ">
-              <img src={file ? URL.createObjectURL(file) : null} alt="" />
-              <label htmlFor="fileInput">프로필 사진</label>
+            <div>
+              <div class="border border-2 border-orange-400 p-5 w-24 ">
+                <img src={file ? URL.createObjectURL(file) : null} alt="" />
+                <label htmlFor="fileInput">프로필 사진</label>
+              </div>
               <input
                 type="file"
                 id="fileInput"
@@ -189,22 +197,29 @@ export default function NeedProfile() {
                   setFile(e.target.files[0]);
                 }}
                 required
-                class="opacity-0 w-0"
+                class="opacity-0 w-[1px] peer"
               />
             </div>
             <span>필수</span>
             <div>
               <span>닉네임</span>
-              <span class="text-blue-300 invalid:border-red-700">
-                오류메세지
-              </span>
               <input
                 ref={nickName}
                 type="text"
                 placeholder="최대 8글자까지 가능"
                 maxLength={8}
                 required
+                pattern="^[A-Za-z\d$@$!%*#?&]{1,8}$"
+                className="peer"
+                onBlur={handleFocus}
+                focused={focused.toString()}
               />
+              {/* <p
+                // class={`display-none peer-invalid:block peer-invalid:text-red-700  `}
+                class="invisible text-red-500 peer-placeholder-shown:!invisible peer-invalid:visible"
+              >
+                오류메세지
+              </p> */}
             </div>
             <div>
               <span>소개글</span>
@@ -214,6 +229,7 @@ export default function NeedProfile() {
                 placeholder="나를 잘 나타내는 소개글을 입력해주세요"
               />
             </div>
+
             <button type="submit">입력</button>
           </div>
         ) : null}
