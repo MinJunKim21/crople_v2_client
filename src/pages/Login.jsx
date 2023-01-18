@@ -23,7 +23,10 @@ function Login() {
   };
 
   const naver = () => {
-    window.open(`${process.env.REACT_APP_API_ROOT}/naverauth/naver`, '_self');
+    window.open(
+      'https://real-gold-vulture-fez.cyclic.app/naverauth/naver',
+      '_self'
+    );
   };
 
   const [popup, setPopup] = useState();
@@ -76,6 +79,30 @@ function Login() {
       popup?.close();
       setPopup(null);
     };
+  }, [popup]);
+
+  useEffect(() => {
+    if (!popup) {
+      return;
+    }
+
+    const timer = setInterval(() => {
+      if (!popup) {
+        timer && clearInterval(timer);
+        return;
+      }
+      const currentUrl = popup.location.href;
+      if (!currentUrl) {
+        return;
+      }
+      const searchParams = new URL(currentUrl).searchParams;
+      const code = searchParams.get('code');
+      if (code) {
+        popup.close();
+        console.log(`The popup URL has URL code param = ${code}`);
+        // 가져온 code 로 다른 정보를 가져오는 API 호출
+      }
+    }, 500);
   }, [popup]);
 
   const onCode = (code, params) => {
