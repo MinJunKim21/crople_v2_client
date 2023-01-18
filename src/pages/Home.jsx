@@ -28,14 +28,17 @@ function Home() {
   return (
     <div>
       {userObject.nickName === undefined ? (
-        <NeedProfile />
+        <div>
+          <NeedProfile />
+          {/* <span>기본설정부터</span> */}
+        </div>
       ) : (
         <div>
           <Topbar />
-          <div className="flex flex-col">
+          <div class="flex flex-col">
             <span>닉네임:{userObject.nickName}</span>
             <span>매칭될 수 있는 사람들 리스트</span>
-            <div className="bg-blue-200">
+            <div class="bg-blue-200">
               {allUsers.map((user) => (
                 <Link to={`/profile/${user.username}`} key={user._id}>
                   <div>{user.username || user.email}</div>
