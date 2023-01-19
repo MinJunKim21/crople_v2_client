@@ -126,18 +126,18 @@ function Login() {
         SNS 계정으로 간편 가입하기
       </h6>
       <div className="flex space-x-4 mt-4">
-        <Btn_sns onClick={kakao}>
-          <img src="/assets/BTN/Btn_Kakao.png" />
-        </Btn_sns>
-        <Btn_sns onClick={naver}>
-          <img src="/assets/BTN/Btn_Naver.png" />
-        </Btn_sns>
-        <Btn_sns>
-          <img src="/assets/BTN/Btn_Apple.png" />
-        </Btn_sns>
-        <Btn_sns onClick={google}>
-          <img src="/assets/BTN/Btn_Google.png" />
-        </Btn_sns>
+        <BtnSNS onClick={kakao}>
+          <img src="/assets/BTN/Btn_Kakao.png" alt="" />
+        </BtnSNS>
+        <BtnSNS onClick={naver}>
+          <img src="/assets/BTN/Btn_Naver.png" alt="" />
+        </BtnSNS>
+        <BtnSNS>
+          <img src="/assets/BTN/Btn_Apple.png" alt="" />
+        </BtnSNS>
+        <BtnSNS onClick={google}>
+          <img src="/assets/BTN/Btn_Google.png" alt="" />
+        </BtnSNS>
       </div>
       {/* <BgWrapperA></BgWrapperA> */}
       {/* <Button>hi</Button> */}
@@ -171,5 +171,5 @@ export default Login;
 // const BgWrapperA = tw(BgWrapper)`
 // flex flex-col w-full h-screen`;
 
-const Btn_sns = tw.button`
+const BtnSNS = tw.button`
 flex w-14`;
