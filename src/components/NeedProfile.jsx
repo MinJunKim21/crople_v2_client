@@ -99,17 +99,21 @@ export default function NeedProfile() {
 
       <form onSubmit={updateData}>
         {question === 'one' ? (
-          <div class="bg-white w-screen h-screen">
+          <div class="bg-white w-screen h-screen px-4 pt-12">
             <button>
               <BsChevronLeft />
             </button>
-            <MainQuestion>어떤 운동을 좋아하세요?</MainQuestion>
-            <SubInstruction>다섯 개까지 선택할 수 있어요</SubInstruction>
-            <div>
-              <ul>
+            <MainQuestion className="mt-14">
+              어떤 운동을 좋아하세요?
+            </MainQuestion>
+            <SubInstruction className="mb-14">
+              다섯 개까지 선택할 수 있어요
+            </SubInstruction>
+            <div className="justify-center grid items-center">
+              <ul className="grid grid-cols-2 gap-x-2 gap-y-4 px-4">
                 {SPORTS_LIST.map((item) => {
                   return (
-                    <li key={item.id} className="flex justify-center">
+                    <li key={item.id}>
                       <input
                         id={item.id}
                         type="checkbox"
@@ -126,11 +130,7 @@ export default function NeedProfile() {
                           sportsCheckedList.includes(item.data) ? true : false
                         }
                       />
-                      <OptionBtn for={item.id}>
-                        <div className="text-[#A5A5A5] inline-flex items-center justify-between ">
-                          {item.data}
-                        </div>
-                      </OptionBtn>
+                      <OptionBtn for={item.id}>{item.data}</OptionBtn>
                     </li>
                   );
                 })}
@@ -256,4 +256,4 @@ flex justify-center text-[#242424] font-semibold text-2xl`;
 
 const SubInstruction = tw.h6`flex justify-center text-[#555555] font-medium `;
 
-const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-red-600 font-semibold w-36 h-12 flex text-center justify-center`;
+const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-red-600 font-semibold w-36 h-12 flex text-center justify-center text-[#A5A5A5] items-center`;
