@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 
 import React from 'react';
-import { useEffect, useState } from 'react';
-import OauthPopup from 'react-oauth-popup';
+// import { useEffect, useState } from 'react';
+// import OauthPopup from 'react-oauth-popup';
 
 // import { useContext } from 'react';
 // import { useRef } from 'react';
@@ -120,7 +120,7 @@ function Login() {
   return (
     <div className="flex flex-col justify-center items-center min-h min-h-screen">
       <div className="flex justify-center mb-64 mt-24">
-        <img src="/assets/croXple.png" className="h-10" />
+        <img src="/assets/croXple.png" className="h-10" alt="" />
       </div>
       <h6 className="flex justify-center text-gray-500 text-xs">
         SNS 계정으로 간편 가입하기
@@ -158,18 +158,18 @@ function Login() {
 
 export default Login;
 
-const BgWrapper = styled.div`
-  background: linear-gradient(
-    17.6deg,
-    rgba(247, 157, 0, 0) 15.18%,
-    rgba(202, 190, 64, 0.28) 52.34%,
-    #a8d69b 89.49%
-  );
-  transform: matrix(1, 0, 0, -1, 0, 0);
-`;
+// const BgWrapper = styled.div`
+//   background: linear-gradient(
+//     17.6deg,
+//     rgba(247, 157, 0, 0) 15.18%,
+//     rgba(202, 190, 64, 0.28) 52.34%,
+//     #a8d69b 89.49%
+//   );
+//   transform: matrix(1, 0, 0, -1, 0, 0);
+// `;
 
-const BgWrapperA = tw(BgWrapper)`
-flex flex-col w-full h-screen`;
+// const BgWrapperA = tw(BgWrapper)`
+// flex flex-col w-full h-screen`;
 
 const Btn_sns = tw.button`
 flex w-14`;
