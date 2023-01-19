@@ -11,6 +11,7 @@
     "env-cmd": "^10.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1",
     "react-oauth-popup": "^1.0.5",
     "react-router": "^6.4.5",
     "react-router-dom": "^6.4.4",
@@ -46,8 +47,17 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
+    "babel-plugin-macros": "^3.1.0",
     "postcss": "^8.4.19",
+    "postcss-cli": "^10.1.0",
     "tailwind-styled-components": "^2.2.0",
-    "tailwindcss": "^3.2.4"
+    "tailwindcss": "^3.2.4",
+    "twin.macro": "^3.1.0"
+  },
+  "babelMacros": {
+    "twin": {
+      "config": "tailwind.config.js",
+      "preset": "styled-components"
+    }
   }
 }

@@ -1,9 +1,13 @@
+import styled from 'styled-components';
+import tw from 'twin.macro';
+
 import { useState } from 'react';
 import axios from 'axios';
 // import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { BsChevronLeft } from 'react-icons/bs';
 
 const SPORTS_LIST = [
   { id: 0, data: '헬스' },
@@ -95,16 +99,21 @@ export default function NeedProfile() {
 
       <form onSubmit={updateData}>
         {question === 'one' ? (
-          <div class="bg-gray-600 w-screen h-screen">
-            <span>어떤 운동을 좋아하세요?</span>
-            <span>다섯 개까지 선택할 수 있어요</span>
+          <div class="bg-white w-screen h-screen">
+            <button>
+              <BsChevronLeft />
+            </button>
+            <MainQuestion>어떤 운동을 좋아하세요?</MainQuestion>
+            <SubInstruction>다섯 개까지 선택할 수 있어요</SubInstruction>
             <div>
-              <div>
+              <ul>
                 {SPORTS_LIST.map((item) => {
                   return (
-                    <label key={item.id}>
+                    <li key={item.id} className="flex justify-center">
                       <input
+                        id={item.id}
                         type="checkbox"
+                        class="hidden peer"
                         value={item.data}
                         ref={likeSports}
                         onChange={(e) => {
@@ -117,11 +126,15 @@ export default function NeedProfile() {
                           sportsCheckedList.includes(item.data) ? true : false
                         }
                       />
-                      <div>{item.data}</div>
-                    </label>
+                      <OptionBtn for={item.id}>
+                        <div className="text-[#A5A5A5] inline-flex items-center justify-between ">
+                          {item.data}
+                        </div>
+                      </OptionBtn>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </div>
             <button
               onClick={() => {
@@ -237,3 +250,10 @@ export default function NeedProfile() {
     </div>
   );
 }
+
+const MainQuestion = tw.h3`
+flex justify-center text-[#242424] font-semibold text-2xl`;
+
+const SubInstruction = tw.h6`flex justify-center text-[#555555] font-medium `;
+
+const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-red-600 font-semibold w-36 h-12 flex text-center justify-center`;
