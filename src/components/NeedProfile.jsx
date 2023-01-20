@@ -99,7 +99,7 @@ export default function NeedProfile() {
 
       <form onSubmit={updateData}>
         {question === 'one' ? (
-          <div class="bg-white w-screen h-screen px-4 pt-12">
+          <BgWrapper>
             <button>
               <BsChevronLeft />
             </button>
@@ -136,8 +136,7 @@ export default function NeedProfile() {
                 })}
               </ul>
             </div>
-            {/* <div className="relative w-full "> */}
-            <div className="fixed bottom-0 left-0 w-full px-4 pb-8">
+            <div className="fixed bottom-0 left-[50%] w-full px-4 pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
               <NextBtnGraBorder
                 onClick={() => {
                   if (sportsCheckedList.length === 0) {
@@ -153,56 +152,84 @@ export default function NeedProfile() {
               </NextBtnGraBorder>
             </div>
             {/* </div> */}
-          </div>
+          </BgWrapper>
         ) : null}
         {question === 'two' ? (
-          <div>
-            <div>
-              <span>운동할 지역을 설정해주세요</span>
-              <span>중복으로 선택할 수 있어요</span>
-            </div>
-            <div>
-              {LOCATION_LIST.map((item) => {
-                return (
-                  <label key={item.id}>
-                    <input
-                      type="checkbox"
-                      value={item.data}
-                      ref={locations}
-                      onChange={(e) => {
-                        onCheckedLocationsElement(
-                          e.target.checked,
-                          e.target.value
-                        );
-                      }}
-                      checked={
-                        locationsCheckedList.includes(item.data) ? true : false
-                      }
-                    />
-                    <div>{item.data}</div>
-                  </label>
-                );
-              })}
-            </div>
+          <BgWrapper>
             <button
               onClick={() => {
-                if (locationsCheckedList.length === 0) {
-                  alert('최소 하나의 지역을 선택해야합니다');
-                } else if (locationsCheckedList.length > 0) {
-                  setQuestion('three');
-                }
+                setQuestion('one');
               }}
             >
-              다음
+              <BsChevronLeft />
             </button>
-          </div>
+            <MainQuestion className="mt-14">
+              운동할 지역을 설정해주세요
+            </MainQuestion>
+            <SubInstruction className="mb-14">
+              중복으로 선택할 수 있어요
+            </SubInstruction>
+
+            <div className="justify-center grid items-center">
+              <ul className="grid grid-cols-2 gap-x-2 gap-y-4 px-4">
+                {LOCATION_LIST.map((item) => {
+                  return (
+                    <li key={item.id}>
+                      <input
+                        id={item.id}
+                        type="checkbox"
+                        value={item.data}
+                        ref={locations}
+                        onChange={(e) => {
+                          onCheckedLocationsElement(
+                            e.target.checked,
+                            e.target.value
+                          );
+                        }}
+                        checked={
+                          locationsCheckedList.includes(item.data)
+                            ? true
+                            : false
+                        }
+                        class="hidden peer"
+                      />
+                      <OptionBtn for={item.id}>{item.data}</OptionBtn>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <div className="fixed bottom-0 left-[50%] w-full px-4 pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+              <NextBtnGraBorder
+                onClick={() => {
+                  if (locationsCheckedList.length === 0) {
+                    alert('최소 하나의 지역을 선택해야합니다');
+                  } else if (locationsCheckedList.length > 0) {
+                    setQuestion('three');
+                  }
+                }}
+              >
+                <NextBtnGraBg>
+                  <NextBtnGraText>다음</NextBtnGraText>
+                </NextBtnGraBg>
+              </NextBtnGraBorder>
+            </div>
+          </BgWrapper>
         ) : null}
         {question === 'three' ? (
-          <div>
-            <div>
-              <h3>자기소개를 부탁드려요</h3>
-              <span>메이트를 만날 준비가 다 됐어요</span>
-            </div>
+          <BgWrapper>
+            <button
+              onClick={() => {
+                setQuestion('two');
+              }}
+            >
+              <BsChevronLeft />
+            </button>
+            <MainQuestion>자기소개를 부탁드려요</MainQuestion>
+            <SubInstruction className="mb-14">
+              메이트를 만날 준비가 다 됐어요
+            </SubInstruction>
+
             {/* <label>프로필 사진</label> */}
             <div>
               <div class="border border-2 border-orange-400 p-5 w-24 ">
@@ -250,7 +277,7 @@ export default function NeedProfile() {
             </div>
 
             <button type="submit">입력</button>
-          </div>
+          </BgWrapper>
         ) : null}
       </form>
     </div>
@@ -269,6 +296,8 @@ const OptionBtnCheckedBG = tw.div`w-36 h-12 rounded-full bg-white  border-2 bord
 const NextBtnGraBorder = tw.button`w-full h-[5.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
 const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center`;
 const NextBtnGraText = tw.div`text-xl font-bold bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
+
+const BgWrapper = tw.div`bg-white w-screen h-screen px-4 pt-12 max-w-sm mx-auto`;
 
 // const BgWrapper = styled.div`
 //   background: linear-gradient(
