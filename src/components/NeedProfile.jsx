@@ -232,21 +232,42 @@ export default function NeedProfile() {
 
             {/* <label>프로필 사진</label> */}
             <div>
-              <div class="border border-2 border-orange-400 p-5 w-24 ">
-                <img src={file ? URL.createObjectURL(file) : null} alt="" />
-                <label htmlFor="fileInput">프로필 사진</label>
+              <div>
+                <div className="relative inline-block">
+                  <div>
+                    <div className="bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
+                      {file ? (
+                        <img
+                          src={file ? URL.createObjectURL(file) : null}
+                          alt=""
+                          className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
+                        />
+                      ) : (
+                        <div className="bg-white w-full h-full  rounded-full"></div>
+                      )}
+                    </div>
+                    <label
+                      htmlFor="fileInput"
+                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full text-center ${
+                        file ? 'text-transparent' : 'text-[#C1C1C1]'
+                      }`}
+                    >
+                      프로필 사진
+                    </label>
+                  </div>
+                </div>
+                <input
+                  type="file"
+                  id="fileInput"
+                  onChange={(e) => {
+                    setFile(e.target.files[0]);
+                  }}
+                  required
+                  class="opacity-0 w-[1px] peer"
+                />
               </div>
-              <input
-                type="file"
-                id="fileInput"
-                onChange={(e) => {
-                  setFile(e.target.files[0]);
-                }}
-                required
-                class="opacity-0 w-[1px] peer"
-              />
             </div>
-            <span>필수</span>
+            {/* <span>필수</span> */}
             <div>
               <span>닉네임</span>
               <input
@@ -290,8 +311,8 @@ flex justify-center text-[#242424] font-semibold text-2xl`;
 const SubInstruction = tw.h6`flex justify-center text-[#555555] font-medium `;
 
 const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-[#F79D00] font-semibold w-36 h-12 flex text-center justify-center text-[#A5A5A5] items-center z-10`;
-const OptionBtnChecked = tw.div`w-36 h-12 rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286]  peer-checked:bg-transparent`;
-const OptionBtnCheckedBG = tw.div`w-36 h-12 rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center peer-checked:bg-transparent `;
+// const OptionBtnChecked = tw.div`w-36 h-12 rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286]  peer-checked:bg-transparent`;
+// const OptionBtnCheckedBG = tw.div`w-36 h-12 rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center peer-checked:bg-transparent `;
 
 const NextBtnGraBorder = tw.button`w-full h-[5.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
 const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center`;
