@@ -22,7 +22,10 @@ function Login() {
   };
 
   const kakao = () => {
-    window.open(`${process.env.REACT_APP_API_ROOT}/kakaoauth/kakao`, '_self');
+    window.open(
+      'https://real-gold-vulture-fez.cyclic.app/kakaoauth/kakao',
+      '_self'
+    );
   };
 
   const naver = () => {
