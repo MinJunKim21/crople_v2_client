@@ -136,17 +136,23 @@ export default function NeedProfile() {
                 })}
               </ul>
             </div>
-            <button
-              onClick={() => {
-                if (sportsCheckedList.length === 0) {
-                  alert('최소 하나의 운동을 선택해야합니다');
-                } else if (sportsCheckedList.length > 0) {
-                  setQuestion('two');
-                }
-              }}
-            >
-              다음
-            </button>
+            {/* <div className="relative w-full "> */}
+            <div className="fixed bottom-0 left-0 w-full px-4 pb-8">
+              <NextBtnGraBorder
+                onClick={() => {
+                  if (sportsCheckedList.length === 0) {
+                    alert('최소 하나의 운동을 선택해야합니다');
+                  } else if (sportsCheckedList.length > 0) {
+                    setQuestion('two');
+                  }
+                }}
+              >
+                <NextBtnGraBg>
+                  <NextBtnGraText>다음</NextBtnGraText>
+                </NextBtnGraBg>
+              </NextBtnGraBorder>
+            </div>
+            {/* </div> */}
           </div>
         ) : null}
         {question === 'two' ? (
@@ -256,4 +262,23 @@ flex justify-center text-[#242424] font-semibold text-2xl`;
 
 const SubInstruction = tw.h6`flex justify-center text-[#555555] font-medium `;
 
-const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-red-600 font-semibold w-36 h-12 flex text-center justify-center text-[#A5A5A5] items-center`;
+const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-[#F79D00] font-semibold w-36 h-12 flex text-center justify-center text-[#A5A5A5] items-center z-10`;
+const OptionBtnChecked = tw.div`w-36 h-12 rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286]  peer-checked:bg-transparent`;
+const OptionBtnCheckedBG = tw.div`w-36 h-12 rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center peer-checked:bg-transparent `;
+
+const NextBtnGraBorder = tw.button`w-full h-[5.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
+const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center`;
+const NextBtnGraText = tw.div`text-xl font-bold bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
+
+// const BgWrapper = styled.div`
+//   background: linear-gradient(
+//     17.6deg,
+//     rgba(247, 157, 0, 0) 15.18%,
+//     rgba(202, 190, 64, 0.28) 52.34%,
+//     #a8d69b 89.49%
+//   );
+//   transform: matrix(1, 0, 0, -1, 0, 0);
+// `;
+
+// const BgWrapperA = tw(BgWrapper)`
+// flex flex-col w-full h-screen`;
