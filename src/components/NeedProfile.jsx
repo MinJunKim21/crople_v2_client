@@ -136,7 +136,7 @@ export default function NeedProfile() {
                 })}
               </ul>
             </div>
-            <div className="fixed bottom-0 left-[50%] w-full px-4 pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+            <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
               <NextBtnGraBorder
                 onClick={() => {
                   if (sportsCheckedList.length === 0) {
@@ -199,7 +199,7 @@ export default function NeedProfile() {
                 })}
               </ul>
             </div>
-            <div className="fixed bottom-0 left-[50%] w-full px-4 pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+            <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
               <NextBtnGraBorder
                 onClick={() => {
                   if (locationsCheckedList.length === 0) {
@@ -339,19 +339,21 @@ export default function NeedProfile() {
               </div>
             </div>
 
-            <div>
-              <span>닉네임</span>
+            <div className="flex border-b-2 mt-4 mb-10">
+              {/* <span>닉네임</span> */}
               <input
                 ref={nickName}
                 type="text"
-                placeholder="최대 8글자까지 가능"
+                placeholder="닉네임을 입력해주세요"
                 maxLength={8}
                 required
                 pattern="^[A-Za-z\d$@$!%*#?&]{1,8}$"
-                className="peer"
+                className="peer w-full"
                 onBlur={handleFocus}
                 focused={focused.toString()}
               />
+              <span>x</span>
+
               {/* <p
                 // class={`display-none peer-invalid:block peer-invalid:text-red-700  `}
                 class="invisible text-red-500 peer-placeholder-shown:!invisible peer-invalid:visible"
@@ -360,15 +362,32 @@ export default function NeedProfile() {
               </p> */}
             </div>
             <div>
-              <span>소개글</span>
-              <input
+              {/* <span>소개글</span> */}
+              <textarea
                 ref={selfIntroduction}
                 type="text"
                 placeholder="나를 잘 나타내는 소개글을 입력해주세요"
+                className="w-full border-2 rounded-md h-32 p-2"
               />
             </div>
 
-            <button type="submit">입력</button>
+            <div className="mt-10">
+              <p className="text-xs text-[##8B8B8B] bg-[#F5F5F5] text-center p-2.5 rounded-lg">
+                과도한 노출로 선정적이거나 개인 정보를 포함한 이미지 등<br />
+                <b>커뮤니티 가이드라인</b>을 위반할 경우 계정이 제한될 수
+                있습니다.
+              </p>
+            </div>
+
+            <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+              <button type="submit" className="w-full">
+                <NextBtnGraBorder>
+                  <NextBtnGraBg>
+                    <NextBtnGraText>시작하기</NextBtnGraText>
+                  </NextBtnGraBg>
+                </NextBtnGraBorder>
+              </button>
+            </div>
           </BgWrapper>
         ) : null}
       </form>
@@ -390,7 +409,7 @@ const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border
 const NextBtnGraText = tw.div`text-xl font-bold bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
 const SmGraText = tw.div`text-xs text-center  bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
 
-const BgWrapper = tw.div`bg-white w-screen h-screen px-4 pt-12 max-w-sm mx-auto`;
+const BgWrapper = tw.div`bg-white w-screen h-screen  pt-12 max-w-sm mx-4`;
 
 // const BgWrapper = styled.div`
 //   background: linear-gradient(
