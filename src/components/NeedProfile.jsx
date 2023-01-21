@@ -231,8 +231,8 @@ export default function NeedProfile() {
             </SubInstruction>
 
             {/* <label>프로필 사진</label> */}
-            <div>
-              <div>
+            <div className="flex justify-center space-x-4">
+              <div className="inline-block">
                 <div className="relative inline-block">
                   <div>
                     <div className="bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
@@ -256,6 +256,7 @@ export default function NeedProfile() {
                     </label>
                   </div>
                 </div>
+                <SmGraText>필수</SmGraText>
                 <input
                   type="file"
                   id="fileInput"
@@ -266,8 +267,78 @@ export default function NeedProfile() {
                   class="opacity-0 w-[1px] peer"
                 />
               </div>
+              {/* <span>필수</span> */}
+              <div className="inline-block">
+                <div className="relative inline-block">
+                  <div>
+                    <div className="bg-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
+                      {file ? (
+                        <img
+                          src={file ? URL.createObjectURL(file) : null}
+                          alt=""
+                          className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
+                        />
+                      ) : (
+                        <div className="bg-white w-full h-full  rounded-full"></div>
+                      )}
+                    </div>
+                    <label
+                      htmlFor="fileInput"
+                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full text-center ${
+                        file ? 'text-transparent' : 'text-[#C1C1C1]'
+                      }`}
+                    >
+                      +
+                    </label>
+                  </div>
+                </div>
+                <h6 className="text-xs text-[#8B8B8B] text-center">선택</h6>
+                <input
+                  type="file"
+                  id="fileInput"
+                  onChange={(e) => {
+                    setFile(e.target.files[0]);
+                  }}
+                  class="opacity-0 w-[1px] peer"
+                />
+              </div>
+
+              <div className="inline-block">
+                <div className="relative inline-block">
+                  <div>
+                    <div className="bg-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
+                      {file ? (
+                        <img
+                          src={file ? URL.createObjectURL(file) : null}
+                          alt=""
+                          className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
+                        />
+                      ) : (
+                        <div className="bg-white w-full h-full  rounded-full"></div>
+                      )}
+                    </div>
+                    <label
+                      htmlFor="fileInput"
+                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full text-center ${
+                        file ? 'text-transparent' : 'text-[#C1C1C1]'
+                      }`}
+                    >
+                      +
+                    </label>
+                  </div>
+                </div>
+                <h6 className="text-xs text-[#8B8B8B] text-center">선택</h6>
+                <input
+                  type="file"
+                  id="fileInput"
+                  onChange={(e) => {
+                    setFile(e.target.files[0]);
+                  }}
+                  class="opacity-0 w-[1px] peer"
+                />
+              </div>
             </div>
-            {/* <span>필수</span> */}
+
             <div>
               <span>닉네임</span>
               <input
@@ -317,6 +388,7 @@ const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-[#F79D00] f
 const NextBtnGraBorder = tw.button`w-full h-[5.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
 const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center`;
 const NextBtnGraText = tw.div`text-xl font-bold bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
+const SmGraText = tw.div`text-xs text-center  bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
 
 const BgWrapper = tw.div`bg-white w-screen h-screen px-4 pt-12 max-w-sm mx-auto`;
 
