@@ -30,7 +30,6 @@ function Home() {
       {userObject.nickName === undefined ? (
         <div>
           <NeedProfile />
-          {/* <span>기본설정부터</span> */}
         </div>
       ) : (
         <div>

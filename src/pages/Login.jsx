@@ -1,4 +1,4 @@
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 
 import React from 'react';
@@ -121,58 +121,74 @@ function Login() {
   // const onClose = () => console.log('closed!');
 
   return (
-    <div className="flex flex-col justify-center items-center min-h min-h-screen">
-      <div className="flex justify-center mb-64 mt-24">
-        <img src="/assets/croXple.png" className="h-10" alt="" />
-      </div>
-      <h6 className="flex justify-center text-gray-500 text-xs">
-        SNS 계정으로 간편 가입하기
-      </h6>
-      <div className="flex space-x-4 mt-4">
-        <BtnSNS onClick={kakao}>
-          <img src="/assets/BTN/Btn_Kakao.png" alt="" />
-        </BtnSNS>
-        <BtnSNS onClick={naver}>
-          <img src="/assets/BTN/Btn_Naver.png" alt="" />
-        </BtnSNS>
-        <BtnSNS>
-          <img src="/assets/BTN/Btn_Apple.png" alt="" />
-        </BtnSNS>
-        <BtnSNS onClick={google}>
-          <img src="/assets/BTN/Btn_Google.png" alt="" />
-        </BtnSNS>
-      </div>
-      {/* <BgWrapperA></BgWrapperA> */}
-      {/* <Button>hi</Button> */}
-      {/* <button onClick={handleOpenPopup}>GOOGLE POPUP 형식</button> */}
-      {/* <span>{process.env.REACT_APP_MODE}</span>
+    <div>
+      <img
+        src="/assets/pattern/LoginBgPattern.png"
+        className="w-full min-h-[300px] object-cover fixed absolute left-0 top-0"
+        alt=""
+      />
+      <BgWhiteBlur>
+        <BgWrapper>
+          <div className="flex flex-col justify-center items-center min-h-screen">
+            <div className="flex justify-center mb-64 mt-24">
+              <img src="/assets/croXple.png" className="h-10" alt="" />
+            </div>
+            <h6 className="flex justify-center text-gray-500 text-xs">
+              SNS 계정으로 간편 가입하기
+            </h6>
+            <div className="flex space-x-4 mt-4">
+              <BtnSNS onClick={kakao}>
+                <img src="/assets/BTN/Btn_Kakao.png" alt="" />
+              </BtnSNS>
+              <BtnSNS onClick={naver}>
+                <img src="/assets/BTN/Btn_Naver.png" alt="" />
+              </BtnSNS>
+              <BtnSNS>
+                <img src="/assets/BTN/Btn_Apple.png" alt="" />
+              </BtnSNS>
+              <BtnSNS onClick={google}>
+                <img src="/assets/BTN/Btn_Google.png" alt="" />
+              </BtnSNS>
+            </div>
+            {/* <Button>hi</Button> */}
+            {/* <button onClick={handleOpenPopup}>GOOGLE POPUP 형식</button> */}
+            {/* <span>{process.env.REACT_APP_MODE}</span>
         <span>{process.env.REACT_APP_HOME_URL}</span>
-        <span>{process.env.REACT_APP_API_ROOT}</span> */}
-      {/* <OauthPopup
+      <span>{process.env.REACT_APP_API_ROOT}</span> */}
+            {/* <OauthPopup
         url="https://real-gold-vulture-fez.cyclic.app/googleauth/google/callback"
         onCode={onCode}
         onClose={onClose}
         >
         <div>Click me to open a Popup</div>
       </OauthPopup> */}
+          </div>
+        </BgWrapper>
+      </BgWhiteBlur>
     </div>
   );
 }
 
 export default Login;
 
-// const BgWrapper = styled.div`
-//   background: linear-gradient(
-//     17.6deg,
-//     rgba(247, 157, 0, 0) 15.18%,
-//     rgba(202, 190, 64, 0.28) 52.34%,
-//     #a8d69b 89.49%
-//   );
-//   transform: matrix(1, 0, 0, -1, 0, 0);
-// `;
+const BgWrapper = styled.div`
+  background: linear-gradient(
+    341.82deg,
+    #a8d69b 10.29%,
+    rgba(202, 190, 64, 0.28) 47.5%,
+    rgba(247, 157, 0, 0) 84.7%
+  );
+  mix-blend-mode: multiply;
+`;
 
-// const BgWrapperA = tw(BgWrapper)`
-// flex flex-col w-full h-screen`;
+const BgWhiteBlur = styled.div`
+  background: radial-gradient(
+    55.04% 29% at 49.87% 62.62%,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 100%
+  );
+  // transform: matrix(1, 0, 0, -1, 0, 0);
+`;
 
 const BtnSNS = tw.button`
 flex w-14`;
