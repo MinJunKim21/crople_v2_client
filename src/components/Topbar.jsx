@@ -20,7 +20,7 @@ function Topbar() {
         </Link>
       </div>
       <div>
-        <Link to={`/profile/${userObject.username}`}>
+        <Link to={`/profile/${userObject.nickName}`}>
           <div className="flex">
             {/* <img
               src={
@@ -33,7 +33,7 @@ function Topbar() {
             /> */}
 
             <span>
-              {userObject.username ? userObject.username : userObject.email}
+              {userObject.nickName ? userObject.nickName : userObject.email}
             </span>
           </div>
         </Link>
@@ -46,9 +46,6 @@ function Topbar() {
       <span>
         <button onClick={logout}>logout</button>
       </span>
-      {/* <span>{process.env.REACT_APP_HOME_URL}</span>
-      <span>{`${process.env.REACT_APP_PUBLIC_FOLDER}/person/noAvatar.png`}</span>
-      <span>{PF + 'person/noAvatar.png'}</span> */}
     </div>
   );
 }
