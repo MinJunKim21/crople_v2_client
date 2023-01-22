@@ -122,49 +122,52 @@ function Login() {
 
   return (
     <div>
-      <img
+      {/* <img
         src="/assets/pattern/LoginBgPattern.png"
-        className="w-full min-h-[300px] object-cover fixed absolute left-0 top-0"
+        className="w-full min-h-[300px] object-cover  absolute left-0 top-0"
         alt=""
-      />
-      <BgWhiteBlur>
-        <BgWrapper>
-          <div className="flex flex-col justify-center items-center min-h-screen">
-            <div className="flex justify-center mb-64 mt-24">
-              <img src="/assets/croXple.png" className="h-10" alt="" />
-            </div>
-            <h6 className="flex justify-center text-gray-500 text-xs">
-              SNS 계정으로 간편 가입하기
-            </h6>
-            <div className="flex space-x-4 mt-4">
-              <BtnSNS onClick={kakao}>
-                <img src="/assets/BTN/Btn_Kakao.png" alt="" />
-              </BtnSNS>
-              <BtnSNS onClick={naver}>
-                <img src="/assets/BTN/Btn_Naver.png" alt="" />
-              </BtnSNS>
-              <BtnSNS>
-                <img src="/assets/BTN/Btn_Apple.png" alt="" />
-              </BtnSNS>
-              <BtnSNS onClick={google}>
-                <img src="/assets/BTN/Btn_Google.png" alt="" />
-              </BtnSNS>
-            </div>
-            {/* <Button>hi</Button> */}
-            {/* <button onClick={handleOpenPopup}>GOOGLE POPUP 형식</button> */}
-            {/* <span>{process.env.REACT_APP_MODE}</span>
+      /> */}
+      <div class="bg-[url('../public/assets/pattern/LoginBgPattern.png')] bg-contain bg-no-repeat">
+        <BgWhiteBlur>
+          <BgWrapper>
+            <div className="flex flex-col justify-center items-center min-h-screen">
+              <div className="flex justify-center mb-64 mt-24">
+                <img src="/assets/croXple.png" className="h-10" alt="" />
+              </div>
+              <h6 className="flex justify-center text-gray-500 text-xs">
+                SNS 계정으로 간편 가입하기
+              </h6>
+              <div className="flex space-x-4 mt-4">
+                <BtnSNS onClick={kakao}>
+                  <img src="/assets/BTN/Btn_Kakao.png" alt="" />
+                </BtnSNS>
+                <BtnSNS onClick={naver}>
+                  <img src="/assets/BTN/Btn_Naver.png" alt="" />
+                </BtnSNS>
+                <BtnSNS>
+                  <img src="/assets/BTN/Btn_Apple.png" alt="" />
+                </BtnSNS>
+                <BtnSNS onClick={google}>
+                  <img src="/assets/BTN/Btn_Google.png" alt="" />
+                </BtnSNS>
+              </div>
+
+              {/* <Button>hi</Button> */}
+              {/* <button onClick={handleOpenPopup}>GOOGLE POPUP 형식</button> */}
+              {/* <span>{process.env.REACT_APP_MODE}</span>
         <span>{process.env.REACT_APP_HOME_URL}</span>
       <span>{process.env.REACT_APP_API_ROOT}</span> */}
-            {/* <OauthPopup
+              {/* <OauthPopup
         url="https://real-gold-vulture-fez.cyclic.app/googleauth/google/callback"
         onCode={onCode}
         onClose={onClose}
         >
         <div>Click me to open a Popup</div>
       </OauthPopup> */}
-          </div>
-        </BgWrapper>
-      </BgWhiteBlur>
+            </div>
+          </BgWrapper>
+        </BgWhiteBlur>
+      </div>
     </div>
   );
 }
