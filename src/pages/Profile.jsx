@@ -83,6 +83,7 @@ export default function Profile() {
               />
             </div> */}
             <div className="bg-white min-h-full h-full backdrop-blur-[2px]	rounded-3xl opacity-95">
+              <h3>프로필</h3>
               <div>
                 <span>desc : </span>
                 <span>{user.desc}</span>
