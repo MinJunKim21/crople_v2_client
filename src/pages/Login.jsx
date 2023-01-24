@@ -181,7 +181,7 @@ const BgWrapper = styled.div`
     rgba(202, 190, 64, 0.28) 47.5%,
     rgba(247, 157, 0, 0) 84.7%
   );
-  mix-blend-mode: multiply;
+  // mix-blend-mode: multiply;
 `;
 
 const BgWhiteBlur = styled.div`

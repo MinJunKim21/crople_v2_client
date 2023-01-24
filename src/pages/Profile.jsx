@@ -68,7 +68,7 @@ export default function Profile() {
       <BgWrapper>
         {/* <Sidebar /> */}
         <div>
-          <div className="flex flex-col h-screen">
+          <div className="flex flex-col ">
             <div className="flex items-center mx-4 mt-11">
               <Link to="/">
                 <BsChevronLeft className="text-2xl h-11 " />

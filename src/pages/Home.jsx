@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+import tw from 'tailwind-styled-components';
 import Topbar from '../components/Topbar';
 // import Sidebar from '../components/Sidebar';
 // import Rightbar from '../components/Rightbar';
@@ -33,18 +35,20 @@ function Home() {
         </div>
       ) : (
         <div>
-          <Topbar />
-          <div class="flex flex-col">
-            <span>닉네임:{userObject.nickName}</span>
-            <span>매칭될 수 있는 사람들 리스트</span>
-            <div class="bg-blue-200">
-              {allUsers.map((user) => (
-                <Link to={`/profile/${user.nickName}`} key={user._id}>
-                  <div>{user.nickName || user.email}</div>
-                </Link>
-              ))}
+          <BgWrapper>
+            {/* <Topbar /> */}
+            <div class="flex flex-col h-screen">
+              <span>닉네임:{userObject.nickName}</span>
+              <span>매칭될 수 있는 사람들 리스트</span>
+              <div class="bg-blue-200">
+                {allUsers.map((user) => (
+                  <Link to={`/profile/${user.nickName}`} key={user._id}>
+                    <div>{user.nickName || user.email}</div>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
+          </BgWrapper>
         </div>
       )}
     </div>
@@ -52,3 +56,14 @@ function Home() {
 }
 
 export default Home;
+
+const BgWrapper = styled.div`
+  background: linear-gradient(
+    166.9deg,
+    rgba(247, 157, 0, 0.05) -17.3%,
+    rgba(202, 190, 64, 0.28) 36.08%,
+    #a8d69b 89.46%
+  );
+  width: screen;
+  hight: screen;
+`;
