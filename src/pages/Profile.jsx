@@ -65,7 +65,7 @@ export default function Profile() {
   return (
     <div>
       {/* <Topbar /> */}
-      <BgWrapperA>
+      <BgWrapper>
         {/* <Sidebar /> */}
         <div>
           <div className="flex flex-col h-screen">
@@ -82,7 +82,7 @@ export default function Profile() {
                 className="w-6"
               />
             </div> */}
-            <div className="bg-white min-h-full h-full backdrop-blur-[2px]	rounded-3xl opacity-95">
+            <div className="bg-white h-full backdrop-blur-[2px]	rounded-t-3xl opacity-95">
               <h3>프로필</h3>
               <div>
                 <span>desc : </span>
@@ -119,7 +119,7 @@ export default function Profile() {
             )}
           </div> */}
         {/* <Rightbar user={user} /> */}
-      </BgWrapperA>
+      </BgWrapper>
     </div>
   );
 }
@@ -131,6 +131,6 @@ const BgWrapper = styled.div`
     rgba(202, 190, 64, 0.28) 36.08%,
     #a8d69b 89.46%
   );
+  width: screen;
+  hight: screen;
 `;
-const BgWrapperA = tw(BgWrapper)`
-w-full h-screen`;
