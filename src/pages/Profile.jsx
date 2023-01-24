@@ -18,7 +18,10 @@ export default function Profile() {
     userObject.followings.includes(user?._id)
   );
   const [profileChange, setProfileChange] = useState(false);
-
+  console.log(
+    `${process.env.REACT_APP_API_ROOT}/api/users?nickName=`,
+    'modetest'
+  );
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
@@ -66,16 +69,6 @@ export default function Profile() {
             <div>
               <img
                 src={`${process.env.REACT_APP_PUBLIC_FOLDER}/${userObject.profilePicture}`}
-                alt=""
-                className="w-6"
-              />
-              <img
-                src={
-                  user.profilePicture === '' ||
-                  user.profilePicture === undefined
-                    ? PF + 'person/noAvatar.png'
-                    : PF + user.profilePicture
-                }
                 alt=""
                 className="w-6"
               />
