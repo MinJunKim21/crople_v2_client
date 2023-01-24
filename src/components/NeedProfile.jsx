@@ -70,6 +70,7 @@ export default function NeedProfile() {
       likeSports: sportsCheckedList,
       locations: locationsCheckedList,
       userId: user._id,
+      desc: selfIntroduction.current.value,
     };
     if (file) {
       const data = new FormData();

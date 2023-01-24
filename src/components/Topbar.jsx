@@ -27,6 +27,18 @@ function Topbar() {
               alt=""
               className="w-6"
             />
+            <span>local5001</span>
+            <img
+              src={`http://localhost:5001/images/${userObject.profilePicture}`}
+              alt=""
+              className="w-6"
+            />
+            <span>서버배포</span>
+            <img
+              src={`https://real-gold-vulture-fez.cyclic.app/images/${userObject.profilePicture}`}
+              alt=""
+              className="w-6"
+            />
 
             <span>
               {userObject.nickName ? userObject.nickName : userObject.email}

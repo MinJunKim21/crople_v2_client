@@ -1,13 +1,18 @@
+import styled from 'styled-components';
+import tw from 'tailwind-styled-components';
+
 import Topbar from '../components/Topbar';
 // import Sidebar from '../components/Sidebar';
 import Rightbar from '../components/Rightbar';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 // import { useRef } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import Infoedit from '../components/Infoedit';
+
+import { BsChevronLeft } from 'react-icons/bs';
 
 export default function Profile() {
   const userObject = useContext(AuthContext);
@@ -58,38 +63,47 @@ export default function Profile() {
     window.location.reload(); // 원인 알게되면 이거 바꾸기...
   };
   return (
-    <div className="bg-purple-200">
-      <Topbar />
-      <div>
+    <div>
+      {/* <Topbar /> */}
+      <BgWrapperA>
         {/* <Sidebar /> */}
         <div>
-          <div>
-            <div>
-              {/* <img
+          <div className="flex flex-col h-screen">
+            <div className="flex items-center mx-4 mt-11">
+              <Link to="/">
+                <BsChevronLeft className="text-2xl h-11 " />
+              </Link>
+            </div>
+
+            {/* <div>
+              <img
                 src={`${process.env.REACT_APP_PUBLIC_FOLDER}/${userObject.profilePicture}`}
                 alt=""
                 className="w-6"
-              /> */}
-            </div>
-            <div>
-              <h4>{user.username}</h4>
-              <span>{user.desc}</span>
-            </div>
-            <div>
-              <span>nickName : </span>
-              <span>{user.nickName}</span>
-            </div>
+              />
+            </div> */}
+            <div className="bg-white min-h-full h-full backdrop-blur-[2px]	rounded-3xl opacity-95">
+              <div>
+                <span>desc : </span>
+                <span>{user.desc}</span>
+              </div>
+              <div>
+                <span>nickName : </span>
+                <span>{user.nickName}</span>
+              </div>
 
-            <div>
-              <span>likeSports : </span>
-              <span>{user.likeSports}</span>
-            </div>
-            <div>
-              <span>locations : </span>
-              <span>{user.locations}</span>
+              <div>
+                <span>likeSports : </span>
+                <span>{user.likeSports}</span>
+              </div>
+              <div>
+                <span>locations : </span>
+                <span>{user.locations}</span>
+              </div>
             </div>
           </div>
-          {user.nickName === userObject.nickName && (
+        </div>
+        {/* {user.nickName === userObject.nickName && (
             <button onClick={() => setProfileChange(true)}>수정하기</button>
           )}
           <div>{profileChange && <Infoedit />}</div>
@@ -102,10 +116,20 @@ export default function Profile() {
                 {followed === true ? 'Unfollow' : 'Follow'}
               </button>
             )}
-          </div>
-          {/* <Rightbar user={user} /> */}
-        </div>
-      </div>
+          </div> */}
+        {/* <Rightbar user={user} /> */}
+      </BgWrapperA>
     </div>
   );
 }
+
+const BgWrapper = styled.div`
+  background: linear-gradient(
+    166.9deg,
+    rgba(247, 157, 0, 0.05) -17.3%,
+    rgba(202, 190, 64, 0.28) 36.08%,
+    #a8d69b 89.46%
+  );
+`;
+const BgWrapperA = tw(BgWrapper)`
+w-full h-screen`;
