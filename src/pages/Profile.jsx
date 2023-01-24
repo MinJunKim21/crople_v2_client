@@ -18,11 +18,9 @@ export default function Profile() {
     userObject.followings.includes(user?._id)
   );
   const [profileChange, setProfileChange] = useState(false);
-  console.log(
-    `${process.env.REACT_APP_API_ROOT}/api/users?nickName=`,
-    'modetest'
-  );
+  console.log(nickName, 'nickName');
   console.log(user, 'user');
+  console.log(useParams(), 'useParams()');
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
@@ -67,11 +65,11 @@ export default function Profile() {
         <div>
           <div>
             <div>
-              <img
+              {/* <img
                 src={`${process.env.REACT_APP_PUBLIC_FOLDER}/${userObject.profilePicture}`}
                 alt=""
                 className="w-6"
-              />
+              /> */}
             </div>
             <div>
               <h4>{user.username}</h4>
@@ -81,6 +79,7 @@ export default function Profile() {
               <span>nickName : </span>
               <span>{user.nickName}</span>
             </div>
+
             <div>
               <span>likeSports : </span>
               <span>{user.likeSports}</span>

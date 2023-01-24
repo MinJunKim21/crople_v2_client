@@ -39,8 +39,8 @@ function Home() {
             <span>매칭될 수 있는 사람들 리스트</span>
             <div class="bg-blue-200">
               {allUsers.map((user) => (
-                <Link to={`/profile/${user.username}`} key={user._id}>
-                  <div>{user.username || user.email}</div>
+                <Link to={`/profile/${user.nickName}`} key={user._id}>
+                  <div>{user.nickName || user.email}</div>
                 </Link>
               ))}
             </div>
