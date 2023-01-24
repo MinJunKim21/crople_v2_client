@@ -56,7 +56,6 @@ export default function Profile() {
     setFollowed(!followed);
     window.location.reload(); // 원인 알게되면 이거 바꾸기...
   };
-
   return (
     <div className="bg-purple-200">
       <Topbar />
@@ -66,13 +65,9 @@ export default function Profile() {
           <div>
             <div>
               <img
-                src={
-                  user.coverPicture === '' || user.profilePicture === undefined
-                    ? PF + 'person/noCover.png'
-                    : PF + user.coverPicture
-                }
+                src={`${process.env.REACT_APP_PUBLIC_FOLDER}/${userObject.profilePicture}`}
                 alt=""
-                className="w-20"
+                className="w-6"
               />
               <img
                 src={
