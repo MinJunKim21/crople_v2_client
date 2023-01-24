@@ -22,6 +22,7 @@ export default function Profile() {
     `${process.env.REACT_APP_API_ROOT}/api/users?nickName=`,
     'modetest'
   );
+  console.log(user, 'user');
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
