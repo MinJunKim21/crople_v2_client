@@ -127,7 +127,7 @@ function Login() {
         className="w-full min-h-[300px] object-cover  absolute left-0 top-0"
         alt=""
       /> */}
-      <div class="bg-[url('../public/assets/pattern/LoginBgPattern.png')] bg-contain bg-no-repeat">
+      <div class="bg-[url('../public/assets/pattern/LoginBgPattern.png')] bg-contain bg-no-repeat bg-center">
         <BgWhiteBlur>
           <BgWrapper>
             <div className="flex flex-col justify-center items-center min-h-screen">
@@ -186,11 +186,10 @@ const BgWrapper = styled.div`
 
 const BgWhiteBlur = styled.div`
   background: radial-gradient(
-    55.04% 29% at 49.87% 62.62%,
+    55.16% 29.06% at 49.87% 37.81%,
     rgba(255, 255, 255, 0) 0%,
     #ffffff 100%
   );
-  // transform: matrix(1, 0, 0, -1, 0, 0);
 `;
 
 const BtnSNS = tw.button`
