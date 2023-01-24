@@ -13,7 +13,7 @@ export default function Profile() {
   const userObject = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState('');
-  const username = useParams().username;
+  const nickName = useParams().nickName;
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
   );
@@ -22,14 +22,14 @@ export default function Profile() {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
-        `${process.env.REACT_APP_API_ROOT}/api/users?username=` + username
+        `${process.env.REACT_APP_API_ROOT}/api/users?nickName=` + nickName
       );
       setUser(res.data);
     };
     fetchUser();
     setFollowed(userObject.followings.includes(user?._id));
     console.log(userObject.followings.includes(user?._id));
-  }, [user?._id, userObject.followings, username]);
+  }, [user?._id, userObject.followings, nickName]);
 
   const handleClick = async () => {
     try {
@@ -101,17 +101,13 @@ export default function Profile() {
               <span>locations : </span>
               <span>{user.locations}</span>
             </div>
-            <div>
-              <span>want gender : </span>
-              <span>{user.showGender}</span>
-            </div>
           </div>
-          {username === userObject.username && (
+          {nickName === userObject.nickName && (
             <button onClick={() => setProfileChange(true)}>수정하기</button>
           )}
           <div>{profileChange && <Infoedit />}</div>
           <div>
-            {username === userObject.username && <Rightbar user={user} />}
+            {nickName === userObject.nickName && <Rightbar user={user} />}
           </div>
           <div>
             {user.username !== userObject.username && (
