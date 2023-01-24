@@ -11,7 +11,7 @@ import Infoedit from '../components/Infoedit';
 
 export default function Profile() {
   const userObject = useContext(AuthContext);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState('');
   const nickName = useParams().nickName;
   const [followed, setFollowed] = useState(
@@ -31,7 +31,6 @@ export default function Profile() {
     };
     fetchUser();
     setFollowed(userObject.followings.includes(user?._id));
-    console.log(userObject.followings.includes(user?._id));
   }, [user?._id, userObject.followings, nickName]);
 
   const handleClick = async () => {
@@ -90,7 +89,7 @@ export default function Profile() {
               <span>{user.locations}</span>
             </div>
           </div>
-          {nickName === userObject.nickName && (
+          {user.nickName === userObject.nickName && (
             <button onClick={() => setProfileChange(true)}>수정하기</button>
           )}
           <div>{profileChange && <Infoedit />}</div>
