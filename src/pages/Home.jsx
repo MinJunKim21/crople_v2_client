@@ -7,12 +7,12 @@ import { AuthContext } from '../context/AuthContext';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 // import Navbar from '../components/Navbar';
 import NeedProfile from '../components/NeedProfile';
 
 function Home() {
-  const [allUsers, setAllUsers] = useState([]);
+  // const [allUsers, setAllUsers] = useState([]);
   // const [nickName, setNickName] = useState(undefined);
   const userObject = useContext(AuthContext);
   useEffect(() => {

@@ -18,9 +18,9 @@ export default function Profile() {
   // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState('');
   const nickName = useParams().nickName;
-  const [followed, setFollowed] = useState(
-    userObject.followings.includes(user?._id)
-  );
+  // const [followed, setFollowed] = useState(
+  //   userObject.followings.includes(user?._id)
+  // );
   // const [profileChange, setProfileChange] = useState(false);
   console.log(nickName, 'nickName');
   console.log(user, 'user');
