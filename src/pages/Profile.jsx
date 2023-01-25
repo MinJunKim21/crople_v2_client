@@ -19,12 +19,12 @@ export default function Profile() {
   const [user, setUser] = useState('');
   const nickName = useParams().nickName;
   const [followed, setFollowed] = useState(
-  //   userObject.followings.includes(user?._id)
-  // );
+    userObject.followings.includes(user?._id)
+  );
   // const [profileChange, setProfileChange] = useState(false);
   // console.log(nickName, 'nickName');
-  console.log(user, 'user');
-  console.log(useParams(), 'useParams()');
+  // console.log(user, 'user');
+  // console.log(useParams(), 'useParams()');
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
