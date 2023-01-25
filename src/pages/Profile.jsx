@@ -22,7 +22,7 @@ export default function Profile() {
   //   userObject.followings.includes(user?._id)
   // );
   // const [profileChange, setProfileChange] = useState(false);
-  console.log(nickName, 'nickName');
+  // console.log(nickName, 'nickName');
   console.log(user, 'user');
   console.log(useParams(), 'useParams()');
   useEffect(() => {
