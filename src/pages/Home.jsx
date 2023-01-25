@@ -12,7 +12,7 @@ import axios from 'axios';
 import NeedProfile from '../components/NeedProfile';
 
 function Home() {
-  // const [allUsers, setAllUsers] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   // const [nickName, setNickName] = useState(undefined);
   const userObject = useContext(AuthContext);
   useEffect(() => {
