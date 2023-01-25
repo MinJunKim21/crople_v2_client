@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import tw from 'tailwind-styled-components';
-import Topbar from '../components/Topbar';
+// import Topbar from '../components/Topbar';
 // import Sidebar from '../components/Sidebar';
 // import Rightbar from '../components/Rightbar';
 import { useContext } from 'react';
@@ -34,19 +33,27 @@ function Home() {
           <NeedProfile />
         </div>
       ) : (
-        <div>
+        <div className="relative">
+          <img
+            src="assets/pattern/Circular.png"
+            alt=""
+            className="object-cover absolute left-0 top-0 mt-24"
+          />
           <BgWrapper>
             {/* <Topbar /> */}
             <div class="flex flex-col h-screen">
-              <span>닉네임:{userObject.nickName}</span>
-              <span>매칭될 수 있는 사람들 리스트</span>
-              <div class="bg-blue-200">
+              <h3 className="text-center mt-11 text-[#8B8B8B] ">
+                프로필카드로 메이트를 알아보아요
+              </h3>
+              {/* <span>닉네임:{userObject.nickName}</span>
+              <span>매칭될 수 있는 사람들 리스트</span> */}
+              {/* <div class="bg-blue-200">
                 {allUsers.map((user) => (
                   <Link to={`/profile/${user.nickName}`} key={user._id}>
                     <div>{user.nickName || user.email}</div>
                   </Link>
                 ))}
-              </div>
+              </div> */}
             </div>
           </BgWrapper>
         </div>

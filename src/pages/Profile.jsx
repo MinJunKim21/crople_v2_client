@@ -1,16 +1,15 @@
 import styled from 'styled-components';
-import tw from 'tailwind-styled-components';
 
-import Topbar from '../components/Topbar';
+// import Topbar from '../components/Topbar';
 // import Sidebar from '../components/Sidebar';
-import Rightbar from '../components/Rightbar';
+// import Rightbar from '../components/Rightbar';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 // import { useRef } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import Infoedit from '../components/Infoedit';
+// import Infoedit from '../components/Infoedit';
 
 import { BsChevronLeft } from 'react-icons/bs';
 
@@ -22,7 +21,7 @@ export default function Profile() {
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
   );
-  const [profileChange, setProfileChange] = useState(false);
+  // const [profileChange, setProfileChange] = useState(false);
   console.log(nickName, 'nickName');
   console.log(user, 'user');
   console.log(useParams(), 'useParams()');
@@ -37,31 +36,31 @@ export default function Profile() {
     setFollowed(userObject.followings.includes(user?._id));
   }, [user?._id, userObject.followings, nickName]);
 
-  const handleClick = async () => {
-    try {
-      if (followed) {
-        await axios.put(
-          `${process.env.REACT_APP_API_ROOT}/api/users/` +
-            user._id +
-            '/unfollow',
-          {
-            userId: userObject._id,
-          }
-        );
-      } else {
-        await axios.put(
-          `${process.env.REACT_APP_API_ROOT}/api/users/` + user._id + '/follow',
-          {
-            userId: userObject._id,
-          }
-        );
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    setFollowed(!followed);
-    window.location.reload(); // 원인 알게되면 이거 바꾸기...
-  };
+  // const handleClick = async () => {
+  //   try {
+  //     if (followed) {
+  //       await axios.put(
+  //         `${process.env.REACT_APP_API_ROOT}/api/users/` +
+  //           user._id +
+  //           '/unfollow',
+  //         {
+  //           userId: userObject._id,
+  //         }
+  //       );
+  //     } else {
+  //       await axios.put(
+  //         `${process.env.REACT_APP_API_ROOT}/api/users/` + user._id + '/follow',
+  //         {
+  //           userId: userObject._id,
+  //         }
+  //       );
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  //   setFollowed(!followed);
+  //   window.location.reload(); // 원인 알게되면 이거 바꾸기...
+  // };
   return (
     <div>
       {/* <Topbar /> */}
