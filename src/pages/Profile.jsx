@@ -93,23 +93,25 @@ export default function Profile() {
                 </div>
               </div>
 
-              <div className="mx-4">
-                <div>
-                  <h4 className="text-[#8B8B8B] text-2xl">{user.nickName}</h4>
-                </div>
-                <div>
-                  <span>desc : </span>
-                  <span>{user.desc}</span>
+              <div className="px-4 flex w-full">
+                <div className="flex flex-col w-full">
+                  <div>
+                    <h4 className="text-[#8B8B8B] text-2xl">{user.nickName}</h4>
+                  </div>
+                  <div>
+                    <h4 className="text-[#A5A5A5] ">{user.locations}</h4>
+                  </div>
                 </div>
 
-                <div>
-                  <span>likeSports : </span>
-                  <span>{user.likeSports}</span>
+                <div className="flex w-full">
+                  <h4 className="border-2 border-[#C1C1C1] w-20 h-[1.875rem] text-center items-center rounded-full text-[#C1C1C1]">
+                    {user.likeSports}
+                  </h4>
                 </div>
-                <div>
-                  <span>locations : </span>
-                  <span>{user.locations}</span>
-                </div>
+              </div>
+              <div className="w-full mt-[3.75rem]">
+                <h4>자기소개</h4>
+                <span>{user.desc}</span>
               </div>
             </div>
           </div>
