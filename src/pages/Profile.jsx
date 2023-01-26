@@ -62,13 +62,13 @@ export default function Profile() {
   //   window.location.reload(); // 원인 알게되면 이거 바꾸기...
   // };
   return (
-    <div>
+    <div className="w-full h-full">
       {/* <Topbar /> */}
       <BgWrapper>
         {/* <Sidebar /> */}
         <div>
-          <div className="flex flex-col ">
-            <div className="flex items-center mx-4 mt-11">
+          <div className="min-w-screen min-h-screen">
+            <div className="flex items-center px-4 pt-11">
               <Link to="/">
                 <BsChevronLeft className="text-2xl h-11 " />
               </Link>

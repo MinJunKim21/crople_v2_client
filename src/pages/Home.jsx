@@ -7,7 +7,7 @@ import { AuthContext } from '../context/AuthContext';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import Navbar from '../components/Navbar';
 import NeedProfile from '../components/NeedProfile';
 
@@ -41,19 +41,25 @@ function Home() {
           />
           <BgWrapper>
             {/* <Topbar /> */}
-            <div class="flex flex-col h-screen">
+            <div class="flex flex-col h-screen relative">
               <h3 className="text-center mt-11 text-[#8B8B8B] ">
                 프로필카드로 메이트를 알아보아요
               </h3>
-              {/* <span>닉네임:{userObject.nickName}</span>
-              <span>매칭될 수 있는 사람들 리스트</span> */}
-              {/* <div class="bg-blue-200">
+              <Link to={`/profile/${userObject.nickName}`} key={userObject._id}>
+                <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] border-red-400 border-2 w-[5.375rem] h-[5.375rem] rounded-full ">
+                  <h4 className="flex text-center items-center w-full h-full">
+                    내닉네임:{userObject.nickName}
+                  </h4>
+                </div>
+              </Link>
+
+              <div class="bg-blue-200">
                 {allUsers.map((user) => (
                   <Link to={`/profile/${user.nickName}`} key={user._id}>
                     <div>{user.nickName || user.email}</div>
                   </Link>
                 ))}
-              </div> */}
+              </div>
             </div>
           </BgWrapper>
         </div>
