@@ -11,7 +11,7 @@ export default function Context({ children }) {
   console.log(userObject, 'authContext');
   useEffect(() => {
     axios
-      .get('https://real-gold-vulture-fez.cyclic.app/getuser', {
+      .get('https://server.croxple.com/getuser', {
         withCredentials: true,
       })
       .then((res) => {
