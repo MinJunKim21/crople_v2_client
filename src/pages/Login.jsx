@@ -127,7 +127,7 @@ function Login() {
         className="w-full min-h-[300px] object-cover  absolute left-0 top-0"
         alt=""
       /> */}
-      <div class="bg-[url('../public/assets/pattern/LoginBgPattern.png')] bg-contain bg-no-repeat bg-center">
+      <div className="bg-[url('../public/assets/pattern/LoginBgPattern.png')] bg-contain bg-no-repeat bg-center">
         <BgWhiteBlur>
           <BgWrapper>
             <div className="flex flex-col justify-center items-center min-h-screen">

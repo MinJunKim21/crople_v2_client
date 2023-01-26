@@ -118,7 +118,7 @@ export default function NeedProfile() {
                       <input
                         id={item.id}
                         type="checkbox"
-                        class="hidden peer"
+                        className="hidden peer"
                         value={item.data}
                         ref={likeSports}
                         onChange={(e) => {
@@ -131,7 +131,7 @@ export default function NeedProfile() {
                           sportsCheckedList.includes(item.data) ? true : false
                         }
                       />
-                      <OptionBtn for={item.id}>{item.data}</OptionBtn>
+                      <OptionBtn htmlFor={item.id}>{item.data}</OptionBtn>
                     </li>
                   );
                 })}
@@ -192,9 +192,9 @@ export default function NeedProfile() {
                             ? true
                             : false
                         }
-                        class="hidden peer"
+                        className="hidden peer"
                       />
-                      <OptionBtn for={item.id}>{item.data}</OptionBtn>
+                      <OptionBtn htmlFor={item.id}>{item.data}</OptionBtn>
                     </li>
                   );
                 })}
@@ -265,7 +265,7 @@ export default function NeedProfile() {
                     setFile(e.target.files[0]);
                   }}
                   required
-                  class="opacity-0 w-[1px] peer"
+                  className="opacity-0 w-[1px] peer"
                 />
               </div>
               {/* <span>필수</span> */}
@@ -300,7 +300,7 @@ export default function NeedProfile() {
                   onChange={(e) => {
                     setFile(e.target.files[0]);
                   }}
-                  class="opacity-0 w-[1px] peer"
+                  className="opacity-0 w-[1px] peer"
                 />
               </div>
 
@@ -335,7 +335,7 @@ export default function NeedProfile() {
                   onChange={(e) => {
                     setFile(e.target.files[0]);
                   }}
-                  class="opacity-0 w-[1px] peer"
+                  className="opacity-0 w-[1px] peer"
                 />
               </div>
             </div>
@@ -405,7 +405,7 @@ const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-[#F79D00] f
 // const OptionBtnChecked = tw.div`w-36 h-12 rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286]  peer-checked:bg-transparent`;
 // const OptionBtnCheckedBG = tw.div`w-36 h-12 rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center peer-checked:bg-transparent `;
 
-const NextBtnGraBorder = tw.button`w-full h-[5.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
+const NextBtnGraBorder = tw.div`w-full h-[5.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
 const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center`;
 const NextBtnGraText = tw.div`text-xl font-bold bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
 const SmGraText = tw.div`text-xs text-center  bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;

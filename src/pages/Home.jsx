@@ -41,7 +41,7 @@ function Home() {
           />
           <BgWrapper>
             {/* <Topbar /> */}
-            <div class="flex flex-col h-screen relative">
+            <div className="flex flex-col h-screen relative">
               <h3 className="text-center mt-11 text-[#8B8B8B] ">
                 프로필카드로 메이트를 알아보아요
               </h3>
@@ -53,7 +53,7 @@ function Home() {
                 </div>
               </Link>
 
-              <div class="bg-blue-200">
+              <div className="bg-blue-200">
                 {allUsers.map((user) => (
                   <Link to={`/profile/${user.nickName}`} key={user._id}>
                     <div>{user.nickName || user.email}</div>
