@@ -109,9 +109,12 @@ export default function Profile() {
                   </h4>
                 </div>
               </div>
-              <div className="w-full mt-[3.75rem]">
-                <h4>자기소개</h4>
-                <span>{user.desc}</span>
+              <div className="border-2 border-[#DFDFDF] w-full border-t mt-[3.75rem]"></div>
+              <div className=" px-4 mt-8">
+                <div className="w-full h-40 border-2 mb-40">
+                  <h4>자기소개</h4>
+                  <span>{user.desc}</span>
+                </div>
               </div>
             </div>
           </div>

@@ -410,7 +410,7 @@ const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border
 const NextBtnGraText = tw.div`text-xl font-bold bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
 const SmGraText = tw.div`text-xs text-center  bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
 
-const BgWrapper = tw.div`bg-white w-screen h-screen  pt-12 max-w-sm mx-4`;
+const BgWrapper = tw.div`bg-white w-screen h-screen  pt-12 max-w-sm mx-auto`;
 
 // const BgWrapper = styled.div`
 //   background: linear-gradient(
