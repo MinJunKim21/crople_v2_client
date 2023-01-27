@@ -346,7 +346,8 @@ export default function NeedProfile() {
                   placeholder="닉네임을 입력해주세요"
                   maxLength={8}
                   required
-                  pattern="[가-힣a-zA-Z]{1,8}"
+                  // pattern="/^[가-힣a-zA-Z]*$/"
+                  pattern="^[ㄱ-ㅎ가-힣a-zA-Z]+$"
                   className="peer w-full"
                   onBlur={handleFocus}
                   focused={focused.toString()}
