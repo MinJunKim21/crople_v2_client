@@ -22,17 +22,11 @@ function Login() {
   };
 
   const kakao = () => {
-    window.open(
-      'https://real-gold-vulture-fez.cyclic.app/kakaoauth/kakao',
-      '_self'
-    );
+    window.open('https://server.croxple.com/kakaoauth/kakao', '_self');
   };
 
   const naver = () => {
-    window.open(
-      'https://real-gold-vulture-fez.cyclic.app/naverauth/naver',
-      '_self'
-    );
+    window.open('https://server.croxple.com/naverauth/naver', '_self');
   };
 
   // const [popup, setPopup] = useState();
