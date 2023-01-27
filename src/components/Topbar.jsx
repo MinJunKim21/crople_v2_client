@@ -22,15 +22,23 @@ function Topbar() {
       <div>
         <Link to={`/profile/${userObject.nickName}`}>
           <div className="flex">
-            {/* <img
-              src={
-                userObject.profilePicture === ''
-                  ? `${process.env.REACT_APP_PUBLIC_FOLDER}/person/noAvatar.png`
-                  : `${process.env.REACT_APP_PUBLIC_FOLDER}/${userObject.profilePicture}`
-              }
+            <img
+              src={`${process.env.REACT_APP_PUBLIC_FOLDER}/${userObject.profilePicture}`}
               alt=""
               className="w-6"
-            /> */}
+            />
+            <span>local5001</span>
+            <img
+              src={`http://localhost:5001/images/${userObject.profilePicture}`}
+              alt=""
+              className="w-6"
+            />
+            <span>서버배포</span>
+            <img
+              src={`https://real-gold-vulture-fez.cyclic.app/images/${userObject.profilePicture}`}
+              alt=""
+              className="w-6"
+            />
 
             <span>
               {userObject.nickName ? userObject.nickName : userObject.email}

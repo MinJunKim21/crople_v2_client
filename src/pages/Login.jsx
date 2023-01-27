@@ -15,24 +15,18 @@ function Login() {
 
   const google = () => {
     window.open(
-      'https://real-gold-vulture-fez.cyclic.app/googleauth/google/callback',
+      'https://server.croxple.com/googleauth/google/callback',
       '_self'
     );
     // loginCall();
   };
 
   const kakao = () => {
-    window.open(
-      'https://real-gold-vulture-fez.cyclic.app/kakaoauth/kakao',
-      '_self'
-    );
+    window.open('https://server.croxple.com/kakaoauth/kakao', '_self');
   };
 
   const naver = () => {
-    window.open(
-      'https://real-gold-vulture-fez.cyclic.app/naverauth/naver',
-      '_self'
-    );
+    window.open('https://server.croxple.com/naverauth/naver', '_self');
   };
 
   // const [popup, setPopup] = useState();
@@ -127,7 +121,7 @@ function Login() {
         className="w-full min-h-[300px] object-cover  absolute left-0 top-0"
         alt=""
       /> */}
-      <div class="bg-[url('../public/assets/pattern/LoginBgPattern.png')] bg-contain bg-no-repeat">
+      <div className="bg-[url('../public/assets/pattern/LoginBgPattern.png')] bg-contain bg-no-repeat bg-center">
         <BgWhiteBlur>
           <BgWrapper>
             <div className="flex flex-col justify-center items-center min-h-screen">
@@ -181,16 +175,15 @@ const BgWrapper = styled.div`
     rgba(202, 190, 64, 0.28) 47.5%,
     rgba(247, 157, 0, 0) 84.7%
   );
-  mix-blend-mode: multiply;
+  // mix-blend-mode: multiply;
 `;
 
 const BgWhiteBlur = styled.div`
   background: radial-gradient(
-    55.04% 29% at 49.87% 62.62%,
+    55.16% 29.06% at 49.87% 37.81%,
     rgba(255, 255, 255, 0) 0%,
     #ffffff 100%
   );
-  // transform: matrix(1, 0, 0, -1, 0, 0);
 `;
 
 const BtnSNS = tw.button`
