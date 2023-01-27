@@ -8,6 +8,7 @@ import { useRef } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { BsChevronLeft } from 'react-icons/bs';
+import { MdCancel } from 'react-icons/md';
 
 const SPORTS_LIST = [
   { id: 0, data: '헬스' },
@@ -101,9 +102,6 @@ export default function NeedProfile() {
       <form onSubmit={updateData}>
         {question === 'one' ? (
           <BgWrapper>
-            <button>
-              <BsChevronLeft />
-            </button>
             <MainQuestion className="mt-14">
               어떤 운동을 좋아하세요?
             </MainQuestion>
@@ -341,19 +339,27 @@ export default function NeedProfile() {
             </div>
 
             <div className="flex border-b-2 mt-4 mb-10">
-              {/* <span>닉네임</span> */}
-              <input
-                ref={nickName}
-                type="text"
-                placeholder="닉네임을 입력해주세요"
-                maxLength={8}
-                required
-                pattern="[가-힣a-zA-Z]{1,8}"
-                className="peer w-full"
-                onBlur={handleFocus}
-                focused={focused.toString()}
-              />
-              <span>x</span>
+              <div className="flex items-center justify-between w-full">
+                <input
+                  ref={nickName}
+                  type="text"
+                  placeholder="닉네임을 입력해주세요"
+                  maxLength={8}
+                  required
+                  pattern="[가-힣a-zA-Z]{1,8}"
+                  className="peer w-full"
+                  onBlur={handleFocus}
+                  focused={focused.toString()}
+                />
+                <i
+                  className="text-gray-300"
+                  onClick={() => {
+                    nickName.current.value = '';
+                  }}
+                >
+                  <MdCancel />
+                </i>
+              </div>
 
               {/* <p
                 // class={`display-none peer-invalid:block peer-invalid:text-red-700  `}
