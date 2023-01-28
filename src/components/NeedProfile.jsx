@@ -77,7 +77,7 @@ export default function NeedProfile() {
       const data = new FormData();
       const filename = Date.now() + file.name;
       data.append('name', filename);
-      data.append('file', file);
+      data.append('image', file);
       updatedUser.profilePicture = filename;
       try {
         await axios.post(`${process.env.REACT_APP_API_ROOT}/api/upload`, data);
