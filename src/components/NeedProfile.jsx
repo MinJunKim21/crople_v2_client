@@ -449,27 +449,33 @@ export default function NeedProfile() {
         ) : null}
         {question === 'four' ? (
           <div>
-            <h1>profile card</h1>
-            <div>{profilePicture}</div>
-            <div>
-              <img src={file ? URL.createObjectURL(file) : null} alt="" />
-            </div>
-            {profilePicture && (
-              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
-                <button
-                  // onClick={() => {
-                  //   setQuestion('four');
-                  //   uploadImage();
-                  // }}
-                  type="submit"
-                  className="w-full"
-                >
-                  <NextBtnGraBorder>
-                    <NextBtnGraBg>
-                      <NextBtnGraText>시작하기</NextBtnGraText>
-                    </NextBtnGraBg>
-                  </NextBtnGraBorder>
-                </button>
+            {profilePicture ? (
+              <div>
+                <h1>profile card</h1>
+                <div>
+                  <img src={file ? URL.createObjectURL(file) : null} alt="" />
+                </div>
+                <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+                  <button
+                    // onClick={() => {
+                    //   setQuestion('four');
+                    //   uploadImage();
+                    // }}
+                    type="submit"
+                    className="w-full"
+                  >
+                    <NextBtnGraBorder>
+                      <NextBtnGraBg>
+                        <NextBtnGraText>시작하기</NextBtnGraText>
+                      </NextBtnGraBg>
+                    </NextBtnGraBorder>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <h3>loading...</h3>
+                <h4>여기서 프로필을 수정할 수 있어요.</h4>
               </div>
             )}
           </div>
