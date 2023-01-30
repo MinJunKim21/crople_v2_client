@@ -47,9 +47,13 @@ function Home() {
               </h3>
               <Link to={`/profile/${userObject.nickName}`} key={userObject._id}>
                 <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] border-red-400 border-2 w-[5.375rem] h-[5.375rem] rounded-full ">
-                  <h4 className="flex text-center items-center w-full h-full">
-                    내닉네임:{userObject.nickName}
-                  </h4>
+                  <div className="flex text-center items-center w-full h-full">
+                    <img
+                      src={userObject.profilePicture}
+                      className="object-cover w-full h-full rounded-full"
+                      alt=""
+                    />
+                  </div>
                 </div>
               </Link>
 

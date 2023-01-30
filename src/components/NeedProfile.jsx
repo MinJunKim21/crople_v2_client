@@ -454,22 +454,24 @@ export default function NeedProfile() {
             <div>
               <img src={file ? URL.createObjectURL(file) : null} alt="" />
             </div>
-            <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
-              <button
-                // onClick={() => {
-                //   setQuestion('four');
-                //   uploadImage();
-                // }}
-                type="submit"
-                className="w-full"
-              >
-                <NextBtnGraBorder>
-                  <NextBtnGraBg>
-                    <NextBtnGraText>시작하기</NextBtnGraText>
-                  </NextBtnGraBg>
-                </NextBtnGraBorder>
-              </button>
-            </div>
+            {profilePicture && (
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+                <button
+                  // onClick={() => {
+                  //   setQuestion('four');
+                  //   uploadImage();
+                  // }}
+                  type="submit"
+                  className="w-full"
+                >
+                  <NextBtnGraBorder>
+                    <NextBtnGraBg>
+                      <NextBtnGraText>시작하기</NextBtnGraText>
+                    </NextBtnGraBg>
+                  </NextBtnGraBorder>
+                </button>
+              </div>
+            )}
           </div>
         ) : null}
       </form>
