@@ -7,7 +7,6 @@ import { AuthContext } from './context/AuthContext';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Messenger from './pages/Messenger';
-import Test from './pages/Test';
 // import NeedProfile from './components/NeedProfile';
 
 function App() {
@@ -37,7 +36,6 @@ function App() {
           path="/messenger"
           element={userObject._id ? <Messenger /> : null}
         />
-        <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>
   );
