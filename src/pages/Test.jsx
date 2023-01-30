@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Image } from 'cloudinary-react';
 
 const Test = () => {
   const [file, setFile] = useState();
   const [caption, setCaption] = useState('');
+  const [pic, setPic] = useState();
 
   const submit = async (event) => {
     event.preventDefault();
@@ -13,11 +15,32 @@ const Test = () => {
     data.append('name', filename);
     data.append('image', file);
     // formData.append('caption', caption);
-    await axios.post(`${process.env.REACT_APP_API_ROOT}/api/upload`, data);
+    await axios.post(`${process.env.REACT_APP_API_ROOT}/api/imageupload`, data);
   };
   const fileSelected = (event) => {
     const file = event.target.files[0];
     setFile(file);
+  };
+
+  const [imageSelected, setImageSelected] = useState('');
+  const uploadImage = () => {
+    const formData = new FormData();
+
+    formData.append('file', imageSelected);
+    formData.append(
+      'upload_preset',
+      `${process.env.REACT_APP_CLOUDINARY_PRESET}`
+    );
+
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`,
+        formData
+      )
+      .then((res) => {
+        console.log(res);
+      });
+    // console.log(res);
   };
 
   return (
@@ -40,6 +63,17 @@ const Test = () => {
           </form>
         </div>
       </div>
+      <div>cloudinary</div>
+      <div>
+        <input
+          type="file"
+          onChange={(event) => {
+            setImageSelected(event.target.files[0]);
+          }}
+        />
+        <button onClick={uploadImage}>upload image</button>
+      </div>
+      <div>dddd</div>
     </div>
   );
 };

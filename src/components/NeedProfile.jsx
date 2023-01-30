@@ -32,11 +32,15 @@ export default function NeedProfile() {
   const [locationsCheckedList, setLocationsCheckedList] = useState([]);
   const [file, setFile] = useState(null);
   const [question, setQuestion] = useState('one');
+  const [profilePicture, setProfilePicture] = useState('');
+  const [nickNameDB, setNickNameDB] = useState('');
+  const [descDB, setDescDB] = useState('');
 
   const nickName = useRef();
   const likeSports = useRef();
   const locations = useRef();
   const selfIntroduction = useRef();
+  const [imageSelected, setImageSelected] = useState('');
 
   const [focused, setFocused] = useState(false);
 
@@ -67,20 +71,32 @@ export default function NeedProfile() {
   const updateData = async (e) => {
     e.preventDefault();
     const updatedUser = {
-      nickName: nickName.current.value,
+      nickName: nickNameDB,
       likeSports: sportsCheckedList,
       locations: locationsCheckedList,
       userId: user._id,
-      desc: selfIntroduction.current.value,
+      desc: descDB,
+      profilePicture: profilePicture,
     };
     if (file) {
-      const data = new FormData();
-      const filename = Date.now() + file.name;
-      data.append('name', filename);
-      data.append('image', file);
-      updatedUser.profilePicture = filename;
+      const formData = new FormData();
+
+      formData.append('file', imageSelected);
+      formData.append(
+        'upload_preset',
+        `${process.env.REACT_APP_CLOUDINARY_PRESET}`
+      );
+
       try {
-        await axios.post(`${process.env.REACT_APP_API_ROOT}/api/upload`, data);
+        axios
+          .post(
+            `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`,
+            formData
+          )
+          .then((res) => {
+            console.log(res);
+            updatedUser.profilePicture = res.data.url;
+          });
       } catch (err) {}
     }
     try {
@@ -93,8 +109,29 @@ export default function NeedProfile() {
       console.log(err);
     }
   };
-  // console.log(nickName.current.value);
 
+  const uploadImage = () => {
+    const formData = new FormData();
+
+    formData.append('file', imageSelected);
+    formData.append(
+      'upload_preset',
+      `${process.env.REACT_APP_CLOUDINARY_PRESET}`
+    );
+
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`,
+        formData
+      )
+      .then((res) => {
+        console.log(res);
+        setProfilePicture(res.data.url);
+        // updatedUser.profilePicture = res.data.url;
+      });
+    // console.log(res);
+  };
+  console.log(nickNameDB, 'nickNameDB');
   return (
     <div>
       {/* <Topbar /> */}
@@ -260,6 +297,7 @@ export default function NeedProfile() {
                   type="file"
                   id="fileInput"
                   onChange={(e) => {
+                    setImageSelected(e.target.files[0]);
                     setFile(e.target.files[0]);
                   }}
                   required
@@ -351,6 +389,7 @@ export default function NeedProfile() {
                   className="peer w-full"
                   onBlur={handleFocus}
                   focused={focused.toString()}
+                  onChange={() => setNickNameDB(nickName.current.value)}
                 />
                 <i
                   className="text-gray-300"
@@ -376,6 +415,7 @@ export default function NeedProfile() {
                 type="text"
                 placeholder="나를 잘 나타내는 소개글을 입력해주세요"
                 className="w-full border-2 rounded-md h-32 p-2"
+                onChange={() => setDescDB(selfIntroduction.current.value)}
               />
             </div>
 
@@ -388,7 +428,16 @@ export default function NeedProfile() {
             </div>
 
             <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
-              <button type="submit" className="w-full">
+              <button
+                onClick={() => {
+                  setQuestion('four');
+                  uploadImage();
+                  setNickNameDB(nickNameDB);
+                  setDescDB(descDB);
+                }}
+                // type="submit"
+                className="w-full"
+              >
                 <NextBtnGraBorder>
                   <NextBtnGraBg>
                     <NextBtnGraText>시작하기</NextBtnGraText>
@@ -397,6 +446,31 @@ export default function NeedProfile() {
               </button>
             </div>
           </BgWrapper>
+        ) : null}
+        {question === 'four' ? (
+          <div>
+            <h1>profile card</h1>
+            <div>{profilePicture}</div>
+            <div>
+              <img src={file ? URL.createObjectURL(file) : null} alt="" />
+            </div>
+            <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+              <button
+                // onClick={() => {
+                //   setQuestion('four');
+                //   uploadImage();
+                // }}
+                type="submit"
+                className="w-full"
+              >
+                <NextBtnGraBorder>
+                  <NextBtnGraBg>
+                    <NextBtnGraText>시작하기</NextBtnGraText>
+                  </NextBtnGraBg>
+                </NextBtnGraBorder>
+              </button>
+            </div>
+          </div>
         ) : null}
       </form>
     </div>
