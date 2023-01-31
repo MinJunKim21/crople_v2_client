@@ -34,7 +34,7 @@ export default function NeedProfile() {
   const [profilePictureDB, setProfilePictureDB] = useState('');
   const [nickNameDB, setNickNameDB] = useState('');
   const [descDB, setDescDB] = useState('');
-  const [imageSelected, setImageSelected] = useState('');
+  // const [imageSelected, setImageSelected] = useState('');
 
   const nickName = useRef();
   const likeSports = useRef();
@@ -279,7 +279,7 @@ export default function NeedProfile() {
                   type="file"
                   id="fileInput"
                   onChange={(e) => {
-                    setImageSelected(e.target.files[0]);
+                    // setImageSelected(e.target.files[0]);
                     setFile(e.target.files[0]);
                     fileChange(e);
                   }}
