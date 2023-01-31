@@ -67,41 +67,9 @@ export default function NeedProfile() {
     }
   };
 
-  const updateData = async (e) => {
-    e.preventDefault();
-    await uploadImage().then((res) => {
-      setProfilePictureDB(res.data.secure_url);
-    });
-
-    const updatedUser = {
-      nickName: nickNameDB,
-      likeSports: sportsCheckedList,
-      locations: locationsCheckedList,
-      userId: user._id,
-      desc: descDB,
-      profilePicture: profilePictureDB,
-    };
-    await axios.put(
-      `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
-      updatedUser
-    );
-    await window.location.reload();
-
-    // try {
-    //   await axios.put(
-    //     `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
-    //     updatedUser
-    //   );
-    //   window.location.reload();
-    // } catch (err) {
-    //   console.log(err);
-    // }
-  };
-
-  const uploadImage = async () => {
+  const uploadImage = async (file) => {
     const formData = new FormData();
-
-    formData.append('file', imageSelected);
+    formData.append('file', file);
     formData.append(
       'upload_preset',
       `${process.env.REACT_APP_CLOUDINARY_PRESET}`
@@ -114,9 +82,43 @@ export default function NeedProfile() {
     return res;
   };
 
-  console.log(nickNameDB, 'nickNameDB');
-  console.log(file, 'file');
-  console.log(profilePictureDB, 'profilePictureDB');
+  const fileChange = async (e) => {
+    const uploaded = await uploadImage(e.target.files[0]);
+    console.log(uploaded, 'filechange uploaded');
+    setProfilePictureDB(uploaded.data.secure_url);
+  };
+
+  const updateData = async (e) => {
+    const updatedUser = {
+      nickName: nickNameDB,
+      likeSports: sportsCheckedList,
+      locations: locationsCheckedList,
+      userId: user._id,
+      desc: descDB,
+      profilePicture: profilePictureDB,
+    };
+    e.preventDefault();
+    console.log('hello');
+    console.log(profilePictureDB, 'expecting url');
+
+    // await axios.put(
+    //   `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
+    //   updatedUser
+    // );
+
+    // await window.location.reload();
+
+    try {
+      await axios.put(
+        `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
+        updatedUser
+      );
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       {/* <Topbar /> */}
@@ -284,6 +286,7 @@ export default function NeedProfile() {
                   onChange={(e) => {
                     setImageSelected(e.target.files[0]);
                     setFile(e.target.files[0]);
+                    fileChange(e);
                   }}
                   required
                   className="opacity-0 w-[1px] peer"
