@@ -98,22 +98,17 @@ export default function NeedProfile() {
       profilePicture: profilePictureDB,
     };
     e.preventDefault();
-    console.log('hello');
     console.log(profilePictureDB, 'expecting url');
 
-    // await axios.put(
-    //   `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
-    //   updatedUser
-    // );
-
-    // await window.location.reload();
-
     try {
+      setQuestion('five');
       await axios.put(
         `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
         updatedUser
       );
-      window.location.reload();
+      await setTimeout(() => {
+        window.location.reload();
+      }, 5000);
     } catch (err) {
       console.log(err);
     }
@@ -441,21 +436,23 @@ export default function NeedProfile() {
               <div>
                 <img src={file ? URL.createObjectURL(file) : null} alt="" />
               </div>
-              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
-                <button
-                  // onClick={() => {
-                  //   setQuestion('five');
-                  // }}
-                  type="submit"
-                  className="w-full"
-                >
-                  <NextBtnGraBorder>
-                    <NextBtnGraBg>
-                      <NextBtnGraText>시작하기</NextBtnGraText>
-                    </NextBtnGraBg>
-                  </NextBtnGraBorder>
-                </button>
-              </div>
+              {nickNameDB !== '' && profilePictureDB !== '' ? (
+                <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+                  <button
+                    // onClick={() => {
+                    //   setQuestion('five');
+                    // }}
+                    type="submit"
+                    className="w-full"
+                  >
+                    <NextBtnGraBorder>
+                      <NextBtnGraBg>
+                        <NextBtnGraText>시작하기</NextBtnGraText>
+                      </NextBtnGraBg>
+                    </NextBtnGraBorder>
+                  </button>
+                </div>
+              ) : null}
             </div>
           </div>
         ) : null}
