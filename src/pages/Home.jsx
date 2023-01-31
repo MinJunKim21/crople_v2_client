@@ -28,7 +28,7 @@ function Home() {
 
   return (
     <div>
-      {userObject.nickName === undefined ? (
+      {userObject.nickName === undefined || userObject.profilePicture === '' ? (
         <div>
           <NeedProfile />
         </div>

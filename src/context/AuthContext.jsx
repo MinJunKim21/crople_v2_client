@@ -7,19 +7,19 @@ import { useState } from 'react';
 export const AuthContext = createContext();
 export default function Context({ children }) {
   const [userObject, setUserObject] = useState({});
-  console.log(`${process.env.REACT_APP_API_ROOT}/getuser`);
-  console.log(userObject, 'authContext');
+  // console.log(`${process.env.REACT_APP_API_ROOT}/getuser`);
+  // console.log(userObject, 'authContext');
   useEffect(() => {
     axios
       .get('https://server.croxple.com/getuser', {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res, 'got res');
+        // console.log(res, 'got res');
         if (res.data) {
-          console.log(res.data, 'res.data 존재');
+          // console.log(res.data, 'res.data 존재');
           setUserObject(res.data);
-          console.log('did set object');
+          // console.log('did set object');
         }
       });
   }, [userObject._id]);

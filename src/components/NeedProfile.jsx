@@ -31,15 +31,15 @@ export default function NeedProfile() {
   const [locationsCheckedList, setLocationsCheckedList] = useState([]);
   const [file, setFile] = useState(null);
   const [question, setQuestion] = useState('one');
-  const [profilePicture, setProfilePicture] = useState('');
+  const [profilePictureDB, setProfilePictureDB] = useState('');
   const [nickNameDB, setNickNameDB] = useState('');
   const [descDB, setDescDB] = useState('');
+  const [imageSelected, setImageSelected] = useState('');
 
   const nickName = useRef();
   const likeSports = useRef();
   const locations = useRef();
   const selfIntroduction = useRef();
-  const [imageSelected, setImageSelected] = useState('');
 
   const [focused, setFocused] = useState(false);
 
@@ -69,47 +69,36 @@ export default function NeedProfile() {
 
   const updateData = async (e) => {
     e.preventDefault();
+    await uploadImage().then((res) => {
+      setProfilePictureDB(res.data.secure_url);
+    });
+
     const updatedUser = {
       nickName: nickNameDB,
       likeSports: sportsCheckedList,
       locations: locationsCheckedList,
       userId: user._id,
       desc: descDB,
-      profilePicture: profilePicture,
+      profilePicture: profilePictureDB,
     };
-    if (file) {
-      const formData = new FormData();
+    await axios.put(
+      `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
+      updatedUser
+    );
+    await window.location.reload();
 
-      formData.append('file', imageSelected);
-      formData.append(
-        'upload_preset',
-        `${process.env.REACT_APP_CLOUDINARY_PRESET}`
-      );
-
-      try {
-        axios
-          .post(
-            `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`,
-            formData
-          )
-          .then((res) => {
-            console.log(res);
-            updatedUser.profilePicture = res.data.url;
-          });
-      } catch (err) {}
-    }
-    try {
-      await axios.put(
-        `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
-        updatedUser
-      );
-      window.location.reload();
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   await axios.put(
+    //     `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
+    //     updatedUser
+    //   );
+    //   window.location.reload();
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
-  const uploadImage = () => {
+  const uploadImage = async () => {
     const formData = new FormData();
 
     formData.append('file', imageSelected);
@@ -118,19 +107,16 @@ export default function NeedProfile() {
       `${process.env.REACT_APP_CLOUDINARY_PRESET}`
     );
 
-    axios
-      .post(
-        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`,
-        formData
-      )
-      .then((res) => {
-        console.log(res);
-        setProfilePicture(res.data.url);
-        // updatedUser.profilePicture = res.data.url;
-      });
-    // console.log(res);
+    const res = await axios.post(
+      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`,
+      formData
+    );
+    return res;
   };
+
   console.log(nickNameDB, 'nickNameDB');
+  console.log(file, 'file');
+  console.log(profilePictureDB, 'profilePictureDB');
   return (
     <div>
       {/* <Topbar /> */}
@@ -430,7 +416,6 @@ export default function NeedProfile() {
               <button
                 onClick={() => {
                   setQuestion('four');
-                  uploadImage();
                   setNickNameDB(nickNameDB);
                   setDescDB(descDB);
                 }}
@@ -439,7 +424,7 @@ export default function NeedProfile() {
               >
                 <NextBtnGraBorder>
                   <NextBtnGraBg>
-                    <NextBtnGraText>시작하기</NextBtnGraText>
+                    <NextBtnGraText>확인</NextBtnGraText>
                   </NextBtnGraBg>
                 </NextBtnGraBorder>
               </button>
@@ -448,35 +433,35 @@ export default function NeedProfile() {
         ) : null}
         {question === 'four' ? (
           <div>
-            {profilePicture ? (
+            <div>
+              <h1>profile card</h1>
               <div>
-                <h1>profile card</h1>
-                <div>
-                  <img src={file ? URL.createObjectURL(file) : null} alt="" />
-                </div>
-                <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
-                  <button
-                    // onClick={() => {
-                    //   setQuestion('four');
-                    //   uploadImage();
-                    // }}
-                    type="submit"
-                    className="w-full"
-                  >
-                    <NextBtnGraBorder>
-                      <NextBtnGraBg>
-                        <NextBtnGraText>시작하기</NextBtnGraText>
-                      </NextBtnGraBg>
-                    </NextBtnGraBorder>
-                  </button>
-                </div>
+                <img src={file ? URL.createObjectURL(file) : null} alt="" />
               </div>
-            ) : (
-              <div>
-                <h3>loading...</h3>
-                <h4>여기서 프로필을 수정할 수 있어요.</h4>
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+                <button
+                  // onClick={() => {
+                  //   setQuestion('five');
+                  // }}
+                  type="submit"
+                  className="w-full"
+                >
+                  <NextBtnGraBorder>
+                    <NextBtnGraBg>
+                      <NextBtnGraText>시작하기</NextBtnGraText>
+                    </NextBtnGraBg>
+                  </NextBtnGraBorder>
+                </button>
               </div>
-            )}
+            </div>
+          </div>
+        ) : null}
+        {question === 'five' ? (
+          <div>
+            <div>
+              <h3>loading...</h3>
+              <h4>여기서 프로필을 수정할 수 있어요.</h4>
+            </div>
           </div>
         ) : null}
       </form>
