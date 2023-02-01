@@ -60,7 +60,7 @@ function Home() {
                 <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] border-red-400 border-2 w-[5.375rem] h-[5.375rem] rounded-full ">
                   <div className="flex text-center items-center w-full h-full">
                     <img
-                      src={userObject.profilePicture}
+                      src={userObject.profilePicture[0]}
                       className="object-cover w-full h-full rounded-full"
                       alt=""
                     />
