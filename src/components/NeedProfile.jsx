@@ -33,7 +33,7 @@ export default function NeedProfile() {
   const [fileB, setFileB] = useState(null);
   const [fileC, setFileC] = useState(null);
   const [question, setQuestion] = useState('one');
-  const [profilePictureDB, setProfilePictureDB] = useState([]);
+  const profilePictureDB = [];
   const [nickNameDB, setNickNameDB] = useState('');
   const [descDB, setDescDB] = useState('');
   // const [imageSelected, setImageSelected] = useState('');
