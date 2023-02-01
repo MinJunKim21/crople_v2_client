@@ -308,7 +308,7 @@ export default function NeedProfile() {
               <div className="inline-block">
                 <div className="relative inline-block">
                   <div>
-                    <div className="bg-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
+                    <div className="bg-white  border-[1.5px] border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative p-[2px]  rounded-full">
                       {file ? (
                         <img
                           src={file ? URL.createObjectURL(file) : null}
@@ -321,7 +321,7 @@ export default function NeedProfile() {
                     </div>
                     <label
                       htmlFor="fileInput"
-                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full text-center ${
+                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
                         file ? 'text-transparent' : 'text-[#C1C1C1]'
                       }`}
                     >
@@ -343,7 +343,7 @@ export default function NeedProfile() {
               <div className="inline-block">
                 <div className="relative inline-block">
                   <div>
-                    <div className="bg-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
+                    <div className="bg-white  border-[1.5px] border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative p-[2px]  rounded-full">
                       {file ? (
                         <img
                           src={file ? URL.createObjectURL(file) : null}
@@ -356,7 +356,7 @@ export default function NeedProfile() {
                     </div>
                     <label
                       htmlFor="fileInput"
-                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full text-center ${
+                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
                         file ? 'text-transparent' : 'text-[#C1C1C1]'
                       }`}
                     >
@@ -411,10 +411,10 @@ export default function NeedProfile() {
             </div>
 
             <div className="mt-10">
-              <p className="text-xs text-[##8B8B8B] bg-[#F5F5F5] text-center p-2.5 rounded-lg">
+              <p className="text-xs text-[#8B8B8B] bg-[#F5F5F5] text-center p-2.5 rounded-lg">
                 과도한 노출로 선정적이거나 개인 정보를 포함한 이미지 등<br />
-                <b>커뮤니티 가이드라인</b>을 위반할 경우 계정이 제한될 수
-                있습니다.
+                <b className="font-bold">커뮤니티 가이드라인</b>을 위반할 경우
+                계정이 제한될 수 있습니다.
               </p>
             </div>
             {nickNameDB === '' || file === null || file === undefined ? (
@@ -492,7 +492,7 @@ const NextBtnGraText = tw.div`text-xl font-bold bg-gradient-to-t from-[#F79D00] 
 const NextBtnGrayBg = tw.div`w-full h-[5.25rem]  rounded-full bg-[#F5F5F5]   text-center flex justify-center items-center`;
 const NextBtnGrayText = tw.div`text-xl font-bold text-[#C1C1C1]`;
 
-const SmGraText = tw.div`text-xs text-center  bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
+const SmGraText = tw.div`text-xs text-center text-[#F79D00] font-bold`;
 
 const BgWrapper = tw.div`bg-white w-screen h-screen  pt-12 max-w-sm mx-auto`;
 
