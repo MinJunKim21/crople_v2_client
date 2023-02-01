@@ -1,4 +1,3 @@
-// import styled from 'styled-components';
 import tw from 'twin.macro';
 
 import { useState } from 'react';
@@ -8,6 +7,7 @@ import { useRef } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { BsChevronLeft } from 'react-icons/bs';
+import { MdCancel } from 'react-icons/md';
 
 const SPORTS_LIST = [
   { id: 0, data: '헬스' },
@@ -31,6 +31,10 @@ export default function NeedProfile() {
   const [locationsCheckedList, setLocationsCheckedList] = useState([]);
   const [file, setFile] = useState(null);
   const [question, setQuestion] = useState('one');
+  const [profilePictureDB, setProfilePictureDB] = useState('');
+  const [nickNameDB, setNickNameDB] = useState('');
+  const [descDB, setDescDB] = useState('');
+  // const [imageSelected, setImageSelected] = useState('');
 
   const nickName = useRef();
   const likeSports = useRef();
@@ -63,36 +67,52 @@ export default function NeedProfile() {
     }
   };
 
+  const uploadImage = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append(
+      'upload_preset',
+      `${process.env.REACT_APP_CLOUDINARY_PRESET}`
+    );
+
+    const res = await axios.post(
+      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`,
+      formData
+    );
+    return res;
+  };
+
+  const fileChange = async (e) => {
+    const uploaded = await uploadImage(e.target.files[0]);
+    console.log(uploaded, 'filechange uploaded');
+    setProfilePictureDB(uploaded.data.secure_url);
+  };
+
   const updateData = async (e) => {
-    e.preventDefault();
     const updatedUser = {
-      nickName: nickName.current.value,
+      nickName: nickNameDB,
       likeSports: sportsCheckedList,
       locations: locationsCheckedList,
       userId: user._id,
-      desc: selfIntroduction.current.value,
+      desc: descDB,
+      profilePicture: profilePictureDB,
     };
-    if (file) {
-      const data = new FormData();
-      const filename = Date.now() + file.name;
-      data.append('name', filename);
-      data.append('file', file);
-      updatedUser.profilePicture = filename;
-      try {
-        await axios.post(`${process.env.REACT_APP_API_ROOT}/api/upload`, data);
-      } catch (err) {}
-    }
+    e.preventDefault();
+    console.log(profilePictureDB, 'expecting url');
+
     try {
+      setQuestion('five');
       await axios.put(
         `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
         updatedUser
       );
-      window.location.reload();
+      await setTimeout(() => {
+        window.location.reload();
+      }, 5000);
     } catch (err) {
       console.log(err);
     }
   };
-  // console.log(nickName.current.value);
 
   return (
     <div>
@@ -101,9 +121,6 @@ export default function NeedProfile() {
       <form onSubmit={updateData}>
         {question === 'one' ? (
           <BgWrapper>
-            <button>
-              <BsChevronLeft />
-            </button>
             <MainQuestion className="mt-14">
               어떤 운동을 좋아하세요?
             </MainQuestion>
@@ -262,7 +279,9 @@ export default function NeedProfile() {
                   type="file"
                   id="fileInput"
                   onChange={(e) => {
+                    // setImageSelected(e.target.files[0]);
                     setFile(e.target.files[0]);
+                    fileChange(e);
                   }}
                   required
                   className="opacity-0 w-[1px] peer"
@@ -341,19 +360,29 @@ export default function NeedProfile() {
             </div>
 
             <div className="flex border-b-2 mt-4 mb-10">
-              {/* <span>닉네임</span> */}
-              <input
-                ref={nickName}
-                type="text"
-                placeholder="닉네임을 입력해주세요"
-                maxLength={8}
-                required
-                pattern="[가-힣a-zA-Z]{1,8}"
-                className="peer w-full"
-                onBlur={handleFocus}
-                focused={focused.toString()}
-              />
-              <span>x</span>
+              <div className="flex items-center justify-between w-full">
+                <input
+                  ref={nickName}
+                  type="text"
+                  placeholder="닉네임을 입력해주세요"
+                  maxLength={8}
+                  required
+                  // pattern="/^[가-힣a-zA-Z]*$/"
+                  pattern="^[ㄱ-ㅎ가-힣a-zA-Z]+$"
+                  className="peer w-full"
+                  onBlur={handleFocus}
+                  focused={focused.toString()}
+                  onChange={() => setNickNameDB(nickName.current.value)}
+                />
+                <i
+                  className="text-gray-300"
+                  onClick={() => {
+                    nickName.current.value = '';
+                  }}
+                >
+                  <MdCancel />
+                </i>
+              </div>
 
               {/* <p
                 // class={`display-none peer-invalid:block peer-invalid:text-red-700  `}
@@ -369,6 +398,7 @@ export default function NeedProfile() {
                 type="text"
                 placeholder="나를 잘 나타내는 소개글을 입력해주세요"
                 className="w-full border-2 rounded-md h-32 p-2"
+                onChange={() => setDescDB(selfIntroduction.current.value)}
               />
             </div>
 
@@ -381,15 +411,58 @@ export default function NeedProfile() {
             </div>
 
             <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
-              <button type="submit" className="w-full">
+              <button
+                onClick={() => {
+                  setQuestion('four');
+                  setNickNameDB(nickNameDB);
+                  setDescDB(descDB);
+                }}
+                // type="submit"
+                className="w-full"
+              >
                 <NextBtnGraBorder>
                   <NextBtnGraBg>
-                    <NextBtnGraText>시작하기</NextBtnGraText>
+                    <NextBtnGraText>확인</NextBtnGraText>
                   </NextBtnGraBg>
                 </NextBtnGraBorder>
               </button>
             </div>
           </BgWrapper>
+        ) : null}
+        {question === 'four' ? (
+          <div>
+            <div>
+              <h1>profile card</h1>
+              <div>
+                <img src={file ? URL.createObjectURL(file) : null} alt="" />
+              </div>
+              {nickNameDB !== '' && profilePictureDB !== '' ? (
+                <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+                  <button
+                    // onClick={() => {
+                    //   setQuestion('five');
+                    // }}
+                    type="submit"
+                    className="w-full"
+                  >
+                    <NextBtnGraBorder>
+                      <NextBtnGraBg>
+                        <NextBtnGraText>시작하기</NextBtnGraText>
+                      </NextBtnGraBg>
+                    </NextBtnGraBorder>
+                  </button>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
+        {question === 'five' ? (
+          <div>
+            <div>
+              <h3>loading...</h3>
+              <h4>여기서 프로필을 수정할 수 있어요.</h4>
+            </div>
+          </div>
         ) : null}
       </form>
     </div>
