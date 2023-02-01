@@ -35,6 +35,7 @@ export default function NeedProfile() {
   const [nickNameDB, setNickNameDB] = useState('');
   const [descDB, setDescDB] = useState('');
   // const [imageSelected, setImageSelected] = useState('');
+  console.log(file);
 
   const nickName = useRef();
   const likeSports = useRef();
@@ -154,21 +155,29 @@ export default function NeedProfile() {
                 })}
               </ul>
             </div>
-            <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
-              <NextBtnGraBorder
-                onClick={() => {
-                  if (sportsCheckedList.length === 0) {
-                    alert('최소 하나의 운동을 선택해야합니다');
-                  } else if (sportsCheckedList.length > 0) {
-                    setQuestion('two');
-                  }
-                }}
-              >
-                <NextBtnGraBg>
-                  <NextBtnGraText>다음</NextBtnGraText>
-                </NextBtnGraBg>
-              </NextBtnGraBorder>
-            </div>
+            {sportsCheckedList.length === 0 ? (
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+                <NextBtnGrayBg>
+                  <NextBtnGrayText>다음</NextBtnGrayText>
+                </NextBtnGrayBg>
+              </div>
+            ) : (
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+                <NextBtnGraBorder
+                  onClick={() => {
+                    if (sportsCheckedList.length === 0) {
+                      alert('최소 하나의 운동을 선택해야합니다');
+                    } else if (sportsCheckedList.length > 0) {
+                      setQuestion('two');
+                    }
+                  }}
+                >
+                  <NextBtnGraBg>
+                    <NextBtnGraText>다음</NextBtnGraText>
+                  </NextBtnGraBg>
+                </NextBtnGraBorder>
+              </div>
+            )}
             {/* </div> */}
           </BgWrapper>
         ) : null}
@@ -217,21 +226,29 @@ export default function NeedProfile() {
                 })}
               </ul>
             </div>
-            <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
-              <NextBtnGraBorder
-                onClick={() => {
-                  if (locationsCheckedList.length === 0) {
-                    alert('최소 하나의 지역을 선택해야합니다');
-                  } else if (locationsCheckedList.length > 0) {
-                    setQuestion('three');
-                  }
-                }}
-              >
-                <NextBtnGraBg>
-                  <NextBtnGraText>다음</NextBtnGraText>
-                </NextBtnGraBg>
-              </NextBtnGraBorder>
-            </div>
+            {locationsCheckedList.length === 0 ? (
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+                <NextBtnGrayBg>
+                  <NextBtnGrayText>다음</NextBtnGrayText>
+                </NextBtnGrayBg>
+              </div>
+            ) : (
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+                <NextBtnGraBorder
+                  onClick={() => {
+                    if (locationsCheckedList.length === 0) {
+                      alert('최소 하나의 지역을 선택해야합니다');
+                    } else if (locationsCheckedList.length > 0) {
+                      setQuestion('three');
+                    }
+                  }}
+                >
+                  <NextBtnGraBg>
+                    <NextBtnGraText>다음</NextBtnGraText>
+                  </NextBtnGraBg>
+                </NextBtnGraBorder>
+              </div>
+            )}
           </BgWrapper>
         ) : null}
         {question === 'three' ? (
@@ -359,7 +376,7 @@ export default function NeedProfile() {
               </div>
             </div>
 
-            <div className="flex border-b-2 mt-4 mb-10">
+            <div className="flex border-b-2 mt-4 mb-10 pb-2">
               <div className="flex items-center justify-between w-full">
                 <input
                   ref={nickName}
@@ -367,15 +384,14 @@ export default function NeedProfile() {
                   placeholder="닉네임을 입력해주세요"
                   maxLength={8}
                   required
-                  // pattern="/^[가-힣a-zA-Z]*$/"
                   pattern="^[ㄱ-ㅎ가-힣a-zA-Z]+$"
-                  className="peer w-full"
+                  className="peer w-full "
                   onBlur={handleFocus}
                   focused={focused.toString()}
                   onChange={() => setNickNameDB(nickName.current.value)}
                 />
                 <i
-                  className="text-gray-300"
+                  className="text-[#DFDFDF] w-6 h-6 text-[1.5rem]"
                   onClick={() => {
                     nickName.current.value = '';
                   }}
@@ -383,16 +399,8 @@ export default function NeedProfile() {
                   <MdCancel />
                 </i>
               </div>
-
-              {/* <p
-                // class={`display-none peer-invalid:block peer-invalid:text-red-700  `}
-                class="invisible text-red-500 peer-placeholder-shown:!invisible peer-invalid:visible"
-              >
-                오류메세지
-              </p> */}
             </div>
             <div>
-              {/* <span>소개글</span> */}
               <textarea
                 ref={selfIntroduction}
                 type="text"
@@ -409,24 +417,30 @@ export default function NeedProfile() {
                 있습니다.
               </p>
             </div>
-
-            <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
-              <button
-                onClick={() => {
-                  setQuestion('four');
-                  setNickNameDB(nickNameDB);
-                  setDescDB(descDB);
-                }}
-                // type="submit"
-                className="w-full"
-              >
-                <NextBtnGraBorder>
-                  <NextBtnGraBg>
-                    <NextBtnGraText>확인</NextBtnGraText>
-                  </NextBtnGraBg>
-                </NextBtnGraBorder>
-              </button>
-            </div>
+            {nickNameDB === '' || file === null || file === undefined ? (
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+                <NextBtnGrayBg>
+                  <NextBtnGrayText>확인</NextBtnGrayText>
+                </NextBtnGrayBg>
+              </div>
+            ) : (
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+                <button
+                  onClick={() => {
+                    setQuestion('four');
+                    setNickNameDB(nickNameDB);
+                    setDescDB(descDB);
+                  }}
+                  className="w-full"
+                >
+                  <NextBtnGraBorder>
+                    <NextBtnGraBg>
+                      <NextBtnGraText>확인</NextBtnGraText>
+                    </NextBtnGraBg>
+                  </NextBtnGraBorder>
+                </button>
+              </div>
+            )}
           </BgWrapper>
         ) : null}
         {question === 'four' ? (
@@ -438,13 +452,7 @@ export default function NeedProfile() {
               </div>
               {nickNameDB !== '' && profilePictureDB !== '' ? (
                 <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
-                  <button
-                    // onClick={() => {
-                    //   setQuestion('five');
-                    // }}
-                    type="submit"
-                    className="w-full"
-                  >
+                  <button type="submit" className="w-full">
                     <NextBtnGraBorder>
                       <NextBtnGraBg>
                         <NextBtnGraText>시작하기</NextBtnGraText>
@@ -481,6 +489,9 @@ const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-[#F79D00] f
 const NextBtnGraBorder = tw.div`w-full h-[5.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
 const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center`;
 const NextBtnGraText = tw.div`text-xl font-bold bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
+const NextBtnGrayBg = tw.div`w-full h-[5.25rem]  rounded-full bg-[#F5F5F5]   text-center flex justify-center items-center`;
+const NextBtnGrayText = tw.div`text-xl font-bold text-[#C1C1C1]`;
+
 const SmGraText = tw.div`text-xs text-center  bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
 
 const BgWrapper = tw.div`bg-white w-screen h-screen  pt-12 max-w-sm mx-auto`;
