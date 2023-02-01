@@ -30,12 +30,16 @@ export default function NeedProfile() {
   const [sportsCheckedList, setSportsCheckedList] = useState([]);
   const [locationsCheckedList, setLocationsCheckedList] = useState([]);
   const [file, setFile] = useState(null);
+  const [fileB, setFileB] = useState(null);
+  const [fileC, setFileC] = useState(null);
   const [question, setQuestion] = useState('one');
-  const [profilePictureDB, setProfilePictureDB] = useState('');
+  const [profilePictureDB, setProfilePictureDB] = useState([]);
   const [nickNameDB, setNickNameDB] = useState('');
   const [descDB, setDescDB] = useState('');
   // const [imageSelected, setImageSelected] = useState('');
-  console.log(file);
+  console.log(file, 'file');
+  console.log(fileB, 'fileB');
+  console.log(fileC, 'fileC');
 
   const nickName = useRef();
   const likeSports = useRef();
@@ -86,7 +90,8 @@ export default function NeedProfile() {
   const fileChange = async (e) => {
     const uploaded = await uploadImage(e.target.files[0]);
     console.log(uploaded, 'filechange uploaded');
-    setProfilePictureDB(uploaded.data.secure_url);
+    // setProfilePictureDB(uploaded.data.secure_url);
+    profilePictureDB.push(uploaded.data.secure_url);
   };
 
   const updateData = async (e) => {
@@ -282,7 +287,7 @@ export default function NeedProfile() {
                       )}
                     </div>
                     <label
-                      htmlFor="fileInput"
+                      htmlFor="fileInputA"
                       className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full text-center ${
                         file ? 'text-transparent' : 'text-[#C1C1C1]'
                       }`}
@@ -294,7 +299,7 @@ export default function NeedProfile() {
                 <SmGraText>필수</SmGraText>
                 <input
                   type="file"
-                  id="fileInput"
+                  id="fileInputA"
                   onChange={(e) => {
                     // setImageSelected(e.target.files[0]);
                     setFile(e.target.files[0]);
@@ -304,14 +309,14 @@ export default function NeedProfile() {
                   className="opacity-0 w-[1px] peer"
                 />
               </div>
-              {/* <span>필수</span> */}
+
               <div className="inline-block">
                 <div className="relative inline-block">
                   <div>
                     <div className="bg-white  border-[1.5px] border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative p-[2px]  rounded-full">
                       {file ? (
                         <img
-                          src={file ? URL.createObjectURL(file) : null}
+                          src={fileB ? URL.createObjectURL(fileB) : null}
                           alt=""
                           className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
                         />
@@ -320,9 +325,9 @@ export default function NeedProfile() {
                       )}
                     </div>
                     <label
-                      htmlFor="fileInput"
+                      htmlFor="fileInputB"
                       className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
-                        file ? 'text-transparent' : 'text-[#C1C1C1]'
+                        fileB ? 'text-transparent' : 'text-[#C1C1C1]'
                       }`}
                     >
                       +
@@ -332,9 +337,11 @@ export default function NeedProfile() {
                 <h6 className="text-xs text-[#8B8B8B] text-center">선택</h6>
                 <input
                   type="file"
-                  id="fileInput"
+                  id="fileInputB"
                   onChange={(e) => {
-                    setFile(e.target.files[0]);
+                    // setImageSelected(e.target.files[0]);
+                    setFileB(e.target.files[0]);
+                    fileChange(e);
                   }}
                   className="opacity-0 w-[1px] peer"
                 />
@@ -346,7 +353,7 @@ export default function NeedProfile() {
                     <div className="bg-white  border-[1.5px] border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative p-[2px]  rounded-full">
                       {file ? (
                         <img
-                          src={file ? URL.createObjectURL(file) : null}
+                          src={fileC ? URL.createObjectURL(fileC) : null}
                           alt=""
                           className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
                         />
@@ -355,9 +362,9 @@ export default function NeedProfile() {
                       )}
                     </div>
                     <label
-                      htmlFor="fileInput"
+                      htmlFor="fileInputC"
                       className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
-                        file ? 'text-transparent' : 'text-[#C1C1C1]'
+                        fileC ? 'text-transparent' : 'text-[#C1C1C1]'
                       }`}
                     >
                       +
@@ -367,9 +374,11 @@ export default function NeedProfile() {
                 <h6 className="text-xs text-[#8B8B8B] text-center">선택</h6>
                 <input
                   type="file"
-                  id="fileInput"
+                  id="fileInputC"
                   onChange={(e) => {
-                    setFile(e.target.files[0]);
+                    // setImageSelected(e.target.files[0]);
+                    setFileC(e.target.files[0]);
+                    fileChange(e);
                   }}
                   className="opacity-0 w-[1px] peer"
                 />
