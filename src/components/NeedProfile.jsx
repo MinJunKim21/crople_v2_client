@@ -33,13 +33,14 @@ export default function NeedProfile() {
   const [fileB, setFileB] = useState(null);
   const [fileC, setFileC] = useState(null);
   const [question, setQuestion] = useState('one');
-  const profilePictureDB = [];
+  const [profilePictureDB, setProfilePictureDB] = useState([]);
   const [nickNameDB, setNickNameDB] = useState('');
   const [descDB, setDescDB] = useState('');
   // const [imageSelected, setImageSelected] = useState('');
   console.log(file, 'file');
   console.log(fileB, 'fileB');
   console.log(fileC, 'fileC');
+  console.log(profilePictureDB, 'profilePictureDB');
 
   const nickName = useRef();
   const likeSports = useRef();
@@ -117,6 +118,7 @@ export default function NeedProfile() {
       }, 5000);
     } catch (err) {
       console.log(err);
+      setProfilePictureDB([]);
     }
   };
 
