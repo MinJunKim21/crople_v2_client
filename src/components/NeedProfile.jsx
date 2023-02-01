@@ -1,4 +1,5 @@
 import tw from 'twin.macro';
+import styled from 'styled-components';
 
 import { useState } from 'react';
 import axios from 'axios';
@@ -163,13 +164,13 @@ export default function NeedProfile() {
               </ul>
             </div>
             {sportsCheckedList.length === 0 ? (
-              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
                 <NextBtnGrayBg>
                   <NextBtnGrayText>다음</NextBtnGrayText>
                 </NextBtnGrayBg>
               </div>
             ) : (
-              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
                 <NextBtnGraBorder
                   onClick={() => {
                     if (sportsCheckedList.length === 0) {
@@ -234,13 +235,13 @@ export default function NeedProfile() {
               </ul>
             </div>
             {locationsCheckedList.length === 0 ? (
-              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
                 <NextBtnGrayBg>
                   <NextBtnGrayText>다음</NextBtnGrayText>
                 </NextBtnGrayBg>
               </div>
             ) : (
-              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
                 <NextBtnGraBorder
                   onClick={() => {
                     if (locationsCheckedList.length === 0) {
@@ -429,13 +430,13 @@ export default function NeedProfile() {
               </p>
             </div>
             {nickNameDB === '' || file === null || file === undefined ? (
-              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
                 <NextBtnGrayBg>
                   <NextBtnGrayText>확인</NextBtnGrayText>
                 </NextBtnGrayBg>
               </div>
             ) : (
-              <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
                 <button
                   onClick={() => {
                     setQuestion('four');
@@ -457,12 +458,79 @@ export default function NeedProfile() {
         {question === 'four' ? (
           <div>
             <div>
-              <h1>profile card</h1>
-              <div>
-                <img src={file ? URL.createObjectURL(file) : null} alt="" />
-              </div>
+              <BgGraWrapperA>
+                <div>
+                  <button
+                    onClick={() => {
+                      setQuestion('three');
+                    }}
+                    className="px-4 pb-2"
+                  >
+                    <BsChevronLeft />
+                  </button>
+                </div>
+                <div className="h-full">
+                  <CardWhiteBg className="bg-white w-full h-full backdrop-blur-[2px]	 opacity-95 flex-col">
+                    <div className="flex py-4 w-full">
+                      <h4 className="w-full text-center text-[#8B8B8B]">
+                        프로필카드가 완성되었어요!
+                      </h4>
+                    </div>
+                    <div className="px-4">
+                      <hr className="w-full bg-gradient-to-r to-[#F79D00] via-[#CABE40] from-[#9AE286] h-[2px] px-4" />
+                    </div>
+                    <div className="w-[9.5rem] h-[9.5rem] bg-gradient-to-b to-[#F79D00] via-[#CABE40] from-[#9AE286] p-[2px] rounded-full justify-center mx-auto mt-6 mb-14">
+                      <div className="justify-center flex items-center h-full w-full">
+                        <img
+                          src={file ? URL.createObjectURL(file) : null}
+                          alt=""
+                          className="w-full h-full object-cover rounded-full"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="px-4 flex w-full">
+                      <div className="flex flex-col w-full">
+                        <div>
+                          <h4 className="text-[#8B8B8B] text-2xl">
+                            {nickNameDB}
+                          </h4>
+                        </div>
+                        <div>
+                          {locationsCheckedList.map((location) => {
+                            return (
+                              <h4 key={location} className="text-[#A5A5A5] ">
+                                {location}
+                              </h4>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      <div className="flex w-full">
+                        {sportsCheckedList.map((likeSports) => {
+                          return (
+                            <h4 className="border-2 border-[#C1C1C1] w-20 h-[1.875rem] text-center items-center rounded-full text-[#C1C1C1]">
+                              {likeSports}
+                            </h4>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    <div className="border-2 border-[#DFDFDF] w-full border-t mt-[3.75rem]"></div>
+                    <div className=" px-4 mt-8">
+                      <div className="w-full h-40 border-2">
+                        <h4>자기소개</h4>
+                        <span>{user.desc}</span>
+                      </div>
+                    </div>
+                  </CardWhiteBg>
+                </div>
+              </BgGraWrapperA>
+            </div>
+            <div>
               {nickNameDB !== '' && profilePictureDB !== '' ? (
-                <div className="fixed bottom-0 left-[50%] w-full pb-8 max-w-sm mx-auto justify-center translate-x-[-50%]">
+                <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
                   <button type="submit" className="w-full">
                     <NextBtnGraBorder>
                       <NextBtnGraBg>
@@ -494,8 +562,6 @@ flex justify-center text-[#242424] font-semibold text-2xl`;
 const SubInstruction = tw.h6`flex justify-center text-[#555555] font-medium `;
 
 const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-[#F79D00] font-semibold w-36 h-12 flex text-center justify-center text-[#A5A5A5] items-center z-10`;
-// const OptionBtnChecked = tw.div`w-36 h-12 rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286]  peer-checked:bg-transparent`;
-// const OptionBtnCheckedBG = tw.div`w-36 h-12 rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center peer-checked:bg-transparent `;
 
 const NextBtnGraBorder = tw.div`w-full h-[5.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
 const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center`;
@@ -505,7 +571,26 @@ const NextBtnGrayText = tw.div`text-xl font-bold text-[#C1C1C1]`;
 
 const SmGraText = tw.div`text-xs text-center text-[#F79D00] font-bold`;
 
-const BgWrapper = tw.div`bg-white w-screen h-screen  pt-12 max-w-sm mx-auto`;
+const BgWrapper = tw.div`bg-white w-screen h-screen  pt-12 max-w-sm mx-auto px-4`;
+
+const BgGraWrapper = styled.div`
+  background: linear-gradient(
+    166.9deg,
+    rgba(247, 157, 0, 0.05) -17.3%,
+    rgba(202, 190, 64, 0.28) 36.08%,
+    #a8d69b 89.46%
+  );
+`;
+
+const BgGraWrapperA = tw(BgGraWrapper)`
+w-full h-screen pt-12 max-w-sm flex flex-col `;
+
+const CardWhiteBg = styled.div`
+  background: #ffffff;
+
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.16), 4px 8px 28px rgba(0, 0, 0, 0.08);
+  border-radius: 2rem 2rem 0px 0px;
+`;
 
 // const BgWrapper = styled.div`
 //   background: linear-gradient(
