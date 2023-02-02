@@ -115,9 +115,9 @@ export default function NeedProfile() {
         `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
         updatedUser
       );
-      await setTimeout(() => {
-        window.location.reload();
-      }, 5000);
+      // await setTimeout(() => {
+      //   window.location.reload();
+      // }, 5000);
     } catch (err) {
       console.log(err);
       setProfilePictureDB([]);
@@ -575,9 +575,18 @@ export default function NeedProfile() {
         ) : null}
         {question === 'five' ? (
           <div>
-            <div>
-              <h3>loading...</h3>
-              <h4>여기서 프로필을 수정할 수 있어요.</h4>
+            <div className="relative h-screen w-screen">
+              <h3 className="text-center">나와 꼭 맞는 메이트를 만나보세요!</h3>
+              <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] border">
+                <h4 className="text-center">
+                  여기서 프로필을 수정할 수 있어요.
+                </h4>
+              </div>
+              <img
+                src={file ? URL.createObjectURL(file) : null}
+                alt=""
+                className="w-20 h-20 object-cover rounded-full absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+              />
             </div>
           </div>
         ) : null}
