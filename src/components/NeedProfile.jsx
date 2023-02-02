@@ -123,6 +123,12 @@ export default function NeedProfile() {
     }
   };
 
+  const byteCounter = (s, b, i, c) => {
+    for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+
+    return b;
+  };
+
   return (
     <div>
       {/* <Topbar /> */}
@@ -269,7 +275,7 @@ export default function NeedProfile() {
               <BsChevronLeft />
             </button>
             <MainQuestion>자기소개를 부탁드려요</MainQuestion>
-            <SubInstruction className="mb-14">
+            <SubInstruction className="mb-8">
               메이트를 만날 준비가 다 됐어요
             </SubInstruction>
 
@@ -342,7 +348,6 @@ export default function NeedProfile() {
                   type="file"
                   id="fileInputB"
                   onChange={(e) => {
-                    // setImageSelected(e.target.files[0]);
                     setFileB(e.target.files[0]);
                     fileChange(e);
                   }}
@@ -388,7 +393,7 @@ export default function NeedProfile() {
               </div>
             </div>
 
-            <div className="flex border-b-2 mt-4 mb-10 pb-2">
+            <div className="flex border-b-2 mt-4 pb-2">
               <div className="flex items-center justify-between w-full">
                 <input
                   ref={nickName}
@@ -406,20 +411,32 @@ export default function NeedProfile() {
                   className="text-[#DFDFDF] w-6 h-6 text-[1.5rem]"
                   onClick={() => {
                     nickName.current.value = '';
+                    setNickNameDB('');
                   }}
                 >
                   <MdCancel />
                 </i>
               </div>
             </div>
+            <div className="text-right w-full text-xs text-[#A5A5A5] mb-4">
+              {nickNameDB.length}/8
+            </div>
             <div>
               <textarea
                 ref={selfIntroduction}
                 type="text"
-                placeholder="나를 잘 나타내는 소개글을 입력해주세요"
-                className="w-full border-2 rounded-md h-32 p-2"
-                onChange={() => setDescDB(selfIntroduction.current.value)}
+                placeholder="나를 잘 나타내는 소개글을 입력해주세요 (선택)"
+                className="w-full border-2 rounded-lg h-32 px-2 py-3"
+                onChange={() => {
+                  if (byteCounter(selfIntroduction.current.value) > 240) {
+                    selfIntroduction.current.value =
+                      selfIntroduction.current.value.slice(0, -1);
+                    console.log(selfIntroduction.current.value.slice(0, -5));
+                  }
+                  setDescDB(selfIntroduction.current.value);
+                }}
               />
+              <div> {byteCounter(descDB)}/240</div>
             </div>
 
             <div className="mt-10">
@@ -520,8 +537,7 @@ export default function NeedProfile() {
                     <div className="border-2 border-[#DFDFDF] w-full border-t mt-[3.75rem]"></div>
                     <div className=" px-4 mt-8">
                       <div className="w-full h-40 border-2">
-                        <h4>자기소개</h4>
-                        <span>{user.desc}</span>
+                        <span>{descDB}</span>
                       </div>
                     </div>
                   </CardWhiteBg>
