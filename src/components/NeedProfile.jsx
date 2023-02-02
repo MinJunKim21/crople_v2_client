@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { BsChevronLeft } from 'react-icons/bs';
 import { MdCancel } from 'react-icons/md';
+import { HiLocationMarker } from 'react-icons/hi';
 
 const SPORTS_LIST = [
   { id: 0, data: '헬스' },
@@ -399,6 +400,7 @@ export default function NeedProfile() {
                   ref={nickName}
                   type="text"
                   placeholder="닉네임을 입력해주세요"
+                  value={nickNameDB}
                   maxLength={8}
                   required
                   pattern="^[ㄱ-ㅎ가-힣a-zA-Z]+$"
@@ -425,8 +427,9 @@ export default function NeedProfile() {
               <textarea
                 ref={selfIntroduction}
                 type="text"
+                value={descDB}
                 placeholder="나를 잘 나타내는 소개글을 입력해주세요 (선택)"
-                className="w-full border-2 rounded-lg h-32 px-2 py-3"
+                className="w-full border-2 rounded-lg h-[11.75rem] px-2 py-3"
                 onChange={() => {
                   if (byteCounter(selfIntroduction.current.value) > 240) {
                     selfIntroduction.current.value =
@@ -436,10 +439,12 @@ export default function NeedProfile() {
                   setDescDB(selfIntroduction.current.value);
                 }}
               />
-              <div> {byteCounter(descDB)}/240</div>
+              <div className="text-[#A5A5A5] text-xs text-right">
+                {byteCounter(descDB)}/240
+              </div>
             </div>
 
-            <div className="mt-10">
+            <div className="mt-2">
               <p className="text-xs text-[#8B8B8B] bg-[#F5F5F5] text-center p-2.5 rounded-lg">
                 과도한 노출로 선정적이거나 개인 정보를 포함한 이미지 등<br />
                 <b className="font-bold">커뮤니티 가이드라인</b>을 위반할 경우
@@ -506,24 +511,29 @@ export default function NeedProfile() {
                       </div>
                     </div>
 
-                    <div className="px-4 flex w-full">
-                      <div className="flex flex-col w-full">
+                    <div className="px-4 flex flex-col  w-full">
+                      <div className="flex w-full items-center justify-between">
                         <div>
                           <h4 className="text-[#8B8B8B] text-2xl">
                             {nickNameDB}
                           </h4>
                         </div>
-                        <div>
+                        <div className="flex items-center space-x-1">
+                          <span className="text-lg text-[#DFDFDF]">
+                            <HiLocationMarker />
+                          </span>
                           {locationsCheckedList.map((location) => {
                             return (
-                              <h4 key={location} className="text-[#A5A5A5] ">
+                              <h4
+                                key={location}
+                                className="text-[#A5A5A5] text-lg "
+                              >
                                 {location}
                               </h4>
                             );
                           })}
                         </div>
                       </div>
-
                       <div className="flex w-full">
                         {sportsCheckedList.map((likeSports) => {
                           return (
@@ -534,9 +544,10 @@ export default function NeedProfile() {
                         })}
                       </div>
                     </div>
-                    <div className="border-2 border-[#DFDFDF] w-full border-t mt-[3.75rem]"></div>
-                    <div className=" px-4 mt-8">
-                      <div className="w-full h-40 border-2">
+
+                    <div className="border-1 border-[#DFDFDF] w-full border-t mt-[3.75rem]"></div>
+                    <div className=" px-4 mt-4">
+                      <div className="w-full h-40 px-6 text-[#6F6F6F]">
                         <span>{descDB}</span>
                       </div>
                     </div>
