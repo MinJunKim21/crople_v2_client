@@ -115,9 +115,9 @@ export default function NeedProfile() {
         `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
         updatedUser
       );
-      // await setTimeout(() => {
-      //   window.location.reload();
-      // }, 5000);
+      await setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (err) {
       console.log(err);
       setProfilePictureDB([]);
