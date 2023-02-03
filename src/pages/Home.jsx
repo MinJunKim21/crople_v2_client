@@ -10,6 +10,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 // import Navbar from '../components/Navbar';
 import NeedProfile from '../components/NeedProfile';
+import TabBar from '../components/TabBar';
 
 function Home() {
   const [allUsers, setAllUsers] = useState([]);
@@ -56,7 +57,7 @@ function Home() {
               <h3 className="text-center mt-11 text-[#8B8B8B] ">
                 프로필카드로 메이트를 알아보아요
               </h3>
-              <Link to={`/profile/${userObject.nickName}`} key={userObject._id}>
+              <Link to={`/profile/${userObject._id}`} key={userObject._id}>
                 <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] border-red-400 border-2 w-[5.375rem] h-[5.375rem] rounded-full ">
                   <div className="flex text-center items-center w-full h-full">
                     <img
@@ -70,7 +71,7 @@ function Home() {
 
               <div className="bg-blue-200">
                 {allUsers.map((user) => (
-                  <Link to={`/profile/${user.nickName}`} key={user._id}>
+                  <Link to={`/profile/${user._id}`} key={user._id}>
                     <div>{user.nickName || user.email}</div>
                   </Link>
                 ))}
@@ -78,7 +79,7 @@ function Home() {
               <div>-----------------------------------</div>
               <div className="bg-blue-200">
                 {recommendUsers.map((user) => (
-                  <Link to={`/profile/${user.nickName}`} key={user._id}>
+                  <Link to={`/profile/${user._id}`} key={user._id}>
                     <div>{user.nickName || user.email}</div>
                   </Link>
                 ))}
@@ -87,6 +88,9 @@ function Home() {
           </BgWrapper>
         </div>
       )}
+      <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+        <TabBar />
+      </div>
     </div>
   );
 }

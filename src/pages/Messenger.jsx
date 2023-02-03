@@ -8,6 +8,7 @@ import Conversations from '../components/Conversations';
 import Message from '../components/Message';
 import { io } from 'socket.io-client';
 import { Link } from 'react-router-dom';
+import TabBar from '../components/TabBar';
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
@@ -251,6 +252,9 @@ export default function Messenger() {
             currentId={userObject._id}
             setCurrentChat={setCurrentChat}
           /> */}
+        </div>
+        <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+          <TabBar />
         </div>
       </div>
     </>

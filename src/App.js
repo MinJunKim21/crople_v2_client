@@ -28,7 +28,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         {/* <Route path="/profile" element={<Profile />} /> */}
         <Route
-          path="/profile/:nickName"
+          path="/profile/:_id"
           element={userObject._id ? <Profile /> : null}
         />
 

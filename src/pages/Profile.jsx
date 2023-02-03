@@ -17,7 +17,7 @@ export default function Profile() {
   const userObject = useContext(AuthContext);
   // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState('');
-  const nickName = useParams().nickName;
+  const _id = useParams()._id;
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
   );
@@ -29,13 +29,13 @@ export default function Profile() {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
-        `${process.env.REACT_APP_API_ROOT}/api/users?nickName=` + nickName
+        `${process.env.REACT_APP_API_ROOT}/api/users?_id=` + _id
       );
       setUser(res.data);
     };
     fetchUser();
     setFollowed(userObject.followings.includes(user?._id));
-  }, [user?._id, userObject.followings, nickName]);
+  }, [user?._id, userObject.followings]);
 
   // const handleClick = async () => {
   //   try {
