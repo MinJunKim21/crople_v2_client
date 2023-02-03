@@ -283,27 +283,25 @@ export default function NeedProfile() {
             <div className="flex justify-center space-x-4">
               <div className="inline-block">
                 <div className="relative inline-block">
-                  <div>
-                    <div className="bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
-                      {file ? (
-                        <img
-                          src={file ? URL.createObjectURL(file) : null}
-                          alt=""
-                          className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
-                        />
-                      ) : (
-                        <div className="bg-white w-full h-full  rounded-full"></div>
-                      )}
-                    </div>
-                    <label
-                      htmlFor="fileInputA"
-                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full text-center ${
-                        file ? 'text-transparent' : 'text-[#C1C1C1]'
-                      }`}
-                    >
-                      프로필 사진
-                    </label>
+                  <div className="bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
+                    {file ? (
+                      <img
+                        src={file ? URL.createObjectURL(file) : null}
+                        alt=""
+                        className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
+                      />
+                    ) : (
+                      <div className="bg-white w-full h-full  rounded-full"></div>
+                    )}
                   </div>
+                  <label
+                    htmlFor="fileInputA"
+                    className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full text-center ${
+                      file ? 'text-transparent' : 'text-[#C1C1C1]'
+                    }`}
+                  >
+                    프로필 사진
+                  </label>
                 </div>
                 <SmGraText>필수</SmGraText>
                 <input
@@ -321,27 +319,29 @@ export default function NeedProfile() {
 
               <div className="inline-block">
                 <div className="relative inline-block">
-                  <div>
-                    <div className="bg-white  border-[1.5px] border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative p-[2px]  rounded-full">
-                      {file ? (
-                        <img
-                          src={fileB ? URL.createObjectURL(fileB) : null}
-                          alt=""
-                          className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
-                        />
-                      ) : (
-                        <div className="bg-white w-full h-full  rounded-full"></div>
-                      )}
-                    </div>
-                    <label
-                      htmlFor="fileInputB"
-                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
-                        fileB ? 'text-transparent' : 'text-[#C1C1C1]'
-                      }`}
-                    >
-                      +
-                    </label>
+                  <div
+                    className={`bg-white  box-content ${
+                      fileB ? null : 'border-[1.5px]'
+                    } border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative rounded-full`}
+                  >
+                    {file ? (
+                      <img
+                        src={fileB ? URL.createObjectURL(fileB) : null}
+                        alt=""
+                        className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
+                      />
+                    ) : (
+                      <div className="bg-white w-full h-full  rounded-full"></div>
+                    )}
                   </div>
+                  <label
+                    htmlFor="fileInputB"
+                    className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
+                      fileB ? 'text-transparent' : 'text-[#C1C1C1]'
+                    }`}
+                  >
+                    +
+                  </label>
                 </div>
                 <h6 className="text-xs text-[#8B8B8B] text-center">선택</h6>
                 <input
@@ -357,27 +357,29 @@ export default function NeedProfile() {
 
               <div className="inline-block">
                 <div className="relative inline-block">
-                  <div>
-                    <div className="bg-white  border-[1.5px] border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative p-[2px]  rounded-full">
-                      {file ? (
-                        <img
-                          src={fileC ? URL.createObjectURL(fileC) : null}
-                          alt=""
-                          className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
-                        />
-                      ) : (
-                        <div className="bg-white w-full h-full  rounded-full"></div>
-                      )}
-                    </div>
-                    <label
-                      htmlFor="fileInputC"
-                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
-                        fileC ? 'text-transparent' : 'text-[#C1C1C1]'
-                      }`}
-                    >
-                      +
-                    </label>
+                  <div
+                    className={`bg-white  box-content ${
+                      fileC ? null : 'border-[1.5px]'
+                    } border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative rounded-full`}
+                  >
+                    {file ? (
+                      <img
+                        src={fileC ? URL.createObjectURL(fileC) : null}
+                        alt=""
+                        className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
+                      />
+                    ) : (
+                      <div className="bg-white w-full h-full  rounded-full"></div>
+                    )}
                   </div>
+                  <label
+                    htmlFor="fileInputC"
+                    className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
+                      fileC ? 'text-transparent' : 'text-[#C1C1C1]'
+                    }`}
+                  >
+                    +
+                  </label>
                 </div>
                 <h6 className="text-xs text-[#8B8B8B] text-center">선택</h6>
                 <input
@@ -428,7 +430,7 @@ export default function NeedProfile() {
               </div>
             </div>
             <div className="text-right w-full text-xs text-[#A5A5A5] mb-4">
-              {byteCounter(nickNameDB)}/16
+              {byteCounter(nickNameDB)}/16 byte
             </div>
             <div>
               <textarea
@@ -446,7 +448,7 @@ export default function NeedProfile() {
                 }}
               />
               <div className="text-[#A5A5A5] text-xs text-right">
-                {byteCounter(descDB)}/240
+                {byteCounter(descDB)}/240 byte
               </div>
             </div>
 
