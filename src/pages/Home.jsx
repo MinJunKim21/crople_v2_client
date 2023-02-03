@@ -13,6 +13,7 @@ import NeedProfile from '../components/NeedProfile';
 
 function Home() {
   const [allUsers, setAllUsers] = useState([]);
+  const [recommendUsers, setRecommendUsers] = useState([]);
   // const [nickName, setNickName] = useState(undefined);
   const userObject = useContext(AuthContext);
   useEffect(() => {
@@ -24,6 +25,16 @@ function Home() {
       // console.log(allUsers);
     };
     fetchAll();
+  }, []);
+  useEffect(() => {
+    const fetchRecommend = async () => {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_ROOT}/api/users/recommend`
+      );
+      setRecommendUsers(res.data);
+      // console.log(allUsers);
+    };
+    fetchRecommend();
   }, []);
 
   return (
@@ -49,7 +60,7 @@ function Home() {
                 <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] border-red-400 border-2 w-[5.375rem] h-[5.375rem] rounded-full ">
                   <div className="flex text-center items-center w-full h-full">
                     <img
-                      src={userObject.profilePicture}
+                      src={userObject.profilePicture[0]}
                       className="object-cover w-full h-full rounded-full"
                       alt=""
                     />
@@ -59,6 +70,14 @@ function Home() {
 
               <div className="bg-blue-200">
                 {allUsers.map((user) => (
+                  <Link to={`/profile/${user.nickName}`} key={user._id}>
+                    <div>{user.nickName || user.email}</div>
+                  </Link>
+                ))}
+              </div>
+              <div>-----------------------------------</div>
+              <div className="bg-blue-200">
+                {recommendUsers.map((user) => (
                   <Link to={`/profile/${user.nickName}`} key={user._id}>
                     <div>{user.nickName || user.email}</div>
                   </Link>
