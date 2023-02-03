@@ -126,7 +126,6 @@ export default function NeedProfile() {
 
   const byteCounter = (s, b, i, c) => {
     for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 2 : c >> 7 ? 2 : 1);
-
     return b;
   };
 
@@ -436,7 +435,7 @@ export default function NeedProfile() {
                 ref={selfIntroduction}
                 type="text"
                 value={descDB}
-                placeholder="나를 잘 나타내는 소개글을 입력해주세요 (선택)"
+                placeholder="예시)&#10;헬스는 2년 정도 했고 무게 위주로 치는 중이에요.&#10;클라이밍은 해본 적 없지만 이번에 같이 할 친구 생기면 배워보고 싶어요!"
                 className="w-full border-2 rounded-lg h-[11.75rem] px-2 py-3"
                 onChange={() => {
                   if (byteCounter(selfIntroduction.current.value) > 240) {
@@ -557,7 +556,7 @@ export default function NeedProfile() {
 
                     <div className="border-1 border-[#DFDFDF] w-full border-t mt-4"></div>
                     <div className="mt-4">
-                      <div className="w-full h-40 px-6 text-[#6F6F6F]">
+                      <div className="w-full h-40 px-6 text-[#6F6F6F] whitespace-pre-wrap">
                         <span>{descDB}</span>
                       </div>
                     </div>
