@@ -125,7 +125,7 @@ export default function NeedProfile() {
   };
 
   const byteCounter = (s, b, i, c) => {
-    for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+    for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 2 : c >> 7 ? 2 : 1);
 
     return b;
   };
@@ -401,13 +401,21 @@ export default function NeedProfile() {
                   type="text"
                   placeholder="닉네임을 입력해주세요"
                   value={nickNameDB}
-                  maxLength={8}
+                  // maxLength={8}
                   required
                   pattern="^[ㄱ-ㅎ가-힣a-zA-Z]+$"
                   className="peer w-full "
                   onBlur={handleFocus}
                   focused={focused.toString()}
-                  onChange={() => setNickNameDB(nickName.current.value)}
+                  onChange={() => {
+                    if (byteCounter(nickName.current.value) > 16) {
+                      nickName.current.value = nickName.current.value.slice(
+                        0,
+                        -1
+                      );
+                    }
+                    setNickNameDB(nickName.current.value);
+                  }}
                 />
                 <i
                   className="text-[#DFDFDF] w-6 h-6 text-[1.5rem]"
@@ -421,7 +429,7 @@ export default function NeedProfile() {
               </div>
             </div>
             <div className="text-right w-full text-xs text-[#A5A5A5] mb-4">
-              {nickNameDB.length}/8
+              {byteCounter(nickNameDB)}/16
             </div>
             <div>
               <textarea
@@ -434,7 +442,6 @@ export default function NeedProfile() {
                   if (byteCounter(selfIntroduction.current.value) > 240) {
                     selfIntroduction.current.value =
                       selfIntroduction.current.value.slice(0, -1);
-                    console.log(selfIntroduction.current.value.slice(0, -5));
                   }
                   setDescDB(selfIntroduction.current.value);
                 }}
