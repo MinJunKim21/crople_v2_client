@@ -89,7 +89,7 @@ function Home() {
         </div>
       )}
       <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-        <TabBar />
+        <TabBar reload="true" />
       </div>
     </div>
   );

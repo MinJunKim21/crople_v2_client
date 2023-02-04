@@ -154,7 +154,7 @@ export default function Messenger() {
 
   return (
     <>
-      <Topbar />
+      {/* <Topbar /> */}
       <div className="flex justify-between">
         <div>
           <input placeholder="search friends" />
@@ -171,6 +171,7 @@ export default function Messenger() {
               />
             </div>
           ))}
+          <div>search 기능은 지금 필요 없는듯</div>
         </div>
         <div>
           <span>following each other friend</span>
@@ -213,6 +214,7 @@ export default function Messenger() {
           </div>
         </div>
         <div>
+          <div>채팅화면(대화창)</div>
           {currentChat ? (
             <>
               <div className="h-60 overflow-y-scroll">

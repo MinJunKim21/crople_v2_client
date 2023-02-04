@@ -1,12 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function TabBar() {
+function TabBar({ reload }) {
   return (
     <div className="space-x-8">
       <button>큐레이션</button>
       <Link to="/">
-        <button>홈</button>
+        <button
+          onClick={
+            reload === 'true'
+              ? () => {
+                  window.location.reload();
+                }
+              : null
+          }
+        >
+          홈
+        </button>
       </Link>
       <Link to="/messenger">
         <button>챗</button>
