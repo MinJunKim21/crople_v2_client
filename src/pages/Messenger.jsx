@@ -8,6 +8,7 @@ import Conversations from '../components/Conversations';
 import Message from '../components/Message';
 import { io } from 'socket.io-client';
 import { Link } from 'react-router-dom';
+import TabBar from '../components/TabBar';
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
@@ -153,7 +154,7 @@ export default function Messenger() {
 
   return (
     <>
-      <Topbar />
+      {/* <Topbar /> */}
       <div className="flex justify-between">
         <div>
           <input placeholder="search friends" />
@@ -170,6 +171,7 @@ export default function Messenger() {
               />
             </div>
           ))}
+          <div>search 기능은 지금 필요 없는듯</div>
         </div>
         <div>
           <span>following each other friend</span>
@@ -212,6 +214,7 @@ export default function Messenger() {
           </div>
         </div>
         <div>
+          <div>채팅화면(대화창)</div>
           {currentChat ? (
             <>
               <div className="h-60 overflow-y-scroll">
@@ -251,6 +254,9 @@ export default function Messenger() {
             currentId={userObject._id}
             setCurrentChat={setCurrentChat}
           /> */}
+        </div>
+        <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+          <TabBar />
         </div>
       </div>
     </>

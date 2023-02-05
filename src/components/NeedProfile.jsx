@@ -306,6 +306,7 @@ export default function NeedProfile() {
                 <SmGraText>필수</SmGraText>
                 <input
                   type="file"
+                  accept="image/*"
                   id="fileInputA"
                   onChange={(e) => {
                     // setImageSelected(e.target.files[0]);
@@ -346,6 +347,7 @@ export default function NeedProfile() {
                 <h6 className="text-xs text-[#8B8B8B] text-center">선택</h6>
                 <input
                   type="file"
+                  accept="image/*"
                   id="fileInputB"
                   onChange={(e) => {
                     setFileB(e.target.files[0]);
@@ -384,6 +386,7 @@ export default function NeedProfile() {
                 <h6 className="text-xs text-[#8B8B8B] text-center">선택</h6>
                 <input
                   type="file"
+                  accept="image/*"
                   id="fileInputC"
                   onChange={(e) => {
                     // setImageSelected(e.target.files[0]);
