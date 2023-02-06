@@ -35,7 +35,7 @@ export default function Profile() {
     };
     fetchUser();
     setFollowed(userObject.followings.includes(user?._id));
-  }, [user?._id, userObject.followings]);
+  }, [user, userObject.followings]);
 
   // const handleClick = async () => {
   //   try {
