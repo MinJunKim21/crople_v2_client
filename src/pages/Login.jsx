@@ -15,7 +15,7 @@ function Login() {
 
   const google = () => {
     window.open(
-      'https://server.croxple.com/googleauth/google/callback',
+      `${process.env.REACT_APP_API_ROOT}/googleauth/google/callback`,
       '_self'
     );
     // loginCall();
@@ -29,7 +29,7 @@ function Login() {
   };
 
   const naver = () => {
-    window.open('https://server.croxple.com/naverauth/naver', '_self');
+    window.open(`${process.env.REACT_APP_API_ROOT}/naverauth/naver`, '_self');
   };
 
   // const [popup, setPopup] = useState();
