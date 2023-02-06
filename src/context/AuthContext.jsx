@@ -10,9 +10,9 @@ export default function Context({ children }) {
   // console.log(`${process.env.REACT_APP_API_ROOT}/getuser`);
   // console.log(userObject, 'authContext');
   useEffect(() => {
-    console.log('getting authcontext');
+    console.log(process.env.REACT_APP_API_ROOT, 'getting authcontext');
     axios
-      .get('https://server.croxple.com/getuser', {
+      .get(`${process.env.REACT_APP_API_ROOT}/getuser`, {
         withCredentials: true,
       })
       .then((res) => {

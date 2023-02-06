@@ -22,7 +22,10 @@ function Login() {
   };
 
   const kakao = () => {
-    window.open('https://server.croxple.com/kakaoauth/kakao', '_self');
+    window.open(
+      `${process.env.REACT_APP_API_ROOT}/kakaoauth/kakao/callback`,
+      '_self'
+    );
   };
 
   const naver = () => {
