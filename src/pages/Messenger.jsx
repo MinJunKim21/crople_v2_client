@@ -26,7 +26,7 @@ export default function Messenger() {
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
-    socket.current = io('https://server.croxple.com');
+    socket.current = io('ws://server.croxple.com');
     socket.current.on('getMessage', (data) => {
       setArrivalMessage({
         sender: data.senderId,
