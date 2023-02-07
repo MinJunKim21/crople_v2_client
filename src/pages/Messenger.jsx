@@ -26,7 +26,7 @@ export default function Messenger() {
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
-    socket.current = io('ws://localhost:8900');
+    socket.current = io('ws://localhost:5001');
     socket.current.on('getMessage', (data) => {
       setArrivalMessage({
         sender: data.senderId,

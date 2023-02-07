@@ -29,7 +29,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
-        `${process.env.REACT_APP_API_ROOT}/api/users?_id=` + _id
+        `${process.env.REACT_APP_API_ROOT}/api/users?userId=` + _id
       );
       setUser(res.data);
     };
@@ -112,7 +112,6 @@ export default function Profile() {
               <div className="border-2 border-[#DFDFDF] w-full border-t mt-[3.75rem]"></div>
               <div className=" px-4 mt-8">
                 <div className="w-full h-40 border-2 mb-40">
-                  <h4>자기소개</h4>
                   <span>{user.desc}</span>
                 </div>
               </div>
