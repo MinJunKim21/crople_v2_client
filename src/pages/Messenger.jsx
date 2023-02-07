@@ -34,6 +34,7 @@ export default function Messenger() {
     socket = io(ENDPOINT, {
       // WARNING: in that case, there is no fallback to long-polling
       transports: ['websocket'], // or [ "websocket", "polling" ] (the order matters)
+      withCredentials: true,
     });
     console.log(socket, 'socket');
     socket.on('getMessage', (data) => {
