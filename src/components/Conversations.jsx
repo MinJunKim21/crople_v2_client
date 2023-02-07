@@ -5,7 +5,6 @@ import { useState } from 'react';
 
 export default function Conversations({ conversation, currentUser }) {
   const [user, setUser] = useState('');
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
     const friendId = conversation.members.find((m) => m !== currentUser._id);
@@ -25,16 +24,14 @@ export default function Conversations({ conversation, currentUser }) {
 
   return (
     <div>
-      <img
-        src={
-          user.profilePicture === '' || user.profilePicture === undefined
-            ? PF + 'person/noAvatar.png'
-            : PF + user.profilePicture
-        }
-        alt=""
-        className="w-6"
-      />
-      <span>{user?.username}</span>
+      <div className="flex">
+        <img
+          src={user.profilePicture}
+          alt=""
+          className="w-6 h-6 object-cover"
+        />
+        <span>{user.nickName}</span>
+      </div>
     </div>
   );
 }

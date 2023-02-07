@@ -52,6 +52,7 @@ export default function Messenger() {
     });
   }, [userObject]);
 
+  //접속한 userObject의 모든 conversation list를 가져옴
   useEffect(() => {
     const getConversations = async () => {
       try {
