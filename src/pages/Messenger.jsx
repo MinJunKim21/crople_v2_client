@@ -45,6 +45,7 @@ export default function Messenger() {
   useEffect(() => {
     socket.current.emit('addUser', userObject._id);
     socket.current.on('getUsers', (users) => {
+      console.log(users);
       // setOnlineUsers(
       //   userObject.followings.filter((f) => users.some((u) => u.userId === f))
       //   // users
@@ -88,6 +89,7 @@ export default function Messenger() {
           `${process.env.REACT_APP_API_ROOT}/api/messages/` + currentChat?._id
         );
         setMessages(res.data);
+        console.log(res.data, 'getMessages');
       } catch (err) {
         console.log(err);
       }

@@ -13,7 +13,6 @@ export default function Conversations({ conversation, currentUser }) {
         const res = await axios(
           `${process.env.REACT_APP_API_ROOT}/api/users?userId=` + friendId
         );
-        console.log(res);
         setUser(res.data);
       } catch (err) {
         console.log(err);
