@@ -6,9 +6,12 @@ import { AuthContext } from '../context/AuthContext';
 // import ChatOnline from '../components/ChatOnline';
 import Conversations from '../components/Conversations';
 import Message from '../components/Message';
-import { io } from 'socket.io-client';
+import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import TabBar from '../components/TabBar';
+
+const ENDPOINT = process.env.REACT_APP_API_ROOT;
+let socket;
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
@@ -18,16 +21,16 @@ export default function Messenger() {
   const [arrivalMessage, setArrivalMessage] = useState(null);
   // const [onlineUsers, setOnlineUsers] = useState([]);
   // const [socket, setSocket] = useState(null);
-  const socket = useRef();
+  // const socket = useRef();
   const userObject = useContext(AuthContext);
   const scrollRef = useRef();
   const [friendEachother, setFriendEachother] = useState([]);
   const [convExist, setConvExist] = useState(false);
   const [showButton, setShowButton] = useState(false);
-
   useEffect(() => {
-    socket.current = io('https://server.croxple.com/');
-    socket.current.on('getMessage', (data) => {
+    socket = io(ENDPOINT);
+    console.log(socket, 'socket');
+    socket.on('getMessage', (data) => {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
@@ -43,8 +46,8 @@ export default function Messenger() {
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    socket.current.emit('addUser', userObject._id);
-    socket.current.on('getUsers', (users) => {
+    socket.emit('addUser', userObject._id);
+    socket.on('getUsers', (users) => {
       console.log(users);
       // setOnlineUsers(
       //   userObject.followings.filter((f) => users.some((u) => u.userId === f))
@@ -109,7 +112,7 @@ export default function Messenger() {
       (member) => member !== userObject._id
     );
 
-    socket.current.emit('sendMessage', {
+    socket.emit('sendMessage', {
       senderId: userObject._id,
       receiverId,
       text: newMessage,
