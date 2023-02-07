@@ -27,8 +27,14 @@ export default function Messenger() {
   const [friendEachother, setFriendEachother] = useState([]);
   const [convExist, setConvExist] = useState(false);
   const [showButton, setShowButton] = useState(false);
+
+  console.log(ENDPOINT, 'endpoint');
+
   useEffect(() => {
-    socket = io(ENDPOINT);
+    socket = io(ENDPOINT, {
+      // WARNING: in that case, there is no fallback to long-polling
+      transports: ['websocket'], // or [ "websocket", "polling" ] (the order matters)
+    });
     console.log(socket, 'socket');
     socket.on('getMessage', (data) => {
       setArrivalMessage({
