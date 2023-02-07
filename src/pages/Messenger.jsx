@@ -33,7 +33,7 @@ export default function Messenger() {
   useEffect(() => {
     socket = io(ENDPOINT, {
       // WARNING: in that case, there is no fallback to long-polling
-      transports: ['websocket'], // or [ "websocket", "polling" ] (the order matters)
+      transports: ['websocket', 'polling'], // or [ "websocket", "polling" ] (the order matters)
       withCredentials: true,
     });
     console.log(socket, 'socket');
