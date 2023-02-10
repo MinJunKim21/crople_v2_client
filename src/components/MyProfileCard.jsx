@@ -9,9 +9,10 @@ import { Link, useParams } from 'react-router-dom';
 // import { useRef } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-// import Infoedit from '../components/Infoedit';
+import Infoedit from '../components/Infoedit';
 
 import { BsChevronLeft } from 'react-icons/bs';
+import { LineBtn } from './LineBtn';
 
 export const MyProfileCard = () => {
   const userObject = useContext(AuthContext);
@@ -22,6 +23,7 @@ export const MyProfileCard = () => {
     userObject.followings.includes(user?._id)
   );
   console.log(followed);
+  const [openInfoEdit, setOpenInfoEdit] = useState(false);
   // const [profileChange, setProfileChange] = useState(false);
   // console.log(nickName, 'nickName');
   // console.log(user, 'user');
@@ -67,28 +69,25 @@ export const MyProfileCard = () => {
       <BgWrapper>
         {/* <Sidebar /> */}
         <div>
-          <div className="min-w-screen min-h-screen relative">
+          <div className="min-w-screen min-h-screen relative ">
             <div className="flex items-center px-4 pt-11">
               <Link to="/">
                 <BsChevronLeft className="text-2xl h-11 " />
               </Link>
             </div>
 
-            {/* <div>
-          <img
-            src={`${process.env.REACT_APP_PUBLIC_FOLDER}/${userObject.profilePicture}`}
-            alt=""
-            className="w-6"
-          />
-        </div> */}
-            <div className="bg-white w-full backdrop-blur-[2px]	rounded-t-3xl opacity-95 absolute left-0 bottom-0">
-              <div className="flex py-4 text-center w-full">
-                <h3 className="w-full">프로필수정</h3>
-                <h3 className="w-full">미리보기</h3>
+            <div className="bg-white w-full  backdrop-blur-[2px]	rounded-t-3xl opacity-95 absolute left-0 bottom-0">
+              <div className="flex py-4 text-lg text-[#A5A5A5] text-center w-full">
+                <h3 className="w-full">내 프로필</h3>
               </div>
-              <div className="w-[10.5rem] h-[10.5rem] border-red-500 rounded-full border-2 justify-center mx-auto mt-6 mb-14">
+              <div className="flex w-full h-[2px]bg-gradient-to-r from-[#F79D00] via-[#CABE40] to-[#9AE286] border" />
+              <div className="w-[10.5rem] h-[10.5rem] bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] rounded-full  justify-center mx-auto mt-6 mb-14">
                 <div className="justify-center flex items-center h-full w-full">
-                  프사위치
+                  <img
+                    src={userObject.profilePicture[0]}
+                    className="object-cover w-full h-full p-0.5 rounded-full"
+                    alt=""
+                  />
                 </div>
               </div>
 
@@ -109,14 +108,25 @@ export const MyProfileCard = () => {
                 </div>
               </div>
               <div className="border-2 border-[#DFDFDF] w-full border-t mt-[3.75rem]"></div>
-              <div className=" px-4 mt-8">
-                <div className="w-full h-40 border-2 mb-40">
+              <div className=" px-6 mt-4">
+                <div className="w-full h-40 text-[#6F6F6F] mb-40">
                   <span>{user.desc}</span>
                 </div>
+              </div>
+              <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+                <button
+                  onClick={() => {
+                    setOpenInfoEdit(true);
+                  }}
+                  className="w-full"
+                >
+                  <LineBtn text={'수정하기'} />
+                </button>
               </div>
             </div>
           </div>
         </div>
+        {openInfoEdit === true && <Infoedit />}
         {/* {user.nickName === userObject.nickName && (
         <button onClick={() => setProfileChange(true)}>수정하기</button>
       )}
