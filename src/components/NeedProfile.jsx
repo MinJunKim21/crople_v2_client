@@ -10,6 +10,7 @@ import { AuthContext } from '../context/AuthContext';
 import { BsChevronLeft } from 'react-icons/bs';
 import { MdCancel } from 'react-icons/md';
 import { HiLocationMarker } from 'react-icons/hi';
+import { LineBtn } from './LineBtn';
 
 const SPORTS_LIST = [
   { id: 0, data: '헬스' },
@@ -274,7 +275,7 @@ export default function NeedProfile() {
             >
               <BsChevronLeft />
             </button>
-            <MainQuestion>자기소개를 부탁드려요</MainQuestion>
+            <MainQuestion>자기소개를 해주세요</MainQuestion>
             <SubInstruction className="mb-8">
               메이트를 만날 준비가 다 됐어요
             </SubInstruction>
@@ -573,11 +574,7 @@ export default function NeedProfile() {
               {nickNameDB !== '' && profilePictureDB !== '' ? (
                 <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
                   <button type="submit" className="w-full">
-                    <NextBtnGraBorder>
-                      <NextBtnGraBg>
-                        <NextBtnGraText>시작하기</NextBtnGraText>
-                      </NextBtnGraBg>
-                    </NextBtnGraBorder>
+                    <LineBtn text={'시작하기'} />
                   </button>
                 </div>
               ) : null}
