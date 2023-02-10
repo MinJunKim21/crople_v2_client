@@ -10,7 +10,6 @@ import { Link, useParams } from 'react-router-dom';
 // import { useRef } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import Infoedit from '../components/Infoedit';
 
 import { HiLocationMarker } from 'react-icons/hi';
 import { BsChevronLeft } from 'react-icons/bs';
@@ -25,7 +24,6 @@ export const MyProfileCard = () => {
     userObject.followings.includes(user?._id)
   );
   console.log(followed);
-  const [openInfoEdit, setOpenInfoEdit] = useState(false);
   // const [profileChange, setProfileChange] = useState(false);
   // console.log(nickName, 'nickName');
   // console.log(user, 'user');
@@ -159,16 +157,6 @@ const BgGraWrapper = styled.div`
     rgba(202, 190, 64, 0.28) 36.08%,
     #a8d69b 89.46%
   );
-`;
-const BgWrapper = styled.div`
-  background: linear-gradient(
-    166.9deg,
-    rgba(247, 157, 0, 0.05) -17.3%,
-    rgba(202, 190, 64, 0.28) 36.08%,
-    #a8d69b 89.46%
-  );
-  width: screen;
-  hight: screen;
 `;
 
 const BgGraWrapperA = tw(BgGraWrapper)`

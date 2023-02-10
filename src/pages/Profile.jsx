@@ -5,13 +5,12 @@ import styled from 'styled-components';
 // import Rightbar from '../components/Rightbar';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // import { useRef } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 // import Infoedit from '../components/Infoedit';
 
-import { BsChevronLeft } from 'react-icons/bs';
 import { MyProfileCard } from '../components/MyProfileCard';
 import { UsersProfileCard } from '../components/UsersProfileCard';
 
@@ -69,14 +68,3 @@ export default function Profile() {
     </div>
   );
 }
-
-const BgWrapper = styled.div`
-  background: linear-gradient(
-    166.9deg,
-    rgba(247, 157, 0, 0.05) -17.3%,
-    rgba(202, 190, 64, 0.28) 36.08%,
-    #a8d69b 89.46%
-  );
-  width: screen;
-  hight: screen;
-`;
