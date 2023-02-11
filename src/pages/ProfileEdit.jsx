@@ -89,17 +89,132 @@ export const ProfileEdit = () => {
                 </h4>
               </div>
               <div className="px-4">
-                <hr className="w-full bg-gradient-to-r to-[#F79D00] via-[#CABE40] from-[#9AE286] h-[2px] px-4" />
+                <hr className="w-full bg-gradient-to-r to-[#F79D00] via-[#CABE40] from-[#9AE286] h-[2px] px-4 mb-8" />
               </div>
-              <div className="w-[9.5rem] h-[9.5rem] bg-gradient-to-b to-[#F79D00] via-[#CABE40] from-[#9AE286] p-[2px] rounded-full justify-center mx-auto mt-6 ">
-                <div className="justify-center flex items-center h-full w-full">
-                  <img
-                    src={userObject.profilePicture[0]}
-                    alt=""
-                    className="w-full h-full object-cover rounded-full"
+
+              <div className="flex justify-center space-x-4">
+                <div className="inline-block">
+                  <div className="relative inline-block">
+                    <div className="bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
+                      {userObject.profilePicture[0] ? (
+                        <img
+                          src={userObject.profilePicture[0]}
+                          alt=""
+                          className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
+                        />
+                      ) : (
+                        <div className="bg-white w-full h-full  rounded-full"></div>
+                      )}
+                    </div>
+                    <label
+                      htmlFor="fileInputA"
+                      className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full text-center ${
+                        userObject.profilePicture[0]
+                          ? 'text-transparent'
+                          : 'text-[#C1C1C1]'
+                      }`}
+                    >
+                      프로필 사진
+                    </label>
+                  </div>
+                  <SmGraText>필수</SmGraText>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="fileInputA"
+                    // onChange={(e) => {
+                    //   // setImageSelected(e.target.files[0]);
+                    //   setFile(e.target.files[0]);
+                    //   fileChange(e);
+                    // }}
+                    required
+                    className="opacity-0 w-[1px] peer"
+                  />
+                </div>
+
+                <div className="inline-block">
+                  <div className="relative inline-block">
+                    <div
+                      className={`bg-white  box-content ${
+                        userObject.profilePicture[1] ? null : 'border-[1.5px]'
+                      } border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative rounded-full`}
+                    >
+                      {userObject.profilePicture[1] ? (
+                        <img
+                          src={userObject.profilePicture[1]}
+                          alt=""
+                          className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
+                        />
+                      ) : (
+                        <div className="bg-white w-full h-full  rounded-full"></div>
+                      )}
+                    </div>
+                    <label
+                      htmlFor="fileInputB"
+                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
+                        userObject.profilePicture[1]
+                          ? 'text-transparent'
+                          : 'text-[#C1C1C1]'
+                      }`}
+                    >
+                      +
+                    </label>
+                  </div>
+                  <h6 className="text-xs text-[#8B8B8B] text-center">선택</h6>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="fileInputB"
+                    // onChange={(e) => {
+                    //   setFileB(e.target.files[0]);
+                    //   fileChange(e);
+                    // }}
+                    className="opacity-0 w-[1px] peer"
+                  />
+                </div>
+
+                <div className="inline-block">
+                  <div className="relative inline-block">
+                    <div
+                      className={`bg-white  box-content ${
+                        userObject.profilePicture[2] ? null : 'border-[1.5px]'
+                      } border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative rounded-full`}
+                    >
+                      {userObject.profilePicture[2] ? (
+                        <img
+                          src={userObject.profilePicture[1]}
+                          alt=""
+                          className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
+                        />
+                      ) : (
+                        <div className="bg-white w-full h-full  rounded-full"></div>
+                      )}
+                    </div>
+                    <label
+                      htmlFor="fileInputC"
+                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
+                        userObject.profilePicture[2]
+                          ? 'text-transparent'
+                          : 'text-[#C1C1C1]'
+                      }`}
+                    >
+                      +
+                    </label>
+                  </div>
+                  <h6 className="text-xs text-[#8B8B8B] text-center">선택</h6>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="fileInputC"
+                    // onChange={(e) => {
+                    //   setFileB(e.target.files[0]);
+                    //   fileChange(e);
+                    // }}
+                    className="opacity-0 w-[1px] peer"
                   />
                 </div>
               </div>
+
               <div className="mt-4 mb-[1.125rem] w-full flex justify-center ">
                 <div className="bg-[#C1C1C1] w-1.5 h-1.5 rounded-full" />
               </div>
@@ -193,3 +308,5 @@ const CardWhiteBg = styled.div`
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.16), 4px 8px 28px rgba(0, 0, 0, 0.08);
   border-radius: 2rem 2rem 0px 0px;
 `;
+
+const SmGraText = tw.div`text-xs text-center text-[#F79D00] font-bold`;
