@@ -20,9 +20,7 @@ export const ProfileEdit = () => {
   const userObject = useContext(AuthContext);
   const [user, setUser] = useState('');
   const _id = useParams()._id;
-  const [followed, setFollowed] = useState(
-    userObject.followings.includes(user?._id)
-  );
+
   const selfIntroduction = useRef();
   const [descDB, setDescDB] = useState('');
   const [profilePictureDB, setProfilePictureDB] = useState([
