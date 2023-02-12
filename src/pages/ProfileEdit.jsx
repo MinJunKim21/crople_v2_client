@@ -42,7 +42,6 @@ export const ProfileEdit = () => {
       setUser(res.data);
     };
     fetchUser();
-    setFollowed(userObject.followings.includes(user?._id));
   }, [_id, user?._id, userObject.followings]);
 
   const byteCounter = (s, b, i, c) => {
