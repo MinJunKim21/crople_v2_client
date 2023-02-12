@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Messenger from './pages/Messenger';
 import Test from './pages/Test';
+import { ProfileEdit } from './pages/ProfileEdit';
 // import NeedProfile from './components/NeedProfile';
 
 function App() {
@@ -36,6 +37,10 @@ function App() {
         <Route
           path="/messenger"
           element={userObject._id ? <Messenger /> : null}
+        />
+        <Route
+          path="/profileedit/:_id"
+          element={userObject._id ? <ProfileEdit /> : null}
         />
         <Route path="/test" element={<Test />} />
       </Routes>

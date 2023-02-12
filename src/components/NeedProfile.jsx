@@ -10,6 +10,7 @@ import { AuthContext } from '../context/AuthContext';
 import { BsChevronLeft } from 'react-icons/bs';
 import { MdCancel } from 'react-icons/md';
 import { HiLocationMarker } from 'react-icons/hi';
+import { LineBtn } from './LineBtn';
 
 const SPORTS_LIST = [
   { id: 0, data: '헬스' },
@@ -35,7 +36,11 @@ export default function NeedProfile() {
   const [fileB, setFileB] = useState(null);
   const [fileC, setFileC] = useState(null);
   const [question, setQuestion] = useState('one');
-  const [profilePictureDB, setProfilePictureDB] = useState([]);
+  const [profilePictureDB, setProfilePictureDB] = useState(['', '', '']);
+  if (profilePictureDB[2] !== '' && profilePictureDB[1] === '') {
+    profilePictureDB[1] = profilePictureDB[2];
+    profilePictureDB[2] = '';
+  }
   const [nickNameDB, setNickNameDB] = useState('');
   const [descDB, setDescDB] = useState('');
   // const [imageSelected, setImageSelected] = useState('');
@@ -90,11 +95,12 @@ export default function NeedProfile() {
     return res;
   };
 
-  const fileChange = async (e) => {
+  const fileChange = async (e, index) => {
     const uploaded = await uploadImage(e.target.files[0]);
     console.log(uploaded, 'filechange uploaded');
     // setProfilePictureDB(uploaded.data.secure_url);
-    profilePictureDB.push(uploaded.data.secure_url);
+    // profilePictureDB.push(uploaded.data.secure_url);
+    profilePictureDB[index] = uploaded.data.secure_url;
   };
 
   const updateData = async (e) => {
@@ -274,7 +280,7 @@ export default function NeedProfile() {
             >
               <BsChevronLeft />
             </button>
-            <MainQuestion>자기소개를 부탁드려요</MainQuestion>
+            <MainQuestion>자기소개를 해주세요</MainQuestion>
             <SubInstruction className="mb-8">
               메이트를 만날 준비가 다 됐어요
             </SubInstruction>
@@ -311,7 +317,7 @@ export default function NeedProfile() {
                   onChange={(e) => {
                     // setImageSelected(e.target.files[0]);
                     setFile(e.target.files[0]);
-                    fileChange(e);
+                    fileChange(e, 0);
                   }}
                   required
                   className="opacity-0 w-[1px] peer"
@@ -325,7 +331,7 @@ export default function NeedProfile() {
                       fileB ? null : 'border-[1.5px]'
                     } border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative rounded-full`}
                   >
-                    {file ? (
+                    {fileB ? (
                       <img
                         src={fileB ? URL.createObjectURL(fileB) : null}
                         alt=""
@@ -351,7 +357,7 @@ export default function NeedProfile() {
                   id="fileInputB"
                   onChange={(e) => {
                     setFileB(e.target.files[0]);
-                    fileChange(e);
+                    fileChange(e, 1);
                   }}
                   className="opacity-0 w-[1px] peer"
                 />
@@ -364,7 +370,7 @@ export default function NeedProfile() {
                       fileC ? null : 'border-[1.5px]'
                     } border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative rounded-full`}
                   >
-                    {file ? (
+                    {fileC ? (
                       <img
                         src={fileC ? URL.createObjectURL(fileC) : null}
                         alt=""
@@ -391,7 +397,7 @@ export default function NeedProfile() {
                   onChange={(e) => {
                     // setImageSelected(e.target.files[0]);
                     setFileC(e.target.files[0]);
-                    fileChange(e);
+                    fileChange(e, 2);
                   }}
                   className="opacity-0 w-[1px] peer"
                 />
@@ -551,7 +557,10 @@ export default function NeedProfile() {
                       <div className="flex flex-wrap w-[75%]  ">
                         {sportsCheckedList.map((likeSports) => {
                           return (
-                            <h4 className="border px-4 py-2 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mb-2 mr-2">
+                            <h4
+                              key={likeSports}
+                              className="border px-4 py-2 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mb-2 mr-2"
+                            >
                               {likeSports}
                             </h4>
                           );
@@ -573,11 +582,7 @@ export default function NeedProfile() {
               {nickNameDB !== '' && profilePictureDB !== '' ? (
                 <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
                   <button type="submit" className="w-full">
-                    <NextBtnGraBorder>
-                      <NextBtnGraBg>
-                        <NextBtnGraText>시작하기</NextBtnGraText>
-                      </NextBtnGraBg>
-                    </NextBtnGraBorder>
+                    <LineBtn text={'시작하기'} />
                   </button>
                 </div>
               ) : null}

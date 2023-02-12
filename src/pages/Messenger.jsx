@@ -1,14 +1,17 @@
 import axios from 'axios';
 import React from 'react';
 import { useState, useEffect, useRef, useContext } from 'react';
-import Topbar from '../components/Topbar';
+// import Topbar from '../components/Topbar';
 import { AuthContext } from '../context/AuthContext';
 // import ChatOnline from '../components/ChatOnline';
 import Conversations from '../components/Conversations';
 import Message from '../components/Message';
-import { io } from 'socket.io-client';
+import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import TabBar from '../components/TabBar';
+
+const ENDPOINT = process.env.REACT_APP_API_ROOT;
+let socket;
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
@@ -18,16 +21,23 @@ export default function Messenger() {
   const [arrivalMessage, setArrivalMessage] = useState(null);
   // const [onlineUsers, setOnlineUsers] = useState([]);
   // const [socket, setSocket] = useState(null);
-  const socket = useRef();
+  // const socket = useRef();
   const userObject = useContext(AuthContext);
   const scrollRef = useRef();
   const [friendEachother, setFriendEachother] = useState([]);
   const [convExist, setConvExist] = useState(false);
   const [showButton, setShowButton] = useState(false);
 
+  console.log(ENDPOINT, 'endpoint');
+
   useEffect(() => {
-    socket.current = io('ws://localhost:8900');
-    socket.current.on('getMessage', (data) => {
+    socket = io(ENDPOINT, {
+      // WARNING: in that case, there is no fallback to long-polling
+      transports: ['websocket', 'polling'], // or [ "websocket", "polling" ] (the order matters)
+      withCredentials: true,
+    });
+    console.log(socket, 'socket');
+    socket.on('getMessage', (data) => {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
@@ -43,8 +53,9 @@ export default function Messenger() {
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    socket.current.emit('addUser', userObject._id);
-    socket.current.on('getUsers', (users) => {
+    socket.emit('addUser', userObject._id);
+    socket.on('getUsers', (users) => {
+      console.log(users);
       // setOnlineUsers(
       //   userObject.followings.filter((f) => users.some((u) => u.userId === f))
       //   // users
@@ -52,6 +63,7 @@ export default function Messenger() {
     });
   }, [userObject]);
 
+  //접속한 userObject의 모든 conversation list를 가져옴
   useEffect(() => {
     const getConversations = async () => {
       try {
@@ -87,6 +99,7 @@ export default function Messenger() {
           `${process.env.REACT_APP_API_ROOT}/api/messages/` + currentChat?._id
         );
         setMessages(res.data);
+        console.log(res.data, 'getMessages');
       } catch (err) {
         console.log(err);
       }
@@ -106,7 +119,7 @@ export default function Messenger() {
       (member) => member !== userObject._id
     );
 
-    socket.current.emit('sendMessage', {
+    socket.emit('sendMessage', {
       senderId: userObject._id,
       receiverId,
       text: newMessage,
