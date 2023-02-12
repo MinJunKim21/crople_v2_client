@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import tw from 'twin.macro';
 
 // import Topbar from '../components/Topbar';
 // import Sidebar from '../components/Sidebar';
@@ -12,6 +13,8 @@ import { AuthContext } from '../context/AuthContext';
 // import Infoedit from '../components/Infoedit';
 
 import { BsChevronLeft } from 'react-icons/bs';
+import { HiLocationMarker } from 'react-icons/hi';
+import { LineBtn } from './LineBtn';
 
 export const UsersProfileCard = () => {
   const userObject = useContext(AuthContext);
@@ -64,87 +67,104 @@ export const UsersProfileCard = () => {
   // };
   return (
     <div>
-      {/* <Topbar /> */}
-      <BgWrapper>
-        {/* <Sidebar /> */}
-        <div>
-          <div className="min-w-screen min-h-screen relative">
-            <div className="flex items-center px-4 pt-11">
-              <Link to="/">
-                <BsChevronLeft className="text-2xl h-11 " />
+      <div>
+        <BgGraWrapperA>
+          <div>
+            <button className="px-4 pb-2">
+              <Link to={'/'}>
+                <BsChevronLeft />
               </Link>
-            </div>
-
-            {/* <div>
-          <img
-            src={`${process.env.REACT_APP_PUBLIC_FOLDER}/${userObject.profilePicture}`}
-            alt=""
-            className="w-6"
-          />
-        </div> */}
-            <div className="bg-white w-full backdrop-blur-[2px]	rounded-t-3xl opacity-95 absolute left-0 bottom-0">
-              <div className="flex py-4 text-center w-full">
-                <h3 className="w-full">프로필수정</h3>
-                <h3 className="w-full">미리보기</h3>
+            </button>
+          </div>
+          <div className="h-full">
+            <CardWhiteBg className="bg-white w-full h-full backdrop-blur-[2px]	 opacity-95 flex-col">
+              <div className="flex py-4 w-full">
+                <h4 className="w-full text-center text-[#8B8B8B]">프로필</h4>
               </div>
-              <div className="w-[10.5rem] h-[10.5rem] border-red-500 rounded-full border-2 justify-center mx-auto mt-6 mb-14">
+              <div className="px-4">
+                <hr className="w-full bg-gradient-to-r to-[#F79D00] via-[#CABE40] from-[#9AE286] h-[2px] px-4" />
+              </div>
+              <div className="w-[9.5rem] h-[9.5rem] bg-gradient-to-b to-[#F79D00] via-[#CABE40] from-[#9AE286] p-[2px] rounded-full justify-center mx-auto mt-6 ">
                 <div className="justify-center flex items-center h-full w-full">
-                  프사위치
+                  <img
+                    src={user.profilePicture[0]}
+                    alt=""
+                    className="w-full h-full object-cover rounded-full"
+                  />
                 </div>
               </div>
+              <div className="mt-4 mb-[1.125rem] w-full flex justify-center ">
+                <div className="bg-[#C1C1C1] w-1.5 h-1.5 rounded-full" />
+              </div>
 
-              <div className="px-4 flex w-full">
-                <div className="flex flex-col w-full">
+              <div className="px-6 flex flex-col  w-full">
+                <div className="flex w-full items-center justify-between mb-8 ">
                   <div>
                     <h4 className="text-[#8B8B8B] text-2xl">{user.nickName}</h4>
                   </div>
-                  <div>
-                    <h4 className="text-[#A5A5A5] ">{user.locations}</h4>
+                  <div className="flex items-center space-x-1">
+                    <span className="text-lg text-[#DFDFDF]">
+                      <HiLocationMarker />
+                    </span>
+                    {user.locations.map((location) => {
+                      return (
+                        <h4 key={location} className="text-[#A5A5A5] text-lg ">
+                          {location}
+                        </h4>
+                      );
+                    })}
                   </div>
                 </div>
+                <div className="flex flex-wrap w-[75%]  ">
+                  {user.likeSports.map((likeSports, index) => {
+                    return (
+                      <h4
+                        key={index}
+                        className="border px-4 py-2 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mb-2 mr-2"
+                      >
+                        {likeSports}
+                      </h4>
+                    );
+                  })}
+                </div>
+              </div>
 
-                <div className="flex w-full">
-                  <h4 className="border-2 border-[#C1C1C1] w-20 h-[1.875rem] text-center items-center rounded-full text-[#C1C1C1]">
-                    {user.likeSports}
-                  </h4>
+              <div className="border-1 border-[#DFDFDF] w-full border-t mt-4"></div>
+              <div className="mt-4">
+                <div className="w-full h-40 px-6 text-[#6F6F6F] whitespace-pre-wrap">
+                  <span>{userObject.desc}</span>
                 </div>
               </div>
-              <div className="border-2 border-[#DFDFDF] w-full border-t mt-[3.75rem]"></div>
-              <div className=" px-4 mt-8">
-                <div className="w-full h-40 border-2 mb-40">
-                  <span>{user.desc}</span>
-                </div>
-              </div>
-            </div>
+            </CardWhiteBg>
           </div>
-        </div>
-        {/* {user.nickName === userObject.nickName && (
-        <button onClick={() => setProfileChange(true)}>수정하기</button>
-      )}
-      <div>{profileChange && <Infoedit />}</div>
-      <div>
-        {nickName === userObject.nickName && <Rightbar user={user} />}
+        </BgGraWrapperA>
       </div>
       <div>
-        {user.username !== userObject.username && (
-          <button onClick={handleClick}>
-            {followed === true ? 'Unfollow' : 'Follow'}
+        <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+          <button className="w-full">
+            <LineBtn text={'탭바'} />
           </button>
-        )}
-      </div> */}
-        {/* <Rightbar user={user} /> */}
-      </BgWrapper>
+        </div>
+      </div>
     </div>
   );
 };
 
-const BgWrapper = styled.div`
+const BgGraWrapper = styled.div`
   background: linear-gradient(
     166.9deg,
     rgba(247, 157, 0, 0.05) -17.3%,
     rgba(202, 190, 64, 0.28) 36.08%,
     #a8d69b 89.46%
   );
-  width: screen;
-  hight: screen;
+`;
+
+const BgGraWrapperA = tw(BgGraWrapper)`
+w-full h-screen pt-12 flex flex-col `;
+
+const CardWhiteBg = styled.div`
+  background: #ffffff;
+
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.16), 4px 8px 28px rgba(0, 0, 0, 0.08);
+  border-radius: 2rem 2rem 0px 0px;
 `;
