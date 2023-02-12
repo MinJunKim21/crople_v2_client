@@ -26,7 +26,7 @@ export const ProfileEdit = () => {
   const selfIntroduction = useRef();
   const [descDB, setDescDB] = useState('');
   const [profilePictureDB, setProfilePictureDB] = useState([]);
-  const [file, setFile] = useState(userObject.profilePicture[0]);
+  const [file, setFile] = useState(null);
   const [fileB, setFileB] = useState(userObject.profilePicture[1]);
   const [fileC, setFileC] = useState(userObject.profilePicture[2]);
 
@@ -90,6 +90,7 @@ export const ProfileEdit = () => {
     console.log(uploaded, 'filechange uploaded');
     // setProfilePictureDB(uploaded.data.secure_url);
     profilePictureDB.push(uploaded.data.secure_url);
+    profilePictureDB.push(uploaded.data.secure_url);
   };
 
   return (
@@ -120,7 +121,7 @@ export const ProfileEdit = () => {
                     <div className="bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
                       {file ? (
                         <img
-                          src={file}
+                          src={file ? URL.createObjectURL(file) : null}
                           alt=""
                           className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
                         />
@@ -130,13 +131,19 @@ export const ProfileEdit = () => {
                     </div>
                     <label
                       htmlFor="fileInputA"
-                      className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full text-center ${
-                        userObject.profilePicture[0]
-                          ? 'text-transparent'
-                          : 'text-[#C1C1C1]'
+                      className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
+                        file ? 'text-transparent' : 'text-[#C1C1C1]'
                       }`}
                     >
-                      프로필 사진
+                      {userObject.profilePicture[0] && !file ? (
+                        <img
+                          className="object-cover rounded-full w-full h-full"
+                          src={userObject.profilePicture[0]}
+                          alt=""
+                        />
+                      ) : (
+                        '프로필 사진'
+                      )}
                     </label>
                   </div>
                   <SmGraText>필수</SmGraText>
