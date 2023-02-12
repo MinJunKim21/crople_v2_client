@@ -25,10 +25,16 @@ export const ProfileEdit = () => {
   );
   const selfIntroduction = useRef();
   const [descDB, setDescDB] = useState('');
-  const [profilePictureDB, setProfilePictureDB] = useState([]);
+  const [profilePictureDB, setProfilePictureDB] = useState([
+    userObject.profilePicture[0],
+    userObject.profilePicture[1],
+    userObject.profilePicture[2],
+  ]);
   const [file, setFile] = useState(null);
-  const [fileB, setFileB] = useState(userObject.profilePicture[1]);
-  const [fileC, setFileC] = useState(userObject.profilePicture[2]);
+  const [fileB, setFileB] = useState(null);
+  const [fileC, setFileC] = useState(null);
+  console.log(profilePictureDB, 'profilePictureDB');
+  console.log(fileC);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -85,12 +91,11 @@ export const ProfileEdit = () => {
     return res;
   };
 
-  const fileChange = async (e) => {
+  const fileChange = async (e, index) => {
     const uploaded = await uploadImage(e.target.files[0]);
     console.log(uploaded, 'filechange uploaded');
     // setProfilePictureDB(uploaded.data.secure_url);
-    profilePictureDB.push(uploaded.data.secure_url);
-    profilePictureDB.push(uploaded.data.secure_url);
+    profilePictureDB[index] = uploaded.data.secure_url;
   };
 
   return (
@@ -152,11 +157,9 @@ export const ProfileEdit = () => {
                     accept="image/*"
                     id="fileInputA"
                     onChange={(e) => {
-                      // setImageSelected(e.target.files[0]);
                       setFile(e.target.files[0]);
-                      fileChange(e);
+                      fileChange(e, 0);
                     }}
-                    required
                     className="opacity-0 w-[1px] peer"
                   />
                 </div>
@@ -168,9 +171,9 @@ export const ProfileEdit = () => {
                         userObject.profilePicture[1] ? null : 'border-[1.5px]'
                       } border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative rounded-full`}
                     >
-                      {userObject.profilePicture[1] ? (
+                      {fileB ? (
                         <img
-                          src={userObject.profilePicture[1]}
+                          src={fileB ? URL.createObjectURL(fileB) : null}
                           alt=""
                           className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
                         />
@@ -180,13 +183,23 @@ export const ProfileEdit = () => {
                     </div>
                     <label
                       htmlFor="fileInputB"
-                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
+                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight h-full w-full text-center ${
                         userObject.profilePicture[1]
                           ? 'text-transparent'
                           : 'text-[#C1C1C1]'
                       }`}
                     >
-                      +
+                      {userObject.profilePicture[1] === '' && fileB === null ? (
+                        <span className="flex w-full h-full justify-center items-center">
+                          +
+                        </span>
+                      ) : (
+                        <img
+                          className="object-cover rounded-full w-full h-full"
+                          src={userObject.profilePicture[1]}
+                          alt=""
+                        />
+                      )}
                     </label>
                   </div>
                   <h6 className="text-xs text-[#8B8B8B] text-center">선택</h6>
@@ -194,10 +207,11 @@ export const ProfileEdit = () => {
                     type="file"
                     accept="image/*"
                     id="fileInputB"
-                    // onChange={(e) => {
-                    //   setFileB(e.target.files[0]);
-                    //   fileChange(e);
-                    // }}
+                    onChange={(e) => {
+                      setFileB(e.target.files[0]);
+                      console.log(fileB, 'fileB');
+                      fileChange(e, 1);
+                    }}
                     className="opacity-0 w-[1px] peer"
                   />
                 </div>
@@ -209,9 +223,9 @@ export const ProfileEdit = () => {
                         userObject.profilePicture[2] ? null : 'border-[1.5px]'
                       } border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative rounded-full`}
                     >
-                      {userObject.profilePicture[2] ? (
+                      {fileC ? (
                         <img
-                          src={userObject.profilePicture[1]}
+                          src={fileC ? URL.createObjectURL(fileC) : null}
                           alt=""
                           className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
                         />
@@ -221,13 +235,23 @@ export const ProfileEdit = () => {
                     </div>
                     <label
                       htmlFor="fileInputC"
-                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
+                      className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight h-full w-full text-center ${
                         userObject.profilePicture[2]
                           ? 'text-transparent'
                           : 'text-[#C1C1C1]'
                       }`}
                     >
-                      +
+                      {userObject.profilePicture[2] === '' && fileC === null ? (
+                        <span className="flex w-full h-full justify-center items-center">
+                          +
+                        </span>
+                      ) : (
+                        <img
+                          className="object-cover rounded-full w-full h-full"
+                          src={userObject.profilePicture[2]}
+                          alt=""
+                        />
+                      )}
                     </label>
                   </div>
                   <h6 className="text-xs text-[#8B8B8B] text-center">선택</h6>
@@ -235,10 +259,10 @@ export const ProfileEdit = () => {
                     type="file"
                     accept="image/*"
                     id="fileInputC"
-                    // onChange={(e) => {
-                    //   setFileB(e.target.files[0]);
-                    //   fileChange(e);
-                    // }}
+                    onChange={(e) => {
+                      setFileC(e.target.files[0]);
+                      fileChange(e, 2);
+                    }}
                     className="opacity-0 w-[1px] peer"
                   />
                 </div>
