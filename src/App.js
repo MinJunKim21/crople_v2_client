@@ -39,7 +39,7 @@ function App() {
           element={userObject._id ? <Messenger /> : null}
         />
         <Route
-          path="/profileedit"
+          path="/profileedit/:_id"
           element={userObject._id ? <ProfileEdit /> : null}
         />
         <Route path="/test" element={<Test />} />

@@ -18,15 +18,17 @@ import { LineBtn } from '../components/LineBtn';
 
 export const ProfileEdit = () => {
   const userObject = useContext(AuthContext);
-  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState('');
   const _id = useParams()._id;
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
   );
-  console.log(followed);
   const selfIntroduction = useRef();
   const [descDB, setDescDB] = useState('');
+  const [profilePictureDB, setProfilePictureDB] = useState([]);
+  const [file, setFile] = useState(userObject.profilePicture[0]);
+  const [fileB, setFileB] = useState(userObject.profilePicture[1]);
+  const [fileC, setFileC] = useState(userObject.profilePicture[2]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -45,29 +47,49 @@ export const ProfileEdit = () => {
   };
 
   const updateData = async (e) => {
-    // const updatedUser = {
-    //   nickName: nickNameDB,
-    //   likeSports: sportsCheckedList,
-    //   locations: locationsCheckedList,
-    //   userId: user._id,
-    //   desc: descDB,
-    //   profilePicture: profilePictureDB,
-    // };
-    // e.preventDefault();
-    // console.log(profilePictureDB, 'expecting url');
-    // try {
-    //   setQuestion('five');
-    //   await axios.put(
-    //     `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
-    //     updatedUser
-    //   );
-    //   await setTimeout(() => {
-    //     window.location.reload();
-    //   }, 2000);
-    // } catch (err) {
-    //   console.log(err);
-    //   setProfilePictureDB([]);
-    // }
+    const updatedUser = {
+      // likeSports: sportsCheckedList,
+      // locations: locationsCheckedList,
+      userId: user._id,
+      desc: descDB,
+      profilePicture: profilePictureDB,
+    };
+    e.preventDefault();
+    console.log(profilePictureDB, 'expecting url');
+    try {
+      await axios.put(
+        `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
+        updatedUser
+      );
+      await setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } catch (err) {
+      console.log(err);
+      setProfilePictureDB([]);
+    }
+  };
+
+  const uploadImage = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append(
+      'upload_preset',
+      `${process.env.REACT_APP_CLOUDINARY_PRESET}`
+    );
+
+    const res = await axios.post(
+      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`,
+      formData
+    );
+    return res;
+  };
+
+  const fileChange = async (e) => {
+    const uploaded = await uploadImage(e.target.files[0]);
+    console.log(uploaded, 'filechange uploaded');
+    // setProfilePictureDB(uploaded.data.secure_url);
+    profilePictureDB.push(uploaded.data.secure_url);
   };
 
   return (
@@ -96,9 +118,9 @@ export const ProfileEdit = () => {
                 <div className="inline-block">
                   <div className="relative inline-block">
                     <div className="bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
-                      {userObject.profilePicture[0] ? (
+                      {file ? (
                         <img
-                          src={userObject.profilePicture[0]}
+                          src={file}
                           alt=""
                           className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
                         />
@@ -122,11 +144,11 @@ export const ProfileEdit = () => {
                     type="file"
                     accept="image/*"
                     id="fileInputA"
-                    // onChange={(e) => {
-                    //   // setImageSelected(e.target.files[0]);
-                    //   setFile(e.target.files[0]);
-                    //   fileChange(e);
-                    // }}
+                    onChange={(e) => {
+                      // setImageSelected(e.target.files[0]);
+                      setFile(e.target.files[0]);
+                      fileChange(e);
+                    }}
                     required
                     className="opacity-0 w-[1px] peer"
                   />
@@ -244,9 +266,12 @@ export const ProfileEdit = () => {
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex flex-wrap w-[75%] mb-2 ">
-                    {userObject.likeSports.map((likeSports) => {
+                    {userObject.likeSports.map((likeSports, index) => {
                       return (
-                        <h4 className="border px-4 py-2 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mr-2">
+                        <h4
+                          key={index}
+                          className="border px-4 py-2 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mr-2"
+                        >
                           {likeSports}
                         </h4>
                       );

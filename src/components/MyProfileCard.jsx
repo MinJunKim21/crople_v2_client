@@ -117,9 +117,12 @@ export const MyProfileCard = () => {
                   </div>
                 </div>
                 <div className="flex flex-wrap w-[75%]  ">
-                  {userObject.likeSports.map((likeSports) => {
+                  {userObject.likeSports.map((likeSports, index) => {
                     return (
-                      <h4 className="border px-4 py-2 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mb-2 mr-2">
+                      <h4
+                        key={index}
+                        className="border px-4 py-2 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mb-2 mr-2"
+                      >
                         {likeSports}
                       </h4>
                     );
@@ -140,7 +143,7 @@ export const MyProfileCard = () => {
       <div>
         <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
           <button className="w-full">
-            <Link to={'/profileedit'}>
+            <Link to={`/profileedit/${userObject._id}`} key={userObject._id}>
               <LineBtn text={'수정하기'} />
             </Link>
           </button>
