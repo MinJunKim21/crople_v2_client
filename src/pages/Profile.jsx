@@ -16,9 +16,7 @@ export default function Profile() {
   const userObject = useContext(AuthContext);
   const [user, setUser] = useState('');
   const _id = useParams()._id;
-  const [followed, setFollowed] = useState(
-    userObject.followings.includes(user?._id)
-  );
+
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
@@ -27,7 +25,6 @@ export default function Profile() {
       setUser(res.data);
     };
     fetchUser();
-    setFollowed(userObject.followings.includes(user?._id));
   }, [_id, user?._id, userObject.followings]);
 
   return (
