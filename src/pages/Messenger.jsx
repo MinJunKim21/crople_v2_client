@@ -82,7 +82,6 @@ export default function Messenger() {
   //create conversation
   const createConversation = async (user) => {
     try {
-      console.log(user);
       await axios.post(`${process.env.REACT_APP_API_ROOT}/api/conversations`, {
         senderId: userObject._id,
         receiverId: user._id,
@@ -169,7 +168,7 @@ export default function Messenger() {
     <>
       {/* <Topbar /> */}
       <div className="flex justify-between">
-        <div>
+        {/* <div>
           <input placeholder="search friends" />
           {conversations.map((c) => (
             <div
@@ -185,16 +184,17 @@ export default function Messenger() {
             </div>
           ))}
           <div>search 기능은 지금 필요 없는듯</div>
-        </div>
+        </div> */}
         <div>
-          <span>following each other friend</span>
+          {/* <span>following each other friend</span>
           <div>
             {friendEachother.map((user) => (
-              <Link to={`/profile/${user.username}`}>
-                <div key={user._id}>{user.username || user.email}</div>
-              </Link>
+              <div key={user._id} className="flex">
+                <img className="w-6 h-6" src={user.profilePicture[0]} alt="" />
+                <span>{user.nickName}</span>
+              </div>
             ))}
-          </div>
+          </div> */}
 
           <span>맞팔 리스트 중에 클릭하면 대화창 만들어짐</span>
 
@@ -207,7 +207,14 @@ export default function Messenger() {
                     setShowButton(true);
                   }}
                 >
-                  {user.username || user.email}
+                  <div key={user._id} className="flex">
+                    <img
+                      className="w-6 h-6"
+                      src={user.profilePicture[0]}
+                      alt=""
+                    />
+                    <span>{user.nickName}</span>
+                  </div>
                 </button>
                 {showButton && (
                   <button

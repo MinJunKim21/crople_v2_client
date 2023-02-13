@@ -17,17 +17,8 @@ import { LineBtn } from './LineBtn';
 
 export const MyProfileCard = () => {
   const userObject = useContext(AuthContext);
-  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState('');
   const _id = useParams()._id;
-  const [followed, setFollowed] = useState(
-    userObject.followings.includes(user?._id)
-  );
-  console.log(followed);
-  // const [profileChange, setProfileChange] = useState(false);
-  // console.log(nickName, 'nickName');
-  // console.log(user, 'user');
-  // console.log(useParams(), 'useParams()');
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
@@ -36,34 +27,8 @@ export const MyProfileCard = () => {
       setUser(res.data);
     };
     fetchUser();
-    setFollowed(userObject.followings.includes(user?._id));
   }, [_id, user?._id, userObject.followings]);
 
-  // const handleClick = async () => {
-  //   try {
-  //     if (followed) {
-  //       await axios.put(
-  //         `${process.env.REACT_APP_API_ROOT}/api/users/` +
-  //           user._id +
-  //           '/unfollow',
-  //         {
-  //           userId: userObject._id,
-  //         }
-  //       );
-  //     } else {
-  //       await axios.put(
-  //         `${process.env.REACT_APP_API_ROOT}/api/users/` + user._id + '/follow',
-  //         {
-  //           userId: userObject._id,
-  //         }
-  //       );
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  //   setFollowed(!followed);
-  //   window.location.reload(); // 원인 알게되면 이거 바꾸기...
-  // };
   return (
     <div>
       <div>
