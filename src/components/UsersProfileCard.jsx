@@ -19,12 +19,12 @@ import { LineBtn } from './LineBtn';
 export const UsersProfileCard = () => {
   const userObject = useContext(AuthContext);
   // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState(userObject);
   const _id = useParams()._id;
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
   );
-  console.log(followed);
+  console.log(followed, 'followed');
   // const [profileChange, setProfileChange] = useState(false);
   // console.log(nickName, 'nickName');
   // console.log(user, 'user');
@@ -40,31 +40,32 @@ export const UsersProfileCard = () => {
     setFollowed(userObject.followings.includes(user?._id));
   }, [_id, user?._id, userObject.followings]);
 
-  // const handleClick = async () => {
-  //   try {
-  //     if (followed) {
-  //       await axios.put(
-  //         `${process.env.REACT_APP_API_ROOT}/api/users/` +
-  //           user._id +
-  //           '/unfollow',
-  //         {
-  //           userId: userObject._id,
-  //         }
-  //       );
-  //     } else {
-  //       await axios.put(
-  //         `${process.env.REACT_APP_API_ROOT}/api/users/` + user._id + '/follow',
-  //         {
-  //           userId: userObject._id,
-  //         }
-  //       );
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  //   setFollowed(!followed);
-  //   window.location.reload(); // 원인 알게되면 이거 바꾸기...
-  // };
+  const handleClick = async () => {
+    try {
+      if (followed) {
+        await axios.put(
+          `${process.env.REACT_APP_API_ROOT}/api/users/` +
+            user._id +
+            '/unfollow',
+          {
+            userId: userObject._id,
+          }
+        );
+      } else {
+        await axios.put(
+          `${process.env.REACT_APP_API_ROOT}/api/users/` + user._id + '/follow',
+          {
+            userId: userObject._id,
+          }
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setFollowed(!followed);
+    window.location.reload(); // 원인 알게되면 이거 바꾸기...
+  };
+
   return (
     <div>
       <div>
@@ -132,7 +133,7 @@ export const UsersProfileCard = () => {
               <div className="border-1 border-[#DFDFDF] w-full border-t mt-4"></div>
               <div className="mt-4">
                 <div className="w-full h-40 px-6 text-[#6F6F6F] whitespace-pre-wrap">
-                  <span>{userObject.desc}</span>
+                  <span>{user.desc}</span>
                 </div>
               </div>
             </CardWhiteBg>
@@ -142,8 +143,15 @@ export const UsersProfileCard = () => {
       <div>
         <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
           <button className="w-full">
-            <LineBtn text={'탭바'} />
+            <LineBtn text={'바'} />
           </button>
+          <div>
+            {user.username !== userObject.username && (
+              <button onClick={handleClick}>
+                {followed ? 'Unfollow' : 'Follow'}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
