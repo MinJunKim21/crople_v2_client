@@ -14,7 +14,7 @@ const ENDPOINT = process.env.REACT_APP_API_ROOT;
 let socket;
 
 export default function Messenger() {
-  // const [conversations, setConversations] = useState([]);
+  const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
