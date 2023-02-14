@@ -13,17 +13,6 @@ import { HiLocationMarker } from 'react-icons/hi';
 import { LineBtn } from './LineBtn';
 import { QuestionOne } from './questions/QuestionOne';
 
-const SPORTS_LIST = [
-  { id: 0, data: '헬스' },
-  { id: 1, data: '테니스' },
-  { id: 2, data: '클라이밍' },
-  { id: 3, data: '러닝' },
-  { id: 4, data: '골프' },
-  { id: 5, data: '수영' },
-  { id: 6, data: '주짓수' },
-  { id: 7, data: '싸이클' },
-];
-
 const LOCATION_LIST = [
   { id: 0, data: '마포구' },
   { id: 1, data: '서대문구' },
@@ -203,7 +192,7 @@ export default function NeedProfile() {
             sportsCheckedList={sportsCheckedList}
             onCheckedSportsElement={onCheckedSportsElement}
             setQuestion={setQuestion}
-            useRef={useRef}
+            useRef={likeSports}
           />
         ) : null}
         {question === 'two' ? (
