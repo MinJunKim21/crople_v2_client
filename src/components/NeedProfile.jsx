@@ -11,6 +11,7 @@ import { BsChevronLeft } from 'react-icons/bs';
 import { MdCancel } from 'react-icons/md';
 import { HiLocationMarker } from 'react-icons/hi';
 import { LineBtn } from './LineBtn';
+import { QuestionOne } from './questions/QuestionOne';
 
 const SPORTS_LIST = [
   { id: 0, data: '헬스' },
@@ -44,10 +45,6 @@ export default function NeedProfile() {
   const [nickNameDB, setNickNameDB] = useState('');
   const [descDB, setDescDB] = useState('');
   // const [imageSelected, setImageSelected] = useState('');
-  console.log(file, 'file');
-  console.log(fileB, 'fileB');
-  console.log(fileC, 'fileC');
-  console.log(profilePictureDB, 'profilePictureDB');
 
   const nickName = useRef();
   const likeSports = useRef();
@@ -135,71 +132,79 @@ export default function NeedProfile() {
     return b;
   };
 
+  console.log(sportsCheckedList, 'sportsCheckedList');
+
   return (
     <div>
       {/* <Topbar /> */}
 
       <form onSubmit={updateData}>
         {question === 'one' ? (
-          <BgWrapper>
-            <MainQuestion className="mt-14">
-              어떤 운동을 좋아하세요?
-            </MainQuestion>
-            <SubInstruction className="mb-14">
-              다섯 개까지 선택할 수 있어요
-            </SubInstruction>
-            <div className="justify-center grid items-center">
-              <ul className="grid grid-cols-2 gap-x-2 gap-y-4 px-4">
-                {SPORTS_LIST.map((item) => {
-                  return (
-                    <li key={item.id}>
-                      <input
-                        id={item.id}
-                        type="checkbox"
-                        className="hidden peer"
-                        value={item.data}
-                        ref={likeSports}
-                        onChange={(e) => {
-                          onCheckedSportsElement(
-                            e.target.checked,
-                            e.target.value
-                          );
-                        }}
-                        checked={
-                          sportsCheckedList.includes(item.data) ? true : false
-                        }
-                      />
-                      <OptionBtn htmlFor={item.id}>{item.data}</OptionBtn>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            {sportsCheckedList.length === 0 ? (
-              <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-                <NextBtnGrayBg>
-                  <NextBtnGrayText>다음</NextBtnGrayText>
-                </NextBtnGrayBg>
-              </div>
-            ) : (
-              <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-                <NextBtnGraBorder
-                  onClick={() => {
-                    if (sportsCheckedList.length === 0) {
-                      alert('최소 하나의 운동을 선택해야합니다');
-                    } else if (sportsCheckedList.length > 0) {
-                      setQuestion('two');
-                    }
-                  }}
-                >
-                  <NextBtnGraBg>
-                    <NextBtnGraText>다음</NextBtnGraText>
-                  </NextBtnGraBg>
-                </NextBtnGraBorder>
-              </div>
-            )}
-            {/* </div> */}
-          </BgWrapper>
+          //  < <BgWrapper>
+          //     <MainQuestion className="mt-14">
+          //       어떤 운동을 좋아하세요?
+          //     </MainQuestion>
+          //     <SubInstruction className="mb-14">
+          //       다섯 개까지 선택할 수 있어요
+          //     </SubInstruction>
+          //     <div className="justify-center grid items-center">
+          //       <ul className="grid grid-cols-2 gap-x-2 gap-y-4 px-4">
+          //         {SPORTS_LIST.map((item) => {
+          //           return (
+          //             <li key={item.id}>
+          //               <input
+          //                 id={item.id}
+          //                 type="checkbox"
+          //                 className="hidden peer"
+          //                 value={item.data}
+          //                 ref={likeSports}
+          //                 onChange={(e) => {
+          //                   onCheckedSportsElement(
+          //                     e.target.checked,
+          //                     e.target.value
+          //                   );
+          //                 }}
+          //                 checked={
+          //                   sportsCheckedList.includes(item.data) ? true : false
+          //                 }
+          //               />
+          //               <OptionBtn htmlFor={item.id}>{item.data}</OptionBtn>
+          //             </li>
+          //           );
+          //         })}
+          //       </ul>
+          //     </div>
+          //     {sportsCheckedList.length === 0 ? (
+          //       <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+          //         <NextBtnGrayBg>
+          //           <NextBtnGrayText>다음</NextBtnGrayText>
+          //         </NextBtnGrayBg>
+          //       </div>
+          //     ) : (
+          //       <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+          //         <NextBtnGraBorder
+          //           onClick={() => {
+          //             if (sportsCheckedList.length === 0) {
+          //               alert('최소 하나의 운동을 선택해야합니다');
+          //             } else if (sportsCheckedList.length > 0) {
+          //               setQuestion('two');
+          //             }
+          //           }}
+          //         >
+          //           <NextBtnGraBg>
+          //             <NextBtnGraText>다음</NextBtnGraText>
+          //           </NextBtnGraBg>
+          //         </NextBtnGraBorder>
+          //       </div>
+          //     )}
+          //     {/* </div> */}
+          //   </BgWrapper>>
+          <QuestionOne
+            sportsCheckedList={sportsCheckedList}
+            onCheckedSportsElement={onCheckedSportsElement}
+            setQuestion={setQuestion}
+            useRef={useRef}
+          />
         ) : null}
         {question === 'two' ? (
           <BgWrapper>

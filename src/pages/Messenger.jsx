@@ -4,17 +4,17 @@ import { useState, useEffect, useRef, useContext } from 'react';
 // import Topbar from '../components/Topbar';
 import { AuthContext } from '../context/AuthContext';
 // import ChatOnline from '../components/ChatOnline';
-import Conversations from '../components/Conversations';
+// import Conversations from '../components/Conversations';
 import Message from '../components/Message';
 import io from 'socket.io-client';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import TabBar from '../components/TabBar';
 
 const ENDPOINT = process.env.REACT_APP_API_ROOT;
 let socket;
 
 export default function Messenger() {
-  const [conversations, setConversations] = useState([]);
+  // const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -147,7 +147,7 @@ export default function Messenger() {
           userObject._id
       );
       setFriendEachother(res.data);
-      // console.log(friendEachother, 'friendeachother');
+      console.log(friendEachother, 'friendeachother');
     };
     getFriendEachother();
   }, [userObject._id]);
@@ -166,9 +166,10 @@ export default function Messenger() {
 
   return (
     <>
-      {/* <Topbar /> */}
       <div className="flex justify-between">
-        {/* <div>
+        <div>
+          {/* <Topbar /> */}
+          {/* <div>
           <input placeholder="search friends" />
           {conversations.map((c) => (
             <div
@@ -185,7 +186,6 @@ export default function Messenger() {
           ))}
           <div>search 기능은 지금 필요 없는듯</div>
         </div> */}
-        <div>
           {/* <span>following each other friend</span>
           <div>
             {friendEachother.map((user) => (
@@ -219,7 +219,7 @@ export default function Messenger() {
                 {showButton && (
                   <button
                     onClick={() => {
-                      if (convExist === null) {
+                      if (convExist === false) {
                         createConversation(user);
                       } else {
                         setCurrentChat(convExist);
