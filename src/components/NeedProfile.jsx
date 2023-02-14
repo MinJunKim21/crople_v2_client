@@ -3,17 +3,14 @@ import styled from 'styled-components';
 
 import { useState } from 'react';
 import axios from 'axios';
-// import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { BsChevronLeft } from 'react-icons/bs';
-import { MdCancel } from 'react-icons/md';
-import { HiLocationMarker } from 'react-icons/hi';
-import { QuestionOne } from './questions/QuestionOne';
-import { QuestionTwo } from './questions/QuestionTwo';
-import { QuestionThree } from './questions/QuestionThree';
-import { PreviewCard } from './questions/\bPreviewCard';
+import { QuestionOne } from './onboarding/QuestionOne';
+import { QuestionTwo } from './onboarding/QuestionTwo';
+import { QuestionThree } from './onboarding/QuestionThree';
+import { PreviewCard } from './onboarding/PreviewCard';
+import { TutorialSplash } from './onboarding/TutorialSplash';
 
 export default function NeedProfile() {
   const user = useContext(AuthContext);
@@ -35,12 +32,6 @@ export default function NeedProfile() {
   const likeSports = useRef();
   const locations = useRef();
   const selfIntroduction = useRef();
-
-  const [focused, setFocused] = useState(false);
-
-  const handleFocus = (e) => {
-    setFocused(true);
-  };
 
   const onCheckedSportsElement = (checked, item) => {
     if (checked) {
@@ -92,7 +83,6 @@ export default function NeedProfile() {
       profilePicture: profilePictureDB,
     };
     e.preventDefault();
-    console.log(profilePictureDB, 'expecting url');
 
     try {
       setQuestion('five');
@@ -102,7 +92,7 @@ export default function NeedProfile() {
       );
       await setTimeout(() => {
         window.location.reload();
-      }, 2000);
+      }, 300000000);
     } catch (err) {
       console.log(err);
       setProfilePictureDB([]);
@@ -157,23 +147,7 @@ export default function NeedProfile() {
             profilePictureDB={profilePictureDB}
           />
         ) : null}
-        {question === 'five' ? (
-          <div>
-            <div className="relative h-screen w-screen">
-              <h3 className="text-center">나와 꼭 맞는 메이트를 만나보세요!</h3>
-              <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] border">
-                <h4 className="text-center">
-                  여기서 프로필을 수정할 수 있어요.
-                </h4>
-              </div>
-              <img
-                src={file ? URL.createObjectURL(file) : null}
-                alt=""
-                className="w-20 h-20 object-cover rounded-full absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
-              />
-            </div>
-          </div>
-        ) : null}
+        {question === 'five' ? <TutorialSplash file={file} /> : null}
       </form>
     </div>
   );

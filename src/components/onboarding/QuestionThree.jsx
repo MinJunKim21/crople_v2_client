@@ -18,21 +18,6 @@ export const QuestionThree = ({
   descDB,
   setDescDB,
 }) => {
-  // const setQuestion = props.setQuestion;
-  // const file = props.file;
-  // const fileB = props.fileB;
-  // const fileC = props.fileC;
-  // const setFile = props.setFile;
-  // const setFileB = props.setFileB;
-  // const setFileC = props.setFileC;
-  // const fileChange = props.fileChange;
-  // const nickName = props.nickName;
-  // const nickNameDB = props.nickNameDB;
-  // const setNickNameDB = props.setNickNameDB;
-  // const selfIntroduction = props.useRef;
-  // const descDB = props.descDB;
-  // const setDescDB = props.setDescDB;
-
   const byteCounter = (s, b, i, c) => {
     for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 2 : c >> 7 ? 2 : 1);
     return b;
