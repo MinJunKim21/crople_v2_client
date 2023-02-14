@@ -29,7 +29,7 @@ export default function Messenger() {
   const [friendEachother, setFriendEachother] = useState([]);
   const [convExist, setConvExist] = useState(false);
   const [showButton, setShowButton] = useState(false);
-  const [chatListPage, setChatListPage] = useState(true);
+  // const [chatListPage, setChatListPage] = useState(true);
 
   useEffect(() => {
     socket = io(ENDPOINT, {
