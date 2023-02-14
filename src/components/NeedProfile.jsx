@@ -80,9 +80,6 @@ export default function NeedProfile() {
 
   const fileChange = async (e, index) => {
     const uploaded = await uploadImage(e.target.files[0]);
-    console.log(uploaded, 'filechange uploaded');
-    // setProfilePictureDB(uploaded.data.secure_url);
-    // profilePictureDB.push(uploaded.data.secure_url);
     profilePictureDB[index] = uploaded.data.secure_url;
   };
 
@@ -147,8 +144,6 @@ export default function NeedProfile() {
             nickName={nickName}
             nickNameDB={nickNameDB}
             setNickNameDB={setNickNameDB}
-            handleFocus={handleFocus}
-            focused={focused}
             useRef={selfIntroduction}
             descDB={descDB}
             setDescDB={setDescDB}

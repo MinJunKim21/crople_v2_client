@@ -1,5 +1,4 @@
 import tw from 'twin.macro';
-import styled from 'styled-components';
 import { BsChevronLeft } from 'react-icons/bs';
 import { MdCancel } from 'react-icons/md';
 
@@ -14,8 +13,6 @@ export const QuestionThree = (props) => {
   const fileChange = props.fileChange;
   const nickName = props.nickName;
   const nickNameDB = props.nickNameDB;
-  const handleFocus = props.handleFocus;
-  const focused = props.focused;
   const setNickNameDB = props.setNickNameDB;
   const selfIntroduction = props.useRef;
   const descDB = props.descDB;
@@ -70,7 +67,6 @@ export const QuestionThree = (props) => {
             accept="image/*"
             id="fileInputA"
             onChange={(e) => {
-              // setImageSelected(e.target.files[0]);
               setFile(e.target.files[0]);
               fileChange(e, 0);
             }}
@@ -150,7 +146,6 @@ export const QuestionThree = (props) => {
             accept="image/*"
             id="fileInputC"
             onChange={(e) => {
-              // setImageSelected(e.target.files[0]);
               setFileC(e.target.files[0]);
               fileChange(e, 2);
             }}
@@ -166,12 +161,9 @@ export const QuestionThree = (props) => {
             type="text"
             placeholder="닉네임을 입력해주세요"
             value={nickNameDB}
-            // maxLength={8}
             required
             pattern="^[ㄱ-ㅎ가-힣a-zA-Z]+$"
             className="peer w-full "
-            onBlur={handleFocus}
-            focused={focused.toString()}
             onChange={() => {
               if (byteCounter(nickName.current.value) > 16) {
                 nickName.current.value = nickName.current.value.slice(0, -1);
@@ -253,8 +245,6 @@ flex justify-center text-[#242424] font-semibold text-2xl`;
 
 const SubInstruction = tw.h6`flex justify-center text-[#555555] font-medium `;
 
-// const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-[#F79D00] font-semibold w-36 h-12 flex text-center justify-center text-[#A5A5A5] items-center z-10`;
-
 const NextBtnGraBorder = tw.div`w-full h-[5.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
 const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center`;
 const NextBtnGraText = tw.div`text-xl font-bold bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
@@ -264,35 +254,3 @@ const NextBtnGrayText = tw.div`text-xl font-bold text-[#C1C1C1]`;
 const SmGraText = tw.div`text-xs text-center text-[#F79D00] font-bold`;
 
 const BgWrapper = tw.div`bg-white w-screen h-screen  pt-12 max-w-sm mx-auto px-4`;
-
-const BgGraWrapper = styled.div`
-  background: linear-gradient(
-    166.9deg,
-    rgba(247, 157, 0, 0.05) -17.3%,
-    rgba(202, 190, 64, 0.28) 36.08%,
-    #a8d69b 89.46%
-  );
-`;
-
-const BgGraWrapperA = tw(BgGraWrapper)`
-w-full h-screen pt-12 max-w-sm flex flex-col `;
-
-const CardWhiteBg = styled.div`
-  background: #ffffff;
-
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.16), 4px 8px 28px rgba(0, 0, 0, 0.08);
-  border-radius: 2rem 2rem 0px 0px;
-`;
-
-// const BgWrapper = styled.div`
-//   background: linear-gradient(
-//     17.6deg,
-//     rgba(247, 157, 0, 0) 15.18%,
-//     rgba(202, 190, 64, 0.28) 52.34%,
-//     #a8d69b 89.49%
-//   );
-//   transform: matrix(1, 0, 0, -1, 0, 0);
-// `;
-
-// const BgWrapperA = tw(BgWrapper)`
-// flex flex-col w-full h-screen`;
