@@ -1,5 +1,4 @@
 import tw from 'twin.macro';
-import styled from 'styled-components';
 
 import { BsChevronLeft } from 'react-icons/bs';
 
@@ -92,25 +91,4 @@ const NextBtnGraText = tw.div`text-xl font-bold bg-gradient-to-t from-[#F79D00] 
 const NextBtnGrayBg = tw.div`w-full h-[5.25rem]  rounded-full bg-[#F5F5F5]   text-center flex justify-center items-center`;
 const NextBtnGrayText = tw.div`text-xl font-bold text-[#C1C1C1]`;
 
-const SmGraText = tw.div`text-xs text-center text-[#F79D00] font-bold`;
-
 const BgWrapper = tw.div`bg-white w-screen h-screen  pt-12 max-w-sm mx-auto px-4`;
-
-const BgGraWrapper = styled.div`
-  background: linear-gradient(
-    166.9deg,
-    rgba(247, 157, 0, 0.05) -17.3%,
-    rgba(202, 190, 64, 0.28) 36.08%,
-    #a8d69b 89.46%
-  );
-`;
-
-const BgGraWrapperA = tw(BgGraWrapper)`
-w-full h-screen pt-12 max-w-sm flex flex-col `;
-
-const CardWhiteBg = styled.div`
-  background: #ffffff;
-
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.16), 4px 8px 28px rgba(0, 0, 0, 0.08);
-  border-radius: 2rem 2rem 0px 0px;
-`;
