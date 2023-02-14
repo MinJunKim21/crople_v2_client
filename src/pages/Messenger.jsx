@@ -248,10 +248,10 @@ export default function Messenger() {
 //   getConversations();
 // }, [userObject._id]);
 
-{
-  /* <ChatOnline
-            onlineUsers={onlineUsers}
-            currentId={userObject._id}
-            setCurrentChat={setCurrentChat}
-          /> */
-}
+// {
+//   /* <ChatOnline
+//             onlineUsers={onlineUsers}
+//             currentId={userObject._id}
+//             setCurrentChat={setCurrentChat}
+//           /> */
+// }
