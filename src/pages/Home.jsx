@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import tw from 'twin.macro';
+
 // import Topbar from '../components/Topbar';
 // import Sidebar from '../components/Sidebar';
 // import Rightbar from '../components/Rightbar';
@@ -41,69 +43,82 @@ function Home() {
   return (
     <div>
       {userObject.nickName === undefined || userObject.profilePicture === '' ? (
-        <div>
-          <NeedProfile />
-        </div>
+        <NeedProfile />
       ) : (
-        <div className="relative">
-          <img
-            src="assets/pattern/Circular.png"
-            alt=""
-            className="object-cover absolute left-0 top-0 mt-24"
-          />
-          <BgWrapper>
-            {/* <Topbar /> */}
-            <div className="flex flex-col h-screen relative">
-              <h3 className="text-center mt-11 text-[#8B8B8B] ">
-                프로필카드로 메이트를 알아보아요
-              </h3>
-              <Link to={`/profile/${userObject._id}`} key={userObject._id}>
-                <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] border-red-400 border-2 w-[5.375rem] h-[5.375rem] rounded-full ">
-                  <div className="flex text-center items-center w-full h-full">
-                    <img
-                      src={userObject.profilePicture[0]}
-                      className="object-cover w-full h-full rounded-full"
-                      alt=""
-                    />
-                  </div>
+        <BgGraWrapperA>
+          {/* <WhiteCenterBlur> */}
+          <h3 className="text-center pt-12  text-[#555555]">
+            나와 꼭 맞는 메이트를 만나보세요!
+          </h3>
+          <div className="absolute bottom-10">
+            <img
+              src="assets/pattern/WhiteCenterBlur.png"
+              className="h-full w-full absolute"
+              alt=""
+            />
+            <img
+              src="assets/pattern/LineCenterCircle.png"
+              className="h-full w-full object-contain absolute"
+              alt=""
+            />
+
+            <div className="relative h-screen w-screen">
+              <img
+                src={userObject.profilePicture[0]}
+                alt=""
+                className="w-20 h-20 object-cover rounded-full absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+              />
+            </div>
+          </div>
+          <div className="z-50">
+            {recommendUsers.map((user) => (
+              <Link to={`/profile/${user._id}`} key={user._id}>
+                <div className="w-10 h-10">
+                  <img
+                    src={user.profilePicture[0]}
+                    alt=""
+                    className="w-full h-full object-cover rounded-full"
+                  />
                 </div>
               </Link>
-
-              <div className="bg-blue-200">
-                {allUsers.map((user) => (
-                  <Link to={`/profile/${user._id}`} key={user._id}>
-                    <div>{user.nickName || user.email}</div>
-                  </Link>
-                ))}
-              </div>
-              <div>-----------------------------------</div>
-              <div className="bg-blue-200">
-                {recommendUsers.map((user) => (
-                  <Link to={`/profile/${user._id}`} key={user._id}>
-                    <div>{user.nickName || user.email}</div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </BgWrapper>
-          <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-            <TabBar reload="true" />
+            ))}
           </div>
-        </div>
+          <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+            <TabBar />
+          </div>
+        </BgGraWrapperA>
       )}
     </div>
   );
 }
 
+// {
+//    <div className="bg-blue-200">
+//                 {allUsers.map((user) => (
+//                   <Link to={`/profile/${user._id}`} key={user._id}>
+//                     <div>{user.nickName || user.email}</div>
+//                   </Link>
+//                 ))}
+//               </div>
+//               <div>-----------------------------------</div>
+//               <div className="bg-blue-200">
+//                 {recommendUsers.map((user) => (
+//                   <Link to={`/profile/${user._id}`} key={user._id}>
+//                     <div>{user.nickName || user.email}</div>
+//                   </Link>
+//                 ))}
+//               </div>
+// }
 export default Home;
 
-const BgWrapper = styled.div`
+const BgGraWrapper = styled.div`
   background: linear-gradient(
-    166.9deg,
-    rgba(247, 157, 0, 0.05) -17.3%,
-    rgba(202, 190, 64, 0.28) 36.08%,
-    #a8d69b 89.46%
+    341.82deg,
+    #a8d69b 10.29%,
+    rgba(202, 190, 64, 0.28) 47.5%,
+    rgba(247, 157, 0, 0) 84.7%
   );
-  width: screen;
-  hight: screen;
 `;
+
+const BgGraWrapperA = tw(BgGraWrapper)`
+w-full h-screen  flex flex-col mx-auto`;
