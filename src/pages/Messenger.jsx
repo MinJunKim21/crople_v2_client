@@ -9,8 +9,8 @@ import Message from '../components/Message';
 import io from 'socket.io-client';
 // import { Link } from 'react-router-dom';
 import TabBar from '../components/TabBar';
-import { ChatList } from '../components/messenger/ChatList';
-import { Chatting } from '../components/messenger/Chatting';
+// import { ChatList } from '../components/messenger/ChatList';
+// import { Chatting } from '../components/messenger/Chatting';
 
 const ENDPOINT = process.env.REACT_APP_API_ROOT;
 let socket;
