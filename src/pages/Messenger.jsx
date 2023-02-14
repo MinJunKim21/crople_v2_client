@@ -9,6 +9,8 @@ import Message from '../components/Message';
 import io from 'socket.io-client';
 // import { Link } from 'react-router-dom';
 import TabBar from '../components/TabBar';
+import { ChatList } from '../components/messenger/ChatList';
+import { Chatting } from '../components/messenger/Chatting';
 
 const ENDPOINT = process.env.REACT_APP_API_ROOT;
 let socket;
@@ -27,8 +29,7 @@ export default function Messenger() {
   const [friendEachother, setFriendEachother] = useState([]);
   const [convExist, setConvExist] = useState(false);
   const [showButton, setShowButton] = useState(false);
-
-  console.log(ENDPOINT, 'endpoint');
+  const [chatListPage, setChatListPage] = useState(true);
 
   useEffect(() => {
     socket = io(ENDPOINT, {
@@ -36,7 +37,6 @@ export default function Messenger() {
       transports: ['websocket', 'polling'], // or [ "websocket", "polling" ] (the order matters)
       withCredentials: true,
     });
-    console.log(socket, 'socket');
     socket.on('getMessage', (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -55,29 +55,12 @@ export default function Messenger() {
   useEffect(() => {
     socket.emit('addUser', userObject._id);
     socket.on('getUsers', (users) => {
-      console.log(users);
       // setOnlineUsers(
       //   userObject.followings.filter((f) => users.some((u) => u.userId === f))
       //   // users
       //   );
     });
   }, [userObject]);
-
-  //접속한 userObject의 모든 conversation list를 가져옴
-  // useEffect(() => {
-  //   const getConversations = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         `${process.env.REACT_APP_API_ROOT}/api/conversations/` +
-  //           userObject._id
-  //       );
-  //       setConversations(res.data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getConversations();
-  // }, [userObject._id]);
 
   //create conversation
   const createConversation = async (user) => {
@@ -165,37 +148,10 @@ export default function Messenger() {
 
   return (
     <>
+      {/* {chatListPage ? <ChatList /> : <Chatting />} */}
       <div className="flex justify-between">
         <div>
-          {/* <Topbar /> */}
-          {/* <div>
-          <input placeholder="search friends" />
-          {conversations.map((c) => (
-            <div
-              className="bg-gray-200"
-              onClick={() => setCurrentChat(c)}
-              key={c._id}
-            >
-              <Conversations
-                conversation={c}
-                currentUser={userObject}
-                key={c._id}
-              />
-            </div>
-          ))}
-          <div>search 기능은 지금 필요 없는듯</div>
-        </div> */}
-          {/* <span>following each other friend</span>
-          <div>
-            {friendEachother.map((user) => (
-              <div key={user._id} className="flex">
-                <img className="w-6 h-6" src={user.profilePicture[0]} alt="" />
-                <span>{user.nickName}</span>
-              </div>
-            ))}
-          </div> */}
-
-          <span>맞팔 리스트 중에 클릭하면 대화창 만들어짐</span>
+          <h3>채팅 목록</h3>
 
           <div>
             {friendEachother.map((user) => (
@@ -267,17 +223,35 @@ export default function Messenger() {
             <span>start conversation to chat</span>
           )}
         </div>
-        <div>
-          {/* <ChatOnline
-            onlineUsers={onlineUsers}
-            currentId={userObject._id}
-            setCurrentChat={setCurrentChat}
-          /> */}
-        </div>
+        <div></div>
         <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
           <TabBar />
         </div>
       </div>
     </>
   );
+}
+
+//접속한 userObject의 모든 conversation list를 가져옴
+// useEffect(() => {
+//   const getConversations = async () => {
+//     try {
+//       const res = await axios.get(
+//         `${process.env.REACT_APP_API_ROOT}/api/conversations/` +
+//           userObject._id
+//       );
+//       setConversations(res.data);
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
+//   getConversations();
+// }, [userObject._id]);
+
+{
+  /* <ChatOnline
+            onlineUsers={onlineUsers}
+            currentId={userObject._id}
+            setCurrentChat={setCurrentChat}
+          /> */
 }

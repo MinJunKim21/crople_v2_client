@@ -15,7 +15,7 @@ import NeedProfile from '../components/NeedProfile';
 import TabBar from '../components/TabBar';
 
 function Home() {
-  const [allUsers, setAllUsers] = useState([]);
+  // const [allUsers, setAllUsers] = useState([]);
   const [recommendUsers, setRecommendUsers] = useState([]);
   // const [nickName, setNickName] = useState(undefined);
   const userObject = useContext(AuthContext);
