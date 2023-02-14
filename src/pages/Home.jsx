@@ -19,16 +19,16 @@ function Home() {
   const [recommendUsers, setRecommendUsers] = useState([]);
   // const [nickName, setNickName] = useState(undefined);
   const userObject = useContext(AuthContext);
-  useEffect(() => {
-    const fetchAll = async () => {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_ROOT}/api/users/all`
-      );
-      setAllUsers(res.data);
-      // console.log(allUsers);
-    };
-    fetchAll();
-  }, []);
+  // useEffect(() => {
+  //   const fetchAll = async () => {
+  //     const res = await axios.get(
+  //       `${process.env.REACT_APP_API_ROOT}/api/users/all`
+  //     );
+  //     setAllUsers(res.data);
+  //     // console.log(allUsers);
+  //   };
+  //   fetchAll();
+  // }, []);
   useEffect(() => {
     const fetchRecommend = async () => {
       const res = await axios.get(
