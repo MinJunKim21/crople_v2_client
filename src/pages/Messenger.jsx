@@ -4,17 +4,17 @@ import { useState, useEffect, useRef, useContext } from 'react';
 // import Topbar from '../components/Topbar';
 import { AuthContext } from '../context/AuthContext';
 // import ChatOnline from '../components/ChatOnline';
-import Conversations from '../components/Conversations';
+// import Conversations from '../components/Conversations';
 import Message from '../components/Message';
 import io from 'socket.io-client';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import TabBar from '../components/TabBar';
 
 const ENDPOINT = process.env.REACT_APP_API_ROOT;
 let socket;
 
 export default function Messenger() {
-  const [conversations, setConversations] = useState([]);
+  // const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -64,20 +64,20 @@ export default function Messenger() {
   }, [userObject]);
 
   //접속한 userObject의 모든 conversation list를 가져옴
-  useEffect(() => {
-    const getConversations = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_ROOT}/api/conversations/` +
-            userObject._id
-        );
-        setConversations(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getConversations();
-  }, [userObject._id]);
+  // useEffect(() => {
+  //   const getConversations = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         `${process.env.REACT_APP_API_ROOT}/api/conversations/` +
+  //           userObject._id
+  //       );
+  //       setConversations(res.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getConversations();
+  // }, [userObject._id]);
 
   //create conversation
   const createConversation = async (user) => {
