@@ -4,10 +4,9 @@ import { useState, useEffect, useRef, useContext } from 'react';
 // import Topbar from '../components/Topbar';
 import { AuthContext } from '../context/AuthContext';
 // import ChatOnline from '../components/ChatOnline';
-// import Conversations from '../components/Conversations';
+import Conversations from '../components/Conversations';
 import Message from '../components/Message';
 import io from 'socket.io-client';
-// import { Link } from 'react-router-dom';
 import TabBar from '../components/TabBar';
 
 const ENDPOINT = process.env.REACT_APP_API_ROOT;
@@ -169,24 +168,24 @@ export default function Messenger() {
       <div className="flex justify-between">
         <div>
           {/* <Topbar /> */}
-          {/* <div>
-          <input placeholder="search friends" />
-          {conversations.map((c) => (
-            <div
-              className="bg-gray-200"
-              onClick={() => setCurrentChat(c)}
-              key={c._id}
-            >
-              <Conversations
-                conversation={c}
-                currentUser={userObject}
+          <div>
+            <input placeholder="search friends" />
+            {conversations.map((c) => (
+              <div
+                className="bg-gray-200"
+                onClick={() => setCurrentChat(c)}
                 key={c._id}
-              />
-            </div>
-          ))}
-          <div>search 기능은 지금 필요 없는듯</div>
-        </div> */}
-          {/* <span>following each other friend</span>
+              >
+                <Conversations
+                  conversation={c}
+                  currentUser={userObject}
+                  key={c._id}
+                />
+              </div>
+            ))}
+            <div>search 기능은 지금 필요 없는듯</div>
+          </div>
+          <span>following each other friend</span>
           <div>
             {friendEachother.map((user) => (
               <div key={user._id} className="flex">
@@ -194,7 +193,7 @@ export default function Messenger() {
                 <span>{user.nickName}</span>
               </div>
             ))}
-          </div> */}
+          </div>
 
           <span>맞팔 리스트 중에 클릭하면 대화창 만들어짐</span>
 
