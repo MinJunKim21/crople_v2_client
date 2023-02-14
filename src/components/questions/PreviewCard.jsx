@@ -4,15 +4,15 @@ import { BsChevronLeft } from 'react-icons/bs';
 import { HiLocationMarker } from 'react-icons/hi';
 import { LineBtn } from '../LineBtn';
 
-export const PreviewCard = (props) => {
-  const setQuestion = props.setQuestion;
-  const file = props.file;
-  const nickNameDB = props.nickNameDB;
-  const locationsCheckedList = props.locationsCheckedList;
-  const sportsCheckedList = props.sportsCheckedList;
-  const descDB = props.descDB;
-  const profilePictureDB = props.profilePictureDB;
-
+export const PreviewCard = ({
+  setQuestion,
+  file,
+  nickNameDB,
+  locationsCheckedList,
+  sportsCheckedList,
+  descDB,
+  profilePictureDB,
+}) => {
   return (
     <div>
       <BgGraWrapperA>
