@@ -7,12 +7,17 @@ const LOCATION_LIST = [
   { id: 1, data: '서대문구' },
 ];
 
-export const QuestionTwo = (props) => {
+export const QuestionTwo = ({
+  setQuestion,
+  useRef,
+  locationsCheckedList,
+  onCheckedLocationsElement,
+}) => {
   return (
     <BgWrapper>
       <button
         onClick={() => {
-          props.setQuestion('one');
+          setQuestion('one');
         }}
       >
         <BsChevronLeft />
@@ -31,17 +36,12 @@ export const QuestionTwo = (props) => {
                   id={item.id}
                   type="checkbox"
                   value={item.data}
-                  ref={props.useRef}
+                  ref={useRef}
                   onChange={(e) => {
-                    props.onCheckedLocationsElement(
-                      e.target.checked,
-                      e.target.value
-                    );
+                    onCheckedLocationsElement(e.target.checked, e.target.value);
                   }}
                   checked={
-                    props.locationsCheckedList.includes(item.data)
-                      ? true
-                      : false
+                    locationsCheckedList.includes(item.data) ? true : false
                   }
                   className="hidden peer"
                 />
@@ -51,7 +51,7 @@ export const QuestionTwo = (props) => {
           })}
         </ul>
       </div>
-      {props.locationsCheckedList.length === 0 ? (
+      {locationsCheckedList.length === 0 ? (
         <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
           <NextBtnGrayBg>
             <NextBtnGrayText>다음</NextBtnGrayText>
@@ -61,10 +61,10 @@ export const QuestionTwo = (props) => {
         <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
           <NextBtnGraBorder
             onClick={() => {
-              if (props.locationsCheckedList.length === 0) {
+              if (locationsCheckedList.length === 0) {
                 alert('최소 하나의 지역을 선택해야합니다');
-              } else if (props.locationsCheckedList.length > 0) {
-                props.setQuestion('three');
+              } else if (locationsCheckedList.length > 0) {
+                setQuestion('three');
               }
             }}
           >

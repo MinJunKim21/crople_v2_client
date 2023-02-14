@@ -11,7 +11,12 @@ const SPORTS_LIST = [
   { id: 7, data: '싸이클' },
 ];
 
-export const QuestionOne = (props) => {
+export const QuestionOne = ({
+  useRef,
+  onCheckedSportsElement,
+  sportsCheckedList,
+  setQuestion,
+}) => {
   return (
     <BgWrapper>
       <MainQuestion className="mt-14">어떤 운동을 좋아하세요?</MainQuestion>
@@ -28,16 +33,11 @@ export const QuestionOne = (props) => {
                   type="checkbox"
                   className="hidden peer"
                   value={item.data}
-                  ref={props.useRef}
+                  ref={useRef}
                   onChange={(e) => {
-                    props.onCheckedSportsElement(
-                      e.target.checked,
-                      e.target.value
-                    );
+                    onCheckedSportsElement(e.target.checked, e.target.value);
                   }}
-                  checked={
-                    props.sportsCheckedList.includes(item.data) ? true : false
-                  }
+                  checked={sportsCheckedList.includes(item.data) ? true : false}
                 />
                 <OptionBtn htmlFor={item.id}>{item.data}</OptionBtn>
               </li>
@@ -45,7 +45,7 @@ export const QuestionOne = (props) => {
           })}
         </ul>
       </div>
-      {props.sportsCheckedList.length === 0 ? (
+      {sportsCheckedList.length === 0 ? (
         <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
           <NextBtnGrayBg>
             <NextBtnGrayText>다음</NextBtnGrayText>
@@ -55,10 +55,10 @@ export const QuestionOne = (props) => {
         <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
           <NextBtnGraBorder
             onClick={() => {
-              if (props.sportsCheckedList.length === 0) {
+              if (sportsCheckedList.length === 0) {
                 alert('최소 하나의 운동을 선택해야합니다');
-              } else if (props.sportsCheckedList.length > 0) {
-                props.setQuestion('two');
+              } else if (sportsCheckedList.length > 0) {
+                setQuestion('two');
               }
             }}
           >

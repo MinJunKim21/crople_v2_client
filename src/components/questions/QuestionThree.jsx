@@ -2,21 +2,36 @@ import tw from 'twin.macro';
 import { BsChevronLeft } from 'react-icons/bs';
 import { MdCancel } from 'react-icons/md';
 
-export const QuestionThree = (props) => {
-  const setQuestion = props.setQuestion;
-  const file = props.file;
-  const fileB = props.fileB;
-  const fileC = props.fileC;
-  const setFile = props.setFile;
-  const setFileB = props.setFileB;
-  const setFileC = props.setFileC;
-  const fileChange = props.fileChange;
-  const nickName = props.nickName;
-  const nickNameDB = props.nickNameDB;
-  const setNickNameDB = props.setNickNameDB;
-  const selfIntroduction = props.useRef;
-  const descDB = props.descDB;
-  const setDescDB = props.setDescDB;
+export const QuestionThree = ({
+  setQuestion,
+  file,
+  fileB,
+  fileC,
+  setFile,
+  setFileB,
+  setFileC,
+  fileChange,
+  nickName,
+  nickNameDB,
+  setNickNameDB,
+  useRef,
+  descDB,
+  setDescDB,
+}) => {
+  // const setQuestion = props.setQuestion;
+  // const file = props.file;
+  // const fileB = props.fileB;
+  // const fileC = props.fileC;
+  // const setFile = props.setFile;
+  // const setFileB = props.setFileB;
+  // const setFileC = props.setFileC;
+  // const fileChange = props.fileChange;
+  // const nickName = props.nickName;
+  // const nickNameDB = props.nickNameDB;
+  // const setNickNameDB = props.setNickNameDB;
+  // const selfIntroduction = props.useRef;
+  // const descDB = props.descDB;
+  // const setDescDB = props.setDescDB;
 
   const byteCounter = (s, b, i, c) => {
     for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 2 : c >> 7 ? 2 : 1);
@@ -187,17 +202,16 @@ export const QuestionThree = (props) => {
       </div>
       <div>
         <textarea
-          ref={selfIntroduction}
+          ref={useRef}
           type="text"
           value={descDB}
           placeholder="예시)&#10;헬스는 2년 정도 했고 무게 위주로 치는 중이에요.&#10;클라이밍은 해본 적 없지만 이번에 같이 할 친구 생기면 배워보고 싶어요!"
           className="w-full border-2 rounded-lg h-[11.75rem] px-2 py-3"
           onChange={() => {
-            if (byteCounter(selfIntroduction.current.value) > 240) {
-              selfIntroduction.current.value =
-                selfIntroduction.current.value.slice(0, -1);
+            if (byteCounter(useRef.current.value) > 240) {
+              useRef.current.value = useRef.current.value.slice(0, -1);
             }
-            setDescDB(selfIntroduction.current.value);
+            setDescDB(useRef.current.value);
           }}
         />
         <div className="text-[#A5A5A5] text-xs text-right">
