@@ -147,7 +147,6 @@ export default function Messenger() {
           userObject._id
       );
       setFriendEachother(res.data);
-      console.log(friendEachother, 'friendeachother');
     };
     getFriendEachother();
   }, [userObject._id]);
