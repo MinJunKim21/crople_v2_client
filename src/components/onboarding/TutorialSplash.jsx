@@ -56,11 +56,3 @@ const WhiteNote = styled.div`
 
 const WhiteNoteA = tw(WhiteNote)`
 absolute left-[50%] top-[40%] translate-x-[-50%] translate-y-[-50%] text-xs text-center bg-white py-3 px-3 rounded-full text-[#555555]`;
-
-const WhiteCenterBlur = styled.div`
-  background: radial-gradient(
-    50% 50% at 50% 50%,
-    #ffffff 0%,
-    rgba(255, 255, 255, 0) 78.57%
-  );
-`;
