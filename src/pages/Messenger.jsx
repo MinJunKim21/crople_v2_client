@@ -161,50 +161,74 @@ export default function Messenger() {
     [convExist]
   );
 
-  // const handleGetConversationsOfTwo = async (user) => {
-  //   await getConversationsOfTwo(user);
-  //   if (convExist === '') {
-  //     await createConversation(user);
-  //     console.log('hi');
-  //     await setCurrentChat(convExist);
-  //   } else {
-  //     setCurrentChat(convExist);
-  //     console.log('hello');
-  //   }
-  // };
-
   return (
     <>
       {/* {chatListPage ? <ChatList /> : <Chatting />} */}
       <div className="flex justify-between">
-        <div>
-          <h3>채팅 목록</h3>
+        {!currentChat && (
+          <div className="relative">
+            <h3 className="fix absolute top-0 left-[50%] translate-x-[-50%] text-center justify-center text-xl text-[#A5A5A5] pt-12 pb-4 border-b-2 w-full">
+              채팅 목록
+            </h3>
 
-          <div>
-            {friendEachother.map((user) => (
-              <div key={user._id}>
-                <button
-                  onClick={() => {
-                    getConversationsOfTwo(user);
-                  }}
-                >
-                  <div key={user._id} className="flex">
-                    <img
-                      className="w-6 h-6"
-                      src={user.profilePicture[0]}
-                      alt=""
-                    />
-                    <span>{user.nickName}</span>
-                  </div>
-                </button>
-              </div>
-            ))}
+            <div className="flex flex-col mt-[100px] w-full px-2 space-y-2">
+              {friendEachother.map((user) => (
+                <div key={user._id} className="border px-4 py-2 rounded-2xl">
+                  <button
+                    onClick={() => {
+                      getConversationsOfTwo(user);
+                    }}
+                  >
+                    <div key={user._id} className="flex space-x-4 items-center">
+                      <img
+                        className="w-20 h-20 object-cover rounded-full"
+                        src={user.profilePicture[0]}
+                        alt=""
+                      />
+                      <div>
+                        <div className="flex">
+                          <span>{user.nickName}</span>
+                          <span>10분전</span>
+                        </div>
+                        <div className="flex">
+                          <span>서울</span>
+                          <div className="flex">
+                            {user.locations.map((location) => {
+                              return (
+                                <h4
+                                  key={location}
+                                  className="text-[#A5A5A5] text-lg "
+                                >
+                                  {location}
+                                </h4>
+                              );
+                            })}
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap w-full  ">
+                          {user.likeSports.map((likeSports, index) => {
+                            return (
+                              <h4
+                                key={index}
+                                className="border px-2 py-1 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mb-2 mr-2"
+                              >
+                                {likeSports}
+                              </h4>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
         <div>
-          <div>채팅화면(대화창)</div>
-          {currentChat ? (
+          {currentChat && (
             <>
+              <button onClick={() => setCurrentChat(null)}>back</button>
               <div className="h-60 overflow-y-scroll">
                 {messages.map((m) => (
                   <div key={m._id} ref={scrollRef}>
@@ -232,8 +256,6 @@ export default function Messenger() {
                 <button onClick={handleSubmit}>Send</button>
               </div>
             </>
-          ) : (
-            <span>start conversation to chat</span>
           )}
         </div>
         <div></div>
