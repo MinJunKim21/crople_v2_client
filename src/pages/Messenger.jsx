@@ -144,11 +144,7 @@ export default function Messenger() {
 
   useEffect(
     (user) => {
-      if (convExist === null) {
-        createConversation(user).then((conversation) => {
-          setCurrentChat(conversation);
-        });
-      } else {
+      if (convExist !== null) {
         setCurrentChat(convExist);
       }
     },
