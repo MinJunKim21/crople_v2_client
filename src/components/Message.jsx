@@ -1,5 +1,5 @@
 import React from 'react';
-import { format } from 'timeago.js';
+// import { format } from 'timeago.js';
 
 export default function Message({
   isSameSender,
@@ -18,13 +18,15 @@ export default function Message({
       }
     >
       <div className="flex">
-        {!own && !isSameSender && (
+        {
           <img
             src={user?.profilePicture[0]}
             alt=""
-            className="w-12 h-12 rounded-full"
+            className={`w-12 h-12 rounded-full ${
+              own || isSameSender ? 'opacity-0' : ''
+            }`}
           />
-        )}
+        }
         <p
           className={
             own
