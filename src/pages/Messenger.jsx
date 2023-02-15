@@ -49,7 +49,7 @@ export default function Messenger() {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage]);
-  }, [arrivalMessage, currentChat, convExist]);
+  }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
     socket.emit('addUser', userObject._id);
@@ -60,18 +60,6 @@ export default function Messenger() {
       //   );
     });
   }, [userObject]);
-
-  //create conversation
-  const createConversation = async (user) => {
-    try {
-      await axios.post(`${process.env.REACT_APP_API_ROOT}/api/conversations`, {
-        senderId: userObject._id,
-        receiverId: user._id,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   useEffect(() => {
     const getMessages = async () => {
@@ -139,20 +127,50 @@ export default function Messenger() {
         `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
       );
       setConvExist(res.data);
+      console.log(res, 'getconversationoftwo res');
+      if (res.data === null) {
+        createConversation(user).then((conversation) => {
+          setCurrentChat(conversation);
+        });
+      } else {
+        setCurrentChat(convExist);
+      }
+      console.log(user, 'user');
+      // createConversation(user);
     } catch (err) {
       console.log(err);
     }
   };
 
-  useEffect(() => {
-    if (convExist === '') {
-      createConversation().then((conversation) => {
-        setCurrentChat(conversation);
-      });
-    } else {
-      setCurrentChat(convExist);
+  useEffect(
+    (user) => {
+      if (convExist === null) {
+        createConversation(user).then((conversation) => {
+          setCurrentChat(conversation);
+        });
+      } else {
+        setCurrentChat(convExist);
+      }
+    },
+    [convExist]
+  );
+
+  //create conversation
+  const createConversation = async (user) => {
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_ROOT}/api/conversations`,
+        {
+          senderId: userObject._id,
+          receiverId: user._id,
+        }
+      );
+      console.log(res, 'createdconversation');
+      return res.data;
+    } catch (err) {
+      console.log(err);
     }
-  }, [convExist]);
+  };
 
   return (
     <>
