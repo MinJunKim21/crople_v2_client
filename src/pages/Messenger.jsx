@@ -27,7 +27,7 @@ export default function Messenger() {
   const userObject = useContext(AuthContext);
   const scrollRef = useRef();
   const [friendEachother, setFriendEachother] = useState([]);
-  const [convExist, setConvExist] = useState(false);
+  const [convExist, setConvExist] = useState('');
   const [showButton, setShowButton] = useState(false);
   // const [chatListPage, setChatListPage] = useState(true);
 
@@ -50,7 +50,8 @@ export default function Messenger() {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage]);
-  }, [arrivalMessage, currentChat]);
+    console.log(messages, 'messages');
+  }, [arrivalMessage, currentChat, convExist]);
 
   useEffect(() => {
     socket.emit('addUser', userObject._id);
@@ -87,7 +88,7 @@ export default function Messenger() {
       }
     };
     getMessages();
-  }, [currentChat]);
+  }, [currentChat, convExist]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -139,12 +140,38 @@ export default function Messenger() {
       const res = await axios.get(
         `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
       );
+      console.log(res.data, 'getCOnversationsofTwo');
       setConvExist(res.data);
-      console.log(res.data, 'hiiiiii');
+      console.log(convExist, 'convExist');
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(
+    (user) => {
+      if (convExist === '') {
+        createConversation(user).then(() => {
+          setCurrentChat(convExist);
+        });
+      } else {
+        setCurrentChat(convExist);
+      }
+    },
+    [convExist]
+  );
+
+  // const handleGetConversationsOfTwo = async (user) => {
+  //   await getConversationsOfTwo(user);
+  //   if (convExist === '') {
+  //     await createConversation(user);
+  //     console.log('hi');
+  //     await setCurrentChat(convExist);
+  //   } else {
+  //     setCurrentChat(convExist);
+  //     console.log('hello');
+  //   }
+  // };
 
   return (
     <>
@@ -159,7 +186,6 @@ export default function Messenger() {
                 <button
                   onClick={() => {
                     getConversationsOfTwo(user);
-                    setShowButton(true);
                   }}
                 >
                   <div key={user._id} className="flex">
@@ -171,19 +197,6 @@ export default function Messenger() {
                     <span>{user.nickName}</span>
                   </div>
                 </button>
-                {showButton && (
-                  <button
-                    onClick={() => {
-                      if (convExist === false) {
-                        createConversation(user);
-                      } else {
-                        setCurrentChat(convExist);
-                      }
-                    }}
-                  >
-                    대화하기
-                  </button>
-                )}
               </div>
             ))}
           </div>
