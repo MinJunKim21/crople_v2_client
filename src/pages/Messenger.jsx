@@ -28,7 +28,6 @@ export default function Messenger() {
   const scrollRef = useRef();
   const [friendEachother, setFriendEachother] = useState([]);
   const [convExist, setConvExist] = useState('');
-  const [showButton, setShowButton] = useState(false);
   // const [chatListPage, setChatListPage] = useState(true);
 
   useEffect(() => {
@@ -50,7 +49,6 @@ export default function Messenger() {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage]);
-    console.log(messages, 'messages');
   }, [arrivalMessage, currentChat, convExist]);
 
   useEffect(() => {
@@ -140,26 +138,21 @@ export default function Messenger() {
       const res = await axios.get(
         `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
       );
-      console.log(res.data, 'getCOnversationsofTwo');
       setConvExist(res.data);
-      console.log(convExist, 'convExist');
     } catch (err) {
       console.log(err);
     }
   };
 
-  useEffect(
-    (user) => {
-      if (convExist === '') {
-        createConversation(user).then(() => {
-          setCurrentChat(convExist);
-        });
-      } else {
-        setCurrentChat(convExist);
-      }
-    },
-    [convExist]
-  );
+  useEffect(() => {
+    if (convExist === '') {
+      createConversation().then((conversation) => {
+        setCurrentChat(conversation);
+      });
+    } else {
+      setCurrentChat(convExist);
+    }
+  }, [convExist]);
 
   return (
     <>
