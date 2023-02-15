@@ -28,6 +28,7 @@ export default function Messenger() {
   const scrollRef = useRef();
   const [friendEachother, setFriendEachother] = useState([]);
   const [convExist, setConvExist] = useState('');
+  const [user, setUser] = useState('');
   // const [chatListPage, setChatListPage] = useState(true);
 
   useEffect(() => {
@@ -135,7 +136,7 @@ export default function Messenger() {
       } else {
         setCurrentChat(convExist);
       }
-      console.log(user, 'user');
+      setUser(user);
       // createConversation(user);
     } catch (err) {
       console.log(err);
@@ -171,7 +172,7 @@ export default function Messenger() {
   return (
     <>
       {/* {chatListPage ? <ChatList /> : <Chatting />} */}
-      <div className="flex justify-between">
+      <div className="flex justify-center">
         {!currentChat && (
           <div className="relative">
             <h3 className="fix absolute top-0 left-[50%] translate-x-[-50%] text-center justify-center text-xl text-[#A5A5A5] pt-12 pb-4 border-b-2 w-full">
@@ -232,20 +233,29 @@ export default function Messenger() {
             </div>
           </div>
         )}
-        <div>
+        <div className="max-w-sm flex-wrap ">
           {currentChat && (
-            <>
+            <div>
               <button onClick={() => setCurrentChat(null)}>back</button>
-              <div className="h-60 overflow-y-scroll">
-                {messages.map((m) => (
-                  <div key={m._id} ref={scrollRef}>
-                    <Message
-                      key={m._id}
-                      message={m}
-                      own={m.sender === userObject._id}
-                    />
-                  </div>
-                ))}
+              <div className="h-full overflow-y-scroll">
+                {messages.map((m, index) => {
+                  const previousMessage = messages[index - 1];
+                  const isSameSender =
+                    previousMessage && previousMessage.sender === m.sender;
+                  return (
+                    <div key={m._id} ref={scrollRef}>
+                      <Message
+                        key={m._id}
+                        message={m}
+                        own={m.sender === userObject._id}
+                        user={user}
+                        userObject={userObject}
+                        index={index}
+                        isSameSender={isSameSender}
+                      />
+                    </div>
+                  );
+                })}
               </div>
               <div>
                 <textarea
@@ -253,8 +263,8 @@ export default function Messenger() {
                   name=""
                   id=""
                   cols="30"
-                  rows="10"
-                  placeholder="write message here"
+                  rows="4"
+                  placeholder="메세지 보내기..."
                   onChange={(e) => {
                     setNewMessage(e.target.value);
                   }}
@@ -262,10 +272,9 @@ export default function Messenger() {
                 ></textarea>
                 <button onClick={handleSubmit}>Send</button>
               </div>
-            </>
+            </div>
           )}
         </div>
-        <div></div>
         <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
           <TabBar />
         </div>
