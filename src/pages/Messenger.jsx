@@ -30,7 +30,7 @@ export default function Messenger() {
   const [convExist, setConvExist] = useState('');
   const [user, setUser] = useState('');
   // const [chatListPage, setChatListPage] = useState(true);
-
+  console.log(userObject._id);
   useEffect(() => {
     socket = io(ENDPOINT, {
       // WARNING: in that case, there is no fallback to long-polling
@@ -233,11 +233,30 @@ export default function Messenger() {
             </div>
           </div>
         )}
-        <div className="max-w-sm flex-wrap ">
+        <div className="max-w-md max-h-screen ">
           {currentChat && (
-            <div className="h-screen">
-              <button onClick={() => setCurrentChat(null)}>back</button>
-              <div className="h-full overflow-y-scroll">
+            <div className="h-screen relative flex flex-col">
+              <button
+                onClick={() => setCurrentChat(null)}
+                className="absolute z-50"
+              >
+                back
+              </button>
+              <div className="flex flex-col relative">
+                <h3 className="flex justify-center text-center w-full">
+                  {user.nickName}
+                </h3>
+                <h4 className="flex justify-center text-center w-full">
+                  {user.locations.map((l, index) => {
+                    return <div>{l}</div>;
+                  })}
+                </h4>
+              </div>
+              <div className="h-screen overflow-y-scroll pt-12 pb-20">
+                <p>
+                  메이트와 연결되었습니다.
+                  <br /> 장소, 시간 약속을 정하고 함께 운동을 즐겨보세요!
+                </p>
                 {messages.map((m, index) => {
                   const previousMessage = messages[index - 1];
                   const isSameSender =
@@ -257,27 +276,29 @@ export default function Messenger() {
                   );
                 })}
               </div>
-              <div>
+              <div className="absolute flex bottom-0 ">
                 <textarea
                   className="border"
                   name=""
                   id=""
                   cols="30"
-                  rows="4"
+                  rows="2"
                   placeholder="메세지 보내기..."
                   onChange={(e) => {
                     setNewMessage(e.target.value);
                   }}
                   value={newMessage}
                 ></textarea>
-                <button onClick={handleSubmit}>Send</button>
+                <button onClick={handleSubmit} className="">
+                  Send
+                </button>
               </div>
             </div>
           )}
         </div>
-        <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+        {/* <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
           <TabBar />
-        </div>
+        </div> */}
       </div>
     </>
   );
