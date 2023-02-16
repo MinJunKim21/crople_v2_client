@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // import Topbar from '../components/Topbar';
 // import Sidebar from '../components/Sidebar';
 // import Rightbar from '../components/Rightbar';
+
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
@@ -14,6 +15,7 @@ import { AuthContext } from '../context/AuthContext';
 import { HiLocationMarker } from 'react-icons/hi';
 import { BsChevronLeft } from 'react-icons/bs';
 import { LineBtn } from './LineBtn';
+import { Carousel } from './carousel/Carousel';
 
 export const MyProfileCard = () => {
   const userObject = useContext(AuthContext);
@@ -48,18 +50,7 @@ export const MyProfileCard = () => {
               <div className="px-4">
                 <hr className="w-full bg-gradient-to-r to-[#F79D00] via-[#CABE40] from-[#9AE286] h-[2px] px-4" />
               </div>
-              <div className="w-[9.5rem] h-[9.5rem] bg-gradient-to-b to-[#F79D00] via-[#CABE40] from-[#9AE286] p-[2px] rounded-full justify-center mx-auto mt-6 ">
-                <div className="justify-center flex items-center h-full w-full">
-                  <img
-                    src={userObject.profilePicture[0]}
-                    alt=""
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                </div>
-              </div>
-              <div className="mt-4 mb-[1.125rem] w-full flex justify-center ">
-                <div className="bg-[#C1C1C1] w-1.5 h-1.5 rounded-full" />
-              </div>
+              <Carousel images={userObject.profilePicture} />
 
               <div className="px-6 flex flex-col  w-full">
                 <div className="flex w-full items-center justify-between mb-8 ">
