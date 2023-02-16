@@ -30,6 +30,8 @@ export default function NeedProfile() {
   const locations = useRef();
   const selfIntroduction = useRef();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const onCheckedSportsElement = (checked, item) => {
     if (checked) {
       setSportsCheckedList([...sportsCheckedList, item]);
@@ -51,6 +53,7 @@ export default function NeedProfile() {
   };
 
   const uploadImage = async (file) => {
+    setIsLoading(true);
     const formData = new FormData();
     formData.append('file', file);
     formData.append(
@@ -62,6 +65,7 @@ export default function NeedProfile() {
       `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`,
       formData
     );
+    setIsLoading(false);
     return res;
   };
 
@@ -87,7 +91,7 @@ export default function NeedProfile() {
         `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
         updatedUser
       );
-      await setTimeout(() => {
+      setTimeout(() => {
         window.location.reload();
       }, 2000);
     } catch (err) {
@@ -131,6 +135,9 @@ export default function NeedProfile() {
             useRef={selfIntroduction}
             descDB={descDB}
             setDescDB={setDescDB}
+            setIsLoading={setIsLoading}
+            isLoading={isLoading}
+            profilePictureDB={profilePictureDB}
           />
         ) : null}
         {question === 'four' ? (

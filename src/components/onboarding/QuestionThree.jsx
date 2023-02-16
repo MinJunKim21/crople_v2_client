@@ -17,6 +17,9 @@ export const QuestionThree = ({
   useRef,
   descDB,
   setDescDB,
+  setIsLoading,
+  isLoading,
+  profilePictureDB,
 }) => {
   const byteCounter = (s, b, i, c) => {
     for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 2 : c >> 7 ? 2 : 1);
@@ -211,10 +214,15 @@ export const QuestionThree = ({
           제한될 수 있습니다.
         </p>
       </div>
-      {nickNameDB === '' || file === null || file === undefined ? (
+      {nickNameDB === '' ||
+      file === null ||
+      file === undefined ||
+      profilePictureDB[0] === '' ? (
         <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
           <NextBtnGrayBg>
-            <NextBtnGrayText>확인</NextBtnGrayText>
+            <NextBtnGrayText>
+              {isLoading ? '이미지 업로드 중...' : '확인'}
+            </NextBtnGrayText>
           </NextBtnGrayBg>
         </div>
       ) : (

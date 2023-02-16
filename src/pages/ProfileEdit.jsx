@@ -57,7 +57,6 @@ export const ProfileEdit = () => {
       profilePicture: profilePictureDB,
     };
     e.preventDefault();
-    console.log(profilePictureDB, 'expecting url');
     try {
       await axios.put(
         `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
@@ -89,8 +88,6 @@ export const ProfileEdit = () => {
 
   const fileChange = async (e, index) => {
     const uploaded = await uploadImage(e.target.files[0]);
-    console.log(uploaded, 'filechange uploaded');
-    // setProfilePictureDB(uploaded.data.secure_url);
     profilePictureDB[index] = uploaded.data.secure_url;
   };
 
