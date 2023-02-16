@@ -41,7 +41,7 @@ export const QuestionThree = ({
       <div className="flex justify-center space-x-4">
         <div className="inline-block">
           <div className="relative inline-block">
-            <div className="bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
+            <div className="bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full cursor-pointer">
               {file ? (
                 <img
                   src={file ? URL.createObjectURL(file) : null}
@@ -54,7 +54,7 @@ export const QuestionThree = ({
             </div>
             <label
               htmlFor="fileInputA"
-              className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full text-center ${
+              className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full text-center cursor-pointer ${
                 file ? 'text-transparent' : 'text-[#C1C1C1]'
               }`}
             >
@@ -76,11 +76,11 @@ export const QuestionThree = ({
         </div>
 
         <div className="inline-block">
-          <div className="relative inline-block">
+          <div className="relative inline-block cursor-pointer">
             <div
               className={`bg-white  box-content ${
                 fileB ? null : 'border-[1.5px]'
-              } border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative rounded-full`}
+              } border-dashed border-[#C1C1C1] w-[6.75rem] h-[6.75rem] relative rounded-full `}
             >
               {fileB ? (
                 <img
@@ -94,7 +94,7 @@ export const QuestionThree = ({
             </div>
             <label
               htmlFor="fileInputB"
-              className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
+              className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full cursor-pointer text-center ${
                 fileB ? 'text-transparent' : 'text-[#C1C1C1]'
               }`}
             >
@@ -115,7 +115,7 @@ export const QuestionThree = ({
         </div>
 
         <div className="inline-block">
-          <div className="relative inline-block">
+          <div className="relative inline-block cursor-pointer">
             <div
               className={`bg-white  box-content ${
                 fileC ? null : 'border-[1.5px]'
@@ -133,7 +133,7 @@ export const QuestionThree = ({
             </div>
             <label
               htmlFor="fileInputC"
-              className={`absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
+              className={`absolute cursor-pointer left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  font-extralight w-full text-center ${
                 fileC ? 'text-transparent' : 'text-[#C1C1C1]'
               }`}
             >
@@ -172,7 +172,7 @@ export const QuestionThree = ({
             }}
           />
           <i
-            className="text-[#DFDFDF] w-6 h-6 text-[1.5rem]"
+            className="text-[#DFDFDF] w-6 h-6 text-[1.5rem] cursor-pointer"
             onClick={() => {
               nickName.current.value = '';
               setNickNameDB('');

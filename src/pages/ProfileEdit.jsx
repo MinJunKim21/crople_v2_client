@@ -117,7 +117,7 @@ export const ProfileEdit = () => {
 
               <div className="flex justify-center space-x-4">
                 <div className="inline-block">
-                  <div className="relative inline-block">
+                  <div className="relative inline-block ">
                     <div className="bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
                       {file ? (
                         <img
@@ -131,7 +131,7 @@ export const ProfileEdit = () => {
                     </div>
                     <label
                       htmlFor="fileInputA"
-                      className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
+                      className={`absolute cursor-pointer  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
                         file ? 'text-transparent' : 'text-[#C1C1C1]'
                       }`}
                     >
@@ -174,7 +174,7 @@ export const ProfileEdit = () => {
                     </div>
                     <label
                       htmlFor="fileInputB"
-                      className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
+                      className={`absolute cursor-pointer left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
                         fileB ? 'text-transparent' : 'text-[#C1C1C1]'
                       }`}
                     >
@@ -219,7 +219,7 @@ export const ProfileEdit = () => {
                     </div>
                     <label
                       htmlFor="fileInputC"
-                      className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
+                      className={`absolute cursor-pointer left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
                         fileC ? 'text-transparent' : 'text-[#C1C1C1]'
                       }`}
                     >
@@ -248,10 +248,6 @@ export const ProfileEdit = () => {
                     className="opacity-0 w-[1px] peer"
                   />
                 </div>
-              </div>
-
-              <div className="mt-4 mb-[1.125rem] w-full flex justify-center ">
-                <div className="bg-[#C1C1C1] w-1.5 h-1.5 rounded-full" />
               </div>
 
               <div className="px-6 flex flex-col  w-full">
