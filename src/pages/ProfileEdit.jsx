@@ -15,6 +15,7 @@ import { HiLocationMarker } from 'react-icons/hi';
 import { AiOutlineRight } from 'react-icons/ai';
 import { BsChevronLeft } from 'react-icons/bs';
 import { LineBtn } from '../components/LineBtn';
+import { LoadingBtn } from '../components/btn&tab&bar/LoadingBtn';
 
 export const ProfileEdit = () => {
   const userObject = useContext(AuthContext);
@@ -31,6 +32,8 @@ export const ProfileEdit = () => {
   const [file, setFile] = useState(null);
   const [fileB, setFileB] = useState(null);
   const [fileC, setFileC] = useState(null);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -49,8 +52,6 @@ export const ProfileEdit = () => {
 
   const updateData = async (e) => {
     const updatedUser = {
-      // likeSports: sportsCheckedList,
-      // locations: locationsCheckedList,
       userId: user._id,
       desc: descDB,
       profilePicture: profilePictureDB,
@@ -62,9 +63,7 @@ export const ProfileEdit = () => {
         `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
         updatedUser
       );
-      await setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      window.location.href = `http://localhost:3000/profile/${user._id}`;
     } catch (err) {
       console.log(err);
       setProfilePictureDB([]);
@@ -72,6 +71,7 @@ export const ProfileEdit = () => {
   };
 
   const uploadImage = async (file) => {
+    setIsLoading(true);
     const formData = new FormData();
     formData.append('file', file);
     formData.append(
@@ -83,6 +83,7 @@ export const ProfileEdit = () => {
       `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`,
       formData
     );
+    setIsLoading(false);
     return res;
   };
 
@@ -315,11 +316,17 @@ export const ProfileEdit = () => {
           </div>
         </BgGraWrapperA>
       </div>
-      <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-        <button type="submit" className="w-full">
-          <LineBtn text={'수정완료'} />
-        </button>
-      </div>
+      {isLoading ? (
+        <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+          <LoadingBtn text={'이미지 업로드 중...'} />
+        </div>
+      ) : (
+        <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+          <button type="submit" className="w-full">
+            <LineBtn text={'수정완료'} />
+          </button>
+        </div>
+      )}
     </form>
   );
 };
