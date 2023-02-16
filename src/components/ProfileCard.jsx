@@ -17,17 +17,13 @@ import { LineBtn } from './LineBtn';
 
 export const ProfileCard = ({ user, onClose }) => {
   const userObject = useContext(AuthContext);
-  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  // eslint-disable-next-line no-unused-vars
   const [selectedUser, setSelectedUser] = useState(user);
   const _id = user._id;
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
   );
-  console.log(followed, 'followed');
-  // const [profileChange, setProfileChange] = useState(false);
-  // console.log(nickName, 'nickName');
-  // console.log(user, 'user');
-  // console.log(useParams(), 'useParams()');
+
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(

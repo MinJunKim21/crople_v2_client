@@ -9,6 +9,7 @@ import axios from 'axios';
 import NeedProfile from '../components/NeedProfile';
 import TabBar from '../components/TabBar';
 import { ProfileCard } from '../components/ProfileCard';
+import { Link } from 'react-router-dom';
 
 function Home() {
   // const [allUsers, setAllUsers] = useState([]);
@@ -74,11 +75,13 @@ function Home() {
             />
 
             <div className="relative h-screen w-screen">
-              <img
-                src={userObject.profilePicture[0]}
-                alt=""
-                className="w-20 h-20 object-cover rounded-full absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
-              />
+              <Link to={`/profile/${userObject._id}`}>
+                <img
+                  src={userObject.profilePicture[0]}
+                  alt=""
+                  className="w-20 h-20 object-cover rounded-full absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                />
+              </Link>
             </div>
           </div>
           <div className="z-50">
