@@ -4,17 +4,19 @@ import { useState, useEffect, useRef, useContext } from 'react';
 // import Topbar from '../components/Topbar';
 import { AuthContext } from '../context/AuthContext';
 // import ChatOnline from '../components/ChatOnline';
-import Conversations from '../components/Conversations';
+// import Conversations from '../components/Conversations';
 import Message from '../components/Message';
 import io from 'socket.io-client';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import TabBar from '../components/TabBar';
+// import { ChatList } from '../components/messenger/ChatList';
+// import { Chatting } from '../components/messenger/Chatting';
 
 const ENDPOINT = process.env.REACT_APP_API_ROOT;
 let socket;
 
 export default function Messenger() {
-  const [conversations, setConversations] = useState([]);
+  // const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -25,10 +27,9 @@ export default function Messenger() {
   const userObject = useContext(AuthContext);
   const scrollRef = useRef();
   const [friendEachother, setFriendEachother] = useState([]);
-  const [convExist, setConvExist] = useState(false);
-  const [showButton, setShowButton] = useState(false);
-
-  console.log(ENDPOINT, 'endpoint');
+  const [convExist, setConvExist] = useState('');
+  const [user, setUser] = useState('');
+  // const [chatListPage, setChatListPage] = useState(true);
 
   useEffect(() => {
     socket = io(ENDPOINT, {
@@ -36,7 +37,6 @@ export default function Messenger() {
       transports: ['websocket', 'polling'], // or [ "websocket", "polling" ] (the order matters)
       withCredentials: true,
     });
-    console.log(socket, 'socket');
     socket.on('getMessage', (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -55,42 +55,12 @@ export default function Messenger() {
   useEffect(() => {
     socket.emit('addUser', userObject._id);
     socket.on('getUsers', (users) => {
-      console.log(users);
       // setOnlineUsers(
       //   userObject.followings.filter((f) => users.some((u) => u.userId === f))
       //   // users
       //   );
     });
   }, [userObject]);
-
-  //접속한 userObject의 모든 conversation list를 가져옴
-  useEffect(() => {
-    const getConversations = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_ROOT}/api/conversations/` +
-            userObject._id
-        );
-        setConversations(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getConversations();
-  }, [userObject._id]);
-
-  //create conversation
-  const createConversation = async (user) => {
-    try {
-      console.log(user);
-      await axios.post(`${process.env.REACT_APP_API_ROOT}/api/conversations`, {
-        senderId: userObject._id,
-        receiverId: user._id,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   useEffect(() => {
     const getMessages = async () => {
@@ -105,7 +75,7 @@ export default function Messenger() {
       }
     };
     getMessages();
-  }, [currentChat]);
+  }, [currentChat, convExist]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -148,7 +118,6 @@ export default function Messenger() {
           userObject._id
       );
       setFriendEachother(res.data);
-      // console.log(friendEachother, 'friendeachother');
     };
     getFriendEachother();
   }, [userObject._id]);
@@ -159,7 +128,42 @@ export default function Messenger() {
         `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
       );
       setConvExist(res.data);
-      console.log(res.data, 'hiiiiii');
+      console.log(res, 'getconversationoftwo res');
+      if (res.data === null) {
+        createConversation(user).then((conversation) => {
+          setCurrentChat(conversation);
+        });
+      } else {
+        setCurrentChat(convExist);
+      }
+      setUser(user);
+      // createConversation(user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(
+    (user) => {
+      if (convExist !== null) {
+        setCurrentChat(convExist);
+      }
+    },
+    [convExist]
+  );
+
+  //create conversation
+  const createConversation = async (user) => {
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_ROOT}/api/conversations`,
+        {
+          senderId: userObject._id,
+          receiverId: user._id,
+        }
+      );
+      console.log(res, 'createdconversation');
+      return res.data;
     } catch (err) {
       console.log(err);
     }
@@ -167,79 +171,91 @@ export default function Messenger() {
 
   return (
     <>
-      {/* <Topbar /> */}
-      <div className="flex justify-between">
-        <div>
-          <input placeholder="search friends" />
-          {conversations.map((c) => (
-            <div
-              className="bg-gray-200"
-              onClick={() => setCurrentChat(c)}
-              key={c._id}
-            >
-              <Conversations
-                conversation={c}
-                currentUser={userObject}
-                key={c._id}
-              />
-            </div>
-          ))}
-          <div>search 기능은 지금 필요 없는듯</div>
-        </div>
-        <div>
-          <span>following each other friend</span>
-          <div>
-            {friendEachother.map((user) => (
-              <Link to={`/profile/${user.username}`}>
-                <div key={user._id}>{user.username || user.email}</div>
-              </Link>
-            ))}
-          </div>
+      {/* {chatListPage ? <ChatList /> : <Chatting />} */}
+      <div className="flex justify-center">
+        {!currentChat && (
+          <div className="relative">
+            <h3 className="fix absolute top-0 left-[50%] translate-x-[-50%] text-center justify-center text-xl text-[#A5A5A5] pt-12 pb-4 border-b-2 w-full">
+              채팅 목록
+            </h3>
 
-          <span>맞팔 리스트 중에 클릭하면 대화창 만들어짐</span>
-
-          <div>
-            {friendEachother.map((user) => (
-              <div key={user._id}>
-                <button
-                  onClick={() => {
-                    getConversationsOfTwo(user);
-                    setShowButton(true);
-                  }}
-                >
-                  {user.username || user.email}
-                </button>
-                {showButton && (
+            <div className="flex flex-col mt-[100px] w-full px-2 space-y-2">
+              {friendEachother.map((user) => (
+                <div key={user._id} className="border px-4 py-2 rounded-2xl">
                   <button
                     onClick={() => {
-                      if (convExist === null) {
-                        createConversation(user);
-                      } else {
-                        setCurrentChat(convExist);
-                      }
+                      getConversationsOfTwo(user);
                     }}
                   >
-                    대화하기
+                    <div key={user._id} className="flex space-x-4 items-center">
+                      <img
+                        className="w-20 h-20 object-cover rounded-full"
+                        src={user.profilePicture[0]}
+                        alt=""
+                      />
+                      <div>
+                        <div className="flex">
+                          <span>{user.nickName}</span>
+                          <span>10분전</span>
+                        </div>
+                        <div className="flex">
+                          <span>서울</span>
+                          <div className="flex">
+                            {user.locations.map((location) => {
+                              return (
+                                <h4
+                                  key={location}
+                                  className="text-[#A5A5A5] text-lg "
+                                >
+                                  {location}
+                                </h4>
+                              );
+                            })}
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap w-full  ">
+                          {user.likeSports.map((likeSports, index) => {
+                            return (
+                              <h4
+                                key={index}
+                                className="border px-2 py-1 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mb-2 mr-2"
+                              >
+                                {likeSports}
+                              </h4>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
                   </button>
-                )}
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-        <div>
-          <div>채팅화면(대화창)</div>
-          {currentChat ? (
-            <>
-              <div className="h-60 overflow-y-scroll">
-                {messages.map((m) => (
-                  <div key={m._id} ref={scrollRef}>
-                    <Message
-                      key={m._id}
-                      message={m}
-                      own={m.sender === userObject._id}
-                    />
-                  </div>
-                ))}
+        )}
+        <div className="max-w-sm flex-wrap ">
+          {currentChat && (
+            <div>
+              <button onClick={() => setCurrentChat(null)}>back</button>
+              <div className="h-full overflow-y-scroll">
+                {messages.map((m, index) => {
+                  const previousMessage = messages[index - 1];
+                  const isSameSender =
+                    previousMessage && previousMessage.sender === m.sender;
+                  return (
+                    <div key={m._id} ref={scrollRef}>
+                      <Message
+                        key={m._id}
+                        message={m}
+                        own={m.sender === userObject._id}
+                        user={user}
+                        userObject={userObject}
+                        index={index}
+                        isSameSender={isSameSender}
+                      />
+                    </div>
+                  );
+                })}
               </div>
               <div>
                 <textarea
@@ -247,8 +263,8 @@ export default function Messenger() {
                   name=""
                   id=""
                   cols="30"
-                  rows="10"
-                  placeholder="write message here"
+                  rows="4"
+                  placeholder="메세지 보내기..."
                   onChange={(e) => {
                     setNewMessage(e.target.value);
                   }}
@@ -256,17 +272,8 @@ export default function Messenger() {
                 ></textarea>
                 <button onClick={handleSubmit}>Send</button>
               </div>
-            </>
-          ) : (
-            <span>start conversation to chat</span>
+            </div>
           )}
-        </div>
-        <div>
-          {/* <ChatOnline
-            onlineUsers={onlineUsers}
-            currentId={userObject._id}
-            setCurrentChat={setCurrentChat}
-          /> */}
         </div>
         <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
           <TabBar />
@@ -275,3 +282,27 @@ export default function Messenger() {
     </>
   );
 }
+
+//접속한 userObject의 모든 conversation list를 가져옴
+// useEffect(() => {
+//   const getConversations = async () => {
+//     try {
+//       const res = await axios.get(
+//         `${process.env.REACT_APP_API_ROOT}/api/conversations/` +
+//           userObject._id
+//       );
+//       setConversations(res.data);
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
+//   getConversations();
+// }, [userObject._id]);
+
+// {
+//   /* <ChatOnline
+//             onlineUsers={onlineUsers}
+//             currentId={userObject._id}
+//             setCurrentChat={setCurrentChat}
+//           /> */
+// }

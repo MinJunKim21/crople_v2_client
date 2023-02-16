@@ -22,7 +22,7 @@ export const ProfileEdit = () => {
   const _id = useParams()._id;
 
   const selfIntroduction = useRef();
-  const [descDB, setDescDB] = useState('');
+  const [descDB, setDescDB] = useState(userObject.desc);
   const [profilePictureDB, setProfilePictureDB] = useState([
     userObject.profilePicture[0],
     userObject.profilePicture[1],
@@ -31,8 +31,6 @@ export const ProfileEdit = () => {
   const [file, setFile] = useState(null);
   const [fileB, setFileB] = useState(null);
   const [fileC, setFileC] = useState(null);
-  console.log(profilePictureDB, 'profilePictureDB');
-  console.log(fileC);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -176,20 +174,20 @@ export const ProfileEdit = () => {
                     </div>
                     <label
                       htmlFor="fileInputB"
-                      className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  w-full h-full text-center ${
+                      className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
                         fileB ? 'text-transparent' : 'text-[#C1C1C1]'
                       }`}
                     >
-                      {userObject.profilePicture[1] === '' && fileB === null ? (
-                        <span className="flex w-full h-full justify-center items-center">
-                          +
-                        </span>
-                      ) : (
+                      {userObject.profilePicture[1] && !fileB ? (
                         <img
                           className="object-cover rounded-full w-full h-full"
                           src={userObject.profilePicture[1]}
                           alt=""
                         />
+                      ) : (
+                        <span className="flex w-full h-full justify-center items-center">
+                          +
+                        </span>
                       )}
                     </label>
                   </div>
@@ -221,20 +219,20 @@ export const ProfileEdit = () => {
                     </div>
                     <label
                       htmlFor="fileInputC"
-                      className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-4xl  w-full h-full text-center ${
+                      className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
                         fileC ? 'text-transparent' : 'text-[#C1C1C1]'
                       }`}
                     >
-                      {userObject.profilePicture[2] === '' && fileC === null ? (
-                        <span className="flex w-full h-full justify-center items-center">
-                          +
-                        </span>
-                      ) : (
+                      {userObject.profilePicture[2] && !fileC ? (
                         <img
                           className="object-cover rounded-full w-full h-full"
                           src={userObject.profilePicture[2]}
                           alt=""
                         />
+                      ) : (
+                        <span className="flex w-full h-full justify-center items-center">
+                          +
+                        </span>
                       )}
                     </label>
                   </div>
