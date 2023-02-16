@@ -8,7 +8,6 @@ import { AuthContext } from '../context/AuthContext';
 import Message from '../components/Message';
 import io from 'socket.io-client';
 // import { Link } from 'react-router-dom';
-import TabBar from '../components/TabBar';
 // import { ChatList } from '../components/messenger/ChatList';
 // import { Chatting } from '../components/messenger/Chatting';
 
