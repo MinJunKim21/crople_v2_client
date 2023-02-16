@@ -13,8 +13,8 @@ export default function Message({
     <div
       className={
         own
-          ? 'flex flex-row-reverse text-right mb-[0.625rem]'
-          : 'flex flex-col mb-[0.625rem]'
+          ? 'flex flex-row-reverse text-right mb-[0.5rem]'
+          : 'flex flex-col mb-[0.5rem]'
       }
     >
       <div className="flex">

@@ -1,24 +1,33 @@
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
-// import Topbar from '../components/Topbar';
-// import Sidebar from '../components/Sidebar';
-// import Rightbar from '../components/Rightbar';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-// import Navbar from '../components/Navbar';
 import NeedProfile from '../components/NeedProfile';
 import TabBar from '../components/TabBar';
+import { ProfileCard } from '../components/ProfileCard';
 
 function Home() {
   // const [allUsers, setAllUsers] = useState([]);
   const [recommendUsers, setRecommendUsers] = useState([]);
+  const [showProfileCard, setShowProfileCard] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
   // const [nickName, setNickName] = useState(undefined);
   const userObject = useContext(AuthContext);
+
+  const handleUserClick = (user) => {
+    setSelectedUser(user);
+    setShowProfileCard(true);
+  };
+
+  const handleCloseProfileCard = () => {
+    setShowProfileCard(false);
+  };
+
   // useEffect(() => {
   //   const fetchAll = async () => {
   //     const res = await axios.get(
@@ -29,6 +38,7 @@ function Home() {
   //   };
   //   fetchAll();
   // }, []);
+
   useEffect(() => {
     const fetchRecommend = async () => {
       const res = await axios.get(
@@ -44,9 +54,10 @@ function Home() {
     <div>
       {userObject.nickName === undefined || userObject.profilePicture === '' ? (
         <NeedProfile />
+      ) : showProfileCard ? (
+        <ProfileCard user={selectedUser} onClose={handleCloseProfileCard} />
       ) : (
         <BgGraWrapperA>
-          {/* <WhiteCenterBlur> */}
           <h3 className="text-center pt-12  text-[#555555]">
             나와 꼭 맞는 메이트를 만나보세요!
           </h3>
@@ -72,7 +83,8 @@ function Home() {
           </div>
           <div className="z-50">
             {recommendUsers.map((user) => (
-              <Link to={`/profile/${user._id}`} key={user._id}>
+              // <Link to={`/profile/${user._id}`} key={user._id}>
+              <button key={user._id} onClick={() => handleUserClick(user)}>
                 <div className="w-10 h-10">
                   <img
                     src={user.profilePicture[0]}
@@ -80,7 +92,8 @@ function Home() {
                     className="w-full h-full object-cover rounded-full"
                   />
                 </div>
-              </Link>
+              </button>
+              // </Link>
             ))}
           </div>
           <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">

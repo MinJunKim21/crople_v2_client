@@ -235,7 +235,7 @@ export default function Messenger() {
         )}
         <div className="max-w-sm flex-wrap ">
           {currentChat && (
-            <div>
+            <div className="h-screen">
               <button onClick={() => setCurrentChat(null)}>back</button>
               <div className="h-full overflow-y-scroll">
                 {messages.map((m, index) => {
