@@ -7,6 +7,5 @@ export const LoadingBtn = ({ text }) => {
     </NextBtnGrayBg>
   );
 };
-const NextBtnGraText = tw.div`text-xl font-bold bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
 const NextBtnGrayBg = tw.div`w-full h-[5.25rem]  rounded-full bg-[#F5F5F5]   text-center flex justify-center items-center`;
 const NextBtnGrayText = tw.div`text-xl font-bold text-[#C1C1C1]`;
