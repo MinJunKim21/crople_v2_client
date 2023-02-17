@@ -1,39 +1,28 @@
 import axios from 'axios';
 import React from 'react';
 import { useState, useEffect, useRef, useContext } from 'react';
-// import Topbar from '../components/Topbar';
 import { AuthContext } from '../context/AuthContext';
-// import ChatOnline from '../components/ChatOnline';
-// import Conversations from '../components/Conversations';
 import Message from '../components/Message';
 import io from 'socket.io-client';
-// import { Link } from 'react-router-dom';
-// import { ChatList } from '../components/messenger/ChatList';
-// import { Chatting } from '../components/messenger/Chatting';
+import TabBar from '../components/TabBar';
 
 const ENDPOINT = process.env.REACT_APP_API_ROOT;
 let socket;
 
 export default function Messenger() {
-  // const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [arrivalMessage, setArrivalMessage] = useState(null);
-  // const [onlineUsers, setOnlineUsers] = useState([]);
-  // const [socket, setSocket] = useState(null);
-  // const socket = useRef();
   const userObject = useContext(AuthContext);
   const scrollRef = useRef();
   const [friendEachother, setFriendEachother] = useState([]);
   const [convExist, setConvExist] = useState('');
   const [user, setUser] = useState('');
-  // const [chatListPage, setChatListPage] = useState(true);
-  console.log(userObject._id);
+
   useEffect(() => {
     socket = io(ENDPOINT, {
-      // WARNING: in that case, there is no fallback to long-polling
-      transports: ['websocket', 'polling'], // or [ "websocket", "polling" ] (the order matters)
+      transports: ['websocket', 'polling'],
       withCredentials: true,
     });
     socket.on('getMessage', (data) => {
@@ -51,15 +40,15 @@ export default function Messenger() {
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
-  useEffect(() => {
-    socket.emit('addUser', userObject._id);
-    socket.on('getUsers', (users) => {
-      // setOnlineUsers(
-      //   userObject.followings.filter((f) => users.some((u) => u.userId === f))
-      //   // users
-      //   );
-    });
-  }, [userObject]);
+  // useEffect(() => {
+  //   socket.emit('addUser', userObject._id);
+  //   socket.on('getUsers', (users) => {
+  //     // setOnlineUsers(
+  //     //   userObject.followings.filter((f) => users.some((u) => u.userId === f))
+  //     //   // users
+  //     //   );
+  //   });
+  // }, [userObject]);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -136,7 +125,6 @@ export default function Messenger() {
         setCurrentChat(convExist);
       }
       setUser(user);
-      // createConversation(user);
     } catch (err) {
       console.log(err);
     }
@@ -170,8 +158,7 @@ export default function Messenger() {
 
   return (
     <>
-      {/* {chatListPage ? <ChatList /> : <Chatting />} */}
-      <div className="flex justify-center">
+      <div className="flex justify-center h-screen">
         {!currentChat && (
           <div className="relative">
             <h3 className="fix absolute top-0 left-[50%] translate-x-[-50%] text-center justify-center text-xl text-[#A5A5A5] pt-12 pb-4 border-b-2 w-full">
@@ -230,99 +217,73 @@ export default function Messenger() {
                 </div>
               ))}
             </div>
+            <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+              <TabBar />
+            </div>
           </div>
         )}
-        <div className="max-w-md max-h-screen ">
-          {currentChat && (
-            <div className="h-screen relative flex flex-col">
-              <button
-                onClick={() => setCurrentChat(null)}
-                className="absolute z-50"
-              >
-                back
-              </button>
-              <div className="flex flex-col relative">
-                <h3 className="flex justify-center text-center w-full">
-                  {user.nickName}
-                </h3>
-                <h4 className="flex justify-center text-center w-full">
-                  {user.locations.map((l, index) => {
-                    return <div>{l}</div>;
-                  })}
-                </h4>
-              </div>
-              <div className="h-screen overflow-y-scroll pt-12 pb-20">
-                <p>
-                  메이트와 연결되었습니다.
-                  <br /> 장소, 시간 약속을 정하고 함께 운동을 즐겨보세요!
-                </p>
-                {messages.map((m, index) => {
-                  const previousMessage = messages[index - 1];
-                  const isSameSender =
-                    previousMessage && previousMessage.sender === m.sender;
-                  return (
-                    <div key={m._id} ref={scrollRef}>
-                      <Message
-                        key={m._id}
-                        message={m}
-                        own={m.sender === userObject._id}
-                        user={user}
-                        userObject={userObject}
-                        index={index}
-                        isSameSender={isSameSender}
-                      />
-                    </div>
-                  );
+        {currentChat && (
+          <div className="max-h-screen w-full relative flex flex-col">
+            <button
+              onClick={() => setCurrentChat(null)}
+              className="absolute z-50"
+            >
+              back
+            </button>
+            <div className="flex flex-col">
+              <h3 className="flex justify-center text-center w-full">
+                {user.nickName}
+              </h3>
+              <h4 className="flex justify-center text-center w-full">
+                {user.locations.map((l, index) => {
+                  return <div key={index}>{l}</div>;
                 })}
-              </div>
-              <div className="absolute flex bottom-0 ">
-                <textarea
-                  className="border"
-                  name=""
-                  id=""
-                  cols="30"
-                  rows="2"
-                  placeholder="메세지 보내기..."
-                  onChange={(e) => {
-                    setNewMessage(e.target.value);
-                  }}
-                  value={newMessage}
-                ></textarea>
-                <button onClick={handleSubmit} className="">
-                  Send
-                </button>
-              </div>
+              </h4>
             </div>
-          )}
-        </div>
-        {/* <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-          <TabBar />
-        </div> */}
+            <div className="flex flex-col h-full overflow-y-scroll pt-12 pb-20">
+              <p>
+                메이트와 연결되었습니다.
+                <br /> 장소, 시간 약속을 정하고 함께 운동을 즐겨보세요!
+              </p>
+              {messages.map((m, index) => {
+                const previousMessage = messages[index - 1];
+                const isSameSender =
+                  previousMessage && previousMessage.sender === m.sender;
+                return (
+                  <div key={m._id} ref={scrollRef}>
+                    <Message
+                      key={m._id}
+                      message={m}
+                      own={m.sender === userObject._id}
+                      user={user}
+                      userObject={userObject}
+                      index={index}
+                      isSameSender={isSameSender}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+            <div className="flex">
+              <textarea
+                className="border px-4 py-3"
+                name=""
+                id=""
+                cols="30"
+                rows="1"
+                placeholder="메세지 보내기..."
+                onChange={(e) => {
+                  setNewMessage(e.target.value);
+                }}
+                value={newMessage}
+              ></textarea>
+              <button onClick={handleSubmit} className="">
+                Send
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
 }
-
-//접속한 userObject의 모든 conversation list를 가져옴
-// useEffect(() => {
-//   const getConversations = async () => {
-//     try {
-//       const res = await axios.get(
-//         `${process.env.REACT_APP_API_ROOT}/api/conversations/` +
-//           userObject._id
-//       );
-//       setConversations(res.data);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-//   getConversations();
-// }, [userObject._id]);
-
-// {
-//   /* <ChatOnline
-//             onlineUsers={onlineUsers}
-//             currentId={userObject._id}
-//             setCurrentChat={setCurrentChat}
-//           /> */
-// }
