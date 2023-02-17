@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 // import { format } from 'timeago.js';
 
 export default function Message({
