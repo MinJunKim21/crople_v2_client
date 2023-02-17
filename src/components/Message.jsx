@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { format } from 'timeago.js';
 
 export default function Message({
@@ -8,6 +8,7 @@ export default function Message({
   user,
   message,
   own,
+  timestamp,
 }) {
   return (
     <div
@@ -15,7 +16,7 @@ export default function Message({
         own ? 'flex flex-row-reverse mb-[0.5rem]' : 'flex flex-col mb-[0.5rem]'
       }
     >
-      <div className={own ? 'flex flex-row-reverse ' : 'flex'}>
+      <div className={own ? 'flex flex-row-reverse items-baseline' : 'flex'}>
         {
           <img
             src={user?.profilePicture[0]}
@@ -34,6 +35,7 @@ export default function Message({
         >
           {message.text}
         </p>
+        {<span className="text-xs text-[#979797]">{timestamp}</span>}
       </div>
       {/* <div>{format(message.createdAt)}</div> */}
     </div>

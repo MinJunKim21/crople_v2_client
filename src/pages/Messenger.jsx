@@ -40,15 +40,15 @@ export default function Messenger() {
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
-  // useEffect(() => {
-  //   socket.emit('addUser', userObject._id);
-  //   socket.on('getUsers', (users) => {
-  //     // setOnlineUsers(
-  //     //   userObject.followings.filter((f) => users.some((u) => u.userId === f))
-  //     //   // users
-  //     //   );
-  //   });
-  // }, [userObject]);
+  useEffect(() => {
+    socket.emit('addUser', userObject._id);
+    socket.on('getUsers', (users) => {
+      // setOnlineUsers(
+      //   userObject.followings.filter((f) => users.some((u) => u.userId === f))
+      //   // users
+      //   );
+    });
+  }, [userObject]);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -249,11 +249,20 @@ export default function Messenger() {
                 const previousMessage = messages[index - 1];
                 const isSameSender =
                   previousMessage && previousMessage.sender === m.sender;
+                const timestamp = new Date(m.createdAt)
+                  .toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true,
+                  })
+                  .toUpperCase();
+
                 return (
                   <div key={m._id} ref={scrollRef}>
                     <Message
                       key={m._id}
                       message={m}
+                      timestamp={timestamp}
                       own={m.sender === userObject._id}
                       user={user}
                       userObject={userObject}
