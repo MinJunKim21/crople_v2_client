@@ -240,7 +240,7 @@ export default function Messenger() {
                 })}
               </h4>
             </div>
-            <div className="flex flex-col h-full overflow-y-scroll pt-12 pb-20">
+            <div className="flex flex-col h-full overflow-y-scroll pt-12 pb-4">
               <p>
                 메이트와 연결되었습니다.
                 <br /> 장소, 시간 약속을 정하고 함께 운동을 즐겨보세요!

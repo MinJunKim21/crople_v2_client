@@ -12,9 +12,7 @@ export default function Message({
   return (
     <div
       className={
-        own
-          ? 'flex flex-row-reverse text-right mb-[0.5rem]'
-          : 'flex flex-col mb-[0.5rem]'
+        own ? 'flex flex-row-reverse mb-[0.5rem]' : 'flex flex-col mb-[0.5rem]'
       }
     >
       <div className="flex">
@@ -30,8 +28,8 @@ export default function Message({
         <p
           className={
             own
-              ? 'bg-[#F79D00] items-center h-full px-5 py-3 rounded-[1.625rem] rounded-br-none mx-2 text-white'
-              : 'bg-[#F7F7F7] items-center h-full px-5 py-3 rounded-[1.625rem] rounded-bl-none mx-2'
+              ? 'max-w-xs bg-[#F79D00] items-center h-full px-5 py-3 rounded-[1.625rem] rounded-br-none mx-2 text-white break-words  whitespace-normal'
+              : 'max-w-xs bg-[#F7F7F7] items-center h-full px-5 py-3 rounded-[1.625rem] rounded-bl-none mx-2 break-words  whitespace-normal'
           }
         >
           {message.text}
