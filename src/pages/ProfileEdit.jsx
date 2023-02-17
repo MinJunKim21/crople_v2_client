@@ -62,7 +62,7 @@ export const ProfileEdit = () => {
         `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
         updatedUser
       );
-      window.location.href = `http://localhost:3000/profile/${user._id}`;
+      window.location.href = `${process.env.REACT_APP_HOME_URL}/profile/${user._id}`;
     } catch (err) {
       console.log(err);
       setProfilePictureDB([]);
