@@ -7,7 +7,7 @@ import { useState } from 'react';
 export const AuthContext = createContext();
 export default function Context({ children }) {
   const [userObject, setUserObject] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); //eslint-disable-line no-unused-vars
 
   // useEffect(() => {
   //   console.log(process.env.REACT_APP_API_ROOT, 'getting authcontext');
