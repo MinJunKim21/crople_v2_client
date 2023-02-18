@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { BsChevronLeft } from 'react-icons/bs';
 import { HiLocationMarker } from 'react-icons/hi';
 import { LineBtn } from '../LineBtn';
+import { Carousel } from '../carousel/Carousel';
 
 export const PreviewCard = ({
   setQuestion,
@@ -36,18 +37,8 @@ export const PreviewCard = ({
             <div className="px-4">
               <hr className="w-full bg-gradient-to-r to-[#F79D00] via-[#CABE40] from-[#9AE286] h-[2px] px-4" />
             </div>
-            <div className="w-[9.5rem] h-[9.5rem] bg-gradient-to-b to-[#F79D00] via-[#CABE40] from-[#9AE286] p-[2px] rounded-full justify-center mx-auto mt-6 ">
-              <div className="justify-center flex items-center h-full w-full">
-                <img
-                  src={file ? URL.createObjectURL(file) : null}
-                  alt=""
-                  className="w-full h-full object-cover rounded-full"
-                />
-              </div>
-            </div>
-            <div className="mt-4 mb-[1.125rem] w-full flex justify-center ">
-              <div className="bg-[#C1C1C1] w-1.5 h-1.5 rounded-full" />
-            </div>
+
+            <Carousel images={profilePictureDB} />
 
             <div className="px-6 flex flex-col  w-full">
               <div className="flex w-full items-center justify-between mb-8 ">
@@ -80,7 +71,6 @@ export const PreviewCard = ({
                 })}
               </div>
             </div>
-
             <div className="border-1 border-[#DFDFDF] w-full border-t mt-4"></div>
             <div className="mt-4">
               <div className="w-full h-40 px-6 text-[#6F6F6F] whitespace-pre-wrap">

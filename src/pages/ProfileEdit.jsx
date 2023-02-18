@@ -15,6 +15,7 @@ import { HiLocationMarker } from 'react-icons/hi';
 import { AiOutlineRight } from 'react-icons/ai';
 import { BsChevronLeft } from 'react-icons/bs';
 import { LineBtn } from '../components/LineBtn';
+import { LoadingBtn } from '../components/btn&tab&bar/LoadingBtn';
 
 export const ProfileEdit = () => {
   const userObject = useContext(AuthContext);
@@ -31,6 +32,8 @@ export const ProfileEdit = () => {
   const [file, setFile] = useState(null);
   const [fileB, setFileB] = useState(null);
   const [fileC, setFileC] = useState(null);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -49,22 +52,17 @@ export const ProfileEdit = () => {
 
   const updateData = async (e) => {
     const updatedUser = {
-      // likeSports: sportsCheckedList,
-      // locations: locationsCheckedList,
       userId: user._id,
       desc: descDB,
       profilePicture: profilePictureDB,
     };
     e.preventDefault();
-    console.log(profilePictureDB, 'expecting url');
     try {
       await axios.put(
         `${process.env.REACT_APP_API_ROOT}/api/users/${user._id}`,
         updatedUser
       );
-      await setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      window.location.href = `${process.env.REACT_APP_HOME_URL}/profile/${user._id}`;
     } catch (err) {
       console.log(err);
       setProfilePictureDB([]);
@@ -72,6 +70,7 @@ export const ProfileEdit = () => {
   };
 
   const uploadImage = async (file) => {
+    setIsLoading(true);
     const formData = new FormData();
     formData.append('file', file);
     formData.append(
@@ -83,13 +82,12 @@ export const ProfileEdit = () => {
       `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`,
       formData
     );
+    setIsLoading(false);
     return res;
   };
 
   const fileChange = async (e, index) => {
     const uploaded = await uploadImage(e.target.files[0]);
-    console.log(uploaded, 'filechange uploaded');
-    // setProfilePictureDB(uploaded.data.secure_url);
     profilePictureDB[index] = uploaded.data.secure_url;
   };
 
@@ -117,7 +115,7 @@ export const ProfileEdit = () => {
 
               <div className="flex justify-center space-x-4">
                 <div className="inline-block">
-                  <div className="relative inline-block">
+                  <div className="relative inline-block ">
                     <div className="bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
                       {file ? (
                         <img
@@ -131,7 +129,7 @@ export const ProfileEdit = () => {
                     </div>
                     <label
                       htmlFor="fileInputA"
-                      className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
+                      className={`absolute cursor-pointer  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
                         file ? 'text-transparent' : 'text-[#C1C1C1]'
                       }`}
                     >
@@ -174,7 +172,7 @@ export const ProfileEdit = () => {
                     </div>
                     <label
                       htmlFor="fileInputB"
-                      className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
+                      className={`absolute cursor-pointer left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
                         fileB ? 'text-transparent' : 'text-[#C1C1C1]'
                       }`}
                     >
@@ -219,7 +217,7 @@ export const ProfileEdit = () => {
                     </div>
                     <label
                       htmlFor="fileInputC"
-                      className={`absolute  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
+                      className={`absolute cursor-pointer left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
                         fileC ? 'text-transparent' : 'text-[#C1C1C1]'
                       }`}
                     >
@@ -248,10 +246,6 @@ export const ProfileEdit = () => {
                     className="opacity-0 w-[1px] peer"
                   />
                 </div>
-              </div>
-
-              <div className="mt-4 mb-[1.125rem] w-full flex justify-center ">
-                <div className="bg-[#C1C1C1] w-1.5 h-1.5 rounded-full" />
               </div>
 
               <div className="px-6 flex flex-col  w-full">
@@ -319,11 +313,17 @@ export const ProfileEdit = () => {
           </div>
         </BgGraWrapperA>
       </div>
-      <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-        <button type="submit" className="w-full">
-          <LineBtn text={'수정완료'} />
-        </button>
-      </div>
+      {isLoading ? (
+        <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+          <LoadingBtn text={'이미지 업로드 중...'} />
+        </div>
+      ) : (
+        <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+          <button type="submit" className="w-full">
+            <LineBtn text={'수정완료'} />
+          </button>
+        </div>
+      )}
     </form>
   );
 };

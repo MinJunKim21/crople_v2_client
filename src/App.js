@@ -13,7 +13,12 @@ import { ProfileEdit } from './pages/ProfileEdit';
 
 function App() {
   const userObject = useContext(AuthContext);
-  // console.log(userObject, 'userob');
+  const isLoading = userObject._id === undefined;
+
+  if (isLoading) {
+    // return a loading indicator or null if you don't want anything to be rendered
+    return <div>Loading...</div>;
+  }
 
   return (
     <BrowserRouter>
