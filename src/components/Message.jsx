@@ -16,7 +16,7 @@ export default function Message({
         own ? 'flex flex-row-reverse mb-[0.5rem]' : 'flex flex-col mb-[0.5rem]'
       }
     >
-      <div className={own ? 'flex flex-row-reverse items-baseline' : 'flex'}>
+      <div className={own ? 'flex flex-row-reverse ' : 'flex flex-row '}>
         {
           <img
             src={user?.profilePicture[0]}
@@ -26,18 +26,21 @@ export default function Message({
             } ${own && 'hidden'} `}
           />
         }
-        <p
-          className={
-            own
-              ? 'max-w-sm bg-[#F79D00] items-center h-full px-5 py-3 rounded-[1.625rem] rounded-br-none mx-2 text-white break-words  whitespace-normal'
-              : 'max-w-sm bg-[#F7F7F7] items-center h-full px-5 py-3 rounded-[1.625rem] rounded-bl-none mx-2 break-words  whitespace-normal'
-          }
-        >
-          {message.text}
-        </p>
-        {<span className="text-xs text-[#979797]">{timestamp}</span>}
+        <div className={own ? 'flex flex-row-reverse' : 'flex flex-row '}>
+          <p
+            className={
+              own
+                ? 'max-w-[17.5rem] bg-[#F79D00] h-full px-5 py-3 rounded-[1.625rem] rounded-br-none text-white break-words whitespace-normal ml-2'
+                : 'max-w-[17.5rem] ml-2 bg-[#F7F7F7] h-full px-5 py-3 rounded-[1.625rem] rounded-bl-none break-words whitespace-normal'
+            }
+          >
+            {message.text}
+          </p>
+          <div className="text-xs h-full flex flex-col justify-end">
+            <span className="text-[#979797]">{timestamp}</span>
+          </div>
+        </div>
       </div>
-      {/* <div>{format(message.createdAt)}</div> */}
     </div>
   );
 }

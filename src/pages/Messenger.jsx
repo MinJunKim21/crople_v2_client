@@ -258,7 +258,7 @@ export default function Messenger() {
                   .toUpperCase();
 
                 return (
-                  <div key={m._id} ref={scrollRef}>
+                  <div key={m._id} ref={scrollRef} className="px-2">
                     <Message
                       key={m._id}
                       message={m}
