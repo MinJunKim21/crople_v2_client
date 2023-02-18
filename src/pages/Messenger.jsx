@@ -7,6 +7,10 @@ import Message from '../components/Message';
 import io from 'socket.io-client';
 import TabBar from '../components/TabBar';
 import { BsChevronLeft } from 'react-icons/bs';
+import moment from 'moment';
+import 'moment/locale/ko';
+
+moment.locale('ko');
 
 const ENDPOINT = process.env.REACT_APP_API_ROOT;
 let socket;
@@ -21,6 +25,7 @@ export default function Messenger() {
   const [friendEachother, setFriendEachother] = useState([]);
   const [convExist, setConvExist] = useState('');
   const [user, setUser] = useState('');
+  const [conversation, setConversation] = useState([]);
 
   useEffect(() => {
     socket = io(ENDPOINT, {
@@ -132,6 +137,24 @@ export default function Messenger() {
     }
   };
 
+  const conversationOfTwo = async (user) => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
+      );
+      setConversation((prevConversation) => [...prevConversation, res.data]);
+      console.log(conversation, 'conversationofTwo : conversation');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    friendEachother.forEach((friend) => {
+      conversationOfTwo(friend);
+    });
+  }, [friendEachother]);
+
   useEffect(
     (user) => {
       if (convExist !== null) {
@@ -168,57 +191,68 @@ export default function Messenger() {
             </h3>
 
             <div className="flex flex-col mt-[100px] w-full px-2 space-y-2">
-              {friendEachother.map((user) => (
-                <div key={user._id} className="border px-4 py-2 rounded-2xl">
-                  <button
-                    onClick={() => {
-                      getConversationsOfTwo(user);
-                    }}
-                  >
-                    <div key={user._id} className="flex space-x-4 items-center">
-                      <img
-                        className="w-20 h-20 object-cover rounded-full"
-                        src={user.profilePicture[0]}
-                        alt=""
-                      />
-                      <div>
-                        <div className="flex">
-                          <span>{user.nickName}</span>
-                          <span>10분전</span>
-                        </div>
-                        <div className="flex">
-                          <span>서울</span>
+              {friendEachother.map((user, index) => {
+                const conv = conversation[index];
+                return (
+                  <div key={user._id} className="border px-4 py-2 rounded-2xl">
+                    <button
+                      onClick={() => {
+                        getConversationsOfTwo(user);
+                      }}
+                    >
+                      <div
+                        key={user._id}
+                        className="flex space-x-4 items-center"
+                      >
+                        <img
+                          className="w-20 h-20 object-cover rounded-full"
+                          src={user.profilePicture[0]}
+                          alt=""
+                        />
+                        <div>
+                          <div className="flex flex-col">
+                            <span>{user.nickName}</span>
+                            {/* <div>{friendEachother[index]._id}</div> */}
+                            {conv && moment(conv.updatedAt).fromNow()}
+                            {conv && conv.updatedAt}
+
+                            {/* <div>{index}</div> */}
+                          </div>
                           <div className="flex">
-                            {user.locations.map((location) => {
+                            <span>서울</span>
+                            <div className="flex">
+                              {user.locations.map((location) => {
+                                return (
+                                  <h4
+                                    key={location}
+                                    className="text-[#A5A5A5] text-lg"
+                                  >
+                                    {location}
+                                  </h4>
+                                );
+                              })}
+                            </div>
+                          </div>
+                          <div className="flex flex-wrap w-full">
+                            {user.likeSports.map((likeSports, index) => {
                               return (
                                 <h4
-                                  key={location}
-                                  className="text-[#A5A5A5] text-lg "
+                                  key={index}
+                                  className="border px-2 py-1 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mb-2 mr-2"
                                 >
-                                  {location}
+                                  {likeSports}
                                 </h4>
                               );
                             })}
                           </div>
                         </div>
-                        <div className="flex flex-wrap w-full  ">
-                          {user.likeSports.map((likeSports, index) => {
-                            return (
-                              <h4
-                                key={index}
-                                className="border px-2 py-1 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mb-2 mr-2"
-                              >
-                                {likeSports}
-                              </h4>
-                            );
-                          })}
-                        </div>
                       </div>
-                    </div>
-                  </button>
-                </div>
-              ))}
+                    </button>
+                  </div>
+                );
+              })}
             </div>
+
             <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
               <TabBar />
             </div>
