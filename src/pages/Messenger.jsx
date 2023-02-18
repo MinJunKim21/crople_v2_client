@@ -249,6 +249,8 @@ export default function Messenger() {
               </p>
               {messages.map((m, index) => {
                 const previousMessage = messages[index - 1];
+                const nextMessage = messages[index + 1];
+
                 const isSameSender =
                   previousMessage && previousMessage.sender === m.sender;
                 const timestamp = new Date(m.createdAt)
@@ -276,9 +278,8 @@ export default function Messenger() {
                     .replace(/\./g, '년 ')
                     .replace(' ', '월 ') + '일';
                 const isSameTime =
-                  previousMessage &&
-                  timeFormat(previousMessage.createdAt) ===
-                    timeFormat(m.createdAt);
+                  nextMessage &&
+                  timeFormat(nextMessage.createdAt) === timeFormat(m.createdAt);
                 const isSameDay =
                   previousMessage &&
                   dayFormat(previousMessage.createdAt) ===
@@ -292,8 +293,6 @@ export default function Messenger() {
                     day: '2-digit',
                   }
                 );
-                // .replace(/\./g, '년 ')
-                // .replace(' ', '월 ') + '일';
 
                 return (
                   <div key={m._id} ref={scrollRef} className="px-2">
