@@ -166,7 +166,7 @@ export const QuestionThree = ({
             value={nickNameDB}
             required
             pattern="^[ㄱ-ㅎ가-힣a-zA-Z]+$"
-            className="peer w-full "
+            className="peer w-full outline-none"
             onChange={() => {
               if (byteCounter(nickName.current.value) > 16) {
                 nickName.current.value = nickName.current.value.slice(0, -1);
@@ -194,7 +194,7 @@ export const QuestionThree = ({
           type="text"
           value={descDB}
           placeholder="예시)&#10;헬스는 2년 정도 했고 무게 위주로 치는 중이에요.&#10;클라이밍은 해본 적 없지만 이번에 같이 할 친구 생기면 배워보고 싶어요!"
-          className="w-full border-2 rounded-lg h-[11.75rem] px-2 py-3"
+          className="w-full border-2 rounded-lg h-[11.75rem] px-2 py-3 resize-none outline-none"
           onChange={() => {
             if (byteCounter(useRef.current.value) > 240) {
               useRef.current.value = useRef.current.value.slice(0, -1);
