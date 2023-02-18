@@ -6,6 +6,7 @@ import { AuthContext } from '../context/AuthContext';
 import Message from '../components/Message';
 import io from 'socket.io-client';
 import TabBar from '../components/TabBar';
+import { BsChevronLeft } from 'react-icons/bs';
 
 const ENDPOINT = process.env.REACT_APP_API_ROOT;
 let socket;
@@ -227,11 +228,11 @@ export default function Messenger() {
           <div className="max-h-screen w-full relative flex flex-col">
             <button
               onClick={() => setCurrentChat(null)}
-              className="absolute z-50"
+              className="absolute px-2 pt-8 z-50"
             >
-              back
+              <BsChevronLeft />
             </button>
-            <div className="flex flex-col">
+            <div className="flex flex-col pt-8">
               <h3 className="flex justify-center text-center w-full">
                 {user.nickName}
               </h3>
@@ -241,8 +242,8 @@ export default function Messenger() {
                 })}
               </h4>
             </div>
-            <div className="flex flex-col h-full overflow-y-scroll pt-12 pb-4">
-              <p>
+            <div className="flex flex-col h-full overflow-y-scroll pt-8 text-center pb-4">
+              <p className="text-xs text-[#555555]">
                 메이트와 연결되었습니다.
                 <br /> 장소, 시간 약속을 정하고 함께 운동을 즐겨보세요!
               </p>
@@ -257,6 +258,41 @@ export default function Messenger() {
                     hour12: true,
                   })
                   .toUpperCase();
+                const timeFormat = (t) =>
+                  new Date(t)
+                    .toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: true,
+                    })
+                    .toUpperCase();
+                const dayFormat = (t) =>
+                  new Date(t)
+                    .toLocaleDateString('ko-KR', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                    })
+                    .replace(/\./g, '년 ')
+                    .replace(' ', '월 ') + '일';
+                const isSameTime =
+                  previousMessage &&
+                  timeFormat(previousMessage.createdAt) ===
+                    timeFormat(m.createdAt);
+                const isSameDay =
+                  previousMessage &&
+                  dayFormat(previousMessage.createdAt) ===
+                    dayFormat(m.createdAt);
+
+                const daystamp =
+                  new Date(m.createdAt)
+                    .toLocaleDateString('ko-KR', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                    })
+                    .replace(/\./g, '년 ')
+                    .replace(' ', '월 ') + '일';
 
                 return (
                   <div key={m._id} ref={scrollRef} className="px-2">
@@ -264,11 +300,14 @@ export default function Messenger() {
                       key={m._id}
                       message={m}
                       timestamp={timestamp}
+                      daystamp={daystamp}
                       own={m.sender === userObject._id}
                       user={user}
                       userObject={userObject}
                       index={index}
                       isSameSender={isSameSender}
+                      isSameTime={isSameTime}
+                      isSameDay={isSameDay}
                     />
                   </div>
                 );

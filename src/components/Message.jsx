@@ -9,7 +9,11 @@ export default function Message({
   message,
   own,
   timestamp,
+  daystamp,
+  isSameTime,
+  isSameDay,
 }) {
+  console.log(isSameDay);
   return (
     <div
       className={
@@ -36,8 +40,18 @@ export default function Message({
           >
             {message.text}
           </p>
+
           <div className="text-xs h-full flex flex-col justify-end">
-            <span className="text-[#979797]">{timestamp}</span>
+            <span
+              className={`text-[#979797] ${
+                isSameSender && isSameTime ? 'opacity-0' : ''
+              }`}
+            >
+              {timestamp}
+            </span>
+          </div>
+          <div className={`text-[#979797]  ${isSameDay ? 'opacity-0' : ''}`}>
+            {daystamp}
           </div>
         </div>
       </div>
