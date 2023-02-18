@@ -318,7 +318,7 @@ export default function Messenger() {
               <NextBtnGraBorder>
                 <NextBtnGraBg>
                   <textarea
-                    className="border-none resize-none outline-none px-4 py-3"
+                    className="border-none w-full  resize-none outline-none py-3 px-2"
                     name=""
                     id=""
                     cols="30"
@@ -343,4 +343,4 @@ export default function Messenger() {
 }
 
 const NextBtnGraBorder = tw.div`w-full h-[5.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286]`;
-const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center`;
+const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center px-4`;

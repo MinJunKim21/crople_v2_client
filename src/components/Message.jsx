@@ -49,8 +49,8 @@ export default function Message({
             <p
               className={
                 own
-                  ? 'max-w-[17.5rem] bg-[#F79D00] h-full px-5 py-3 rounded-[1.625rem] rounded-br-none text-white break-words whitespace-normal ml-2'
-                  : 'max-w-[17.5rem] ml-2 bg-[#F7F7F7] h-full px-5 py-3 rounded-[1.625rem] rounded-bl-none break-words whitespace-normal'
+                  ? 'max-w-[17.5rem] bg-[#F79D00] h-full px-5 py-3 rounded-[1.625rem] rounded-br-none text-white break-words whitespace-normal text-left ml-2'
+                  : 'max-w-[17.5rem] ml-2 bg-[#F7F7F7] h-full px-5 py-3 rounded-[1.625rem] rounded-bl-none text-left break-words whitespace-normal'
               }
             >
               {message.text}
