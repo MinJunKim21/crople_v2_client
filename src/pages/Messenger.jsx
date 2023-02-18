@@ -284,15 +284,16 @@ export default function Messenger() {
                   dayFormat(previousMessage.createdAt) ===
                     dayFormat(m.createdAt);
 
-                const daystamp =
-                  new Date(m.createdAt)
-                    .toLocaleDateString('ko-KR', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                    })
-                    .replace(/\./g, '년 ')
-                    .replace(' ', '월 ') + '일';
+                const daystamp = new Date(m.createdAt).toLocaleDateString(
+                  'ko-KR',
+                  {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: '2-digit',
+                  }
+                );
+                // .replace(/\./g, '년 ')
+                // .replace(' ', '월 ') + '일';
 
                 return (
                   <div key={m._id} ref={scrollRef} className="px-2">
