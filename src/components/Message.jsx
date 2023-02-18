@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment-with-locales-es6';
-moment.locale('ko');
 // import { format } from 'timeago.js';
 
 export default function Message({
@@ -15,9 +14,7 @@ export default function Message({
   isSameTime,
   isSameDay,
 }) {
-  console.log(isSameDay);
-  console.log(moment().format('ll'));
-
+  moment.locale('ko');
   return (
     <div>
       <div className="flex flex-col mb-[0.5rem]">
@@ -25,7 +22,7 @@ export default function Message({
           <div className="flex items-center py-3">
             <span className="border-[1px]  w-full h-full" />
             <span
-              className={`text-[#979797] px-1 text-sm flex w-full ${
+              className={`text-[#979797] px-1 text-sm flex justify-center max-w-xs w-full ${
                 isSameDay ? 'opacity-0' : ''
               }`}
             >
