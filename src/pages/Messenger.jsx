@@ -1,4 +1,5 @@
 import axios from 'axios';
+import tw from 'twin.macro';
 import React from 'react';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
@@ -273,22 +274,26 @@ export default function Messenger() {
                 );
               })}
             </div>
-            <div className="flex">
-              <textarea
-                className="border px-4 py-3"
-                name=""
-                id=""
-                cols="30"
-                rows="1"
-                placeholder="메세지 보내기..."
-                onChange={(e) => {
-                  setNewMessage(e.target.value);
-                }}
-                value={newMessage}
-              ></textarea>
-              <button onClick={handleSubmit} className="">
-                Send
-              </button>
+            <div className=" px-2 pb-4 pt-4">
+              <NextBtnGraBorder>
+                <NextBtnGraBg>
+                  <textarea
+                    className="border-none resize-none outline-none px-4 py-3"
+                    name=""
+                    id=""
+                    cols="30"
+                    rows="1"
+                    placeholder="메세지 보내기..."
+                    onChange={(e) => {
+                      setNewMessage(e.target.value);
+                    }}
+                    value={newMessage}
+                  ></textarea>
+                  <button onClick={handleSubmit} className="w-7 h-7">
+                    <img src="/assets/BTN/Btn_SendMessage.png" alt="" />
+                  </button>
+                </NextBtnGraBg>
+              </NextBtnGraBorder>
             </div>
           </div>
         )}
@@ -296,3 +301,6 @@ export default function Messenger() {
     </>
   );
 }
+
+const NextBtnGraBorder = tw.div`w-full h-[5.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286]`;
+const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center`;
