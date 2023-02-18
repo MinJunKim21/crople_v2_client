@@ -1,5 +1,9 @@
 import React from 'react';
-import moment from 'moment-with-locales-es6';
+// import moment from 'moment-with-locales-es6';
+import moment from 'moment';
+import 'moment/locale/ko';
+
+moment.locale('ko');
 // import { format } from 'timeago.js';
 
 export default function Message({
@@ -14,7 +18,6 @@ export default function Message({
   isSameTime,
   isSameDay,
 }) {
-  moment.locale('ko');
   return (
     <div>
       <div className="flex flex-col mb-[0.5rem]">
