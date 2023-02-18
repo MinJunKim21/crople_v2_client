@@ -9,16 +9,9 @@ import Register from './pages/Register';
 import Messenger from './pages/Messenger';
 import Test from './pages/Test';
 import { ProfileEdit } from './pages/ProfileEdit';
-// import NeedProfile from './components/NeedProfile';
 
 function App() {
   const userObject = useContext(AuthContext);
-  const isLoading = userObject._id === undefined;
-
-  if (isLoading) {
-    // return a loading indicator or null if you don't want anything to be rendered
-    return <div>Loading...</div>;
-  }
 
   return (
     <BrowserRouter>

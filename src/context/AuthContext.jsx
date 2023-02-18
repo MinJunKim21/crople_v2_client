@@ -37,6 +37,10 @@ export default function Context({ children }) {
       .finally(() => setIsLoading(false)); // set isLoading to false regardless of success/failure
   }, [userObject._id]);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <AuthContext.Provider value={userObject}>{children}</AuthContext.Provider>
   );
