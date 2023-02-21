@@ -1,14 +1,9 @@
 import tw from 'twin.macro';
 import styled from 'styled-components';
 
-// import Topbar from '../components/Topbar';
-// import Sidebar from '../components/Sidebar';
-// import Rightbar from '../components/Rightbar';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
-// import { useRef } from 'react';
-import { useContext, useRef } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
 import { HiLocationMarker } from 'react-icons/hi';
@@ -64,10 +59,10 @@ export const ProfileEdit = () => {
   const likeSports = useRef();
 
   const [initialLocationsCheckedList, setInitialLocationsCheckedList] =
-    useState(userObject.locations);
+    useState(userObject.locations); // eslint-disable-line no-unused-vars
 
   const [initialSportsCheckedList, setInitialSportsCheckedList] = useState(
-    userObject.likeSports
+    userObject.likeSports // eslint-disable-line no-unused-vars
   );
   const [tempLocation, setTempLocation] = useState(false);
   const [tempSports, setTempSports] = useState(false);
