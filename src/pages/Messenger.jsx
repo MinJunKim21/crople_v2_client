@@ -26,6 +26,7 @@ export default function Messenger() {
   const [convExist, setConvExist] = useState('');
   const [user, setUser] = useState('');
   const [conversation, setConversation] = useState([]);
+  const [lastMessageArray, setLastMessageArray] = useState([]);
 
   useEffect(() => {
     socket = io(ENDPOINT, {
@@ -137,24 +138,23 @@ export default function Messenger() {
     }
   };
 
-  const conversationOfTwo = async (user) => {
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
-      );
-      setConversation((prevConversation) => [...prevConversation, res.data]);
-      console.log(conversation, 'conversationofTwo : conversation');
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
+    const conversationOfTwo = async (user) => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
+        );
+        setConversation((prevConversation) => [...prevConversation, res.data]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
     friendEachother.forEach((friend) => {
       conversationOfTwo(friend);
     });
-  }, [friendEachother]);
+  }, [friendEachother, userObject._id]);
 
+  console.log(conversation, 'conversationofTwo : conversation');
   useEffect(
     (user) => {
       if (convExist !== null) {
@@ -181,6 +181,32 @@ export default function Messenger() {
     }
   };
 
+  useEffect(() => {
+    // Call getLastMessage for each conversation
+
+    const getLastMessage = async (conversationIndex) => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_ROOT}/api/messages/` +
+            conversation[conversationIndex]?._id
+        );
+        const lastMessageIndex = res.data.length - 1;
+        const lastMessage = res.data[lastMessageIndex].updatedAt;
+
+        setLastMessageArray((prevLastMessageArray) => {
+          const updatedArray = [...prevLastMessageArray];
+          updatedArray[conversationIndex] = lastMessage;
+          return updatedArray;
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    conversation.forEach((conv, index) => {
+      getLastMessage(index);
+    });
+  }, [conversation]);
+
   return (
     <>
       <div className="flex justify-center h-screen">
@@ -192,7 +218,9 @@ export default function Messenger() {
 
             <div className="flex flex-col mt-[100px] w-full px-2 space-y-2">
               {friendEachother.map((user, index) => {
-                const conv = conversation[index];
+                // const conv = conversation[index];
+                // getLastMessage(conv);
+
                 return (
                   <div key={user._id} className="border px-4 py-2 rounded-2xl">
                     <button
@@ -212,11 +240,10 @@ export default function Messenger() {
                         <div>
                           <div className="flex flex-col">
                             <span>{user.nickName}</span>
-                            {/* <div>{friendEachother[index]._id}</div> */}
-                            {conv && moment(conv.updatedAt).fromNow()}
-                            {conv && conv.updatedAt}
-
-                            {/* <div>{index}</div> */}
+                            <span>
+                              {moment(lastMessageArray[index]).fromNow()}
+                            </span>
+                            {/* {conv && moment(conv.updatedAt).fromNow()} */}
                           </div>
                           <div className="flex">
                             <span>서울</span>
