@@ -29,17 +29,6 @@ function Home() {
     setShowProfileCard(false);
   };
 
-  // useEffect(() => {
-  //   const fetchAll = async () => {
-  //     const res = await axios.get(
-  //       `${process.env.REACT_APP_API_ROOT}/api/users/all`
-  //     );
-  //     setAllUsers(res.data);
-  //     // console.log(allUsers);
-  //   };
-  //   fetchAll();
-  // }, []);
-
   useEffect(() => {
     const fetchRecommend = async () => {
       const res = await axios.get(
@@ -108,23 +97,6 @@ function Home() {
   );
 }
 
-// {
-//    <div className="bg-blue-200">
-//                 {allUsers.map((user) => (
-//                   <Link to={`/profile/${user._id}`} key={user._id}>
-//                     <div>{user.nickName || user.email}</div>
-//                   </Link>
-//                 ))}
-//               </div>
-//               <div>-----------------------------------</div>
-//               <div className="bg-blue-200">
-//                 {recommendUsers.map((user) => (
-//                   <Link to={`/profile/${user._id}`} key={user._id}>
-//                     <div>{user.nickName || user.email}</div>
-//                   </Link>
-//                 ))}
-//               </div>
-// }
 export default Home;
 
 const BgGraWrapper = styled.div`

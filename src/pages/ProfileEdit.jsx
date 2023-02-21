@@ -17,6 +17,11 @@ import { BsChevronLeft } from 'react-icons/bs';
 import { LineBtn } from '../components/LineBtn';
 import { LoadingBtn } from '../components/btn&tab&bar/LoadingBtn';
 
+const LOCATION_LIST = [
+  { id: 0, data: '마포구' },
+  { id: 1, data: '서대문구' },
+];
+
 export const ProfileEdit = () => {
   const userObject = useContext(AuthContext);
   const [user, setUser] = useState('');
@@ -34,6 +39,30 @@ export const ProfileEdit = () => {
   const [fileC, setFileC] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const [locationQuestion, setLocationQuestion] = useState(false);
+  const [locationsCheckedList, setLocationsCheckedList] = useState(
+    userObject.locations
+  );
+  console.log(locationsCheckedList, 'locationsCheckedList');
+  console.log(userObject.locations, 'userObject.locations');
+  const locations = useRef();
+  const [initialLocationsCheckedList, setInitialLocationsCheckedList] =
+    useState(userObject.locations);
+  const [tempLocation, setTempLocation] = useState(false);
+
+  const handleCancel = () => {
+    setLocationsCheckedList(initialLocationsCheckedList);
+    setLocationQuestion(false);
+  };
+
+  const onCheckedLocationsElement = (checked, item) => {
+    if (checked) {
+      setLocationsCheckedList([...locationsCheckedList, item]);
+    } else if (!checked) {
+      setLocationsCheckedList(locationsCheckedList.filter((el) => el !== item));
+    }
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -55,6 +84,8 @@ export const ProfileEdit = () => {
       userId: user._id,
       desc: descDB,
       profilePicture: profilePictureDB,
+      // likeSports: sportsCheckedList,
+      locations: locationsCheckedList,
     };
     e.preventDefault();
     try {
@@ -259,16 +290,35 @@ export const ProfileEdit = () => {
                     <span className="text-lg text-[#DFDFDF]">
                       <HiLocationMarker />
                     </span>
-                    {userObject.locations.map((location) => {
-                      return (
-                        <h4 key={location} className="text-[#A5A5A5] text-lg ">
-                          {location}
-                        </h4>
-                      );
-                    })}
-                    <span className="text-2xl text-[#DFDFDF]">
+                    {tempLocation
+                      ? locationsCheckedList.map((location) => {
+                          return (
+                            <h4
+                              key={location}
+                              className="text-[#A5A5A5] text-lg "
+                            >
+                              {location}
+                            </h4>
+                          );
+                        })
+                      : userObject.locations.map((location) => {
+                          return (
+                            <h4
+                              key={location}
+                              className="text-[#A5A5A5] text-lg "
+                            >
+                              {location}
+                            </h4>
+                          );
+                        })}
+                    <i
+                      onClick={() => {
+                        setLocationQuestion(true);
+                      }}
+                      className="text-2xl text-[#DFDFDF]"
+                    >
                       <AiOutlineRight />
-                    </span>
+                    </i>
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
@@ -296,7 +346,7 @@ export const ProfileEdit = () => {
                   type="text"
                   value={descDB}
                   placeholder={userObject.desc}
-                  className="w-full border-2 rounded-lg h-[11.75rem] px-2 py-3"
+                  className="w-full border-2 rounded-lg h-[11.75rem] px-2 py-3 resize-none outline-none"
                   onChange={() => {
                     if (byteCounter(selfIntroduction.current.value) > 240) {
                       selfIntroduction.current.value =
@@ -324,6 +374,52 @@ export const ProfileEdit = () => {
           </button>
         </div>
       )}
+      {locationQuestion && (
+        <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-0 top-0">
+          <div className="absolute w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-xl">
+            <h3>운동할 지역을 설정해주세요</h3>
+            <h6>중복으로 선택할 수 있어요</h6>
+            <div className="justify-center grid items-center">
+              <ul className="grid grid-cols-2 gap-x-2 gap-y-4 px-4">
+                {LOCATION_LIST.map((item) => {
+                  return (
+                    <li key={item.id}>
+                      <input
+                        id={item.id}
+                        type="checkbox"
+                        value={item.data}
+                        ref={locations}
+                        onChange={(e) => {
+                          onCheckedLocationsElement(
+                            e.target.checked,
+                            e.target.value
+                          );
+                        }}
+                        checked={
+                          locationsCheckedList.includes(item.data)
+                            ? true
+                            : false
+                        }
+                        className="hidden peer"
+                      />
+                      <OptionBtn htmlFor={item.id}>{item.data}</OptionBtn>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <button onClick={handleCancel}>취소</button>
+            <button
+              onClick={() => {
+                setLocationQuestion(false);
+                setTempLocation(true);
+              }}
+            >
+              선택완료
+            </button>
+          </div>
+        </div>
+      )}
     </form>
   );
 };
@@ -348,3 +444,5 @@ const CardWhiteBg = styled.div`
 `;
 
 const SmGraText = tw.div`text-xs text-center text-[#F79D00] font-bold`;
+
+const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-[#F79D00] font-semibold w-36 h-12 flex text-center justify-center text-[#A5A5A5] items-center z-10 cursor-pointer`;

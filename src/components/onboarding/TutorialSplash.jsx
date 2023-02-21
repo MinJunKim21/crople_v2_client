@@ -4,7 +4,6 @@ import styled from 'styled-components';
 export const TutorialSplash = ({ file }) => {
   return (
     <BgGraWrapperA>
-      {/* <WhiteCenterBlur> */}
       <h3 className="text-center pt-12  text-[#555555]">
         나와 꼭 맞는 메이트를 만나보세요!
       </h3>
@@ -32,7 +31,6 @@ export const TutorialSplash = ({ file }) => {
           />
         </div>
       </div>
-      {/* </WhiteCenterBlur> */}
     </BgGraWrapperA>
   );
 };
