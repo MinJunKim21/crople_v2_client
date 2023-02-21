@@ -10,6 +10,8 @@
     "cloudinary-react": "^1.8.1",
     "cross-env": "^7.0.3",
     "env-cmd": "^10.1.0",
+    "moment": "^2.29.4",
+    "moment-with-locales-es6": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-feather": "^2.0.10",

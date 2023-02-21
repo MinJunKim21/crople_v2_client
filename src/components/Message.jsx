@@ -1,4 +1,9 @@
 import React from 'react';
+// import moment from 'moment-with-locales-es6';
+import moment from 'moment';
+import 'moment/locale/ko';
+
+moment.locale('ko');
 // import { format } from 'timeago.js';
 
 export default function Message({
@@ -9,35 +14,60 @@ export default function Message({
   message,
   own,
   timestamp,
+  daystamp,
+  isSameTime,
+  isSameDay,
 }) {
   return (
-    <div
-      className={
-        own ? 'flex flex-row-reverse mb-[0.5rem]' : 'flex flex-col mb-[0.5rem]'
-      }
-    >
-      <div className={own ? 'flex flex-row-reverse items-baseline' : 'flex'}>
-        {
-          <img
-            src={user?.profilePicture[0]}
-            alt=""
-            className={`w-12 h-12 rounded-full ${
-              isSameSender ? 'opacity-0' : ''
-            } ${own && 'hidden'} `}
-          />
-        }
-        <p
-          className={
-            own
-              ? 'max-w-sm bg-[#F79D00] items-center h-full px-5 py-3 rounded-[1.625rem] rounded-br-none mx-2 text-white break-words  whitespace-normal'
-              : 'max-w-sm bg-[#F7F7F7] items-center h-full px-5 py-3 rounded-[1.625rem] rounded-bl-none mx-2 break-words  whitespace-normal'
+    <div>
+      <div className="flex flex-col mb-[0.5rem]">
+        {!isSameDay ? (
+          <div className="flex items-center py-3">
+            <span className="border-[1px]  w-full h-full" />
+            <span
+              className={`text-[#979797] px-1 text-sm flex justify-center max-w-xs w-full ${
+                isSameDay ? 'opacity-0' : ''
+              }`}
+            >
+              {moment({ daystamp }).format('ll')}
+            </span>
+            <span className="border-[1px]  w-full h-full" />
+          </div>
+        ) : null}
+        <div className={own ? 'flex flex-row-reverse ' : 'flex flex-row '}>
+          {
+            <img
+              src={user?.profilePicture[0]}
+              alt=""
+              className={`w-12 h-12 rounded-full ${
+                isSameSender ? 'opacity-0' : ''
+              } ${own && 'hidden'} `}
+            />
           }
-        >
-          {message.text}
-        </p>
-        {<span className="text-xs text-[#979797]">{timestamp}</span>}
+
+          <div className={own ? 'flex flex-row-reverse' : 'flex flex-row '}>
+            <p
+              className={
+                own
+                  ? 'max-w-[17.5rem] bg-[#F79D00] h-full px-5 py-3 rounded-[1.625rem] rounded-br-none text-white break-words whitespace-normal text-left ml-2'
+                  : 'max-w-[17.5rem] ml-2 bg-[#F7F7F7] h-full px-5 py-3 rounded-[1.625rem] rounded-bl-none text-left break-words whitespace-normal'
+              }
+            >
+              {message.text}
+            </p>
+
+            <div className="text-xs h-full flex flex-col justify-end">
+              <span
+                className={`text-[#979797] ${
+                  isSameSender && isSameTime ? 'opacity-0' : ''
+                }`}
+              >
+                {timestamp}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
-      {/* <div>{format(message.createdAt)}</div> */}
     </div>
   );
 }

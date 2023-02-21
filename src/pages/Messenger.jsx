@@ -1,10 +1,16 @@
 import axios from 'axios';
+import tw from 'twin.macro';
 import React from 'react';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import Message from '../components/Message';
 import io from 'socket.io-client';
 import TabBar from '../components/TabBar';
+import { BsChevronLeft } from 'react-icons/bs';
+import moment from 'moment';
+import 'moment/locale/ko';
+
+moment.locale('ko');
 
 const ENDPOINT = process.env.REACT_APP_API_ROOT;
 let socket;
@@ -19,6 +25,7 @@ export default function Messenger() {
   const [friendEachother, setFriendEachother] = useState([]);
   const [convExist, setConvExist] = useState('');
   const [user, setUser] = useState('');
+  const [conversation, setConversation] = useState([]);
 
   useEffect(() => {
     socket = io(ENDPOINT, {
@@ -130,6 +137,24 @@ export default function Messenger() {
     }
   };
 
+  const conversationOfTwo = async (user) => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
+      );
+      setConversation((prevConversation) => [...prevConversation, res.data]);
+      console.log(conversation, 'conversationofTwo : conversation');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    friendEachother.forEach((friend) => {
+      conversationOfTwo(friend);
+    });
+  }, [friendEachother]);
+
   useEffect(
     (user) => {
       if (convExist !== null) {
@@ -166,57 +191,68 @@ export default function Messenger() {
             </h3>
 
             <div className="flex flex-col mt-[100px] w-full px-2 space-y-2">
-              {friendEachother.map((user) => (
-                <div key={user._id} className="border px-4 py-2 rounded-2xl">
-                  <button
-                    onClick={() => {
-                      getConversationsOfTwo(user);
-                    }}
-                  >
-                    <div key={user._id} className="flex space-x-4 items-center">
-                      <img
-                        className="w-20 h-20 object-cover rounded-full"
-                        src={user.profilePicture[0]}
-                        alt=""
-                      />
-                      <div>
-                        <div className="flex">
-                          <span>{user.nickName}</span>
-                          <span>10분전</span>
-                        </div>
-                        <div className="flex">
-                          <span>서울</span>
+              {friendEachother.map((user, index) => {
+                const conv = conversation[index];
+                return (
+                  <div key={user._id} className="border px-4 py-2 rounded-2xl">
+                    <button
+                      onClick={() => {
+                        getConversationsOfTwo(user);
+                      }}
+                    >
+                      <div
+                        key={user._id}
+                        className="flex space-x-4 items-center"
+                      >
+                        <img
+                          className="w-20 h-20 object-cover rounded-full"
+                          src={user.profilePicture[0]}
+                          alt=""
+                        />
+                        <div>
+                          <div className="flex flex-col">
+                            <span>{user.nickName}</span>
+                            {/* <div>{friendEachother[index]._id}</div> */}
+                            {conv && moment(conv.updatedAt).fromNow()}
+                            {conv && conv.updatedAt}
+
+                            {/* <div>{index}</div> */}
+                          </div>
                           <div className="flex">
-                            {user.locations.map((location) => {
+                            <span>서울</span>
+                            <div className="flex">
+                              {user.locations.map((location) => {
+                                return (
+                                  <h4
+                                    key={location}
+                                    className="text-[#A5A5A5] text-lg"
+                                  >
+                                    {location}
+                                  </h4>
+                                );
+                              })}
+                            </div>
+                          </div>
+                          <div className="flex flex-wrap w-full">
+                            {user.likeSports.map((likeSports, index) => {
                               return (
                                 <h4
-                                  key={location}
-                                  className="text-[#A5A5A5] text-lg "
+                                  key={index}
+                                  className="border px-2 py-1 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mb-2 mr-2"
                                 >
-                                  {location}
+                                  {likeSports}
                                 </h4>
                               );
                             })}
                           </div>
                         </div>
-                        <div className="flex flex-wrap w-full  ">
-                          {user.likeSports.map((likeSports, index) => {
-                            return (
-                              <h4
-                                key={index}
-                                className="border px-2 py-1 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mb-2 mr-2"
-                              >
-                                {likeSports}
-                              </h4>
-                            );
-                          })}
-                        </div>
                       </div>
-                    </div>
-                  </button>
-                </div>
-              ))}
+                    </button>
+                  </div>
+                );
+              })}
             </div>
+
             <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
               <TabBar />
             </div>
@@ -226,11 +262,11 @@ export default function Messenger() {
           <div className="max-h-screen w-full relative flex flex-col">
             <button
               onClick={() => setCurrentChat(null)}
-              className="absolute z-50"
+              className="absolute px-2 pt-8 z-50"
             >
-              back
+              <BsChevronLeft />
             </button>
-            <div className="flex flex-col">
+            <div className="flex flex-col pt-8">
               <h3 className="flex justify-center text-center w-full">
                 {user.nickName}
               </h3>
@@ -240,13 +276,15 @@ export default function Messenger() {
                 })}
               </h4>
             </div>
-            <div className="flex flex-col h-full overflow-y-scroll pt-12 pb-4">
-              <p>
+            <div className="flex flex-col h-full overflow-y-scroll pt-8 text-center pb-4">
+              <p className="text-xs text-[#555555]">
                 메이트와 연결되었습니다.
                 <br /> 장소, 시간 약속을 정하고 함께 운동을 즐겨보세요!
               </p>
               {messages.map((m, index) => {
                 const previousMessage = messages[index - 1];
+                const nextMessage = messages[index + 1];
+
                 const isSameSender =
                   previousMessage && previousMessage.sender === m.sender;
                 const timestamp = new Date(m.createdAt)
@@ -256,39 +294,79 @@ export default function Messenger() {
                     hour12: true,
                   })
                   .toUpperCase();
+                const timeFormat = (t) =>
+                  new Date(t)
+                    .toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: true,
+                    })
+                    .toUpperCase();
+                const dayFormat = (t) =>
+                  new Date(t)
+                    .toLocaleDateString('ko-KR', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                    })
+                    .replace(/\./g, '년 ')
+                    .replace(' ', '월 ') + '일';
+                const isSameTime =
+                  nextMessage &&
+                  timeFormat(nextMessage.createdAt) === timeFormat(m.createdAt);
+                const isSameDay =
+                  previousMessage &&
+                  dayFormat(previousMessage.createdAt) ===
+                    dayFormat(m.createdAt);
+
+                const daystamp = new Date(m.createdAt).toLocaleDateString(
+                  'ko-KR',
+                  {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: '2-digit',
+                  }
+                );
 
                 return (
-                  <div key={m._id} ref={scrollRef}>
+                  <div key={m._id} ref={scrollRef} className="px-2">
                     <Message
                       key={m._id}
                       message={m}
                       timestamp={timestamp}
+                      daystamp={daystamp}
                       own={m.sender === userObject._id}
                       user={user}
                       userObject={userObject}
                       index={index}
                       isSameSender={isSameSender}
+                      isSameTime={isSameTime}
+                      isSameDay={isSameDay}
                     />
                   </div>
                 );
               })}
             </div>
-            <div className="flex">
-              <textarea
-                className="border px-4 py-3"
-                name=""
-                id=""
-                cols="30"
-                rows="1"
-                placeholder="메세지 보내기..."
-                onChange={(e) => {
-                  setNewMessage(e.target.value);
-                }}
-                value={newMessage}
-              ></textarea>
-              <button onClick={handleSubmit} className="">
-                Send
-              </button>
+            <div className=" px-2 pb-4 pt-4">
+              <NextBtnGraBorder>
+                <NextBtnGraBg>
+                  <textarea
+                    className="border-none w-full  resize-none outline-none py-3 px-2"
+                    name=""
+                    id=""
+                    cols="30"
+                    rows="1"
+                    placeholder="메세지 보내기..."
+                    onChange={(e) => {
+                      setNewMessage(e.target.value);
+                    }}
+                    value={newMessage}
+                  ></textarea>
+                  <button onClick={handleSubmit} className="w-7 h-7">
+                    <img src="/assets/BTN/Btn_SendMessage.png" alt="" />
+                  </button>
+                </NextBtnGraBg>
+              </NextBtnGraBorder>
             </div>
           </div>
         )}
@@ -296,3 +374,6 @@ export default function Messenger() {
     </>
   );
 }
+
+const NextBtnGraBorder = tw.div`w-full h-[5.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286]`;
+const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center px-4`;
