@@ -22,6 +22,17 @@ const LOCATION_LIST = [
   { id: 1, data: '서대문구' },
 ];
 
+const SPORTS_LIST = [
+  { id: 0, data: '헬스' },
+  { id: 1, data: '테니스' },
+  { id: 2, data: '클라이밍' },
+  { id: 3, data: '러닝' },
+  { id: 4, data: '골프' },
+  { id: 5, data: '수영' },
+  { id: 6, data: '주짓수' },
+  { id: 7, data: '싸이클' },
+];
+
 export const ProfileEdit = () => {
   const userObject = useContext(AuthContext);
   const [user, setUser] = useState('');
@@ -41,19 +52,36 @@ export const ProfileEdit = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [locationQuestion, setLocationQuestion] = useState(false);
+  const [sportsQuestion, setSportsQuestion] = useState(false);
   const [locationsCheckedList, setLocationsCheckedList] = useState(
     userObject.locations
   );
-  console.log(locationsCheckedList, 'locationsCheckedList');
-  console.log(userObject.locations, 'userObject.locations');
+  const [sportsCheckedList, setSportsCheckedList] = useState(
+    userObject.likeSports
+  );
+
   const locations = useRef();
+  const likeSports = useRef();
+
   const [initialLocationsCheckedList, setInitialLocationsCheckedList] =
     useState(userObject.locations);
-  const [tempLocation, setTempLocation] = useState(false);
 
-  const handleCancel = () => {
-    setLocationsCheckedList(initialLocationsCheckedList);
-    setLocationQuestion(false);
+  const [initialSportsCheckedList, setInitialSportsCheckedList] = useState(
+    userObject.likeSports
+  );
+  const [tempLocation, setTempLocation] = useState(false);
+  const [tempSports, setTempSports] = useState(false);
+
+  const onCheckedSportsElement = (checked, item) => {
+    if (checked) {
+      setSportsCheckedList([...sportsCheckedList, item]);
+    } else if (!checked) {
+      setSportsCheckedList(sportsCheckedList.filter((el) => el !== item));
+    }
+    if (sportsCheckedList.length > 4) {
+      alert(`다섯개까지만 가능합니다.`);
+      setSportsCheckedList(sportsCheckedList.filter((el) => el !== item));
+    }
   };
 
   const onCheckedLocationsElement = (checked, item) => {
@@ -84,7 +112,7 @@ export const ProfileEdit = () => {
       userId: user._id,
       desc: descDB,
       profilePicture: profilePictureDB,
-      // likeSports: sportsCheckedList,
+      likeSports: sportsCheckedList,
       locations: locationsCheckedList,
     };
     e.preventDefault();
@@ -323,20 +351,32 @@ export const ProfileEdit = () => {
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex flex-wrap w-[75%] mb-2 ">
-                    {userObject.likeSports.map((likeSports, index) => {
-                      return (
-                        <h4
-                          key={index}
-                          className="border px-4 py-2 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mr-2"
-                        >
-                          {likeSports}
-                        </h4>
-                      );
-                    })}
+                    {tempSports
+                      ? sportsCheckedList.map((likeSports, index) => (
+                          <h4
+                            key={index}
+                            className="border px-4 py-2 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mr-2 mb-2"
+                          >
+                            {likeSports}
+                          </h4>
+                        ))
+                      : userObject.likeSports.map((likeSports, index) => (
+                          <h4
+                            key={index}
+                            className="border px-4 py-2 border-[#A5A5A5] text-center mb-2 rounded-full text-[#A5A5A5] text-sm mr-2"
+                          >
+                            {likeSports}
+                          </h4>
+                        ))}
                   </div>
-                  <span className="text-2xl mb-2 text-[#DFDFDF]">
+                  <i
+                    onClick={() => {
+                      setSportsQuestion(true);
+                    }}
+                    className="text-2xl text-[#DFDFDF]"
+                  >
                     <AiOutlineRight />
-                  </span>
+                  </i>
                 </div>
               </div>
 
@@ -375,12 +415,12 @@ export const ProfileEdit = () => {
         </div>
       )}
       {locationQuestion && (
-        <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-0 top-0">
-          <div className="absolute w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-xl">
-            <h3>운동할 지역을 설정해주세요</h3>
-            <h6>중복으로 선택할 수 있어요</h6>
-            <div className="justify-center grid items-center">
-              <ul className="grid grid-cols-2 gap-x-2 gap-y-4 px-4">
+        <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-0 top-0 ">
+          <div className="absolute max-w-[21.5rem] w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-xl p-4">
+            <MainQuestion>운동할 지역을 설정해주세요</MainQuestion>
+            <SubInstruction>중복으로 선택할 수 있어요</SubInstruction>
+            <div className="justify-center grid items-center mt-8">
+              <ul className="grid grid-cols-2 gap-x-2 gap-y-4 ">
                 {LOCATION_LIST.map((item) => {
                   return (
                     <li key={item.id}>
@@ -408,15 +448,81 @@ export const ProfileEdit = () => {
                 })}
               </ul>
             </div>
-            <button onClick={handleCancel}>취소</button>
-            <button
-              onClick={() => {
-                setLocationQuestion(false);
-                setTempLocation(true);
-              }}
-            >
-              선택완료
-            </button>
+            <div className="w-full h-full flex justify-center space-x-2 pt-8">
+              <button
+                onClick={() => {
+                  setLocationsCheckedList(initialLocationsCheckedList);
+                  setLocationQuestion(false);
+                }}
+                className="bg-[#DFDFDF] w-28 h-12 rounded-xl"
+              >
+                취소
+              </button>
+              <button
+                onClick={() => {
+                  setLocationQuestion(false);
+                  setTempLocation(true);
+                }}
+                className="bg-[#F79D00] text-white w-28 h-12 rounded-xl"
+              >
+                선택완료
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {sportsQuestion && (
+        <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-0 top-0 ">
+          <div className="absolute max-w-[21.5rem] w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-xl p-4">
+            <MainQuestion>어떤 운동을 좋아하세요?</MainQuestion>
+            <SubInstruction>다섯 개까지 선택할 수 있어요</SubInstruction>
+            <div className="justify-center grid items-center mt-8">
+              <ul className="grid grid-cols-2 gap-x-2 gap-y-4 ">
+                {SPORTS_LIST.map((item) => {
+                  return (
+                    <li key={item.id}>
+                      <input
+                        id={item.id}
+                        type="checkbox"
+                        className="hidden peer"
+                        value={item.data}
+                        ref={likeSports}
+                        onChange={(e) => {
+                          onCheckedSportsElement(
+                            e.target.checked,
+                            e.target.value
+                          );
+                        }}
+                        checked={
+                          sportsCheckedList.includes(item.data) ? true : false
+                        }
+                      />
+                      <OptionBtn htmlFor={item.id}>{item.data}</OptionBtn>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <div className="w-full h-full flex justify-center space-x-2 pt-8">
+              <button
+                onClick={() => {
+                  setSportsCheckedList(initialSportsCheckedList);
+                  setSportsQuestion(false);
+                }}
+                className="bg-[#DFDFDF] w-28 h-12 rounded-xl"
+              >
+                취소
+              </button>
+              <button
+                onClick={() => {
+                  setSportsQuestion(false);
+                  setTempSports(true);
+                }}
+                className="bg-[#F79D00] text-white w-28 h-12 rounded-xl"
+              >
+                선택완료
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -446,3 +552,8 @@ const CardWhiteBg = styled.div`
 const SmGraText = tw.div`text-xs text-center text-[#F79D00] font-bold`;
 
 const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-[#F79D00] font-semibold w-36 h-12 flex text-center justify-center text-[#A5A5A5] items-center z-10 cursor-pointer`;
+
+const MainQuestion = tw.h3`
+flex justify-center text-[#242424] font-semibold text-xl`;
+
+const SubInstruction = tw.h6`flex justify-center text-[#555555] font-medium text-sm `;
