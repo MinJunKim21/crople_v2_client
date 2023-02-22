@@ -45,7 +45,7 @@ export const ProfileEdit = () => {
   const [fileC, setFileC] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
-
+  const [cancelEdit, setCancelEdit] = useState(false);
   const [locationQuestion, setLocationQuestion] = useState(false);
   const [sportsQuestion, setSportsQuestion] = useState(false);
   const [locationsCheckedList, setLocationsCheckedList] = useState(
@@ -59,7 +59,6 @@ export const ProfileEdit = () => {
   const likeSports = useRef();
 
   const [initialLocationsCheckedList] = useState(userObject.locations);
-
   const [initialSportsCheckedList] = useState(userObject.likeSports);
 
   const [tempLocation, setTempLocation] = useState(false);
@@ -147,12 +146,15 @@ export const ProfileEdit = () => {
     <form onSubmit={updateData}>
       <div>
         <BgGraWrapperA>
-          <div>
-            <button className="px-4 pb-2">
-              <Link to={`/profile/${userObject._id}`}>
-                <BsChevronLeft />
-              </Link>
-            </button>
+          <div className="px-4 pb-2">
+            <i
+              onClick={() => {
+                setCancelEdit(true);
+              }}
+              className="cursor-pointer"
+            >
+              <BsChevronLeft />
+            </i>
           </div>
           <div className="h-full">
             <CardWhiteBg className="bg-white w-full h-full backdrop-blur-[2px]	 opacity-95 flex-col">
@@ -336,7 +338,7 @@ export const ProfileEdit = () => {
                       onClick={() => {
                         setLocationQuestion(true);
                       }}
-                      className="text-2xl text-[#DFDFDF]"
+                      className="text-2xl text-[#DFDFDF] cursor-pointer"
                     >
                       <AiOutlineRight />
                     </i>
@@ -366,7 +368,7 @@ export const ProfileEdit = () => {
                     onClick={() => {
                       setSportsQuestion(true);
                     }}
-                    className="text-2xl text-[#DFDFDF]"
+                    className="text-2xl text-[#DFDFDF] cursor-pointer"
                   >
                     <AiOutlineRight />
                   </i>
@@ -409,7 +411,7 @@ export const ProfileEdit = () => {
       )}
       {locationQuestion && (
         <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-0 top-0 ">
-          <div className="absolute max-w-[21.5rem] w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-xl p-4">
+          <div className="absolute max-w-[21.5rem] w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-[2.5rem] p-4">
             <MainQuestion>운동할 지역을 설정해주세요</MainQuestion>
             <SubInstruction>중복으로 선택할 수 있어요</SubInstruction>
             <div className="justify-center grid items-center mt-8">
@@ -466,7 +468,7 @@ export const ProfileEdit = () => {
       )}
       {sportsQuestion && (
         <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-0 top-0 ">
-          <div className="absolute max-w-[21.5rem] w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-xl p-4">
+          <div className="absolute max-w-[21.5rem] w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-[2.5rem] p-4">
             <MainQuestion>어떤 운동을 좋아하세요?</MainQuestion>
             <SubInstruction>다섯 개까지 선택할 수 있어요</SubInstruction>
             <div className="justify-center grid items-center mt-8">
@@ -502,7 +504,7 @@ export const ProfileEdit = () => {
                   setSportsCheckedList(initialSportsCheckedList);
                   setSportsQuestion(false);
                 }}
-                className="bg-[#DFDFDF] w-28 h-12 rounded-xl"
+                className="bg-[#DFDFDF] w-28 h-12 rounded-xl "
               >
                 취소
               </button>
@@ -515,6 +517,35 @@ export const ProfileEdit = () => {
               >
                 선택완료
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {cancelEdit && (
+        <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-0 top-0 ">
+          <div className="absolute max-w-[21.5rem] w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-[2.5rem] p-4">
+            <MainQuestion>작성을 취소할까요?</MainQuestion>
+            <SubInstruction>저장되지 않은 내용은 삭제됩니다</SubInstruction>
+            <div className="w-full h-full flex justify-center space-x-2 pt-8">
+              <button
+                onClick={() => {
+                  setCancelEdit(false);
+                }}
+                className="bg-[#DFDFDF] w-28 h-12 rounded-xl "
+              >
+                아니요
+              </button>
+              <Link to={`/profile/${userObject._id}`}>
+                <button
+                  onClick={() => {
+                    setSportsQuestion(false);
+                    setTempSports(true);
+                  }}
+                  className="bg-[#F79D00] text-white w-28 h-12 rounded-xl"
+                >
+                  네
+                </button>
+              </Link>
             </div>
           </div>
         </div>
