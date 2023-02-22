@@ -58,12 +58,10 @@ export const ProfileEdit = () => {
   const locations = useRef();
   const likeSports = useRef();
 
-  const [initialLocationsCheckedList, setInitialLocationsCheckedList] =
-    useState(userObject.locations); // eslint-disable-line no-unused-vars
+  const [initialLocationsCheckedList] = useState(userObject.locations);
 
-  const [initialSportsCheckedList, setInitialSportsCheckedList] = useState(
-    userObject.likeSports // eslint-disable-line no-unused-vars
-  );
+  const [initialSportsCheckedList] = useState(userObject.likeSports);
+
   const [tempLocation, setTempLocation] = useState(false);
   const [tempSports, setTempSports] = useState(false);
 

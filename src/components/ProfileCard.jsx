@@ -42,7 +42,7 @@ export const ProfileCard = ({ user, onClose, render }) => {
     if (user) {
       fetchUser();
     }
-  }, [render, user?._id, userObject._id]);
+  }, [_id, render, user, user._id, userObject._id]);
 
   const handleClick = async () => {
     setFollowed(!followed);
