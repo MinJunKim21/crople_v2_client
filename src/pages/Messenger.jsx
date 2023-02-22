@@ -374,7 +374,7 @@ export default function Messenger() {
                 );
               })}
             </div>
-            <div className=" px-2 pb-4 pt-4">
+            <form onSubmit={handleSubmit} className=" px-2 pb-4 pt-4">
               <NextBtnGraBorder>
                 <NextBtnGraBg>
                   <textarea
@@ -388,13 +388,23 @@ export default function Messenger() {
                       setNewMessage(e.target.value);
                     }}
                     value={newMessage}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSubmit(e);
+                      }
+                    }}
                   ></textarea>
-                  <button onClick={handleSubmit} className="w-7 h-7">
+                  <button
+                    type="submit"
+                    onClick={handleSubmit}
+                    className="w-7 h-7"
+                  >
                     <img src="/assets/BTN/Btn_SendMessage.png" alt="" />
                   </button>
                 </NextBtnGraBg>
               </NextBtnGraBorder>
-            </div>
+            </form>
           </div>
         )}
       </div>
