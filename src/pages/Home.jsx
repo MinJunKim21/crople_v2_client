@@ -12,19 +12,15 @@ import { ProfileCard } from '../components/ProfileCard';
 import { Link } from 'react-router-dom';
 
 function Home() {
-  // const [allUsers, setAllUsers] = useState([]);
   const [recommendUsers, setRecommendUsers] = useState([]);
   const [showProfileCard, setShowProfileCard] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [render, setRender] = useState(false);
 
-  // const [nickName, setNickName] = useState(undefined);
   const userObject = useContext(AuthContext);
 
   const handleUserClick = (user) => {
     setSelectedUser(user);
     setShowProfileCard(true);
-    setRender(!render);
   };
 
   const handleCloseProfileCard = () => {
@@ -37,22 +33,16 @@ function Home() {
         `${process.env.REACT_APP_API_ROOT}/api/users/recommend`
       );
       setRecommendUsers(res.data);
-      // console.log(allUsers);
     };
     fetchRecommend();
   }, []);
-  // console.log(render, 'render');
 
   return (
     <div>
       {userObject.nickName === undefined || userObject.profilePicture === '' ? (
         <NeedProfile />
       ) : showProfileCard ? (
-        <ProfileCard
-          user={selectedUser}
-          onClose={handleCloseProfileCard}
-          render={render}
-        />
+        <ProfileCard user={selectedUser} onClose={handleCloseProfileCard} />
       ) : (
         <BgGraWrapperA>
           <h3 className="text-center pt-12  text-[#555555]">

@@ -1,25 +1,19 @@
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
-// import Topbar from '../components/Topbar';
-// import Sidebar from '../components/Sidebar';
-// import Rightbar from '../components/Rightbar';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-// import { useRef } from 'react';
+
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-// import Infoedit from '../components/Infoedit';
 
 import { BsChevronLeft } from 'react-icons/bs';
 import { HiLocationMarker } from 'react-icons/hi';
 import { LineBtn } from './LineBtn';
 import { Carousel } from './carousel/Carousel';
 
-export const ProfileCard = ({ user, onClose, render }) => {
+export const ProfileCard = ({ user, onClose }) => {
   const userObject = useContext(AuthContext);
-  // eslint-disable-next-line no-unused-vars
-  const [selectedUser, setSelectedUser] = useState(user);
   const _id = user._id;
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
@@ -42,7 +36,7 @@ export const ProfileCard = ({ user, onClose, render }) => {
     if (user) {
       fetchUser();
     }
-  }, [_id, render, user, user._id, userObject._id]);
+  }, [_id, user, userObject._id]);
 
   const handleClick = async () => {
     setFollowed(!followed);
@@ -68,7 +62,6 @@ export const ProfileCard = ({ user, onClose, render }) => {
     } catch (err) {
       console.log(err);
     }
-    // window.location.reload(); // 원인 알게되면 이거 바꾸기...
   };
 
   return (
