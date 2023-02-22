@@ -7,7 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 import { HiLocationMarker } from 'react-icons/hi';
-import { AiOutlineRight } from 'react-icons/ai';
+import { AiOutlineDown } from 'react-icons/ai';
 import { BsChevronLeft } from 'react-icons/bs';
 import { LineBtn } from '../components/LineBtn';
 import { LoadingBtn } from '../components/btn&tab&bar/LoadingBtn';
@@ -340,7 +340,7 @@ export const ProfileEdit = () => {
                       }}
                       className="text-2xl text-[#DFDFDF] cursor-pointer"
                     >
-                      <AiOutlineRight />
+                      <AiOutlineDown />
                     </i>
                   </div>
                 </div>
@@ -370,7 +370,7 @@ export const ProfileEdit = () => {
                     }}
                     className="text-2xl text-[#DFDFDF] cursor-pointer"
                   >
-                    <AiOutlineRight />
+                    <AiOutlineDown />
                   </i>
                 </div>
               </div>
@@ -443,6 +443,11 @@ export const ProfileEdit = () => {
                 })}
               </ul>
             </div>
+            {locationsCheckedList.length === 0 && (
+              <h4 className="text-xs flex pt-4 justify-center text-[#FF2525]">
+                1개 항목 이상 선택해 주세요
+              </h4>
+            )}
             <div className="w-full h-full flex justify-center space-x-2 pt-8">
               <button
                 onClick={() => {
@@ -453,15 +458,21 @@ export const ProfileEdit = () => {
               >
                 취소
               </button>
-              <button
-                onClick={() => {
-                  setLocationQuestion(false);
-                  setTempLocation(true);
-                }}
-                className="bg-[#F79D00] text-white w-28 h-12 rounded-xl"
-              >
-                선택완료
-              </button>
+              {locationsCheckedList.length === 0 ? (
+                <div className="bg-[#F79D00] flex justify-center items-center text-white w-28 h-12 rounded-xl">
+                  선택완료
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    setLocationQuestion(false);
+                    setTempLocation(true);
+                  }}
+                  className="bg-[#F79D00] text-white w-28 h-12 rounded-xl"
+                >
+                  선택완료
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -498,6 +509,11 @@ export const ProfileEdit = () => {
                 })}
               </ul>
             </div>
+            {sportsCheckedList.length === 0 && (
+              <h4 className="text-xs flex pt-4 justify-center text-[#FF2525]">
+                1개 항목 이상 선택해 주세요
+              </h4>
+            )}
             <div className="w-full h-full flex justify-center space-x-2 pt-8">
               <button
                 onClick={() => {
@@ -508,15 +524,21 @@ export const ProfileEdit = () => {
               >
                 취소
               </button>
-              <button
-                onClick={() => {
-                  setSportsQuestion(false);
-                  setTempSports(true);
-                }}
-                className="bg-[#F79D00] text-white w-28 h-12 rounded-xl"
-              >
-                선택완료
-              </button>
+              {sportsCheckedList.length === 0 ? (
+                <div className="bg-[#F79D00] items-center justify-center flex text-white w-28 h-12 rounded-xl">
+                  선택완료
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    setSportsQuestion(false);
+                    setTempSports(true);
+                  }}
+                  className="bg-[#F79D00] text-white w-28 h-12 rounded-xl"
+                >
+                  선택완료
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -580,4 +602,4 @@ const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-[#F79D00] f
 const MainQuestion = tw.h3`
 flex justify-center text-[#242424] font-semibold text-xl`;
 
-const SubInstruction = tw.h6`flex justify-center text-[#555555] font-medium text-sm `;
+const SubInstruction = tw.h6`flex justify-center text-[#555555] mt-2 font-medium text-sm `;
