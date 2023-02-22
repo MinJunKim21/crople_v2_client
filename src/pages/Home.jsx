@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import NeedProfile from '../components/NeedProfile';
-import TabBar from '../components/TabBar';
+import TabBar from '../components/btn&tab&bar/MainTabBar';
 import { ProfileCard } from '../components/ProfileCard';
 import { Link } from 'react-router-dom';
 
@@ -85,7 +85,7 @@ function Home() {
               // </Link>
             ))}
           </div>
-          <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+          <div className="fixed bottom-0 left-0  w-full pb-8 px-4 max-w-sm mx-auto justify-center">
             <TabBar />
           </div>
         </BgGraWrapperA>

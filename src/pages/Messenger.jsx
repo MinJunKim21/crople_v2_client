@@ -5,7 +5,7 @@ import { useState, useEffect, useRef, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import Message from '../components/Message';
 import io from 'socket.io-client';
-import TabBar from '../components/TabBar';
+import TabBar from '../components/btn&tab&bar/MainTabBar';
 import { BsChevronLeft } from 'react-icons/bs';
 import moment from 'moment';
 import 'moment/locale/ko';

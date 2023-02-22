@@ -1,34 +1,24 @@
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
-// import Topbar from '../components/Topbar';
-// import Sidebar from '../components/Sidebar';
-// import Rightbar from '../components/Rightbar';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
-// import { useRef } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-// import Infoedit from '../components/Infoedit';
 
 import { BsChevronLeft } from 'react-icons/bs';
 import { HiLocationMarker } from 'react-icons/hi';
-import { LineBtn } from './LineBtn';
+import { LineBtn } from './btn&tab&bar/LineBtn';
 
 export const UsersProfileCard = () => {
   const userObject = useContext(AuthContext);
-  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user, setUser] = useState(userObject);
   const _id = useParams()._id;
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
   );
-  console.log(followed, 'followed');
-  // const [profileChange, setProfileChange] = useState(false);
-  // console.log(nickName, 'nickName');
-  // console.log(user, 'user');
-  // console.log(useParams(), 'useParams()');
+
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
@@ -63,7 +53,7 @@ export const UsersProfileCard = () => {
       console.log(err);
     }
     setFollowed(!followed);
-    window.location.reload(); // 원인 알게되면 이거 바꾸기...
+    // window.location.reload(); // 원인 알게되면 이거 바꾸기...
   };
 
   return (

@@ -2,7 +2,7 @@ import tw from 'twin.macro';
 import styled from 'styled-components';
 import { BsChevronLeft } from 'react-icons/bs';
 import { HiLocationMarker } from 'react-icons/hi';
-import { LineBtn } from '../LineBtn';
+import { LineBtn } from '../btn&tab&bar/LineBtn';
 import { Carousel } from '../carousel/Carousel';
 
 export const PreviewCard = ({

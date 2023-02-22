@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function TabBar({ reload }) {
+function MainTabBar({ reload }) {
   return (
     <div className="space-x-8">
       <button>큐레이션</button>
@@ -25,4 +25,4 @@ function TabBar({ reload }) {
   );
 }
 
-export default TabBar;
+export default MainTabBar;

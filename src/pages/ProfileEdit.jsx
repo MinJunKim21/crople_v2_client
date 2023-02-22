@@ -9,7 +9,7 @@ import { AuthContext } from '../context/AuthContext';
 import { HiLocationMarker } from 'react-icons/hi';
 import { AiOutlineDown } from 'react-icons/ai';
 import { BsChevronLeft } from 'react-icons/bs';
-import { LineBtn } from '../components/LineBtn';
+import { LineBtn } from '../components/btn&tab&bar/LineBtn';
 import { LoadingBtn } from '../components/btn&tab&bar/LoadingBtn';
 
 const LOCATION_LIST = [
