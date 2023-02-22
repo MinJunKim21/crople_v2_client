@@ -16,7 +16,7 @@ import { HiLocationMarker } from 'react-icons/hi';
 import { LineBtn } from './LineBtn';
 import { Carousel } from './carousel/Carousel';
 
-export const ProfileCard = ({ user, onClose }) => {
+export const ProfileCard = ({ user, onClose, render }) => {
   const userObject = useContext(AuthContext);
   // eslint-disable-next-line no-unused-vars
   const [selectedUser, setSelectedUser] = useState(user);
@@ -27,16 +27,26 @@ export const ProfileCard = ({ user, onClose }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_ROOT}/api/users?userId=` + _id
-      );
-      setSelectedUser(res.data);
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_ROOT}/api/users?userId=` + _id
+        );
+        const updatedUser = response.data;
+        const isFollowed = updatedUser.followers.includes(userObject._id);
+        setFollowed(isFollowed);
+      } catch (error) {
+        console.error(error);
+      }
     };
-    fetchUser();
-    setFollowed(userObject.followings.includes(user?._id));
-  }, [_id, user?._id, userObject.followings]);
+
+    if (user) {
+      fetchUser();
+    }
+  }, [render, user?._id, userObject._id]);
 
   const handleClick = async () => {
+    setFollowed(!followed);
+
     try {
       if (followed) {
         await axios.put(
@@ -58,8 +68,7 @@ export const ProfileCard = ({ user, onClose }) => {
     } catch (err) {
       console.log(err);
     }
-    setFollowed(!followed);
-    window.location.reload(); // 원인 알게되면 이거 바꾸기...
+    // window.location.reload(); // 원인 알게되면 이거 바꾸기...
   };
 
   return (
@@ -130,9 +139,9 @@ export const ProfileCard = ({ user, onClose }) => {
             <LineBtn text={'바'} />
           </button>
           <div>
-            {user.username !== userObject.username && (
+            {user._id !== userObject._id && (
               <button onClick={handleClick}>
-                {followed ? 'Unfollow' : 'Follow'}
+                {followed ? 'followed' : 'Follow'}
               </button>
             )}
           </div>

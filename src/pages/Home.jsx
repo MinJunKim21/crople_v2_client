@@ -16,6 +16,7 @@ function Home() {
   const [recommendUsers, setRecommendUsers] = useState([]);
   const [showProfileCard, setShowProfileCard] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [render, setRender] = useState(false);
 
   // const [nickName, setNickName] = useState(undefined);
   const userObject = useContext(AuthContext);
@@ -23,6 +24,7 @@ function Home() {
   const handleUserClick = (user) => {
     setSelectedUser(user);
     setShowProfileCard(true);
+    setRender(!render);
   };
 
   const handleCloseProfileCard = () => {
@@ -39,13 +41,18 @@ function Home() {
     };
     fetchRecommend();
   }, []);
+  // console.log(render, 'render');
 
   return (
     <div>
       {userObject.nickName === undefined || userObject.profilePicture === '' ? (
         <NeedProfile />
       ) : showProfileCard ? (
-        <ProfileCard user={selectedUser} onClose={handleCloseProfileCard} />
+        <ProfileCard
+          user={selectedUser}
+          onClose={handleCloseProfileCard}
+          render={render}
+        />
       ) : (
         <BgGraWrapperA>
           <h3 className="text-center pt-12  text-[#555555]">
