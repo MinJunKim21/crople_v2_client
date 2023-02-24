@@ -5,10 +5,11 @@ import { useState, useEffect, useRef, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import Message from '../components/Message';
 import io from 'socket.io-client';
-import TabBar from '../components/btn&tab&bar/MainTabBar';
+import MainTabBar from '../components/btn&tab&bar/MainTabBar';
 import { BsChevronLeft } from 'react-icons/bs';
 import moment from 'moment';
 import 'moment/locale/ko';
+import { ChatTab } from '../components/btn&tab&bar/ChatTab';
 
 moment.locale('ko');
 
@@ -281,7 +282,7 @@ export default function Messenger() {
             </div>
 
             <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-              <TabBar />
+              <ChatTab />
             </div>
           </div>
         )}

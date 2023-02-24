@@ -86,7 +86,7 @@ function Home() {
             ))}
           </div>
 
-          <div className="fixed bottom-0 left-[50%] translate-x-[-50%]  w-full pb-8 max-w-sm mx-auto justify-center">
+          <div className="fixed bottom-0 left-[50%] translate-x-[-50%]  w-full pb-8 px-4 max-w-sm mx-auto justify-center">
             <TabBar />
           </div>
         </BgGraWrapperA>
