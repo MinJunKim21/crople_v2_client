@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import tw from 'tailwind-styled-components';
 import { createContext } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
