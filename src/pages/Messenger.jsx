@@ -184,7 +184,7 @@ export default function Messenger() {
   useEffect(() => {
     const newConversations = [];
 
-    friendEachother.forEach((user, index) => {
+    friendEachother.forEach(async (user, index) => {
       const conversationsWithUser = conversation
         .filter((conversation) => conversation?.members.includes(user._id))
         .map(async (conversation) => ({
@@ -197,6 +197,19 @@ export default function Messenger() {
           ...user,
           lastMessage: await getLastMessage(conversation), // call modified function and assign returned timestamp
         }));
+
+      // Check if the user has any conversations
+      if (conversationsWithUser.length === 0) {
+        await createConversation(user);
+        conversationsWithUser.push({
+          conversationId: null,
+          userId: user._id,
+          createdAt: null,
+          updatedAt: null,
+          ...user,
+          lastMessage: null,
+        });
+      }
       newConversations.push(...conversationsWithUser);
     });
 
