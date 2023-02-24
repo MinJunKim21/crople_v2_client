@@ -25,6 +25,7 @@ export default function Messenger() {
   const [convExist] = useState('');
   const [conversation, setConversation] = useState([]);
   const [lastMessageArray, setLastMessageArray] = useState([]);
+  const [allConversations, setAllConversations] = useState([]);
 
   const navigate = useNavigate();
 
@@ -113,6 +114,9 @@ export default function Messenger() {
           `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
         );
         setConversation((prevConversation) => [...prevConversation, res.data]); // 마지막 메세지 시간 알기 위해
+        console.log(res.data);
+        console.log(conversation, 'conversation');
+        console.log(friendEachother, 'fr');
       } catch (err) {
         console.log(err);
       }
@@ -171,6 +175,28 @@ export default function Messenger() {
     });
   }, [conversation]);
 
+  const getLastMessage = async (conversation) => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_ROOT}/api/messages/${conversation._id}`
+      );
+      const lastMessageIndex = res.data.length - 1;
+      const lastMessage = res.data[lastMessageIndex].updatedAt;
+      console.log(lastMessage, 'getlsms 작동한다');
+
+      // setLastMessageArray((prevLastMessageArray) => {
+      //   const updatedArray = [...prevLastMessageArray];
+      //   updatedArray.push(lastMessage);
+      // });
+      return lastMessage;
+
+      // return lastMessage;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  };
+
   useEffect(() => {
     const getMessages = async (conversationIndex) => {
       try {
@@ -190,6 +216,32 @@ export default function Messenger() {
     });
   }, [conversation]);
 
+  useEffect(() => {
+    const newConversations = [];
+
+    friendEachother.forEach((user, index) => {
+      const conversationsWithUser = conversation
+        .filter((conversation) => conversation.members.includes(user._id))
+        .map(async (conversation) => ({
+          conversationId: conversation._id,
+          userId: conversation.members.find(
+            (memberId) => memberId === user._id
+          ),
+          createdAt: conversation.createdAt,
+          updatedAt: conversation.updatedAt,
+          ...user,
+          lastMessage: await getLastMessage(conversation), // call modified function and assign returned timestamp
+        }));
+      newConversations.push(...conversationsWithUser);
+    });
+
+    Promise.all(newConversations.flat()).then((updatedConversations) => {
+      setAllConversations(updatedConversations);
+    });
+  }, [conversation, friendEachother]);
+
+  console.log(allConversations);
+
   return (
     <div className="flex flex-col justify-center">
       <div className="h-screen flex flex-col">
@@ -200,9 +252,9 @@ export default function Messenger() {
       </div>
       <div className="absolute top-0 left-0">
         <div className="flex flex-col mt-[100px] w-full px-2 space-y-2 z-10">
-          {friendEachother.map((user, index) => {
-            const conv = conversation[index];
-            // getLastMessage(conv);
+          {allConversations.map((conversation, index) => {
+            const user = conversation;
+            const conv = conversation;
 
             return (
               <div
@@ -231,7 +283,7 @@ export default function Messenger() {
                           {user.nickName}
                         </span>
                         <span className="text-[#A5A5A5] text-xs">
-                          {moment(lastMessageArray[index]).fromNow()}
+                          {moment(conversation.lastMessage).fromNow()}
                         </span>
                       </div>
                       <div className="flex">
