@@ -58,20 +58,20 @@ export default function Messenger() {
     });
   }, [userObject]);
 
-  useEffect(() => {
-    const getMessages = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_ROOT}/api/messages/` + currentChat?._id
-        );
-        setMessages(res.data);
-        // console.log(res.data, 'getMessages');
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getMessages();
-  }, [currentChat, convExist]);
+  // useEffect(() => {
+  //   const getMessages = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         `${process.env.REACT_APP_API_ROOT}/api/messages/` + currentChat?._id
+  //       );
+  //       setMessages(res.data);
+  //       console.log(res.data, 'getMessages');
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getMessages();
+  // }, [currentChat, convExist]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -95,10 +95,10 @@ export default function Messenger() {
       );
       if (res.data === null) {
         const conversation = await createConversation(user);
-        setCurrentChat(conversation);
+        // setCurrentChat(conversation);
         navigate(`/chat/${res.data._id}`); // navigate to chat page with conversation ID
       } else {
-        setCurrentChat(convExist);
+        // setCurrentChat(convExist);
         navigate(`/chat/${res.data._id}`); // navigate to chat page with existing conversation ID
       }
     } catch (err) {
@@ -112,7 +112,7 @@ export default function Messenger() {
         const res = await axios.get(
           `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
         );
-        setConversation((prevConversation) => [...prevConversation, res.data]);
+        setConversation((prevConversation) => [...prevConversation, res.data]); // 마지막 메세지 시간 알기 위해
       } catch (err) {
         console.log(err);
       }
@@ -141,7 +141,6 @@ export default function Messenger() {
           receiverId: user._id,
         }
       );
-      console.log(res, 'createdconversation');
       return res.data;
     } catch (err) {
       console.log(err);
@@ -149,8 +148,6 @@ export default function Messenger() {
   };
 
   useEffect(() => {
-    // Call getLastMessage for each conversation
-
     const getLastMessage = async (conversationIndex) => {
       try {
         const res = await axios.get(
@@ -174,6 +171,25 @@ export default function Messenger() {
     });
   }, [conversation]);
 
+  useEffect(() => {
+    const getMessages = async (conversationIndex) => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_ROOT}/api/messages/` +
+            conversation[conversationIndex]?._id
+        );
+        const messages = res.data;
+        // console.log(messages);
+        return messages;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    conversation.forEach((conv, index) => {
+      getMessages(index);
+    });
+  }, [conversation]);
+
   return (
     <div className="flex flex-col justify-center">
       <div className="h-screen flex flex-col">
@@ -185,7 +201,7 @@ export default function Messenger() {
       <div className="absolute top-0 left-0">
         <div className="flex flex-col mt-[100px] w-full px-2 space-y-2 z-10">
           {friendEachother.map((user, index) => {
-            // const conv = conversation[index];
+            const conv = conversation[index];
             // getLastMessage(conv);
 
             return (
@@ -193,6 +209,7 @@ export default function Messenger() {
                 key={user._id}
                 className="border px-4 py-2 rounded-2xl bg-white shadow-md"
               >
+                <div>{conv?.updatedAt}</div>
                 <button
                   onClick={() => {
                     getConversationsOfTwo(user);

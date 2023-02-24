@@ -25,6 +25,7 @@ export const Chat = () => {
   const scrollRef = useRef();
   const [user, setUser] = useState('');
   const _id = useParams()._id;
+  const [updatedAt, setUpdatedAt] = useState(null);
 
   useEffect(() => {
     socket = io(ENDPOINT, {
@@ -127,8 +128,28 @@ export const Chat = () => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  //채팅방 들어오거나, 글작성하거나, 나가면 conversation의 updatedAt을 업데이트하기
+  useEffect(() => {
+    axios
+      .put(
+        `${process.env.REACT_APP_API_ROOT}/api/conversations/updatetime/${_id}`
+      )
+      .then((response) => setUpdatedAt(response.data.updatedAt))
+      .catch((error) => console.log(error));
+
+    return () => {
+      axios
+        .put(
+          `${process.env.REACT_APP_API_ROOT}/api/conversations/updatetime/${_id}`
+        )
+        .then((response) => setUpdatedAt(response.data.updatedAt))
+        .catch((error) => console.log(error));
+    };
+  }, [_id]);
+
   return (
     <div>
+      <div>{updatedAt}</div>
       <div className="max-h-screen w-full relative flex flex-col">
         <Link to="/messenger">
           <button className="absolute px-2 pt-8 z-50">
