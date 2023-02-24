@@ -24,7 +24,6 @@ export default function Messenger() {
   const [friendEachother, setFriendEachother] = useState([]);
   const [convExist] = useState('');
   const [conversation, setConversation] = useState([]);
-  const [lastMessageArray, setLastMessageArray] = useState([]);
   const [allConversations, setAllConversations] = useState([]);
 
   const navigate = useNavigate();
@@ -114,9 +113,6 @@ export default function Messenger() {
           `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
         );
         setConversation((prevConversation) => [...prevConversation, res.data]); // 마지막 메세지 시간 알기 위해
-        console.log(res.data);
-        console.log(conversation, 'conversation');
-        console.log(friendEachother, 'fr');
       } catch (err) {
         console.log(err);
       }
@@ -151,30 +147,6 @@ export default function Messenger() {
     }
   };
 
-  useEffect(() => {
-    const getLastMessage = async (conversationIndex) => {
-      try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_ROOT}/api/messages/` +
-            conversation[conversationIndex]?._id
-        );
-        const lastMessageIndex = res.data.length - 1;
-        const lastMessage = res.data[lastMessageIndex].updatedAt;
-
-        setLastMessageArray((prevLastMessageArray) => {
-          const updatedArray = [...prevLastMessageArray];
-          updatedArray[conversationIndex] = lastMessage;
-          return updatedArray;
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    conversation.forEach((conv, index) => {
-      getLastMessage(index);
-    });
-  }, [conversation]);
-
   const getLastMessage = async (conversation) => {
     try {
       const res = await axios.get(
@@ -182,15 +154,8 @@ export default function Messenger() {
       );
       const lastMessageIndex = res.data.length - 1;
       const lastMessage = res.data[lastMessageIndex].updatedAt;
-      console.log(lastMessage, 'getlsms 작동한다');
 
-      // setLastMessageArray((prevLastMessageArray) => {
-      //   const updatedArray = [...prevLastMessageArray];
-      //   updatedArray.push(lastMessage);
-      // });
       return lastMessage;
-
-      // return lastMessage;
     } catch (err) {
       console.log(err);
       return null;
@@ -221,7 +186,7 @@ export default function Messenger() {
 
     friendEachother.forEach((user, index) => {
       const conversationsWithUser = conversation
-        .filter((conversation) => conversation.members.includes(user._id))
+        .filter((conversation) => conversation?.members.includes(user._id))
         .map(async (conversation) => ({
           conversationId: conversation._id,
           userId: conversation.members.find(
@@ -239,8 +204,6 @@ export default function Messenger() {
       setAllConversations(updatedConversations);
     });
   }, [conversation, friendEachother]);
-
-  console.log(allConversations);
 
   return (
     <div className="flex flex-col justify-center">
