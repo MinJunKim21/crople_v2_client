@@ -18,6 +18,7 @@ export default function Message({
   isSameTime,
   isSameDay,
 }) {
+  console.log(user, 'meesage');
   return (
     <div>
       <div className="flex flex-col mb-[0.5rem]">
@@ -37,7 +38,7 @@ export default function Message({
         <div className={own ? 'flex flex-row-reverse ' : 'flex flex-row '}>
           {
             <img
-              src={user?.profilePicture[0]}
+              src={user?.profilePicture?.[0]}
               alt=""
               className={`w-12 h-12 rounded-full ${
                 isSameSender ? 'opacity-0' : ''

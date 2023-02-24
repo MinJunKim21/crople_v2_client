@@ -10,6 +10,7 @@ import { BsChevronLeft } from 'react-icons/bs';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { ChatTab } from '../components/btn&tab&bar/ChatTab';
+import { useNavigate } from 'react-router-dom';
 
 moment.locale('ko');
 
@@ -28,6 +29,8 @@ export default function Messenger() {
   const [user, setUser] = useState('');
   const [conversation, setConversation] = useState([]);
   const [lastMessageArray, setLastMessageArray] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     socket = io(ENDPOINT, {
@@ -66,7 +69,7 @@ export default function Messenger() {
           `${process.env.REACT_APP_API_ROOT}/api/messages/` + currentChat?._id
         );
         setMessages(res.data);
-        console.log(res.data, 'getMessages');
+        // console.log(res.data, 'getMessages');
       } catch (err) {
         console.log(err);
       }
@@ -124,14 +127,14 @@ export default function Messenger() {
       const res = await axios.get(
         `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
       );
-      setConvExist(res.data);
-      console.log(res, 'getconversationoftwo res');
+      console.log(res.data, 'getconversationoftwo res');
       if (res.data === null) {
-        createConversation(user).then((conversation) => {
-          setCurrentChat(conversation);
-        });
+        const conversation = await createConversation(user);
+        setCurrentChat(conversation);
+        navigate(`/chat/${res.data._id}`); // navigate to chat page with conversation ID
       } else {
         setCurrentChat(convExist);
+        navigate(`/chat/${res.data._id}`); // navigate to chat page with existing conversation ID
       }
       setUser(user);
     } catch (err) {
@@ -155,7 +158,7 @@ export default function Messenger() {
     });
   }, [friendEachother, userObject._id]);
 
-  console.log(conversation, 'conversationofTwo : conversation');
+  // console.log(conversation, 'conversationofTwo : conversation');
   useEffect(
     (user) => {
       if (convExist !== null) {
@@ -227,6 +230,7 @@ export default function Messenger() {
                     <button
                       onClick={() => {
                         getConversationsOfTwo(user);
+                        // navigate(`/chat/${user._id}`);
                       }}
                     >
                       <div
@@ -286,7 +290,7 @@ export default function Messenger() {
             </div>
           </div>
         )}
-        {currentChat && (
+        {/* {currentChat && (
           <div className="max-h-screen w-full relative flex flex-col">
             <button
               onClick={() => setCurrentChat(null)}
@@ -402,7 +406,7 @@ export default function Messenger() {
               </NextBtnGraBorder>
             </form>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );

@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import Messenger from './pages/Messenger';
 import Test from './pages/Test';
 import { ProfileEdit } from './pages/ProfileEdit';
+import { Chat } from './pages/Chat';
 
 function App() {
   const userObject = useContext(AuthContext);
@@ -40,6 +41,7 @@ function App() {
           path="/profileedit/:_id"
           element={userObject._id ? <ProfileEdit /> : null}
         />
+        <Route path="/chat/:_id" element={userObject._id ? <Chat /> : null} />
         <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>
