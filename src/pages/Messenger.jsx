@@ -94,7 +94,7 @@ export default function Messenger() {
         `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
       );
       if (res.data === null) {
-        const conversation = await createConversation(user);
+        // const conversation = await createConversation(user);
         // setCurrentChat(conversation);
         navigate(`/chat/${res.data._id}`); // navigate to chat page with conversation ID
       } else {
@@ -200,7 +200,7 @@ export default function Messenger() {
 
       // Check if the user has any conversations
       if (conversationsWithUser.length === 0) {
-        await createConversation(user);
+        await createConversation(user); // eslint-disable-next-line react-hooks/exhaustive-deps
         conversationsWithUser.push({
           conversationId: null,
           userId: user._id,
