@@ -294,15 +294,10 @@ export default function Messenger() {
             >
               <BsChevronLeft />
             </button>
-            <div className="flex flex-col pt-8">
-              <h3 className="flex justify-center text-center w-full">
+            <div className="flex flex-col pt-8 border-b-4 border-[#F5F5F5]">
+              <h3 className="flex justify-center text-xl font-bold text-[#555555] text-center w-full">
                 {user.nickName}
               </h3>
-              <h4 className="flex justify-center text-center w-full">
-                {user.locations.map((l, index) => {
-                  return <div key={index}>{l}</div>;
-                })}
-              </h4>
             </div>
             <div className="flex flex-col h-full overflow-y-scroll pt-8 text-center pb-4">
               <p className="text-xs text-[#555555]">

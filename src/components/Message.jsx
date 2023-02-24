@@ -22,7 +22,7 @@ export default function Message({
     <div>
       <div className="flex flex-col mb-[0.5rem]">
         {!isSameDay ? (
-          <div className="flex items-center py-3">
+          <div className="flex items-center pt-3 pb-5">
             <span className="border-[1px]  w-full h-full" />
             <span
               className={`text-[#979797] px-1 text-sm flex justify-center max-w-xs w-full ${
