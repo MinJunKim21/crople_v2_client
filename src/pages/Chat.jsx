@@ -8,6 +8,7 @@ import { BsChevronLeft } from 'react-icons/bs';
 import moment from 'moment';
 import 'moment/locale/ko';
 import tw from 'twin.macro';
+
 import { Link, useParams } from 'react-router-dom';
 
 moment.locale('ko');
@@ -121,6 +122,10 @@ export const Chat = () => {
 
     fetchData();
   }, [_id, userObject._id]);
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   return (
     <div>

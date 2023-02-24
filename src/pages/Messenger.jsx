@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import tw from 'twin.macro';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import io from 'socket.io-client';
@@ -7,6 +8,7 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import { ChatTab } from '../components/btn&tab&bar/ChatTab';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 moment.locale('ko');
 
@@ -173,85 +175,99 @@ export default function Messenger() {
   }, [conversation]);
 
   return (
-    <>
-      <div className="flex justify-center h-screen">
-        {!currentChat && (
-          <div className="relative">
-            <h3 className="fix absolute top-0 left-[50%] translate-x-[-50%] text-center justify-center text-xl text-[#A5A5A5] pt-12 pb-4 border-b-2 w-full">
-              채팅 목록
-            </h3>
+    <div className="flex flex-col justify-center">
+      <div className="h-screen flex flex-col">
+        <h3 className="text-center justify-center text-xl text-[#555555] pt-8 pb-2  border-b-4 border-[#F5F5F5] w-full">
+          채팅 목록
+        </h3>
+        <BgGra className="w-full h-full"> </BgGra>
+      </div>
+      <div className="absolute top-0 left-0">
+        <div className="flex flex-col mt-[100px] w-full px-2 space-y-2 z-10">
+          {friendEachother.map((user, index) => {
+            // const conv = conversation[index];
+            // getLastMessage(conv);
 
-            <div className="flex flex-col mt-[100px] w-full px-2 space-y-2">
-              {friendEachother.map((user, index) => {
-                // const conv = conversation[index];
-                // getLastMessage(conv);
-
-                return (
-                  <div key={user._id} className="border px-4 py-2 rounded-2xl">
-                    <button
-                      onClick={() => {
-                        getConversationsOfTwo(user);
-                        // navigate(`/chat/${user._id}`);
-                      }}
-                    >
-                      <div
-                        key={user._id}
-                        className="flex space-x-4 items-center"
-                      >
+            return (
+              <div
+                key={user._id}
+                className="border px-4 py-2 rounded-2xl bg-white shadow-md"
+              >
+                <button
+                  onClick={() => {
+                    getConversationsOfTwo(user);
+                  }}
+                >
+                  <div key={user._id} className="flex space-x-4 items-center">
+                    <PicGraBorder key={index} className="mr-2 mb-1">
+                      <PicGraBg>
                         <img
-                          className="w-20 h-20 object-cover rounded-full"
+                          className="w-full h-full object-cover rounded-full"
                           src={user.profilePicture[0]}
                           alt=""
                         />
-                        <div>
-                          <div className="flex flex-col">
-                            <span>{user.nickName}</span>
-                            <span>
-                              {moment(lastMessageArray[index]).fromNow()}
-                            </span>
-                            {/* {conv && moment(conv.updatedAt).fromNow()} */}
-                          </div>
-                          <div className="flex">
-                            <span>서울</span>
-                            <div className="flex">
-                              {user.locations.map((location) => {
-                                return (
-                                  <h4
-                                    key={location}
-                                    className="text-[#A5A5A5] text-lg"
-                                  >
-                                    {location}
-                                  </h4>
-                                );
-                              })}
-                            </div>
-                          </div>
-                          <div className="flex flex-wrap w-full">
-                            {user.likeSports.map((likeSports, index) => {
-                              return (
-                                <h4
-                                  key={index}
-                                  className="border px-2 py-1 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mb-2 mr-2"
-                                >
-                                  {likeSports}
-                                </h4>
-                              );
-                            })}
-                          </div>
+                      </PicGraBg>
+                    </PicGraBorder>
+                    <div className="flex flex-col ">
+                      <div className="flex space-x-3 items-baseline mb-[-0.25rem]">
+                        <span className="text-lg text-[#3D3D3D] font-semibold ">
+                          {user.nickName}
+                        </span>
+                        <span className="text-[#A5A5A5] text-xs">
+                          {moment(lastMessageArray[index]).fromNow()}
+                        </span>
+                      </div>
+                      <div className="flex">
+                        <div className="flex space-x-2">
+                          {user.locations.map((location) => {
+                            return (
+                              <h4 key={location} className="text-[#A5A5A5] ">
+                                {location}
+                              </h4>
+                            );
+                          })}
                         </div>
                       </div>
-                    </button>
+                      <div className="flex flex-wrap w-full ">
+                        {user.likeSports.map((likeSports, index) => {
+                          return (
+                            <NextBtnGraBorder key={index} className="mr-2 mb-1">
+                              <NextBtnGraBg>
+                                <NextBtnGraText>{likeSports}</NextBtnGraText>
+                              </NextBtnGraBg>
+                            </NextBtnGraBorder>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
-                );
-              })}
-            </div>
-
-            <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-              <ChatTab />
-            </div>
-          </div>
-        )}
+                </button>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </>
+
+      <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+        <ChatTab />
+      </div>
+    </div>
   );
 }
+
+const BgGra = styled.div`
+  background: linear-gradient(
+    166.9deg,
+    rgba(247, 157, 0, 0.05) -17.3%,
+    rgba(202, 190, 64, 0.28) 36.08%,
+    #a8d69b 89.46%
+  );
+  opacity: 0.3;
+`;
+
+const NextBtnGraBorder = tw.div`rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
+const NextBtnGraBg = tw.div` py-1 px-2 w-full h-full rounded-full bg-white  border-[1px] border-transparent [background-clip: padding-box]  text-center flex justify-center items-center`;
+const NextBtnGraText = tw.div`text-sm bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
+
+const PicGraBorder = tw.div`rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
+const PicGraBg = tw.div` w-[5.75rem] h-[5.75rem] rounded-full border-[2px] border-transparent [background-clip: padding-box] flex justify-center items-center`;
