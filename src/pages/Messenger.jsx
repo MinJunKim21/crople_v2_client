@@ -131,22 +131,6 @@ export default function Messenger() {
     [convExist]
   );
 
-  //create conversation
-  const createConversation = async (user) => {
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_ROOT}/api/conversations`,
-        {
-          senderId: userObject._id,
-          receiverId: user._id,
-        }
-      );
-      return res.data;
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const getLastMessage = async (conversation) => {
     try {
       const res = await axios.get(
@@ -183,6 +167,21 @@ export default function Messenger() {
 
   useEffect(() => {
     const newConversations = [];
+    //create conversation
+    const createConversation = async (user) => {
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_API_ROOT}/api/conversations`,
+          {
+            senderId: userObject._id,
+            receiverId: user._id,
+          }
+        );
+        return res.data;
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
     friendEachother.forEach(async (user, index) => {
       const conversationsWithUser = conversation
@@ -216,7 +215,7 @@ export default function Messenger() {
     Promise.all(newConversations.flat()).then((updatedConversations) => {
       setAllConversations(updatedConversations);
     });
-  }, [conversation, friendEachother]);
+  }, [conversation, friendEachother, userObject._id]);
 
   return (
     <div className="flex flex-col justify-center">

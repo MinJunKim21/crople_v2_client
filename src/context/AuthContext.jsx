@@ -79,6 +79,3 @@ const BgWhiteBlur = styled.div`
     #ffffff 100%
   );
 `;
-
-const BtnSNS = tw.button`
-flex w-14`;
