@@ -22,15 +22,8 @@ export const Chat = () => {
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const userObject = useContext(AuthContext);
   const scrollRef = useRef();
-  const [friendEachother, setFriendEachother] = useState([]);
-  const [convExist, setConvExist] = useState('');
   const [user, setUser] = useState('');
-  const [conversation, setConversation] = useState([]);
-  const [lastMessageArray, setLastMessageArray] = useState([]);
   const _id = useParams()._id;
-  const [userId, setUserId] = useState('');
-
-  console.log(user, 'user');
 
   useEffect(() => {
     socket = io(ENDPOINT, {
@@ -69,13 +62,12 @@ export const Chat = () => {
           `${process.env.REACT_APP_API_ROOT}/api/messages/` + _id
         );
         setMessages(res.data);
-        console.log(res.data, 'getMessages');
       } catch (err) {
         console.log(err);
       }
     };
     getMessages();
-  }, [currentChat, convExist]);
+  }, [_id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -117,13 +109,11 @@ export const Chat = () => {
         const otherUser = convRes.data.members.find(
           (memberId) => memberId !== userObject._id
         );
-        setUserId(otherUser);
 
         const userRes = await axios.get(
           `${process.env.REACT_APP_API_ROOT}/api/users?userId=` + otherUser
         );
         setUser(userRes.data);
-        console.log(userRes.data, 'useruser');
       } catch (err) {
         console.log(err);
       }

@@ -18,7 +18,6 @@ export default function Message({
   isSameTime,
   isSameDay,
 }) {
-  console.log(user, 'meesage');
   return (
     <div>
       <div className="flex flex-col mb-[0.5rem]">
@@ -51,7 +50,7 @@ export default function Message({
               className={
                 own
                   ? 'max-w-[17.5rem] bg-[#F79D00] h-full px-5 py-3 rounded-[1.625rem] whitespace-pre-line rounded-br-none text-white break-words  text-left ml-2'
-                  : 'max-w-[17.5rem] ml-2 bg-[#F7F7F7] h-full px-5 py-3 rounded-[1.625rem] rounded-bl-none whitespace-pre-line text-left break-words whitespace-normal'
+                  : 'max-w-[17.5rem] ml-2 bg-[#F7F7F7] h-full px-5 py-3 rounded-[1.625rem] rounded-bl-none whitespace-pre-line text-left break-words'
               }
             >
               {message.text}
