@@ -45,8 +45,11 @@ export default function Context({ children }) {
           <BgWhiteBlur>
             <BgWrapper>
               <div className="flex flex-col justify-center items-center min-h-screen">
-                <div className="flex justify-center mb-64 mt-24">
+                <div className="flex flex-col justify-center mb-60 mt-24">
                   <img src="/assets/croXple.png" className="h-10" alt="" />
+                  <h3 className="text-sm font-light text-[#6F6F6F] text-center mt-8">
+                    Loading...
+                  </h3>
                 </div>
               </div>
             </BgWrapper>

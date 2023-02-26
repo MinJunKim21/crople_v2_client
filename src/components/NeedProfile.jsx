@@ -101,7 +101,7 @@ export default function NeedProfile() {
   };
 
   return (
-    <div>
+    <div className="mx-auto max-w-md">
       <form onSubmit={updateData}>
         {question === 'one' ? (
           <QuestionOne

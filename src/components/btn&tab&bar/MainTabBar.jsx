@@ -21,13 +21,9 @@ function MainTabBar({ reload }) {
           <Link to="/">
             <div className="h-[4.25rem]  text-center justify-center items-center flex flex-col">
               <i
-                onClick={
-                  reload === 'true'
-                    ? () => {
-                        window.location.reload();
-                      }
-                    : null
-                }
+                onClick={() => {
+                  window.location.reload();
+                }}
               >
                 <img
                   src="assets/BTN/Btn_Home.png"

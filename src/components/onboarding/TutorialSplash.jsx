@@ -7,7 +7,7 @@ export const TutorialSplash = ({ file }) => {
       <h3 className="text-center pt-12  text-[#555555]">
         나와 꼭 맞는 메이트를 만나보세요!
       </h3>
-      <div className="absolute bottom-10">
+      <div className="absolute bottom-10  left-[50%] translate-x-[-50%]">
         <img
           src="assets/pattern/WhiteCenterBlur.png"
           className="h-full w-full absolute"
@@ -45,7 +45,7 @@ const BgGraWrapper = styled.div`
 `;
 
 const BgGraWrapperA = tw(BgGraWrapper)`
-w-full h-screen  flex flex-col mx-auto`;
+w-full h-screen  flex flex-col mx-auto max-w-md`;
 
 const WhiteNote = styled.div`
   filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.16))
