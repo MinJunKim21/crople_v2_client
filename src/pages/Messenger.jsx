@@ -7,7 +7,6 @@ import io from 'socket.io-client';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { ChatTab } from '../components/btn&tab&bar/ChatTab';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 moment.locale('ko');
@@ -25,8 +24,6 @@ export default function Messenger() {
   const [convExist] = useState('');
   const [conversation, setConversation] = useState([]);
   const [allConversations, setAllConversations] = useState([]);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     socket = io(ENDPOINT, {
