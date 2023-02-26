@@ -144,7 +144,7 @@ export const ProfileEdit = () => {
 
   return (
     <form onSubmit={updateData}>
-      <div>
+      <div className="mx-auto max-w-md">
         <BgGraWrapperA>
           <div className="px-4 pb-2">
             <i

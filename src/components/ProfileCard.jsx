@@ -65,7 +65,7 @@ export const ProfileCard = ({ user, onClose }) => {
   };
 
   return (
-    <div>
+    <div className="mx-auto max-w-md">
       <div>
         <BgGraWrapperA>
           <div>
