@@ -93,14 +93,15 @@ export default function Messenger() {
       const res = await axios.get(
         `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
       );
-      if (res.data === null) {
-        // const conversation = await createConversation(user);
-        // setCurrentChat(conversation);
-        navigate(`/chat/${res.data._id}`); // navigate to chat page with conversation ID
-      } else {
-        // setCurrentChat(convExist);
-        navigate(`/chat/${res.data._id}`); // navigate to chat page with existing conversation ID
-      }
+      // if (res.data === null) {
+      //   // const conversation = await createConversation(user);
+      //   // setCurrentChat(conversation);
+      //   navigate(`/chat/${res.data._id}`); // navigate to chat page with conversation ID
+      // } else {
+      //   // setCurrentChat(convExist);
+      //   navigate(`/chat/${res.data._id}`); // navigate to chat page with existing conversation ID
+      // }
+      window.location.href = `/chat/${res.data._id}`;
     } catch (err) {
       console.log(err);
     }

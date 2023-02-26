@@ -210,7 +210,7 @@ export const Chat = () => {
             });
 
             return (
-              <div key={m._id} ref={scrollRef} className="px-2">
+              <div key={index} ref={scrollRef} className="px-2">
                 <Message
                   key={m._id}
                   message={m}
