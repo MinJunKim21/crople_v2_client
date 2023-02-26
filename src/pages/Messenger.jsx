@@ -229,7 +229,6 @@ export default function Messenger() {
         <div className="flex flex-col mt-[100px] w-full px-2 space-y-2 z-10">
           {allConversations.map((conversation, index) => {
             const user = conversation;
-            const conv = conversation;
 
             return (
               <div

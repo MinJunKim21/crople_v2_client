@@ -9,7 +9,6 @@ import { AuthContext } from '../context/AuthContext';
 
 import { BsChevronLeft } from 'react-icons/bs';
 import { HiLocationMarker } from 'react-icons/hi';
-import { LineBtn } from './btn&tab&bar/LineBtn';
 import { Carousel } from './carousel/Carousel';
 import { ProfileCardTab } from './btn&tab&bar/ProfileCardTab';
 
