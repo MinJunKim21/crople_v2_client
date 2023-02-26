@@ -10,8 +10,6 @@ import NeedProfile from '../components/NeedProfile';
 import TabBar from '../components/btn&tab&bar/MainTabBar';
 import { ProfileCard } from '../components/ProfileCard';
 import { Link } from 'react-router-dom';
-import { RecommendEachUser } from '../components/RecommendEachUser';
-import { RecommendUserPlace } from '../components/RecommendUserPlace';
 
 function Home() {
   const [recommendUsers, setRecommendUsers] = useState([]);
@@ -46,9 +44,9 @@ function Home() {
         <ProfileCard user={selectedUser} onClose={handleCloseProfileCard} />
       ) : (
         <BgGraWrapperA>
-          <h3 className="text-center pt-12  text-[#555555]">
-            나와 꼭 맞는 메이트를 만나보세요!
-          </h3>
+          <div className="flex justify-center mt-11">
+            <img src="/assets/croXple.png" className="h-6" alt="" />
+          </div>
           <div className="absolute bottom-10">
             <img
               src="assets/pattern/WhiteCenterBlur.png"

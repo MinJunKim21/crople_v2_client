@@ -11,6 +11,7 @@ import { BsChevronLeft } from 'react-icons/bs';
 import { HiLocationMarker } from 'react-icons/hi';
 import { LineBtn } from './btn&tab&bar/LineBtn';
 import { Carousel } from './carousel/Carousel';
+import { ProfileCardTab } from './btn&tab&bar/ProfileCardTab';
 
 export const ProfileCard = ({ user, onClose }) => {
   const userObject = useContext(AuthContext);
@@ -128,16 +129,20 @@ export const ProfileCard = ({ user, onClose }) => {
       </div>
       <div>
         <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-          <button className="w-full">
-            <LineBtn text={'바'} />
-          </button>
-          <div>
+          <ProfileCardTab
+            user={user}
+            handleClick={() => handleClick(user)}
+            onClose={onClose}
+            followed={followed}
+            setFollowed={setFollowed}
+          />
+          {/* <div>
             {user._id !== userObject._id && (
               <button onClick={handleClick}>
                 {followed ? 'followed' : 'Follow'}
               </button>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

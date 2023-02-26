@@ -3,7 +3,14 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 import { Link } from 'react-router-dom';
 
-function MainTabBar({ reload }) {
+export const ProfileCardTab = ({
+  reload,
+  handleClick,
+  user,
+  onClose,
+  followed,
+  setFollowed,
+}) => {
   return (
     <BgWhiteShadow>
       <BgWhiteBlur>
@@ -20,15 +27,7 @@ function MainTabBar({ reload }) {
           </NextBtnGraBorder>
           <Link to="/">
             <div className="h-[4.25rem]  text-center justify-center items-center flex flex-col">
-              <i
-                onClick={
-                  reload === 'true'
-                    ? () => {
-                        window.location.reload();
-                      }
-                    : null
-                }
-              >
+              <i onClick={onClose}>
                 <img
                   src="assets/BTN/Btn_Home.png"
                   className="h-9 w-8 "
@@ -38,25 +37,42 @@ function MainTabBar({ reload }) {
               <NextBtnGraText>홈</NextBtnGraText>
             </div>
           </Link>
-          <Link to="/messenger">
-            <NextBtnGraBorder>
-              <NextBtnGraBg>
-                <img
-                  src="assets/BTN/Btn_Chat.png"
-                  className="h-8 w-8 mb-[2px]"
-                  alt=""
-                />
-                <NextBtnGraText>채팅</NextBtnGraText>
-              </NextBtnGraBg>
-            </NextBtnGraBorder>
-          </Link>
+          <div>
+            {followed ? (
+              <div>
+                <NextBtnGraBorder>
+                  <div className="flex flex-col justify-center items-center w-full h-full">
+                    <img
+                      src="assets/BTN/Btn_MatchLiked.png"
+                      className="h-8 w-8 mb-[2px]"
+                      alt=""
+                    />
+                    <div className="text-white text-sm font-semibold">
+                      신청완료
+                    </div>
+                  </div>
+                </NextBtnGraBorder>
+              </div>
+            ) : (
+              <button onClick={handleClick}>
+                <NextBtnGraBorder>
+                  <NextBtnGraBg>
+                    <img
+                      src="assets/BTN/Btn_MatchLike.png"
+                      className="h-8 w-8 mb-[2px]"
+                      alt=""
+                    />
+                    <NextBtnGraText>매칭신청</NextBtnGraText>
+                  </NextBtnGraBg>
+                </NextBtnGraBorder>
+              </button>
+            )}
+          </div>
         </div>
       </BgWhiteBlur>
     </BgWhiteShadow>
   );
-}
-
-export default MainTabBar;
+};
 
 const NextBtnGraBorder = tw.div`w-[5.75rem] h-[4.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
 const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex flex-col justify-center items-center`;
