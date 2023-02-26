@@ -236,7 +236,7 @@ export default function Messenger() {
                 key={user._id}
                 className="border px-4 py-2 rounded-2xl bg-white shadow-md"
               >
-                <div>{conv?.updatedAt}</div>
+                {/* <div>{conv?.updatedAt}</div> */}
                 <button
                   onClick={() => {
                     getConversationsOfTwo(user);
