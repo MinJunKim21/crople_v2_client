@@ -218,14 +218,14 @@ export default function Messenger() {
   }, [conversation, friendEachother, userObject._id]);
 
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-cente max-w-md mx-auto">
       <div className="h-screen flex flex-col">
         <h3 className="text-center justify-center text-xl text-[#555555] pt-8 pb-2  border-b-4 border-[#F5F5F5] w-full">
           채팅 목록
         </h3>
         <BgGra className="w-full h-full"> </BgGra>
       </div>
-      <div className="absolute top-0 left-0">
+      <div className="absolute top-0 left-[50%] translate-x-[-50%]">
         <div className="flex flex-col mt-[100px] w-full px-2 space-y-2 z-10">
           {allConversations.map((conversation, index) => {
             const user = conversation;
