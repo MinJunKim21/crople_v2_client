@@ -7,17 +7,15 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import NeedProfile from '../components/NeedProfile';
-import TabBar from '../components/TabBar';
+import TabBar from '../components/btn&tab&bar/MainTabBar';
 import { ProfileCard } from '../components/ProfileCard';
 import { Link } from 'react-router-dom';
 
 function Home() {
-  // const [allUsers, setAllUsers] = useState([]);
   const [recommendUsers, setRecommendUsers] = useState([]);
   const [showProfileCard, setShowProfileCard] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  // const [nickName, setNickName] = useState(undefined);
   const userObject = useContext(AuthContext);
 
   const handleUserClick = (user) => {
@@ -29,28 +27,15 @@ function Home() {
     setShowProfileCard(false);
   };
 
-  // useEffect(() => {
-  //   const fetchAll = async () => {
-  //     const res = await axios.get(
-  //       `${process.env.REACT_APP_API_ROOT}/api/users/all`
-  //     );
-  //     setAllUsers(res.data);
-  //     // console.log(allUsers);
-  //   };
-  //   fetchAll();
-  // }, []);
-
   useEffect(() => {
     const fetchRecommend = async () => {
       const res = await axios.get(
         `${process.env.REACT_APP_API_ROOT}/api/users/recommend`
       );
       setRecommendUsers(res.data);
-      // console.log(allUsers);
     };
     fetchRecommend();
   }, []);
-
   return (
     <div>
       {userObject.nickName === undefined || userObject.profilePicture === '' ? (
@@ -59,47 +44,152 @@ function Home() {
         <ProfileCard user={selectedUser} onClose={handleCloseProfileCard} />
       ) : (
         <BgGraWrapperA>
-          <h3 className="text-center pt-12  text-[#555555]">
-            나와 꼭 맞는 메이트를 만나보세요!
-          </h3>
-          <div className="absolute bottom-10">
-            <img
-              src="assets/pattern/WhiteCenterBlur.png"
-              className="h-full w-full absolute"
-              alt=""
-            />
-            <img
-              src="assets/pattern/LineCenterCircle.png"
-              className="h-full w-full object-contain absolute"
-              alt=""
-            />
+          <div className="flex justify-center mt-11">
+            <img src="/assets/croXple.png" className="h-6" alt="" />
+          </div>
+          <div className="absolute left left-[50%] translate-x-[-50%] bottom-10">
+            <div className="max-w-md mx-auto flex justify-center">
+              <img
+                src="assets/pattern/WhiteCenterBlur.png"
+                className="h-full w-full absolute"
+                alt=""
+              />
+              <img
+                src="assets/pattern/LineCenterCircle.png"
+                className="h-full w-full object-contain absolute"
+                alt=""
+              />
+              <div className="relative h-screen w-screen">
+                <Link to={`/profile/${userObject._id}`}>
+                  <div className="w-[5.375rem] h-[5.375rem] object-cover rounded-full absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] bg-gradient-to-b to-[#F79D00] via-[#CABE40] from-[#9AE286] p-[2px]">
+                    <img
+                      src={userObject.profilePicture[0]}
+                      alt=""
+                      className="w-20 h-20 object-cover rounded-full absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                    />
+                  </div>
+                </Link>
 
-            <div className="relative h-screen w-screen">
-              <Link to={`/profile/${userObject._id}`}>
-                <img
-                  src={userObject.profilePicture[0]}
-                  alt=""
-                  className="w-20 h-20 object-cover rounded-full absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
-                />
-              </Link>
+                <div className="absolute z-50 left-[50%] top-[35%]">
+                  <button
+                    onClick={() => handleUserClick(recommendUsers[0])}
+                    className="w-[4.375rem] h-[4.375rem] border-[#A5A5A5] border-2 rounded-full"
+                  >
+                    <img
+                      src={recommendUsers[0]?.profilePicture[0]}
+                      alt=""
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </button>
+                </div>
+
+                <div className="absolute z-50 left-[65%] top-[53%]">
+                  <button
+                    onClick={() => handleUserClick(recommendUsers[1])}
+                    className="w-[4.375rem] h-[4.375rem] border-[#A5A5A5] border-2 rounded-full"
+                  >
+                    <img
+                      src={recommendUsers[1]?.profilePicture[0]}
+                      alt=""
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </button>
+                </div>
+
+                <div className="absolute z-50 left-[20%] top-[52%]">
+                  <button
+                    onClick={() => handleUserClick(recommendUsers[2])}
+                    className="w-[4.375rem] h-[4.375rem] border-[#A5A5A5] border-2 rounded-full"
+                  >
+                    <img
+                      src={recommendUsers[2]?.profilePicture[0]}
+                      alt=""
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </button>
+                </div>
+
+                <div className="absolute z-50 left-[37%] top-[64%]">
+                  <button
+                    onClick={() => handleUserClick(recommendUsers[3])}
+                    className="w-[3.75rem] h-[3.75rem] border-[#A5A5A5] border-2 rounded-full"
+                  >
+                    <img
+                      src={recommendUsers[3]?.profilePicture[0]}
+                      alt=""
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </button>
+                </div>
+
+                <div className="absolute z-50 left-[81%] top-[35%]">
+                  <button
+                    onClick={() => handleUserClick(recommendUsers[4])}
+                    className="w-[3.75rem] h-[3.75rem] border-[#A5A5A5] border-2 rounded-full"
+                  >
+                    <img
+                      src={recommendUsers[4]?.profilePicture[0]}
+                      alt=""
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </button>
+                </div>
+
+                <div className="absolute z-50 left-[18%] top-[29%]">
+                  <button
+                    onClick={() => handleUserClick(recommendUsers[5])}
+                    className="w-[3.75rem] h-[3.75rem] border-[#A5A5A5] border-2 rounded-full"
+                  >
+                    <img
+                      src={recommendUsers[5]?.profilePicture[0]}
+                      alt=""
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </button>
+                </div>
+
+                <div className="absolute z-50 left-[45%] top-[15%]">
+                  <button
+                    onClick={() => handleUserClick(recommendUsers[6])}
+                    className="w-[3.125rem] h-[3.125rem] border-[#A5A5A5] border-2 rounded-full"
+                  >
+                    <img
+                      src={recommendUsers[6]?.profilePicture[0]}
+                      alt=""
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </button>
+                </div>
+
+                <div className="absolute z-50 left-[15%] top-[76%]">
+                  <button
+                    onClick={() => handleUserClick(recommendUsers[7])}
+                    className="w-[3.125rem] h-[3.125rem] border-[#A5A5A5] border-2 rounded-full"
+                  >
+                    <img
+                      src={recommendUsers[7]?.profilePicture[0]}
+                      alt=""
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </button>
+                </div>
+
+                <div className="absolute z-50 left-[77%] top-[74%]">
+                  <button
+                    onClick={() => handleUserClick(recommendUsers[8])}
+                    className="w-[3.125rem] h-[3.125rem] border-[#A5A5A5] border-2 rounded-full"
+                  >
+                    <img
+                      src={recommendUsers[8]?.profilePicture[0]}
+                      alt=""
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="z-50">
-            {recommendUsers.map((user) => (
-              // <Link to={`/profile/${user._id}`} key={user._id}>
-              <button key={user._id} onClick={() => handleUserClick(user)}>
-                <div className="w-10 h-10">
-                  <img
-                    src={user.profilePicture[0]}
-                    alt=""
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                </div>
-              </button>
-              // </Link>
-            ))}
-          </div>
-          <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+          <div className="fixed bottom-0 left-[50%] translate-x-[-50%]  w-full pb-8 px-4 max-w-sm mx-auto justify-center">
             <TabBar />
           </div>
         </BgGraWrapperA>
@@ -108,23 +198,6 @@ function Home() {
   );
 }
 
-// {
-//    <div className="bg-blue-200">
-//                 {allUsers.map((user) => (
-//                   <Link to={`/profile/${user._id}`} key={user._id}>
-//                     <div>{user.nickName || user.email}</div>
-//                   </Link>
-//                 ))}
-//               </div>
-//               <div>-----------------------------------</div>
-//               <div className="bg-blue-200">
-//                 {recommendUsers.map((user) => (
-//                   <Link to={`/profile/${user._id}`} key={user._id}>
-//                     <div>{user.nickName || user.email}</div>
-//                   </Link>
-//                 ))}
-//               </div>
-// }
 export default Home;
 
 const BgGraWrapper = styled.div`
@@ -137,4 +210,4 @@ const BgGraWrapper = styled.div`
 `;
 
 const BgGraWrapperA = tw(BgGraWrapper)`
-w-full h-screen  flex flex-col mx-auto`;
+w-full h-screen flex flex-col mx-auto max-w-md`;

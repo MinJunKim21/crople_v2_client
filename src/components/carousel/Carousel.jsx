@@ -16,9 +16,12 @@ export const Carousel = ({ images }) => {
   return (
     <CircleImageShadowA className="w-[9.5rem] h-[9.5rem] justify-center mx-auto mb-14  ">
       <Slider {...settings}>
-        {images.map((s) => {
+        {images.map((s, index) => {
           return (
-            <div className="w-[9.5rem] h-[9.5rem] bg-gradient-to-b to-[#F79D00] via-[#CABE40] from-[#9AE286] p-[2px] justify-center mx-auto mt-6 rounded-full 	">
+            <div
+              key={index}
+              className="w-[9.5rem] h-[9.5rem] bg-gradient-to-b to-[#F79D00] via-[#CABE40] from-[#9AE286] p-[2px] justify-center mx-auto mt-6 rounded-full 	"
+            >
               <div className="justify-center flex items-center h-full w-full ">
                 <img
                   src={s}

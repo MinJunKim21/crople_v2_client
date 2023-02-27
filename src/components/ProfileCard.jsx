@@ -1,25 +1,19 @@
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
-// import Topbar from '../components/Topbar';
-// import Sidebar from '../components/Sidebar';
-// import Rightbar from '../components/Rightbar';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-// import { useRef } from 'react';
+
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-// import Infoedit from '../components/Infoedit';
 
 import { BsChevronLeft } from 'react-icons/bs';
 import { HiLocationMarker } from 'react-icons/hi';
-import { LineBtn } from './LineBtn';
 import { Carousel } from './carousel/Carousel';
+import { ProfileCardTab } from './btn&tab&bar/ProfileCardTab';
 
 export const ProfileCard = ({ user, onClose }) => {
   const userObject = useContext(AuthContext);
-  // eslint-disable-next-line no-unused-vars
-  const [selectedUser, setSelectedUser] = useState(user);
   const _id = user._id;
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
@@ -27,16 +21,26 @@ export const ProfileCard = ({ user, onClose }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_ROOT}/api/users?userId=` + _id
-      );
-      setSelectedUser(res.data);
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_ROOT}/api/users?userId=` + _id
+        );
+        const updatedUser = response.data;
+        const isFollowed = updatedUser.followers.includes(userObject._id);
+        setFollowed(isFollowed);
+      } catch (error) {
+        console.error(error);
+      }
     };
-    fetchUser();
-    setFollowed(userObject.followings.includes(user?._id));
-  }, [_id, user?._id, userObject.followings]);
+
+    if (user) {
+      fetchUser();
+    }
+  }, [_id, user, userObject._id]);
 
   const handleClick = async () => {
+    setFollowed(!followed);
+
     try {
       if (followed) {
         await axios.put(
@@ -58,12 +62,10 @@ export const ProfileCard = ({ user, onClose }) => {
     } catch (err) {
       console.log(err);
     }
-    setFollowed(!followed);
-    window.location.reload(); // 원인 알게되면 이거 바꾸기...
   };
 
   return (
-    <div>
+    <div className="mx-auto max-w-md">
       <div>
         <BgGraWrapperA>
           <div>
@@ -126,16 +128,20 @@ export const ProfileCard = ({ user, onClose }) => {
       </div>
       <div>
         <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-          <button className="w-full">
-            <LineBtn text={'바'} />
-          </button>
-          <div>
-            {user.username !== userObject.username && (
+          <ProfileCardTab
+            user={user}
+            handleClick={() => handleClick(user)}
+            onClose={onClose}
+            followed={followed}
+            setFollowed={setFollowed}
+          />
+          {/* <div>
+            {user._id !== userObject._id && (
               <button onClick={handleClick}>
-                {followed ? 'Unfollow' : 'Follow'}
+                {followed ? 'followed' : 'Follow'}
               </button>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

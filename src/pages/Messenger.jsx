@@ -1,14 +1,13 @@
 import axios from 'axios';
-import tw from 'twin.macro';
 import React from 'react';
+import tw from 'twin.macro';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import Message from '../components/Message';
 import io from 'socket.io-client';
-import TabBar from '../components/TabBar';
-import { BsChevronLeft } from 'react-icons/bs';
 import moment from 'moment';
 import 'moment/locale/ko';
+import { ChatTab } from '../components/btn&tab&bar/ChatTab';
+import styled from 'styled-components';
 
 moment.locale('ko');
 
@@ -18,14 +17,13 @@ let socket;
 export default function Messenger() {
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const userObject = useContext(AuthContext);
   const scrollRef = useRef();
   const [friendEachother, setFriendEachother] = useState([]);
-  const [convExist, setConvExist] = useState('');
-  const [user, setUser] = useState('');
+  const [convExist] = useState('');
   const [conversation, setConversation] = useState([]);
+  const [allConversations, setAllConversations] = useState([]);
 
   useEffect(() => {
     socket = io(ENDPOINT, {
@@ -57,50 +55,20 @@ export default function Messenger() {
     });
   }, [userObject]);
 
-  useEffect(() => {
-    const getMessages = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_ROOT}/api/messages/` + currentChat?._id
-        );
-        setMessages(res.data);
-        console.log(res.data, 'getMessages');
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getMessages();
-  }, [currentChat, convExist]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const message = {
-      sender: userObject._id,
-      text: newMessage,
-      conversationId: currentChat._id,
-    };
-
-    const receiverId = currentChat.members.find(
-      (member) => member !== userObject._id
-    );
-
-    socket.emit('sendMessage', {
-      senderId: userObject._id,
-      receiverId,
-      text: newMessage,
-    });
-
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_ROOT}/api/messages/`,
-        message
-      );
-      setMessages([...messages, res.data]);
-      setNewMessage('');
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // useEffect(() => {
+  //   const getMessages = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         `${process.env.REACT_APP_API_ROOT}/api/messages/` + currentChat?._id
+  //       );
+  //       setMessages(res.data);
+  //       console.log(res.data, 'getMessages');
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getMessages();
+  // }, [currentChat, convExist]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -122,38 +90,35 @@ export default function Messenger() {
       const res = await axios.get(
         `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
       );
-      setConvExist(res.data);
-      console.log(res, 'getconversationoftwo res');
-      if (res.data === null) {
-        createConversation(user).then((conversation) => {
-          setCurrentChat(conversation);
-        });
-      } else {
-        setCurrentChat(convExist);
-      }
-      setUser(user);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const conversationOfTwo = async (user) => {
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
-      );
-      setConversation((prevConversation) => [...prevConversation, res.data]);
-      console.log(conversation, 'conversationofTwo : conversation');
+      // if (res.data === null) {
+      //   // const conversation = await createConversation(user);
+      //   // setCurrentChat(conversation);
+      //   navigate(`/chat/${res.data._id}`); // navigate to chat page with conversation ID
+      // } else {
+      //   // setCurrentChat(convExist);
+      //   navigate(`/chat/${res.data._id}`); // navigate to chat page with existing conversation ID
+      // }
+      window.location.href = `/chat/${res.data._id}`;
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
+    const conversationOfTwo = async (user) => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
+        );
+        setConversation((prevConversation) => [...prevConversation, res.data]); // 마지막 메세지 시간 알기 위해
+      } catch (err) {
+        console.log(err);
+      }
+    };
     friendEachother.forEach((friend) => {
       conversationOfTwo(friend);
     });
-  }, [friendEachother]);
+  }, [friendEachother, userObject._id]);
 
   useEffect(
     (user) => {
@@ -164,216 +129,186 @@ export default function Messenger() {
     [convExist]
   );
 
-  //create conversation
-  const createConversation = async (user) => {
+  const getLastMessage = async (conversation) => {
     try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_ROOT}/api/conversations`,
-        {
-          senderId: userObject._id,
-          receiverId: user._id,
-        }
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_ROOT}/api/messages/${conversation._id}`
       );
-      console.log(res, 'createdconversation');
-      return res.data;
+      const lastMessageIndex = res.data.length - 1;
+      const lastMessage = res.data[lastMessageIndex].updatedAt;
+
+      return lastMessage;
     } catch (err) {
       console.log(err);
+      return null;
     }
   };
 
-  return (
-    <>
-      <div className="flex justify-center h-screen">
-        {!currentChat && (
-          <div className="relative">
-            <h3 className="fix absolute top-0 left-[50%] translate-x-[-50%] text-center justify-center text-xl text-[#A5A5A5] pt-12 pb-4 border-b-2 w-full">
-              채팅 목록
-            </h3>
+  useEffect(() => {
+    const getMessages = async (conversationIndex) => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_ROOT}/api/messages/` +
+            conversation[conversationIndex]?._id
+        );
+        const messages = res.data;
+        // console.log(messages);
+        return messages;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    conversation.forEach((conv, index) => {
+      getMessages(index);
+    });
+  }, [conversation]);
 
-            <div className="flex flex-col mt-[100px] w-full px-2 space-y-2">
-              {friendEachother.map((user, index) => {
-                const conv = conversation[index];
-                return (
-                  <div key={user._id} className="border px-4 py-2 rounded-2xl">
-                    <button
-                      onClick={() => {
-                        getConversationsOfTwo(user);
-                      }}
-                    >
-                      <div
-                        key={user._id}
-                        className="flex space-x-4 items-center"
-                      >
+  useEffect(() => {
+    const newConversations = [];
+    //create conversation
+    const createConversation = async (user) => {
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_API_ROOT}/api/conversations`,
+          {
+            senderId: userObject._id,
+            receiverId: user._id,
+          }
+        );
+        return res.data;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    friendEachother.forEach(async (user, index) => {
+      const conversationsWithUser = conversation
+        .filter((conversation) => conversation?.members.includes(user._id))
+        .map(async (conversation) => ({
+          conversationId: conversation._id,
+          userId: conversation.members.find(
+            (memberId) => memberId === user._id
+          ),
+          createdAt: conversation.createdAt,
+          updatedAt: conversation.updatedAt,
+          ...user,
+          lastMessage: await getLastMessage(conversation), // call modified function and assign returned timestamp
+        }));
+
+      // Check if the user has any conversations
+      if (conversationsWithUser.length === 0) {
+        await createConversation(user); // eslint-disable-next-line react-hooks/exhaustive-deps
+        conversationsWithUser.push({
+          conversationId: null,
+          userId: user._id,
+          createdAt: null,
+          updatedAt: null,
+          ...user,
+          lastMessage: null,
+        });
+      }
+      newConversations.push(...conversationsWithUser);
+    });
+
+    Promise.all(newConversations.flat()).then((updatedConversations) => {
+      setAllConversations(updatedConversations);
+    });
+  }, [conversation, friendEachother, userObject._id]);
+
+  return (
+    <div className="flex flex-col justify-cente max-w-md mx-auto">
+      <div className="h-screen flex flex-col">
+        <h3 className="text-center justify-center text-xl text-[#555555] pt-8 pb-2  border-b-4 border-[#F5F5F5] w-full">
+          채팅 목록
+        </h3>
+        <BgGra className="w-full h-full"> </BgGra>
+      </div>
+      <div className="absolute top-0 ">
+        <div className="flex flex-col mt-[100px] w-full px-2 space-y-2 z-10">
+          {allConversations.map((conversation, index) => {
+            const user = conversation;
+
+            return (
+              <div
+                key={user._id}
+                className="border px-4 py-2 rounded-2xl bg-white shadow-md"
+              >
+                {/* <div>{conv?.updatedAt}</div> */}
+                <button
+                  onClick={() => {
+                    getConversationsOfTwo(user);
+                  }}
+                >
+                  <div key={user._id} className="flex space-x-4 items-center">
+                    <PicGraBorder key={index} className="mr-2 mb-1">
+                      <PicGraBg>
                         <img
-                          className="w-20 h-20 object-cover rounded-full"
+                          className="w-full h-full object-cover rounded-full"
                           src={user.profilePicture[0]}
                           alt=""
                         />
-                        <div>
-                          <div className="flex flex-col">
-                            <span>{user.nickName}</span>
-                            {/* <div>{friendEachother[index]._id}</div> */}
-                            {conv && moment(conv.updatedAt).fromNow()}
-                            {conv && conv.updatedAt}
-
-                            {/* <div>{index}</div> */}
-                          </div>
-                          <div className="flex">
-                            <span>서울</span>
-                            <div className="flex">
-                              {user.locations.map((location) => {
-                                return (
-                                  <h4
-                                    key={location}
-                                    className="text-[#A5A5A5] text-lg"
-                                  >
-                                    {location}
-                                  </h4>
-                                );
-                              })}
-                            </div>
-                          </div>
-                          <div className="flex flex-wrap w-full">
-                            {user.likeSports.map((likeSports, index) => {
-                              return (
-                                <h4
-                                  key={index}
-                                  className="border px-2 py-1 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mb-2 mr-2"
-                                >
-                                  {likeSports}
-                                </h4>
-                              );
-                            })}
-                          </div>
+                      </PicGraBg>
+                    </PicGraBorder>
+                    <div className="flex flex-col ">
+                      <div className="flex space-x-3 items-baseline mb-[-0.25rem]">
+                        <span className="text-lg text-[#3D3D3D] font-semibold ">
+                          {user.nickName}
+                        </span>
+                        <span className="text-[#A5A5A5] text-xs">
+                          {moment(conversation.lastMessage).fromNow()}
+                        </span>
+                      </div>
+                      <div className="flex">
+                        <div className="flex space-x-2">
+                          {user.locations.map((location) => {
+                            return (
+                              <h4 key={location} className="text-[#A5A5A5] ">
+                                {location}
+                              </h4>
+                            );
+                          })}
                         </div>
                       </div>
-                    </button>
+                      <div className="flex flex-wrap w-full ">
+                        {user.likeSports.map((likeSports, index) => {
+                          return (
+                            <NextBtnGraBorder key={index} className="mr-2 mb-1">
+                              <NextBtnGraBg>
+                                <NextBtnGraText>{likeSports}</NextBtnGraText>
+                              </NextBtnGraBg>
+                            </NextBtnGraBorder>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
-                );
-              })}
-            </div>
-
-            <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-              <TabBar />
-            </div>
-          </div>
-        )}
-        {currentChat && (
-          <div className="max-h-screen w-full relative flex flex-col">
-            <button
-              onClick={() => setCurrentChat(null)}
-              className="absolute px-2 pt-8 z-50"
-            >
-              <BsChevronLeft />
-            </button>
-            <div className="flex flex-col pt-8">
-              <h3 className="flex justify-center text-center w-full">
-                {user.nickName}
-              </h3>
-              <h4 className="flex justify-center text-center w-full">
-                {user.locations.map((l, index) => {
-                  return <div key={index}>{l}</div>;
-                })}
-              </h4>
-            </div>
-            <div className="flex flex-col h-full overflow-y-scroll pt-8 text-center pb-4">
-              <p className="text-xs text-[#555555]">
-                메이트와 연결되었습니다.
-                <br /> 장소, 시간 약속을 정하고 함께 운동을 즐겨보세요!
-              </p>
-              {messages.map((m, index) => {
-                const previousMessage = messages[index - 1];
-                const nextMessage = messages[index + 1];
-
-                const isSameSender =
-                  previousMessage && previousMessage.sender === m.sender;
-                const timestamp = new Date(m.createdAt)
-                  .toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: true,
-                  })
-                  .toUpperCase();
-                const timeFormat = (t) =>
-                  new Date(t)
-                    .toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      hour12: true,
-                    })
-                    .toUpperCase();
-                const dayFormat = (t) =>
-                  new Date(t)
-                    .toLocaleDateString('ko-KR', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                    })
-                    .replace(/\./g, '년 ')
-                    .replace(' ', '월 ') + '일';
-                const isSameTime =
-                  nextMessage &&
-                  timeFormat(nextMessage.createdAt) === timeFormat(m.createdAt);
-                const isSameDay =
-                  previousMessage &&
-                  dayFormat(previousMessage.createdAt) ===
-                    dayFormat(m.createdAt);
-
-                const daystamp = new Date(m.createdAt).toLocaleDateString(
-                  'ko-KR',
-                  {
-                    year: 'numeric',
-                    month: 'numeric',
-                    day: '2-digit',
-                  }
-                );
-
-                return (
-                  <div key={m._id} ref={scrollRef} className="px-2">
-                    <Message
-                      key={m._id}
-                      message={m}
-                      timestamp={timestamp}
-                      daystamp={daystamp}
-                      own={m.sender === userObject._id}
-                      user={user}
-                      userObject={userObject}
-                      index={index}
-                      isSameSender={isSameSender}
-                      isSameTime={isSameTime}
-                      isSameDay={isSameDay}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-            <div className=" px-2 pb-4 pt-4">
-              <NextBtnGraBorder>
-                <NextBtnGraBg>
-                  <textarea
-                    className="border-none w-full  resize-none outline-none py-3 px-2"
-                    name=""
-                    id=""
-                    cols="30"
-                    rows="1"
-                    placeholder="메세지 보내기..."
-                    onChange={(e) => {
-                      setNewMessage(e.target.value);
-                    }}
-                    value={newMessage}
-                  ></textarea>
-                  <button onClick={handleSubmit} className="w-7 h-7">
-                    <img src="/assets/BTN/Btn_SendMessage.png" alt="" />
-                  </button>
-                </NextBtnGraBg>
-              </NextBtnGraBorder>
-            </div>
-          </div>
-        )}
+                </button>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </>
+
+      <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+        <ChatTab />
+      </div>
+    </div>
   );
 }
 
-const NextBtnGraBorder = tw.div`w-full h-[5.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286]`;
-const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center px-4`;
+const BgGra = styled.div`
+  background: linear-gradient(
+    166.9deg,
+    rgba(247, 157, 0, 0.05) -17.3%,
+    rgba(202, 190, 64, 0.28) 36.08%,
+    #a8d69b 89.46%
+  );
+  opacity: 0.3;
+`;
+
+const NextBtnGraBorder = tw.div`rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
+const NextBtnGraBg = tw.div` py-1 px-2 w-full h-full rounded-full bg-white  border-[1px] border-transparent [background-clip: padding-box]  text-center flex justify-center items-center`;
+const NextBtnGraText = tw.div`text-sm bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;
+
+const PicGraBorder = tw.div`rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
+const PicGraBg = tw.div` w-[5.75rem] h-[5.75rem] rounded-full border-[2px] border-transparent [background-clip: padding-box] flex justify-center items-center`;

@@ -14,7 +14,7 @@ import { AuthContext } from '../context/AuthContext';
 
 import { HiLocationMarker } from 'react-icons/hi';
 import { BsChevronLeft } from 'react-icons/bs';
-import { LineBtn } from './LineBtn';
+import { LineBtn } from './btn&tab&bar/LineBtn';
 import { Carousel } from './carousel/Carousel';
 
 export const MyProfileCard = () => {
@@ -32,7 +32,7 @@ export const MyProfileCard = () => {
   }, [_id, user?._id, userObject.followings]);
 
   return (
-    <div>
+    <div className="max-w-md mx-auto">
       <div>
         <BgGraWrapperA>
           <div>

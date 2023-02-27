@@ -22,7 +22,7 @@ export default function Message({
     <div>
       <div className="flex flex-col mb-[0.5rem]">
         {!isSameDay ? (
-          <div className="flex items-center py-3">
+          <div className="flex items-center pt-3 pb-5">
             <span className="border-[1px]  w-full h-full" />
             <span
               className={`text-[#979797] px-1 text-sm flex justify-center max-w-xs w-full ${
@@ -37,7 +37,7 @@ export default function Message({
         <div className={own ? 'flex flex-row-reverse ' : 'flex flex-row '}>
           {
             <img
-              src={user?.profilePicture[0]}
+              src={user?.profilePicture?.[0]}
               alt=""
               className={`w-12 h-12 rounded-full ${
                 isSameSender ? 'opacity-0' : ''
@@ -49,8 +49,8 @@ export default function Message({
             <p
               className={
                 own
-                  ? 'max-w-[17.5rem] bg-[#F79D00] h-full px-5 py-3 rounded-[1.625rem] rounded-br-none text-white break-words whitespace-normal text-left ml-2'
-                  : 'max-w-[17.5rem] ml-2 bg-[#F7F7F7] h-full px-5 py-3 rounded-[1.625rem] rounded-bl-none text-left break-words whitespace-normal'
+                  ? 'max-w-[17.5rem] bg-[#F79D00] h-full px-5 py-3 rounded-[1.625rem] whitespace-pre-line rounded-br-none text-white break-words  text-left ml-2'
+                  : 'max-w-[17.5rem] ml-2 bg-[#F7F7F7] h-full px-5 py-3 rounded-[1.625rem] rounded-bl-none whitespace-pre-line text-left break-words'
               }
             >
               {message.text}
