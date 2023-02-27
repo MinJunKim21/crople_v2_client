@@ -39,7 +39,7 @@ export const MyProfileCard = () => {
             <img src="/assets/croXple.png" className="h-6" alt="" />
           </div>
           <div>
-            <button className="px-4 pb-2">
+            <button className="px-4">
               <Link to={'/'}>
                 <BsChevronLeft />
               </Link>
