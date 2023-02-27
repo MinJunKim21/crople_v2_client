@@ -64,7 +64,7 @@ function Home() {
               </div>
               <i
                 onClick={handleShowMenu}
-                className="flex justify-end text-[#555555] text-2xl mr-4"
+                className="flex justify-end text-[#555555] text-2xl mr-4 cursor-pointer"
               >
                 {!showMenu ? <FiMenu /> : <AiOutlineClose />}
               </i>
@@ -249,7 +249,7 @@ function Home() {
                 </div>
                 <div className="pt-4">
                   <h6 className="text-[#A5A5A5] text-sm">고객센터</h6>
-                  <div className="flex space-x-2">
+                  <div className="flex space-x-2 cursor-pointer items-center">
                     <h4
                       onClick={() => {
                         setKakaoCheck(true);
@@ -268,7 +268,7 @@ function Home() {
                     onClick={() => {
                       setLogoutCheck(true);
                     }}
-                    className="text-xl"
+                    className="text-xl cursor-pointer"
                   >
                     로그아웃
                   </h4>
@@ -303,7 +303,7 @@ function Home() {
                     </div>
                   )}
                   {logoutCheck && (
-                    <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-0 top-0 z-50 ">
+                    <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-0 top-0 z-50 max-w-md ">
                       <div className="absolute max-w-[21.5rem] w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-[2.5rem] p-4">
                         <MainQuestion>로그아웃 하시겠어요?</MainQuestion>
                         <SubInstruction>
@@ -332,12 +332,12 @@ function Home() {
                   )}
                 </div>
               </div>
-              <div
+              <button
                 onClick={handleShowMenu}
                 className="fixed bottom-0 left-[50%] translate-x-[-50%]  w-full pb-8 px-4 max-w-sm mx-auto justify-center"
               >
-                <LineShadowBtn text={'돌아가기'} />
-              </div>
+                <LineShadowBtn text={'돌아가기'} className=" cursor-pointer" />
+              </button>
             </div>
           ) : null}
         </div>
