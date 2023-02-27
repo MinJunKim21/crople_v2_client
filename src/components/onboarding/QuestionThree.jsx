@@ -28,6 +28,9 @@ export const QuestionThree = ({
 
   return (
     <BgWrapper>
+      <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center">
+        <img src="/assets/croXple.png" className="h-6" alt="" />
+      </div>
       <button
         onClick={() => {
           setQuestion('two');
@@ -35,7 +38,7 @@ export const QuestionThree = ({
       >
         <BsChevronLeft />
       </button>
-      <MainQuestion>자기소개를 해주세요</MainQuestion>
+      <MainQuestion className="mt-4">자기소개를 해주세요</MainQuestion>
       <SubInstruction className="mb-8">
         메이트를 만날 준비가 다 됐어요
       </SubInstruction>
@@ -207,13 +210,13 @@ export const QuestionThree = ({
         </div>
       </div>
 
-      <div className="mt-2">
+      {/* <div className="mt-2">
         <p className="text-xs text-[#8B8B8B] bg-[#F5F5F5] text-center p-2.5 rounded-lg">
           과도한 노출로 선정적이거나 개인 정보를 포함한 이미지 등<br />
           <b className="font-bold">커뮤니티 가이드라인</b>을 위반할 경우 계정이
           제한될 수 있습니다.
         </p>
-      </div>
+      </div> */}
       {nickNameDB === '' ||
       file === null ||
       file === undefined ||

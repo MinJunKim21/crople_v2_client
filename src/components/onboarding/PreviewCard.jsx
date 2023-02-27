@@ -17,6 +17,9 @@ export const PreviewCard = ({
   return (
     <div>
       <BgGraWrapperA>
+        <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center">
+          <img src="/assets/croXple.png" className="h-6" alt="" />
+        </div>
         <div>
           <button
             onClick={() => {

@@ -44,10 +44,10 @@ function Home() {
         <ProfileCard user={selectedUser} onClose={handleCloseProfileCard} />
       ) : (
         <BgGraWrapperA>
-          <div className="flex justify-center mt-11">
+          <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center mt-11">
             <img src="/assets/croXple.png" className="h-6" alt="" />
           </div>
-          <div className="absolute left left-[50%] translate-x-[-50%] bottom-10">
+          <div className="absolute left-[50%] translate-x-[-50%] bottom-10">
             <div className="max-w-md mx-auto flex justify-center">
               <img
                 src="assets/pattern/WhiteCenterBlur.png"
