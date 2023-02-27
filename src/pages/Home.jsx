@@ -58,7 +58,7 @@ function Home() {
       ) : (
         <div>
           <BgGraWrapperA>
-            <div className="fixed z-50 relative">
+            <div className=" z-50 relative">
               <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center ">
                 <img src="/assets/croXple.png" className="h-6" alt="" />
               </div>
@@ -216,7 +216,7 @@ function Home() {
             </div>
           </BgGraWrapperA>
           {showMenu ? (
-            <div className="bg-white h-screen w-screen absolute top-0 left-0 pt-20">
+            <div className="bg-white h-screen w-full absolute top-0 left-[50%] translate-x-[-50%] pt-20 max-w-md">
               <div className="border-t-8 border-[#F5F5F5] px-4 ">
                 <div className="border-b-[1px] py-6 w-full">
                   <div className="flex items-center space-x-3">
@@ -231,7 +231,7 @@ function Home() {
                     </PicGraBorder>
                     <div>
                       <h5>{userObject.nickName}</h5>
-                      <div className="flex space-x-2">
+                      <div className="flex space-x-1">
                         <h4 className="text-[#A5A5A5] text-xs ">서울</h4>
                         {userObject.locations.map((location) => {
                           return (
@@ -273,7 +273,7 @@ function Home() {
                     로그아웃
                   </h4>
                   {kakaoCheck && (
-                    <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-0 top-0 z-50  ">
+                    <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-0 top-0 z-50 max-w-md  ">
                       <div className="absolute max-w-[21.5rem] w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-[2.5rem] p-4">
                         <MainQuestion>1:1 문의로 연결 하시겠어요?</MainQuestion>
                         <SubInstruction>
