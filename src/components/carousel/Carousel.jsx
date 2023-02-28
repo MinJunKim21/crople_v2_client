@@ -10,8 +10,8 @@ export const Carousel = ({ images }) => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+    fade: true,
+    cssEase: 'ease',
   };
   return (
     <CircleImageShadowA className="w-[9.5rem] h-[9.5rem] justify-center mx-auto mb-14  ">

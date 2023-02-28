@@ -19,6 +19,9 @@ export const QuestionOne = ({
 }) => {
   return (
     <BgWrapper>
+      <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center">
+        <img src="/assets/croXple.png" className="h-6" alt="" />
+      </div>
       <MainQuestion className="mt-14">어떤 운동을 좋아하세요?</MainQuestion>
       <SubInstruction className="mb-14">
         다섯 개까지 선택할 수 있어요

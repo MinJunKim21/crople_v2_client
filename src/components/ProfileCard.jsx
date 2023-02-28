@@ -68,12 +68,15 @@ export const ProfileCard = ({ user, onClose }) => {
     <div className="mx-auto max-w-md">
       <div>
         <BgGraWrapperA>
+          <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center">
+            <img src="/assets/croXple.png" className="h-6" alt="" />
+          </div>
           <div>
-            <button onClick={onClose} className="px-4 pb-2">
+            <button onClick={onClose} className="px-4">
               <BsChevronLeft />
             </button>
           </div>
-          <div className="h-full">
+          <div className="h-full mt-2">
             <CardWhiteBg className="bg-white w-full h-full backdrop-blur-[2px]	 opacity-95 flex-col">
               <div className="flex py-4 w-full">
                 <h4 className="w-full text-center text-[#8B8B8B]">프로필</h4>

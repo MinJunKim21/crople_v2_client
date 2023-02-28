@@ -93,7 +93,7 @@ export default function NeedProfile() {
       );
       setTimeout(() => {
         window.location.reload();
-      }, 2000);
+      }, 6000);
     } catch (err) {
       console.log(err);
       setProfilePictureDB([]);
@@ -151,7 +151,9 @@ export default function NeedProfile() {
             profilePictureDB={profilePictureDB}
           />
         ) : null}
-        {question === 'five' ? <TutorialSplash file={file} /> : null}
+        {question === 'five' ? (
+          <TutorialSplash file={file} question={question} />
+        ) : null}
       </form>
     </div>
   );
