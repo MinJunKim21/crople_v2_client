@@ -18,6 +18,7 @@
 
 <span><img src = "https://user-images.githubusercontent.com/101058125/221799086-ff80d87f-4ad1-485d-b9d6-bda40e9ab281.gif" width = "20%" ></span>
 <span><img src = "https://user-images.githubusercontent.com/101058125/221810659-dd41ffaa-7df7-4bbe-8fee-26baf5a9c6fb.gif" width = "20%" ></span>
+<span><img src = "https://user-images.githubusercontent.com/101058125/221810659-dd41ffaa-7df7-4bbe-8fee-26baf5a9c6fb.gif" width = "20%" ></span>
 
 1. **SNS 로그인 : Node.js passport Oauth 2.0을 이용**
 
