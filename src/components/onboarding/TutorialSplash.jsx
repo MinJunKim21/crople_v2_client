@@ -1,37 +1,12 @@
 import tw from 'twin.macro';
 import styled from 'styled-components';
+import { TutorialProfileEdit } from './TutorialProfileEdit';
 
 export const TutorialSplash = ({ file }) => {
   return (
-    <BgGraWrapperA>
-      <h3 className="text-center pt-12  text-[#555555]">
-        나와 꼭 맞는 메이트를 만나보세요!
-      </h3>
-      <div className="absolute bottom-10  left-[50%] translate-x-[-50%]">
-        <img
-          src="assets/pattern/WhiteCenterBlur.png"
-          className="h-full w-full absolute"
-          alt=""
-        />
-        <img
-          src="assets/pattern/LineCenterCircle.png"
-          className="h-full w-full object-contain absolute"
-          alt=""
-        />
-
-        <div className="relative h-screen w-screen">
-          <WhiteNoteA>
-            <div className="w-3 h-3 bg-white absolute bottom-[0%] left-[50%] tra rotate-45 translate-y-[50%] translate-x-[-50%]"></div>
-            여기서 프로필을 수정할 수 있어요
-          </WhiteNoteA>
-          <img
-            src={file ? URL.createObjectURL(file) : null}
-            alt=""
-            className="w-20 h-20 object-cover rounded-full absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
-          />
-        </div>
-      </div>
-    </BgGraWrapperA>
+    <div>
+      <TutorialProfileEdit file={file} />
+    </div>
   );
 };
 

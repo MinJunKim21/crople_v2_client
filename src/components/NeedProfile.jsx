@@ -93,7 +93,7 @@ export default function NeedProfile() {
       );
       setTimeout(() => {
         window.location.reload();
-      }, 2000);
+      }, 20000000);
     } catch (err) {
       console.log(err);
       setProfilePictureDB([]);
