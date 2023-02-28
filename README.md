@@ -19,7 +19,8 @@ github: https://github.com/MinJunKim21/crople_v2_backend
 - **디자이너 1명** : 서비스 모든 디자인 파트 담당
 
 # 🔑 핵심 기능
-<span><img src = "https://user-images.githubusercontent.com/101058125/221498966-0df6bc55-dec9-46ee-bd31-2b88c7d298b6.png" width = "20%" ></span>
+
+<span><img src = "https://user-images.githubusercontent.com/101058125/221799086-ff80d87f-4ad1-485d-b9d6-bda40e9ab281.gif" width = "20%" ></span>
 <span><img src = "https://user-images.githubusercontent.com/101058125/221498966-0df6bc55-dec9-46ee-bd31-2b88c7d298b6.png" width = "20%" ></span>
 
 1. **SNS 로그인 : Node.js passport Oauth 2.0을 이용**
