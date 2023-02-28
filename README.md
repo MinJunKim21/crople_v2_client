@@ -1,10 +1,6 @@
 # croXple [크로플](mobile ver.)
 
-github: https://github.com/MinJunKim21/crople_v2_client
-github: https://github.com/MinJunKim21/crople_v2_backend
-웹사이트: https://croxple.com
-작업 종류: 진행중, project
-한 줄 소개: 운동인 메이팅 플랫폼
+### [Link to Croxple](https://www.croxple.com/)
 
 # ✨ 서비스 소개
 
@@ -21,7 +17,7 @@ github: https://github.com/MinJunKim21/crople_v2_backend
 # 🔑 핵심 기능
 
 <span><img src = "https://user-images.githubusercontent.com/101058125/221799086-ff80d87f-4ad1-485d-b9d6-bda40e9ab281.gif" width = "20%" ></span>
-<span><img src = "https://user-images.githubusercontent.com/101058125/221498966-0df6bc55-dec9-46ee-bd31-2b88c7d298b6.png" width = "20%" ></span>
+<span><img src = "https://user-images.githubusercontent.com/101058125/221810659-dd41ffaa-7df7-4bbe-8fee-26baf5a9c6fb.gif" width = "20%" ></span>
 
 1. **SNS 로그인 : Node.js passport Oauth 2.0을 이용**
 
