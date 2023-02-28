@@ -44,7 +44,7 @@ export const TutorialSmile = ({ file }) => {
           </div>
           <div className="absolute left-[50%] top-[25%] translate-x-[-50%] translate-y-[-50%] w-full">
             <WhiteNoteA>
-              <div className="w-3 h-3 bg-white absolute bottom-[0%] left-[50%] tra rotate-45 translate-y-[50%] translate-x-[-50%]"></div>
+              <div className="w-3 h-3 bg-white absolute bottom-[0%] left-[50%] rotate-45 translate-y-[50%] translate-x-[-50%]"></div>
               매칭신청을 받으면 스마일표시가 나타나요!
             </WhiteNoteA>
           </div>
@@ -72,4 +72,4 @@ const WhiteNote = styled.div`
 `;
 
 const WhiteNoteA = tw(WhiteNote)`
-absolute left-[50%] top-[40%] translate-x-[-50%] translate-y-[-50%] text-xs text-center bg-white py-3 px-3 rounded-full text-[#555555]`;
+absolute left-[50%] top-[40%] translate-x-[-50%] translate-y-[-50%] text-xs text-center bg-white py-3 px-3 rounded-full text-[#555555] w-[15.5rem]`;
