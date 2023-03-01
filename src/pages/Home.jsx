@@ -14,6 +14,7 @@ import { FiMenu } from 'react-icons/fi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { LineShadowBtn } from '../components/btn&tab&bar/LineShadowBtn';
 import { RecommendPic } from '../components/home/RecommendPic';
+// import { RecommendPic } from '../components/home/RecommendPic';
 
 function Home() {
   const [recommendUsers, setRecommendUsers] = useState([]);
@@ -103,78 +104,9 @@ function Home() {
                       />
                     </div>
                   </Link>
-
                   <RecommendPic
-                    recommendUsers={recommendUsers[0]}
+                    recommendUsers={recommendUsers}
                     handleUserClick={handleUserClick}
-                    left="50%"
-                    top="35%"
-                    width="4.375rem"
-                    height="4.375rem"
-                  />
-                  <RecommendPic
-                    recommendUsers={recommendUsers[1]}
-                    handleUserClick={handleUserClick}
-                    left="65%"
-                    top="53%"
-                    width="4.375rem"
-                    height="4.375rem"
-                  />
-                  <RecommendPic
-                    recommendUsers={recommendUsers[2]}
-                    handleUserClick={handleUserClick}
-                    left="20%"
-                    top="52%"
-                    width="4.375rem"
-                    height="4.375rem"
-                  />
-                  <RecommendPic
-                    recommendUsers={recommendUsers[3]}
-                    handleUserClick={handleUserClick}
-                    left="37%"
-                    top="64%"
-                    width="3.75rem"
-                    height="3.75rem"
-                  />
-                  <RecommendPic
-                    recommendUsers={recommendUsers[4]}
-                    handleUserClick={handleUserClick}
-                    left="75%"
-                    top="35%"
-                    width="3.75rem"
-                    height="3.75rem"
-                  />
-                  <RecommendPic
-                    recommendUsers={recommendUsers[5]}
-                    handleUserClick={handleUserClick}
-                    left="18%"
-                    top="29%"
-                    width="3.75rem"
-                    height="3.75rem"
-                  />
-                  <RecommendPic
-                    recommendUsers={recommendUsers[6]}
-                    handleUserClick={handleUserClick}
-                    left="45%"
-                    top="17%"
-                    width="3.125rem"
-                    height="3.125rem"
-                  />
-                  <RecommendPic
-                    recommendUsers={recommendUsers[7]}
-                    handleUserClick={handleUserClick}
-                    left="15%"
-                    top="76%"
-                    width="3.125rem"
-                    height="3.125rem"
-                  />
-                  <RecommendPic
-                    recommendUsers={recommendUsers[8]}
-                    handleUserClick={handleUserClick}
-                    left="74%"
-                    top="74%"
-                    width="3.125rem"
-                    height="3.125rem"
                   />
                 </div>
               </div>
