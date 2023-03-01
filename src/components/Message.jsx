@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import moment from 'moment-with-locales-es6';
 import moment from 'moment';
 import 'moment/locale/ko';
+import { ProfileFromMessage } from '../components/ProfileFromMessage';
 
 moment.locale('ko');
 // import { format } from 'timeago.js';
@@ -18,6 +19,18 @@ export default function Message({
   isSameTime,
   isSameDay,
 }) {
+  const [showProfileCard, setShowProfileCard] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const handleCloseProfileCard = () => {
+    setShowProfileCard(false);
+  };
+
+  const handleUserClick = (user) => {
+    setSelectedUser(user);
+    setShowProfileCard(true);
+  };
+
   return (
     <div>
       <div className="flex flex-col mb-[0.5rem]">
@@ -39,9 +52,10 @@ export default function Message({
             <img
               src={user?.profilePicture?.[0]}
               alt=""
-              className={`w-12 h-12 rounded-full ${
+              className={`w-12 h-12 cursor-pointer rounded-full ${
                 isSameSender ? 'opacity-0' : ''
               } ${own && 'hidden'} `}
+              onClick={() => handleUserClick(user)}
             />
           }
 
@@ -68,6 +82,14 @@ export default function Message({
           </div>
         </div>
       </div>
+      {showProfileCard && (
+        <div className="absolute bg-black/20 top-0 left-0 w-screen h-screen max-w-md mx-auto">
+          <ProfileFromMessage
+            user={selectedUser}
+            onClose={handleCloseProfileCard}
+          />
+        </div>
+      )}
     </div>
   );
 }

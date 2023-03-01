@@ -62,12 +62,22 @@ function Home() {
               <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center ">
                 <img src="/assets/croXple.png" className="h-6" alt="" />
               </div>
-              <i
-                onClick={handleShowMenu}
-                className="flex justify-end text-[#555555] text-2xl mr-4 cursor-pointer"
-              >
-                {!showMenu ? <FiMenu /> : <AiOutlineClose />}
-              </i>
+
+              {!showMenu ? (
+                <i
+                  onClick={handleShowMenu}
+                  className="flex justify-start text-[#9AE286] text-2xl ml-4 cursor-pointer"
+                >
+                  <FiMenu />
+                </i>
+              ) : (
+                <i
+                  onClick={handleShowMenu}
+                  className="flex justify-end text-[#555555] text-2xl mr-4 cursor-pointer"
+                >
+                  <AiOutlineClose />
+                </i>
+              )}
             </div>
             <div className="absolute left-[50%] translate-x-[-50%] bottom-10">
               <div className="max-w-md mx-auto flex justify-center">
@@ -164,7 +174,7 @@ function Home() {
                     </button>
                   </div>
 
-                  <div className="absolute z-50 left-[81%] top-[35%]">
+                  <div className="absolute z-50 left-[75%] top-[35%]">
                     {recommendUsers[4]?.followings.includes(userObject._id) && (
                       <span className="absolute left-[55%] top-[-35%] w-[3.25rem] ">
                         <img src="/assets/BTN/Btn_GotLiked.png" alt="" />
@@ -200,7 +210,7 @@ function Home() {
                     </button>
                   </div>
 
-                  <div className="absolute z-50 left-[45%] top-[15%]">
+                  <div className="absolute z-50 left-[45%] top-[17%]">
                     {recommendUsers[6]?.followings.includes(userObject._id) && (
                       <span className="absolute left-[55%] top-[-35%] w-[3.25rem] ">
                         <img src="/assets/BTN/Btn_GotLiked.png" alt="" />
@@ -236,7 +246,7 @@ function Home() {
                     </button>
                   </div>
 
-                  <div className="absolute z-50 left-[77%] top-[74%]">
+                  <div className="absolute z-50 left-[74%] top-[74%]">
                     {recommendUsers[8]?.followings.includes(userObject._id) && (
                       <span className="absolute left-[55%] top-[-35%] w-[3.25rem] ">
                         <img src="/assets/BTN/Btn_GotLiked.png" alt="" />
