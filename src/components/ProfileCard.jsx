@@ -77,7 +77,7 @@ export const ProfileCard = ({ user, onClose }) => {
             </button>
           </div>
           <div className="h-full mt-2">
-            <CardWhiteBg className="bg-white w-full h-full backdrop-blur-[2px]	 opacity-95 flex-col">
+            <CardWhiteBg className="bg-white w-full h-full backdrop-blur-[2px] flex-col">
               <div className="flex py-4 w-full">
                 <h4 className="w-full text-center text-[#8B8B8B]">프로필</h4>
               </div>
