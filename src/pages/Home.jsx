@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import { FiMenu } from 'react-icons/fi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { LineShadowBtn } from '../components/btn&tab&bar/LineShadowBtn';
-import { RecommendPic } from '../components/home/RecommendPic';
+// import { RecommendPic } from '../components/home/RecommendPic';
 
 function Home() {
   const [recommendUsers, setRecommendUsers] = useState([]);
