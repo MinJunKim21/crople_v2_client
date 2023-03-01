@@ -62,12 +62,22 @@ function Home() {
               <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center ">
                 <img src="/assets/croXple.png" className="h-6" alt="" />
               </div>
-              <i
-                onClick={handleShowMenu}
-                className="flex justify-end text-[#555555] text-2xl mr-4 cursor-pointer"
-              >
-                {!showMenu ? <FiMenu /> : <AiOutlineClose />}
-              </i>
+
+              {!showMenu ? (
+                <i
+                  onClick={handleShowMenu}
+                  className="flex justify-start text-[#9AE286] text-2xl ml-4 cursor-pointer"
+                >
+                  <FiMenu />
+                </i>
+              ) : (
+                <i
+                  onClick={handleShowMenu}
+                  className="flex justify-end text-[#555555] text-2xl mr-4 cursor-pointer"
+                >
+                  <AiOutlineClose />
+                </i>
+              )}
             </div>
             <div className="absolute left-[50%] translate-x-[-50%] bottom-10">
               <div className="max-w-md mx-auto flex justify-center">
