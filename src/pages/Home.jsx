@@ -44,12 +44,13 @@ function Home() {
   useEffect(() => {
     const fetchRecommend = async () => {
       const res = await axios.get(
-        `${process.env.REACT_APP_API_ROOT}/api/users/recommend`
+        `${process.env.REACT_APP_API_ROOT}/api/users/recommend?userId=${userObject._id}`
       );
       setRecommendUsers(res.data);
     };
     fetchRecommend();
-  }, []);
+  }, [userObject._id]);
+
   return (
     <div>
       {userObject.nickName === undefined || userObject.profilePicture === '' ? (
