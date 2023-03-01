@@ -200,7 +200,7 @@ function Home() {
                     </button>
                   </div>
 
-                  <div className="absolute z-50 left-[45%] top-[15%]">
+                  <div className="absolute z-50 left-[45%] top-[17%]">
                     {recommendUsers[6]?.followings.includes(userObject._id) && (
                       <span className="absolute left-[55%] top-[-35%] w-[3.25rem] ">
                         <img src="/assets/BTN/Btn_GotLiked.png" alt="" />
