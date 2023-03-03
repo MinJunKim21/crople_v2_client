@@ -223,7 +223,7 @@ export default function Messenger() {
         </h3>
         <BgGra className="w-full h-full"> </BgGra>
       </div>
-      <div className="absolute top-0 ">
+      <div className="absolute top-0  ">
         <div className="flex flex-col mt-[100px] w-full px-2 space-y-2 z-10">
           {allConversations.map((conversation, index) => {
             const user = conversation;

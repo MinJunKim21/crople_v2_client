@@ -5,9 +5,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
 import Profile from './pages/Profile';
-import Register from './pages/Register';
 import Messenger from './pages/Messenger';
-import Test from './pages/Test';
 import { ProfileEdit } from './pages/ProfileEdit';
 import { Chat } from './pages/Chat';
 
@@ -26,8 +24,6 @@ function App() {
           path="/login"
           element={userObject._id ? <Navigate to="/" /> : <Login />}
         />
-        <Route path="/register" element={<Register />} />
-        {/* <Route path="/profile" element={<Profile />} /> */}
         <Route
           path="/profile/:_id"
           element={userObject._id ? <Profile /> : null}
@@ -42,7 +38,6 @@ function App() {
           element={userObject._id ? <ProfileEdit /> : null}
         />
         <Route path="/chat/:_id" element={userObject._id ? <Chat /> : null} />
-        <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>
   );
