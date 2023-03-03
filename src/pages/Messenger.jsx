@@ -8,6 +8,8 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import { ChatTab } from '../components/btn&tab&bar/ChatTab';
 import styled from 'styled-components';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
+import { UnfollowCheck } from '../components/messenger/UnfollowCheck';
 
 moment.locale('ko');
 
@@ -24,6 +26,8 @@ export default function Messenger() {
   const [convExist] = useState('');
   const [conversation, setConversation] = useState([]);
   const [allConversations, setAllConversations] = useState([]);
+  const [unfollowCheck, setUnfollowCheck] = useState(false);
+  const [showUnfollow, setShowUnfollow] = useState(null);
 
   useEffect(() => {
     socket = io(ENDPOINT, {
@@ -215,74 +219,122 @@ export default function Messenger() {
     });
   }, [conversation, friendEachother, userObject._id]);
 
+  const handleUnfollow = async (user) => {
+    try {
+      await axios.put(
+        `${process.env.REACT_APP_API_ROOT}/api/users/` + user._id + '/unfollow',
+        {
+          userId: userObject._id,
+        }
+      );
+
+      // Remove the unfollowed user from allConversations
+      setAllConversations(
+        allConversations.filter((conversation) => conversation._id !== user._id)
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleShowUnfollow = (user) => {
+    setShowUnfollow(user._id);
+  };
   return (
     <div className="flex flex-col justify-cente max-w-md mx-auto">
       <div className="h-screen flex flex-col">
-        <h3 className="text-center justify-center text-xl text-[#555555] pt-8 pb-2  border-b-4 border-[#F5F5F5] w-full">
-          채팅 목록
-        </h3>
+        <div className="flex text-center justify-between px-4 text-xl text-[#555555] pt-8 pb-2  border-b-4 border-[#F5F5F5] w-full relative">
+          <div className="text-sm invisible">편집</div>
+          <h3 className="font-bold text-xl">채팅 목록</h3>
+          <div
+            onClick={() => {
+              setShowUnfollow(true);
+            }}
+            className="text-sm z-10"
+          >
+            편집
+          </div>
+        </div>
         <BgGra className="w-full h-full"> </BgGra>
       </div>
-      <div className="absolute top-0  ">
+      <div className="absolute top-0 max-w-md ">
         <div className="flex flex-col mt-[100px] w-full px-2 space-y-2 z-10">
           {allConversations.map((conversation, index) => {
             const user = conversation;
 
             return (
-              <div
-                key={user._id}
-                className="border px-4 py-2 rounded-2xl bg-white shadow-md"
-              >
-                {/* <div>{conv?.updatedAt}</div> */}
-                <button
-                  onClick={() => {
-                    getConversationsOfTwo(user);
-                  }}
-                >
-                  <div key={user._id} className="flex space-x-4 items-center">
-                    <PicGraBorder key={index} className="mr-2 mb-1">
-                      <PicGraBg>
-                        <img
-                          className="w-full h-full object-cover rounded-full"
-                          src={user.profilePicture[0]}
-                          alt=""
-                        />
-                      </PicGraBg>
-                    </PicGraBorder>
-                    <div className="flex flex-col ">
-                      <div className="flex space-x-3 items-baseline mb-[-0.25rem]">
-                        <span className="text-lg text-[#3D3D3D] font-semibold ">
-                          {user.nickName}
-                        </span>
-                        <span className="text-[#A5A5A5] text-xs">
-                          {moment(conversation.lastMessage).fromNow()}
-                        </span>
-                      </div>
-                      <div className="flex">
-                        <div className="flex space-x-2">
-                          {user.locations.map((location) => {
+              <div key={user._id} className="flex items-center space-x-2.5">
+                {showUnfollow && (
+                  <i
+                    onClick={() => {
+                      setUnfollowCheck(true);
+                      handleShowUnfollow(user);
+                    }}
+                  >
+                    <IoIosCloseCircleOutline className="text-[#A5A5A5] text-lg" />
+                  </i>
+                )}
+                <div className="border px-4 py-2 rounded-2xl bg-white shadow-md w-full">
+                  {/* <div>{conv?.updatedAt}</div> */}
+                  <button
+                    onClick={() => {
+                      getConversationsOfTwo(user);
+                    }}
+                  >
+                    <div key={user._id} className="flex space-x-4 items-center">
+                      <PicGraBorder key={index} className="mr-2 mb-1">
+                        <PicGraBg>
+                          <img
+                            className="w-full h-full object-cover rounded-full"
+                            src={user.profilePicture[0]}
+                            alt=""
+                          />
+                        </PicGraBg>
+                      </PicGraBorder>
+                      <div className="flex flex-col ">
+                        <div className="flex space-x-3 items-baseline mb-[-0.25rem]">
+                          <span className="text-lg text-[#3D3D3D] font-semibold ">
+                            {user.nickName}
+                          </span>
+                          <span className="text-[#A5A5A5] text-xs">
+                            {moment(conversation.lastMessage).fromNow()}
+                          </span>
+                        </div>
+                        <div className="flex">
+                          <div className="flex space-x-2">
+                            {user.locations.map((location) => {
+                              return (
+                                <h4 key={location} className="text-[#A5A5A5] ">
+                                  {location}
+                                </h4>
+                              );
+                            })}
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap w-full ">
+                          {user.likeSports.map((likeSports, index) => {
                             return (
-                              <h4 key={location} className="text-[#A5A5A5] ">
-                                {location}
-                              </h4>
+                              <NextBtnGraBorder
+                                key={index}
+                                className="mr-2 mb-1"
+                              >
+                                <NextBtnGraBg>
+                                  <NextBtnGraText>{likeSports}</NextBtnGraText>
+                                </NextBtnGraBg>
+                              </NextBtnGraBorder>
                             );
                           })}
                         </div>
                       </div>
-                      <div className="flex flex-wrap w-full ">
-                        {user.likeSports.map((likeSports, index) => {
-                          return (
-                            <NextBtnGraBorder key={index} className="mr-2 mb-1">
-                              <NextBtnGraBg>
-                                <NextBtnGraText>{likeSports}</NextBtnGraText>
-                              </NextBtnGraBg>
-                            </NextBtnGraBorder>
-                          );
-                        })}
-                      </div>
                     </div>
-                  </div>
-                </button>
+                  </button>
+                  {unfollowCheck && showUnfollow === user._id && (
+                    <UnfollowCheck
+                      setUnfollowCheck={setUnfollowCheck}
+                      handleUnfollow={handleUnfollow}
+                      user={user}
+                    />
+                  )}
+                </div>
               </div>
             );
           })}
