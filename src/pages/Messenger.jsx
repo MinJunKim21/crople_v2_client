@@ -8,6 +8,8 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import { ChatTab } from '../components/btn&tab&bar/ChatTab';
 import styled from 'styled-components';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
+import { UnfollowCheck } from '../components/messenger/UnfollowCheck';
 
 moment.locale('ko');
 
@@ -24,6 +26,8 @@ export default function Messenger() {
   const [convExist] = useState('');
   const [conversation, setConversation] = useState([]);
   const [allConversations, setAllConversations] = useState([]);
+  const [unfollowCheck, setUnfollowCheck] = useState(false);
+  const [showUnfollow, setShowUnfollow] = useState(null);
 
   useEffect(() => {
     socket = io(ENDPOINT, {
@@ -145,147 +149,217 @@ export default function Messenger() {
   };
 
   useEffect(() => {
-    const getMessages = async (conversationIndex) => {
-      try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_ROOT}/api/messages/` +
-            conversation[conversationIndex]?._id
-        );
-        const messages = res.data;
-        // console.log(messages);
-        return messages;
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    conversation.forEach((conv, index) => {
-      getMessages(index);
-    });
-  }, [conversation]);
-
-  useEffect(() => {
     const newConversations = [];
     //create conversation
     const createConversation = async (user) => {
       try {
-        const res = await axios.post(
+        // Check if a conversation with the user already exists
+        const existingConversationRes = await axios.get(
+          `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${user._id}/${userObject._id}`
+        );
+        const existingConversation = existingConversationRes.data;
+        if (existingConversation) {
+          return existingConversation;
+        }
+
+        // If no existing conversation, create a new one
+        const newConversationRes = await axios.post(
           `${process.env.REACT_APP_API_ROOT}/api/conversations`,
           {
             senderId: userObject._id,
             receiverId: user._id,
           }
         );
-        return res.data;
+        return newConversationRes.data;
       } catch (err) {
         console.log(err);
       }
     };
 
-    friendEachother.forEach(async (user, index) => {
-      const conversationsWithUser = conversation
-        .filter((conversation) => conversation?.members.includes(user._id))
-        .map(async (conversation) => ({
-          conversationId: conversation._id,
-          userId: conversation.members.find(
-            (memberId) => memberId === user._id
-          ),
-          createdAt: conversation.createdAt,
-          updatedAt: conversation.updatedAt,
-          ...user,
-          lastMessage: await getLastMessage(conversation), // call modified function and assign returned timestamp
-        }));
+    // Loop through each friend and create/update conversations
+    (async function () {
+      for (const user of friendEachother) {
+        let conversationsWithUser = conversation
+          .filter((conversation) => conversation?.members.includes(user._id))
+          .map(async (conversation) => ({
+            conversationId: conversation._id,
+            userId: conversation.members.find(
+              (memberId) => memberId === user._id
+            ),
+            createdAt: conversation.createdAt,
+            updatedAt: conversation.updatedAt,
+            membersUpdatedTime: conversation.membersUpdatedTime,
+            ...user,
+            lastMessage: await getLastMessage(conversation), // call modified function and assign returned timestamp
+          }));
 
-      // Check if the user has any conversations
-      if (conversationsWithUser.length === 0) {
-        await createConversation(user); // eslint-disable-next-line react-hooks/exhaustive-deps
-        conversationsWithUser.push({
-          conversationId: null,
-          userId: user._id,
-          createdAt: null,
-          updatedAt: null,
-          ...user,
-          lastMessage: null,
-        });
+        // If the user has no conversations, create a new one
+        conversationsWithUser = conversationsWithUser || [];
+        if (conversationsWithUser.length === 0) {
+          const newConversation = await createConversation(user);
+          conversationsWithUser.push({
+            conversationId: newConversation._id,
+            userId: user._id,
+            createdAt: newConversation.createdAt,
+            updatedAt: newConversation.updatedAt,
+            membersUpdatedTime: newConversation.membersUpdatedTime,
+            ...user,
+            lastMessage: null,
+          });
+        }
+        newConversations.push(...conversationsWithUser);
       }
-      newConversations.push(...conversationsWithUser);
-    });
 
-    Promise.all(newConversations.flat()).then((updatedConversations) => {
-      setAllConversations(updatedConversations);
-    });
+      Promise.all(newConversations.flat())
+        .then((updatedConversations) => {
+          setAllConversations(
+            updatedConversations.filter((conv) => conv.conversationId !== null)
+          );
+        })
+        .catch((error) => {
+          console.error('Error updating conversations:', error);
+        });
+    })();
   }, [conversation, friendEachother, userObject._id]);
+
+  const handleUnfollow = async (user) => {
+    try {
+      await axios.put(
+        `${process.env.REACT_APP_API_ROOT}/api/users/` + user._id + '/unfollow',
+        {
+          userId: userObject._id,
+        }
+      );
+
+      // Remove the unfollowed user from allConversations
+      setAllConversations(
+        allConversations.filter((conversation) => conversation._id !== user._id)
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleShowUnfollow = (user) => {
+    setShowUnfollow(user._id);
+  };
 
   return (
     <div className="flex flex-col justify-cente max-w-md mx-auto">
       <div className="h-screen flex flex-col">
-        <h3 className="text-center justify-center text-xl text-[#555555] pt-8 pb-2  border-b-4 border-[#F5F5F5] w-full">
-          채팅 목록
-        </h3>
+        <div className="flex text-center justify-between px-4 text-xl text-[#555555] pt-8 pb-2  border-b-4 border-[#F5F5F5] w-full relative">
+          <div className="text-sm invisible">편집</div>
+          <h3 className="font-bold text-xl">채팅 목록</h3>
+          <div
+            onClick={() => {
+              setShowUnfollow(true);
+            }}
+            className="text-sm z-10"
+          >
+            편집
+          </div>
+        </div>
         <BgGra className="w-full h-full"> </BgGra>
       </div>
-      <div className="absolute top-0 ">
+      <div className="absolute top-0 max-w-md ">
         <div className="flex flex-col mt-[100px] w-full px-2 space-y-2 z-10">
-          {allConversations.map((conversation, index) => {
-            const user = conversation;
+          {allConversations
+            .sort((a, b) => moment(b.lastMessage) - moment(a.lastMessage)) // sort the array based on lastMessage in descending order
+            .map((conversation, index) => {
+              const user = conversation;
+              const lastCheckedTime =
+                conversation.membersUpdatedTime[userObject._id];
 
-            return (
-              <div
-                key={user._id}
-                className="border px-4 py-2 rounded-2xl bg-white shadow-md"
-              >
-                {/* <div>{conv?.updatedAt}</div> */}
-                <button
-                  onClick={() => {
-                    getConversationsOfTwo(user);
-                  }}
-                >
-                  <div key={user._id} className="flex space-x-4 items-center">
-                    <PicGraBorder key={index} className="mr-2 mb-1">
-                      <PicGraBg>
-                        <img
-                          className="w-full h-full object-cover rounded-full"
-                          src={user.profilePicture[0]}
-                          alt=""
-                        />
-                      </PicGraBg>
-                    </PicGraBorder>
-                    <div className="flex flex-col ">
-                      <div className="flex space-x-3 items-baseline mb-[-0.25rem]">
-                        <span className="text-lg text-[#3D3D3D] font-semibold ">
-                          {user.nickName}
-                        </span>
-                        <span className="text-[#A5A5A5] text-xs">
-                          {moment(conversation.lastMessage).fromNow()}
-                        </span>
-                      </div>
-                      <div className="flex">
-                        <div className="flex space-x-2">
-                          {user.locations.map((location) => {
-                            return (
-                              <h4 key={location} className="text-[#A5A5A5] ">
-                                {location}
-                              </h4>
-                            );
-                          })}
+              return (
+                <div key={user._id} className="flex items-center space-x-2.5">
+                  {showUnfollow && (
+                    <i
+                      onClick={() => {
+                        setUnfollowCheck(true);
+                        handleShowUnfollow(user);
+                      }}
+                    >
+                      <IoIosCloseCircleOutline className="text-[#A5A5A5] text-lg" />
+                    </i>
+                  )}
+                  <div className="border px-4 py-2 rounded-2xl bg-white shadow-md w-full">
+                    {/* <div>{lastCheckedTime}</div> */}
+                    {/* <div>{conversation.lastMessage}</div> */}
+                    {lastCheckedTime &&
+                      lastCheckedTime < conversation.lastMessage && (
+                        <p>Not read yet</p>
+                      )}
+                    <button
+                      onClick={() => {
+                        getConversationsOfTwo(user);
+                      }}
+                    >
+                      <div
+                        key={user._id}
+                        className="flex space-x-4 items-center"
+                      >
+                        <PicGraBorder key={index} className="mr-2 mb-1">
+                          <PicGraBg>
+                            <img
+                              className="w-full h-full object-cover rounded-full"
+                              src={user.profilePicture[0]}
+                              alt=""
+                            />
+                          </PicGraBg>
+                        </PicGraBorder>
+                        <div className="flex flex-col ">
+                          <div className="flex space-x-3 items-baseline mb-[-0.25rem]">
+                            <span className="text-lg text-[#3D3D3D] font-semibold ">
+                              {user.nickName}
+                            </span>
+                            <span className="text-[#A5A5A5] text-xs">
+                              {moment(conversation.lastMessage).fromNow()}
+                            </span>
+                          </div>
+                          <div className="flex">
+                            <div className="flex space-x-2">
+                              {user.locations.map((location) => {
+                                return (
+                                  <h4
+                                    key={location}
+                                    className="text-[#A5A5A5] "
+                                  >
+                                    {location}
+                                  </h4>
+                                );
+                              })}
+                            </div>
+                          </div>
+                          <div className="flex flex-wrap w-full ">
+                            {user.likeSports.map((likeSports, index) => {
+                              return (
+                                <NextBtnGraBorder
+                                  key={index}
+                                  className="mr-2 mb-1"
+                                >
+                                  <NextBtnGraBg>
+                                    <NextBtnGraText>
+                                      {likeSports}
+                                    </NextBtnGraText>
+                                  </NextBtnGraBg>
+                                </NextBtnGraBorder>
+                              );
+                            })}
+                          </div>
                         </div>
                       </div>
-                      <div className="flex flex-wrap w-full ">
-                        {user.likeSports.map((likeSports, index) => {
-                          return (
-                            <NextBtnGraBorder key={index} className="mr-2 mb-1">
-                              <NextBtnGraBg>
-                                <NextBtnGraText>{likeSports}</NextBtnGraText>
-                              </NextBtnGraBg>
-                            </NextBtnGraBorder>
-                          );
-                        })}
-                      </div>
-                    </div>
+                    </button>
+                    {unfollowCheck && showUnfollow === user._id && (
+                      <UnfollowCheck
+                        setUnfollowCheck={setUnfollowCheck}
+                        handleUnfollow={handleUnfollow}
+                        user={user}
+                      />
+                    )}
                   </div>
-                </button>
-              </div>
-            );
-          })}
+                </div>
+              );
+            })}
         </div>
       </div>
 

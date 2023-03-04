@@ -12,9 +12,8 @@ import { ProfileCard } from '../components/ProfileCard';
 import { Link } from 'react-router-dom';
 import { FiMenu } from 'react-icons/fi';
 import { AiOutlineClose } from 'react-icons/ai';
-import { LineShadowBtn } from '../components/btn&tab&bar/LineShadowBtn';
 import { RecommendPic } from '../components/home/RecommendPic';
-// import { RecommendPic } from '../components/home/RecommendPic';
+import HomeMenu from '../components/home/HomeMenu';
 
 function Home() {
   const [recommendUsers, setRecommendUsers] = useState([]);
@@ -24,10 +23,6 @@ function Home() {
   const [logoutCheck, setLogoutCheck] = useState(false);
   const [kakaoCheck, setKakaoCheck] = useState(false);
   const userObject = useContext(AuthContext);
-
-  const logout = () => {
-    window.open(`${process.env.REACT_APP_API_ROOT}/googleauth/logout`, '_self');
-  };
 
   const handleUserClick = (user) => {
     setSelectedUser(user);
@@ -69,14 +64,14 @@ function Home() {
               {!showMenu ? (
                 <i
                   onClick={handleShowMenu}
-                  className="flex justify-start text-[#9AE286] text-2xl ml-4 cursor-pointer"
+                  className="absolute text-[#9AE286] text-2xl ml-4 cursor-pointer"
                 >
                   <FiMenu />
                 </i>
               ) : (
                 <i
                   onClick={handleShowMenu}
-                  className="flex justify-end text-[#555555] text-2xl mr-4 cursor-pointer"
+                  className="absolute right-0 text-[#555555] text-2xl mr-4 cursor-pointer"
                 >
                   <AiOutlineClose />
                 </i>
@@ -116,129 +111,14 @@ function Home() {
             </div>
           </BgGraWrapperA>
           {showMenu ? (
-            <div className="bg-white h-screen w-full absolute top-0 left-[50%] translate-x-[-50%] pt-20 max-w-md">
-              <div className="border-t-8 border-[#F5F5F5] px-4 ">
-                <div className="border-b-[1px] py-6 w-full">
-                  <div className="flex items-center space-x-3">
-                    <PicGraBorder>
-                      <PicGraBg>
-                        <img
-                          className="w-full h-full object-cover rounded-full"
-                          src={userObject.profilePicture[0]}
-                          alt=""
-                        />
-                      </PicGraBg>
-                    </PicGraBorder>
-                    <div>
-                      <h5>{userObject.nickName}</h5>
-                      <div className="flex space-x-1">
-                        <h4 className="text-[#A5A5A5] text-xs ">서울</h4>
-                        {userObject.locations.map((location) => {
-                          return (
-                            <h4
-                              key={location}
-                              className="text-[#A5A5A5] text-xs "
-                            >
-                              {location}
-                            </h4>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="pt-4">
-                  <h6 className="text-[#A5A5A5] text-sm">고객센터</h6>
-                  <div className="flex space-x-2 cursor-pointer items-center">
-                    <h4
-                      onClick={() => {
-                        setKakaoCheck(true);
-                      }}
-                      className="text-xl"
-                    >
-                      1:1 문의
-                    </h4>
-                    <img
-                      src="/assets/BTN/Btn_Kakao.png"
-                      alt=""
-                      className="w-6 h-6"
-                    />
-                  </div>
-                  <h4
-                    onClick={() => {
-                      setLogoutCheck(true);
-                    }}
-                    className="text-xl cursor-pointer"
-                  >
-                    로그아웃
-                  </h4>
-                  {kakaoCheck && (
-                    <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-0 top-0 z-50 max-w-md  ">
-                      <div className="absolute max-w-[21.5rem] w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-[2.5rem] p-4">
-                        <MainQuestion>1:1 문의로 연결 하시겠어요?</MainQuestion>
-                        <SubInstruction>
-                          카카오톡 채널로 연결됩니다
-                        </SubInstruction>
-
-                        <div className="w-full h-full flex justify-center space-x-2 pt-8">
-                          <button
-                            onClick={() => {
-                              setKakaoCheck(false);
-                            }}
-                            className="bg-[#DFDFDF] w-28 h-12 rounded-xl"
-                          >
-                            취소
-                          </button>
-
-                          <a
-                            href="https://open.kakao.com/me/crople79"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="bg-[#F79D00] text-white w-28 h-12 rounded-xl flex justify-center items-center"
-                          >
-                            연결
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  {logoutCheck && (
-                    <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-0 top-0 z-50 max-w-md ">
-                      <div className="absolute max-w-[21.5rem] w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-[2.5rem] p-4">
-                        <MainQuestion>로그아웃 하시겠어요?</MainQuestion>
-                        <SubInstruction>
-                          로그아웃 시 초기화면으로 이동합니다
-                        </SubInstruction>
-
-                        <div className="w-full h-full flex justify-center space-x-2 pt-8">
-                          <button
-                            onClick={() => {
-                              setLogoutCheck(false);
-                            }}
-                            className="bg-[#DFDFDF] w-28 h-12 rounded-xl"
-                          >
-                            취소
-                          </button>
-
-                          <button
-                            onClick={logout}
-                            className="bg-[#F79D00] text-white w-28 h-12 rounded-xl"
-                          >
-                            로그아웃
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <button
-                onClick={handleShowMenu}
-                className="fixed bottom-0 left-[50%] translate-x-[-50%]  w-full pb-8 px-4 max-w-sm mx-auto justify-center"
-              >
-                <LineShadowBtn text={'돌아가기'} className=" cursor-pointer" />
-              </button>
-            </div>
+            <HomeMenu
+              showMenu={showMenu}
+              setKakaoCheck={setKakaoCheck}
+              setLogoutCheck={setLogoutCheck}
+              kakaoCheck={kakaoCheck}
+              logoutCheck={logoutCheck}
+              handleShowMenu={handleShowMenu}
+            />
           ) : null}
         </div>
       )}
@@ -259,11 +139,3 @@ const BgGraWrapper = styled.div`
 
 const BgGraWrapperA = tw(BgGraWrapper)`
 w-full h-screen flex flex-col mx-auto max-w-md pt-11`;
-
-const PicGraBorder = tw.div`rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
-const PicGraBg = tw.div` w-12 h-12 rounded-full border-[2px] border-transparent [background-clip: padding-box] flex justify-center items-center`;
-
-const MainQuestion = tw.h3`
-flex justify-center text-[#242424] font-semibold text-xl`;
-
-const SubInstruction = tw.h6`flex justify-center text-[#555555] mt-2 font-medium text-sm `;
