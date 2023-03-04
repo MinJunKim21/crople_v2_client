@@ -188,6 +188,7 @@ export default function Messenger() {
             ),
             createdAt: conversation.createdAt,
             updatedAt: conversation.updatedAt,
+            membersUpdatedTime: conversation.membersUpdatedTime,
             ...user,
             lastMessage: await getLastMessage(conversation), // call modified function and assign returned timestamp
           }));
@@ -201,6 +202,7 @@ export default function Messenger() {
             userId: user._id,
             createdAt: newConversation.createdAt,
             updatedAt: newConversation.updatedAt,
+            membersUpdatedTime: newConversation.membersUpdatedTime,
             ...user,
             lastMessage: null,
           });
@@ -265,6 +267,9 @@ export default function Messenger() {
             .sort((a, b) => moment(b.lastMessage) - moment(a.lastMessage)) // sort the array based on lastMessage in descending order
             .map((conversation, index) => {
               const user = conversation;
+              const lastCheckedTime =
+                conversation.membersUpdatedTime[userObject._id];
+
               return (
                 <div key={user._id} className="flex items-center space-x-2.5">
                   {showUnfollow && (
@@ -278,7 +283,12 @@ export default function Messenger() {
                     </i>
                   )}
                   <div className="border px-4 py-2 rounded-2xl bg-white shadow-md w-full">
-                    <div>{conversation.updatedAt}</div>
+                    {/* <div>{lastCheckedTime}</div> */}
+                    {/* <div>{conversation.lastMessage}</div> */}
+                    {lastCheckedTime &&
+                      lastCheckedTime < conversation.lastMessage && (
+                        <p>Not read yet</p>
+                      )}
                     <button
                       onClick={() => {
                         getConversationsOfTwo(user);
