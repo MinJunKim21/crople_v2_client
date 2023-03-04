@@ -149,74 +149,75 @@ export default function Messenger() {
   };
 
   useEffect(() => {
-    const getMessages = async (conversationIndex) => {
-      try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_ROOT}/api/messages/` +
-            conversation[conversationIndex]?._id
-        );
-        const messages = res.data;
-        // console.log(messages);
-        return messages;
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    conversation.forEach((conv, index) => {
-      getMessages(index);
-    });
-  }, [conversation]);
-
-  useEffect(() => {
     const newConversations = [];
     //create conversation
     const createConversation = async (user) => {
       try {
-        const res = await axios.post(
+        // Check if a conversation with the user already exists
+        const existingConversationRes = await axios.get(
+          `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${user._id}/${userObject._id}`
+        );
+        const existingConversation = existingConversationRes.data;
+        if (existingConversation) {
+          return existingConversation;
+        }
+
+        // If no existing conversation, create a new one
+        const newConversationRes = await axios.post(
           `${process.env.REACT_APP_API_ROOT}/api/conversations`,
           {
             senderId: userObject._id,
             receiverId: user._id,
           }
         );
-        return res.data;
+        return newConversationRes.data;
       } catch (err) {
         console.log(err);
       }
     };
 
-    friendEachother.forEach(async (user, index) => {
-      const conversationsWithUser = conversation
-        .filter((conversation) => conversation?.members.includes(user._id))
-        .map(async (conversation) => ({
-          conversationId: conversation._id,
-          userId: conversation.members.find(
-            (memberId) => memberId === user._id
-          ),
-          createdAt: conversation.createdAt,
-          updatedAt: conversation.updatedAt,
-          ...user,
-          lastMessage: await getLastMessage(conversation), // call modified function and assign returned timestamp
-        }));
+    // Loop through each friend and create/update conversations
+    (async function () {
+      for (const user of friendEachother) {
+        let conversationsWithUser = conversation
+          .filter((conversation) => conversation?.members.includes(user._id))
+          .map(async (conversation) => ({
+            conversationId: conversation._id,
+            userId: conversation.members.find(
+              (memberId) => memberId === user._id
+            ),
+            createdAt: conversation.createdAt,
+            updatedAt: conversation.updatedAt,
+            ...user,
+            lastMessage: await getLastMessage(conversation), // call modified function and assign returned timestamp
+          }));
 
-      // Check if the user has any conversations
-      if (conversationsWithUser.length === null) {
-        await createConversation(user); // eslint-disable-next-line react-hooks/exhaustive-deps
-        conversationsWithUser.push({
-          conversationId: null,
-          userId: user._id,
-          createdAt: null,
-          updatedAt: null,
-          ...user,
-          lastMessage: null,
-        });
+        // If the user has no conversations, create a new one
+        conversationsWithUser = conversationsWithUser || [];
+        if (conversationsWithUser.length === 0) {
+          const newConversation = await createConversation(user);
+          conversationsWithUser.push({
+            conversationId: newConversation._id,
+            userId: user._id,
+            createdAt: newConversation.createdAt,
+            updatedAt: newConversation.updatedAt,
+            ...user,
+            lastMessage: null,
+          });
+        }
+        newConversations.push(...conversationsWithUser);
       }
-      newConversations.push(...conversationsWithUser);
-    });
 
-    Promise.all(newConversations.flat()).then((updatedConversations) => {
-      setAllConversations(updatedConversations);
-    });
+      Promise.all(newConversations.flat())
+        .then((updatedConversations) => {
+          setAllConversations(
+            updatedConversations.filter((conv) => conv.conversationId !== null)
+          );
+        })
+        .catch((error) => {
+          console.error('Error updating conversations:', error);
+        });
+    })();
   }, [conversation, friendEachother, userObject._id]);
 
   const handleUnfollow = async (user) => {
@@ -236,6 +237,7 @@ export default function Messenger() {
       console.log(err);
     }
   };
+
   const handleShowUnfollow = (user) => {
     setShowUnfollow(user._id);
   };
@@ -263,7 +265,6 @@ export default function Messenger() {
             .sort((a, b) => moment(b.lastMessage) - moment(a.lastMessage)) // sort the array based on lastMessage in descending order
             .map((conversation, index) => {
               const user = conversation;
-
               return (
                 <div key={user._id} className="flex items-center space-x-2.5">
                   {showUnfollow && (
@@ -277,7 +278,7 @@ export default function Messenger() {
                     </i>
                   )}
                   <div className="border px-4 py-2 rounded-2xl bg-white shadow-md w-full">
-                    {/* <div>{conv?.updatedAt}</div> */}
+                    <div>{conversation.updatedAt}</div>
                     <button
                       onClick={() => {
                         getConversationsOfTwo(user);

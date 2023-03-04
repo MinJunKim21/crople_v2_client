@@ -128,11 +128,12 @@ export const Chat = () => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  //채팅방 들어오거나, 글작성하거나, 나가면 conversation의 updatedAt을 업데이트하기
+  //채팅방 들어오거나, 글작성하거나, 나가면 사용자의 아이디와 시간을 업데이트하기
   useEffect(() => {
     axios
       .put(
-        `${process.env.REACT_APP_API_ROOT}/api/conversations/updatetime/${_id}`
+        `${process.env.REACT_APP_API_ROOT}/api/conversations/updatetime/${_id}`,
+        { memberId: userObject._id }
       )
       .then((response) => setUpdatedAt(response.data.updatedAt))
       .catch((error) => console.log(error));
@@ -140,12 +141,13 @@ export const Chat = () => {
     return () => {
       axios
         .put(
-          `${process.env.REACT_APP_API_ROOT}/api/conversations/updatetime/${_id}`
+          `${process.env.REACT_APP_API_ROOT}/api/conversations/updatetime/${_id}`,
+          { memberId: userObject._id }
         )
         .then((response) => setUpdatedAt(response.data.updatedAt))
         .catch((error) => console.log(error));
     };
-  }, [_id]);
+  }, [_id, userObject._id]);
 
   return (
     <div>
