@@ -200,7 +200,7 @@ export default function Messenger() {
         }));
 
       // Check if the user has any conversations
-      if (conversationsWithUser.length === 0) {
+      if (conversationsWithUser.length === null) {
         await createConversation(user); // eslint-disable-next-line react-hooks/exhaustive-deps
         conversationsWithUser.push({
           conversationId: null,
@@ -239,6 +239,7 @@ export default function Messenger() {
   const handleShowUnfollow = (user) => {
     setShowUnfollow(user._id);
   };
+
   return (
     <div className="flex flex-col justify-cente max-w-md mx-auto">
       <div className="h-screen flex flex-col">
