@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import Messenger from './pages/Messenger';
 import { ProfileEdit } from './pages/ProfileEdit';
 import { Chat } from './pages/Chat';
+import { PlayGround } from './pages/PlayGround';
 
 function App() {
   const userObject = useContext(AuthContext);
@@ -38,6 +39,10 @@ function App() {
           element={userObject._id ? <ProfileEdit /> : null}
         />
         <Route path="/chat/:_id" element={userObject._id ? <Chat /> : null} />
+        <Route
+          path="/playground"
+          element={userObject._id ? <PlayGround /> : null}
+        />
       </Routes>
     </BrowserRouter>
   );
