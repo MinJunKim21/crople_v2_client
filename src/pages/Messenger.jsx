@@ -282,12 +282,12 @@ export default function Messenger() {
                       <IoIosCloseCircleOutline className="text-[#A5A5A5] text-lg" />
                     </i>
                   )}
-                  <div className="border px-4 py-2 rounded-2xl bg-white shadow-md w-full">
+                  <div className="border px-4 py-2 rounded-2xl bg-white shadow-md w-full relative">
                     {/* <div>{lastCheckedTime}</div> */}
                     {/* <div>{conversation.lastMessage}</div> */}
                     {lastCheckedTime &&
                       lastCheckedTime < conversation.lastMessage && (
-                        <p>Not read yet</p>
+                        <i className="bg-[#F79D00] h-2 w-2 absolute rounded-full top-4 left-4 "></i>
                       )}
                     <button
                       onClick={() => {
