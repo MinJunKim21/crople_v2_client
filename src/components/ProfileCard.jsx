@@ -138,13 +138,6 @@ export const ProfileCard = ({ user, onClose }) => {
             followed={followed}
             setFollowed={setFollowed}
           />
-          {/* <div>
-            {user._id !== userObject._id && (
-              <button onClick={handleClick}>
-                {followed ? 'followed' : 'Follow'}
-              </button>
-            )}
-          </div> */}
         </div>
       </div>
     </div>

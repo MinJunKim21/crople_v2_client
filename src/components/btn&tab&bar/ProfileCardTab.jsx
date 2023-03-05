@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import { Link } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 export const ProfileCardTab = ({
   reload,
@@ -11,6 +13,15 @@ export const ProfileCardTab = ({
   followed,
   setFollowed,
 }) => {
+  const userObject = useContext(AuthContext);
+  const [matched, setMatched] = useState(false);
+
+  useEffect(() => {
+    if (user.followings.includes(userObject._id)) {
+      setMatched(true);
+    }
+  }, [user.followings, userObject._id]);
+
   return (
     <BgWhiteShadow>
       <BgWhiteBlur>
@@ -48,7 +59,7 @@ export const ProfileCardTab = ({
                       alt=""
                     />
                     <div className="text-white text-sm font-semibold">
-                      신청완료
+                      {matched ? '매칭완료' : '신청완료'}
                     </div>
                   </div>
                 </NextBtnGraBorder>
