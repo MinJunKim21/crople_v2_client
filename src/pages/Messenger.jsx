@@ -44,9 +44,13 @@ export default function Messenger() {
   }, []);
 
   useEffect(() => {
-    arrivalMessage &&
-      currentChat?.members.includes(arrivalMessage.sender) &&
+    if (
+      arrivalMessage &&
+      currentChat &&
+      currentChat.members.includes(arrivalMessage.sender)
+    ) {
       setMessages((prev) => [...prev, arrivalMessage]);
+    }
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
@@ -259,6 +263,17 @@ export default function Messenger() {
             편집
           </div>
         </div>
+        {allConversations.length === 0 && (
+          <div className="text-[#555555] absolute left-[50%] top-[35%] translate-x-[-50%] text-center">
+            <p>현재 채팅방이 없습니다.</p>
+            <p>새로운 메이트를 찾아보세요.</p>
+            <img
+              src="/assets/BTN/Btn_GotLiked.png"
+              alt=""
+              className="absolute w-12 h-12 bottom-[35%] left-[95%]"
+            />
+          </div>
+        )}
         <BgGra className="w-full h-full"> </BgGra>
       </div>
       <div className="absolute top-0 max-w-md ">
@@ -283,8 +298,6 @@ export default function Messenger() {
                     </i>
                   )}
                   <div className="border px-4 py-2 rounded-2xl bg-white shadow-md w-full relative">
-                    {/* <div>{lastCheckedTime}</div> */}
-                    {/* <div>{conversation.lastMessage}</div> */}
                     {lastCheckedTime &&
                       lastCheckedTime < conversation.lastMessage && (
                         <i className="bg-[#F79D00] h-2 w-2 absolute rounded-full top-4 left-4 "></i>
