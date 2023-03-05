@@ -256,11 +256,11 @@ export default function Messenger() {
           <h3 className="font-bold text-xl">채팅 목록</h3>
           <div
             onClick={() => {
-              setShowUnfollow(true);
+              setShowUnfollow((prev) => !prev);
             }}
-            className="text-sm z-10"
+            className="text-sm cursor-pointer z-10"
           >
-            편집
+            {showUnfollow ? '완료' : '편집'}
           </div>
         </div>
         {allConversations.length === 0 && (
@@ -277,7 +277,11 @@ export default function Messenger() {
         <BgGra className="w-full h-full"> </BgGra>
       </div>
       <div className="absolute top-0 max-w-md ">
-        <div className="flex flex-col mt-[100px] w-full px-2 space-y-2 z-10">
+        <div
+          className={`flex flex-col mt-[100px] w-full  space-y-2 z-10 ${
+            showUnfollow ? '' : 'px-2'
+          }`}
+        >
           {allConversations
             .sort((a, b) => moment(b.lastMessage) - moment(a.lastMessage)) // sort the array based on lastMessage in descending order
             .map((conversation, index) => {
@@ -286,7 +290,21 @@ export default function Messenger() {
                 conversation.membersUpdatedTime[userObject._id];
 
               return (
-                <div key={user._id} className="flex items-center space-x-2.5">
+                <div
+                  key={user._id}
+                  className={`flex items-center ${
+                    showUnfollow && 'space-x-2.5'
+                  }`}
+                >
+                  <div className="absolute left-0 top-0">
+                    {unfollowCheck && showUnfollow === user._id && (
+                      <UnfollowCheck
+                        setUnfollowCheck={setUnfollowCheck}
+                        handleUnfollow={handleUnfollow}
+                        user={user}
+                      />
+                    )}
+                  </div>
                   {showUnfollow && (
                     <i
                       onClick={() => {
@@ -294,10 +312,14 @@ export default function Messenger() {
                         handleShowUnfollow(user);
                       }}
                     >
-                      <IoIosCloseCircleOutline className="text-[#A5A5A5] text-lg" />
+                      <IoIosCloseCircleOutline className="text-[#A5A5A5] cursor-pointer text-lg" />
                     </i>
                   )}
-                  <div className="border px-4 py-2 rounded-2xl bg-white shadow-md w-full relative">
+                  <div
+                    className={`border  py-2  bg-white shadow-md w-full relative ${
+                      showUnfollow ? 'pl-4 rounded-l-2xl' : 'px-4 rounded-2xl'
+                    }`}
+                  >
                     {lastCheckedTime &&
                       lastCheckedTime < conversation.lastMessage && (
                         <i className="bg-[#F79D00] h-2 w-2 absolute rounded-full top-4 left-4 "></i>
@@ -362,13 +384,6 @@ export default function Messenger() {
                         </div>
                       </div>
                     </button>
-                    {unfollowCheck && showUnfollow === user._id && (
-                      <UnfollowCheck
-                        setUnfollowCheck={setUnfollowCheck}
-                        handleUnfollow={handleUnfollow}
-                        user={user}
-                      />
-                    )}
                   </div>
                 </div>
               );
