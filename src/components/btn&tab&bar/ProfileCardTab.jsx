@@ -54,7 +54,11 @@ export const ProfileCardTab = ({
                 <NextBtnGraBorder>
                   <div className="flex flex-col justify-center items-center w-full h-full">
                     <img
-                      src="assets/BTN/Btn_MatchLiked.png"
+                      src={
+                        matched
+                          ? 'assets/BTN/Btn_Matched.png'
+                          : 'assets/BTN/Btn_MatchLiked.png'
+                      }
                       className="h-8 w-8 mb-[2px]"
                       alt=""
                     />
