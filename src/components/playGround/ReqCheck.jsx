@@ -22,7 +22,7 @@ export const ReqCheck = ({ setReqCheck }) => {
           </button>
           <a href="https://forms.gle/7Mj4PjZb17v786Pk6">
             <button className="bg-[#F79D00] text-white w-28 h-12 rounded-xl">
-              로그아웃
+              건의하기
             </button>
           </a>
         </div>
