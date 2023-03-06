@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import tw from 'twin.macro';
 import { playGroundBanner, sportsFacility } from '../data/playGroundData';
 import { Pagination } from 'swiper';
@@ -12,8 +12,11 @@ import 'swiper/css/pagination';
 import { FacilityThumbnail } from '../components/playGround/FacilityThumbnail';
 import MainTabBar from '../components/btn&tab&bar/MainTabBar';
 import { Link } from 'react-router-dom';
+import { ReqCheck } from '../components/playGround/ReqCheck';
 
 export const PlayGround = () => {
+  const [reqCheck, setReqCheck] = useState(false);
+
   return (
     <div className="max-w-md mx-auto">
       <Swiper
@@ -44,13 +47,19 @@ export const PlayGround = () => {
           ))}
         </div>
         <div className="flex flex-col gap-4">
-          <a href="https://forms.gle/7Mj4PjZb17v786Pk6">
+          <div
+            onClick={() => {
+              setReqCheck(true);
+            }}
+            className="cursor-pointer"
+          >
             <ReqBtnGraBorder>
               <ReqBtnGraBg>
                 <ReqBtnGraText>여기도 궁금해요!</ReqBtnGraText>
               </ReqBtnGraBg>
             </ReqBtnGraBorder>
-          </a>
+          </div>
+          {reqCheck && <ReqCheck setReqCheck={setReqCheck} />}
 
           {shuffle(sportsFacility.slice(10)).map((facility, index) => (
             <Link key={index} to={`/sportsfacility/${facility.id}`}>
