@@ -2,7 +2,7 @@ import tw from 'twin.macro';
 
 export const ReqCheck = ({ setReqCheck }) => {
   return (
-    <div className="bg-black bg-opacity-20 w-screen h-screen max-w-md absolute left-[50%] translate-x-[-50%] top-0 z-50 max-w-md ">
+    <div className="bg-black bg-opacity-20 w-screen h-screen max-w-md absolute left-[50%] translate-x-[-50%] top-0 z-50">
       <div className="absolute max-w-[21.5rem] w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-[2.5rem] p-4">
         <MainQuestion>궁금하신 시설이 있으세요?</MainQuestion>
         <SubInstruction>

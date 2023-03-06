@@ -26,16 +26,19 @@ export const ProfileCardTab = ({
     <BgWhiteShadow>
       <BgWhiteBlur>
         <div className="flex max-w-sm p-2  justify-between space-x-8">
-          <NextBtnGraBorder>
-            <NextBtnGraBg>
-              <img
-                src="assets/BTN/Btn_PlayGround.png"
-                className="h-8 w-8 mb-[2px]"
-                alt=""
-              />
-              <NextBtnGraText>운동장</NextBtnGraText>
-            </NextBtnGraBg>
-          </NextBtnGraBorder>
+          <Link to="/playground">
+            <NextBtnGraBorder>
+              <NextBtnGraBg>
+                <img
+                  src="assets/BTN/Btn_PlayGround.png"
+                  className="h-8 w-8 mb-[2px]"
+                  alt=""
+                />
+                <NextBtnGraText>운동장</NextBtnGraText>
+              </NextBtnGraBg>
+            </NextBtnGraBorder>
+          </Link>
+
           <Link to="/">
             <div className="h-[4.25rem]  text-center justify-center items-center flex flex-col">
               <i onClick={onClose}>

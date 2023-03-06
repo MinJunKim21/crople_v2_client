@@ -1,21 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import tw from 'twin.macro';
 import { playGroundBanner, sportsFacility } from '../data/playGroundData';
 import { Pagination } from 'swiper';
 import { shuffle } from 'lodash';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { BannerEach } from '../components/playGround/BannerEach';
-
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { FacilityThumbnail } from '../components/playGround/FacilityThumbnail';
-import MainTabBar from '../components/btn&tab&bar/MainTabBar';
 import { Link } from 'react-router-dom';
 import { ReqCheck } from '../components/playGround/ReqCheck';
+import { PlayGroundBar } from '../components/btn&tab&bar/PlayGroundBar';
+import { useState, useEffect } from 'react';
 
 export const PlayGround = () => {
   const [reqCheck, setReqCheck] = useState(false);
+  const [shuffledData, setShuffledData] = useState([]);
+  const [shuffledFacilities, setShuffledFacilities] = useState([]);
+
+  useEffect(() => {
+    const shuffledBanner = shuffle(playGroundBanner);
+    setShuffledData(shuffledBanner);
+    const shuffledFacility = shuffle(sportsFacility);
+    setShuffledFacilities(shuffledFacility);
+  }, []);
 
   return (
     <div className="max-w-md mx-auto">
@@ -32,7 +40,7 @@ export const PlayGround = () => {
         pagination={{ clickable: true }}
         loop={true}
       >
-        {shuffle(playGroundBanner).map((banner, index) => (
+        {shuffledData.map((banner, index) => (
           <SwiperSlide key={index}>
             <BannerEach banner={banner} />
           </SwiperSlide>
@@ -40,7 +48,7 @@ export const PlayGround = () => {
       </Swiper>
       <div className="flex gap-4 columns-2 justify-center pt-4">
         <div className="flex flex-col gap-4">
-          {shuffle(sportsFacility.slice(0, 10)).map((facility, index) => (
+          {shuffledFacilities.slice(0, 10).map((facility, index) => (
             <Link key={index} to={`/sportsfacility/${facility.id}`}>
               <FacilityThumbnail facility={facility} />
             </Link>
@@ -61,7 +69,7 @@ export const PlayGround = () => {
           </div>
           {reqCheck && <ReqCheck setReqCheck={setReqCheck} />}
 
-          {shuffle(sportsFacility.slice(10)).map((facility, index) => (
+          {shuffledFacilities.slice(10).map((facility, index) => (
             <Link key={index} to={`/sportsfacility/${facility.id}`}>
               <FacilityThumbnail facility={facility} />
             </Link>
@@ -73,7 +81,7 @@ export const PlayGround = () => {
         운동장의 지속적인 업데이트를 기대해주세요!
       </div>
       <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-        <MainTabBar />
+        <PlayGroundBar />
       </div>
     </div>
   );

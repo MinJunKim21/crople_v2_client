@@ -2,7 +2,7 @@ import React from 'react';
 import tw from 'twin.macro';
 import { Link } from 'react-router-dom';
 
-export const ChatTab = ({ reload }) => {
+export const PlayGroundBar = () => {
   return (
     <div className="relative">
       <div className="absolute z-[-10] top-0 left-0 backdrop-blur-[8px] shadow-xl border border-[#9AE286] w-full  h-[5.25rem] rounded-full space-x-8"></div>
@@ -11,7 +11,7 @@ export const ChatTab = ({ reload }) => {
           <NextBtnGraBorder>
             <NextBtnGraBg>
               <img
-                src="assets/BTN/Btn_PlayGround.png"
+                src="/assets/BTN/Btn_PlayGround.png"
                 className="h-8 mb-[2px]"
                 alt=""
               />
@@ -22,16 +22,8 @@ export const ChatTab = ({ reload }) => {
 
         <Link to="/">
           <div className="h-[4.25rem] text-center justify-center items-center flex flex-col">
-            <i
-              onClick={
-                reload === 'true'
-                  ? () => {
-                      window.location.reload();
-                    }
-                  : null
-              }
-            >
-              <img src="assets/BTN/Btn_Home.png" className="h-9 " alt="" />
+            <i>
+              <img src="/assets/BTN/Btn_Home.png" className="h-9 " alt="" />
             </i>
             <NextBtnGraText>홈</NextBtnGraText>
           </div>
@@ -40,7 +32,7 @@ export const ChatTab = ({ reload }) => {
           <NextBtnGraBorder>
             <NextBtnGraBg>
               <img
-                src="assets/BTN/Btn_Chat.png"
+                src="/assets/BTN/Btn_Chat.png"
                 className="h-8 w-8 mb-[2px]"
                 alt=""
               />

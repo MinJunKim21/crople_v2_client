@@ -10,6 +10,7 @@ import { RiMapPin2Fill } from 'react-icons/ri';
 import { BsFillCreditCardFill } from 'react-icons/bs';
 import { FaTag } from 'react-icons/fa';
 import MainTabBar from '../components/btn&tab&bar/MainTabBar';
+import { PlayGroundBar } from '../components/btn&tab&bar/PlayGroundBar';
 
 export const SportsFacility = () => {
   const { id } = useParams();
@@ -86,7 +87,7 @@ export const SportsFacility = () => {
         </div>
       </div>
       <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-        <MainTabBar />
+        <PlayGroundBar />
       </div>
     </div>
   );
