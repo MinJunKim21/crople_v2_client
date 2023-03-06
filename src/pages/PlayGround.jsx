@@ -44,11 +44,14 @@ export const PlayGround = () => {
           ))}
         </div>
         <div className="flex flex-col gap-4">
-          <ReqBtnGraBorder>
-            <ReqBtnGraBg>
-              <ReqBtnGraText>여기도 궁금해요!</ReqBtnGraText>
-            </ReqBtnGraBg>
-          </ReqBtnGraBorder>
+          <a href="https://forms.gle/7Mj4PjZb17v786Pk6">
+            <ReqBtnGraBorder>
+              <ReqBtnGraBg>
+                <ReqBtnGraText>여기도 궁금해요!</ReqBtnGraText>
+              </ReqBtnGraBg>
+            </ReqBtnGraBorder>
+          </a>
+
           {shuffle(sportsFacility.slice(10)).map((facility, index) => (
             <Link key={index} to={`/sportsfacility/${facility.id}`}>
               <FacilityThumbnail facility={facility} />
