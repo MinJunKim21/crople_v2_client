@@ -9,7 +9,6 @@ import tw from 'twin.macro';
 import { RiMapPin2Fill } from 'react-icons/ri';
 import { BsFillCreditCardFill } from 'react-icons/bs';
 import { FaTag } from 'react-icons/fa';
-import MainTabBar from '../components/btn&tab&bar/MainTabBar';
 import { PlayGroundBar } from '../components/btn&tab&bar/PlayGroundBar';
 
 export const SportsFacility = () => {
