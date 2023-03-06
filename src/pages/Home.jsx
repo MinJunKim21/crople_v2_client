@@ -56,26 +56,24 @@ function Home() {
       ) : (
         <div>
           <BgGraWrapperA>
-            <div className=" z-50 relative">
-              <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center ">
-                <img src="/assets/croXple.png" className="h-6" alt="" />
-              </div>
-
-              {!showMenu ? (
-                <i
-                  onClick={handleShowMenu}
-                  className="absolute text-[#9AE286] text-2xl ml-4 cursor-pointer"
-                >
-                  <FiMenu />
-                </i>
-              ) : (
-                <i
-                  onClick={handleShowMenu}
-                  className="absolute right-0 text-[#555555] text-2xl mr-4 cursor-pointer"
-                >
-                  <AiOutlineClose />
-                </i>
-              )}
+            <div className="flex justify-between z-50 ">
+              <i
+                onClick={handleShowMenu}
+                className={` text-[#9AE286] text-2xl ml-4 cursor-pointer ${
+                  showMenu && 'invisible'
+                }`}
+              >
+                <FiMenu />
+              </i>
+              <img src="/assets/croXple.png" className="h-6" alt="" />
+              <i
+                onClick={handleShowMenu}
+                className={`text-[#555555] text-2xl mr-4 cursor-pointer ${
+                  !showMenu && 'invisible'
+                }`}
+              >
+                <AiOutlineClose />
+              </i>
             </div>
             <div className="absolute left-[50%] translate-x-[-50%] bottom-10">
               <div className="max-w-md mx-auto flex justify-center">
