@@ -9,6 +9,7 @@ import Messenger from './pages/Messenger';
 import { ProfileEdit } from './pages/ProfileEdit';
 import { Chat } from './pages/Chat';
 import { PlayGround } from './pages/PlayGround';
+import { SportsFacility } from './pages/SportsFacility';
 
 function App() {
   const userObject = useContext(AuthContext);
@@ -45,6 +46,12 @@ function App() {
         <Route
           path="/playground"
           element={userObject._id ? <PlayGround /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/sportsfacility/:id"
+          element={
+            userObject._id ? <SportsFacility /> : <Navigate to="/login" />
+          }
         />
       </Routes>
     </BrowserRouter>
