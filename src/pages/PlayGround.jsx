@@ -76,10 +76,12 @@ export const PlayGround = () => {
           ))}
         </div>
       </div>
-
-      <div className="text-[#8B8B8B] text-center border-t-[1px] border-[#DDD9D9] mx-4 mt-4 py-4">
-        운동장의 지속적인 업데이트를 기대해주세요!
+      <div className="px-4">
+        <div className="text-[#8B8B8B] text-center border-t-[1px] border-[#DDD9D9] mt-4 py-4">
+          운동장의 지속적인 업데이트를 기대해주세요!
+        </div>
       </div>
+
       <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
         <PlayGroundBar />
       </div>

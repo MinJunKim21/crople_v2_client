@@ -71,7 +71,7 @@ export const SportsFacility = () => {
         <h1 className="text-[1.75rem] font-bold">{facility.name}</h1>
         <p className="text-lg text-[#8B8B8B] pb-6">{facility.desc}</p>
       </div>
-      <div className="border-b-4 border-[#DFDFDF]"></div>
+      <div className="border-b-4 border-[#F5F5F5]"></div>
       <div className="px-6 pt-6 space-y-6">
         <div className="flex items-center space-x-4">
           <RiMapPin2Fill className="text-[#DFDFDF] text-lg" />
