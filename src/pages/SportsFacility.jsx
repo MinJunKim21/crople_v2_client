@@ -5,6 +5,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper';
+import tw from 'twin.macro';
+import { RiMapPin2Fill } from 'react-icons/ri';
+import { BsFillCreditCardFill } from 'react-icons/bs';
+import { FaTag } from 'react-icons/fa';
+import MainTabBar from '../components/btn&tab&bar/MainTabBar';
 
 export const SportsFacility = () => {
   const { id } = useParams();
@@ -49,15 +54,44 @@ export const SportsFacility = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <h2>{facility.name}</h2>
-      <p>{facility.desc}</p>
-      <img src={facility.mainImage} alt={facility.name} />
-      <h3>Facility Information</h3>
-      <p>Location: {facility.locationTag}</p>
-      <p>Address: {facility.address}</p>
-      <p>Price: {facility.price}</p>
-      <p>Sub Facilities: {facility.subFacility}</p>
-      <h3>Images</h3>
+      <div className="px-6">
+        <div className="flex space-x-2 py-3">
+          <TagGraBorder>
+            <TagGraBg>
+              <TagGraText>{facility.sportsTag}</TagGraText>
+            </TagGraBg>
+          </TagGraBorder>
+          <TagGraBorder>
+            <TagGraBg>
+              <TagGraText>{facility.locationTag}</TagGraText>
+            </TagGraBg>
+          </TagGraBorder>
+        </div>
+        <h1 className="text-[1.75rem] font-bold">{facility.name}</h1>
+        <p className="text-lg text-[#8B8B8B] pb-6">{facility.desc}</p>
+      </div>
+      <div className="border-b-4 border-[#DFDFDF]"></div>
+      <div className="px-6 pt-6 space-y-6">
+        <div className="flex items-center space-x-4">
+          <RiMapPin2Fill className="text-[#DFDFDF] text-lg" />
+          <p className="text-[#3D3D3D] text-lg">{facility.address}</p>
+        </div>
+        <div className="flex items-center space-x-4">
+          <BsFillCreditCardFill className="text-[#DFDFDF] text-lg" />
+          <p className="text-[#3D3D3D] text-lg">{facility.price}</p>
+        </div>
+        <div className="flex items-center space-x-4">
+          <FaTag className="text-[#DFDFDF] text-lg" />
+          <p className="text-[#3D3D3D] text-lg">{facility.subFacility}</p>
+        </div>
+      </div>
+      <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
+        <MainTabBar />
+      </div>
     </div>
   );
 };
+
+const TagGraBorder = tw.div`flex rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] `;
+const TagGraBg = tw.div`px-2 py-1 rounded-full bg-white  border-[1px] border-transparent [background-clip: padding-box]  text-center flex justify-center items-center`;
+const TagGraText = tw.div`text-xs bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] [background-clip: text] text-transparent`;

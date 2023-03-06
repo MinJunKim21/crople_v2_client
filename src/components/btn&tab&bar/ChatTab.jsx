@@ -7,16 +7,19 @@ export const ChatTab = ({ reload }) => {
     <div className="relative">
       <div className="absolute z-[-10] top-0 left-0 backdrop-blur-[8px] shadow-xl border border-[#9AE286] w-full  h-[5.25rem] rounded-full space-x-8"></div>
       <div className="flex max-w-sm p-2  justify-between space-x-8">
-        <NextBtnGraBorder>
-          <NextBtnGraBg>
-            <img
-              src="assets/BTN/Btn_PlayGround.png"
-              className="h-8 mb-[2px]"
-              alt=""
-            />
-            <NextBtnGraText>운동장</NextBtnGraText>
-          </NextBtnGraBg>
-        </NextBtnGraBorder>
+        <Link to="/playground">
+          <NextBtnGraBorder>
+            <NextBtnGraBg>
+              <img
+                src="assets/BTN/Btn_PlayGround.png"
+                className="h-8 mb-[2px]"
+                alt=""
+              />
+              <NextBtnGraText>운동장</NextBtnGraText>
+            </NextBtnGraBg>
+          </NextBtnGraBorder>
+        </Link>
+
         <Link to="/">
           <div className="h-[4.25rem] text-center justify-center items-center flex flex-col">
             <i
