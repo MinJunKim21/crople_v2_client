@@ -60,7 +60,7 @@ function Home() {
               <div className="flex justify-between z-50 pt-11 ">
                 <i
                   onClick={handleShowMenu}
-                  className={` text-[#9AE286] text-2xl ml-4 cursor-pointer ${
+                  className={`z-30 text-[#9AE286] text-2xl ml-4 cursor-pointer ${
                     showMenu && 'invisible'
                   }`}
                 >
@@ -69,19 +69,14 @@ function Home() {
                 <img src="/assets/croXple.png" className="h-6" alt="" />
                 <i
                   onClick={handleShowMenu}
-                  className={`text-[#555555] text-2xl mr-4 cursor-pointer ${
+                  className={`z-30 text-[#555555] text-2xl mr-4 cursor-pointer ${
                     !showMenu && 'invisible'
                   }`}
                 >
                   <AiOutlineClose />
                 </i>
               </div>
-              <div className="absolute left-[50%] translate-x-[-50%] bottom-10">
-                {/* <img
-                  src="assets/pattern/WhiteCenterBlur.png"
-                  className="h-full w-full absolute"
-                  alt=""
-                /> */}
+              <div className="absolute left-[50%] translate-x-[-50%] bottom-5">
                 <img
                   src="assets/pattern/LineCenterCircle.png"
                   className="h-full w-full object-contain absolute"
@@ -139,7 +134,6 @@ const BgWhiteBlur = styled.div`
   background-image: url('/assets/pattern/WhiteCenterBlur.png');
   background-size: cover;
   background-position: center;
-  z-index: 30;
 `;
 
 const BgGraWrapperA = tw(BgGraWrapper)`
