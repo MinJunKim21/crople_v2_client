@@ -56,38 +56,38 @@ function Home() {
       ) : (
         <div>
           <BgGraWrapperA>
-            <div className="flex justify-between z-50 ">
-              <i
-                onClick={handleShowMenu}
-                className={` text-[#9AE286] text-2xl ml-4 cursor-pointer ${
-                  showMenu && 'invisible'
-                }`}
-              >
-                <FiMenu />
-              </i>
-              <img src="/assets/croXple.png" className="h-6" alt="" />
-              <i
-                onClick={handleShowMenu}
-                className={`text-[#555555] text-2xl mr-4 cursor-pointer ${
-                  !showMenu && 'invisible'
-                }`}
-              >
-                <AiOutlineClose />
-              </i>
-            </div>
-            <div className="absolute left-[50%] translate-x-[-50%] bottom-10">
-              <div className="max-w-md mx-auto flex justify-center">
-                <img
+            <BgWhiteBlurA>
+              <div className="flex justify-between z-50 pt-11 ">
+                <i
+                  onClick={handleShowMenu}
+                  className={` text-[#9AE286] text-2xl ml-4 cursor-pointer ${
+                    showMenu && 'invisible'
+                  }`}
+                >
+                  <FiMenu />
+                </i>
+                <img src="/assets/croXple.png" className="h-6" alt="" />
+                <i
+                  onClick={handleShowMenu}
+                  className={`text-[#555555] text-2xl mr-4 cursor-pointer ${
+                    !showMenu && 'invisible'
+                  }`}
+                >
+                  <AiOutlineClose />
+                </i>
+              </div>
+              <div className="absolute left-[50%] translate-x-[-50%] bottom-10">
+                {/* <img
                   src="assets/pattern/WhiteCenterBlur.png"
                   className="h-full w-full absolute"
                   alt=""
-                />
+                /> */}
                 <img
                   src="assets/pattern/LineCenterCircle.png"
                   className="h-full w-full object-contain absolute"
                   alt=""
                 />
-                <div className="relative h-screen w-screen">
+                <div className="relative h-screen w-screen max-w-md">
                   <Link to={`/profile/${userObject._id}`}>
                     <div className="w-[5.375rem] h-[5.375rem] object-cover rounded-full absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] bg-gradient-to-b to-[#F79D00] via-[#CABE40] from-[#9AE286]">
                       <img
@@ -103,10 +103,10 @@ function Home() {
                   />
                 </div>
               </div>
-            </div>
-            <div className="fixed bottom-0 left-[50%] translate-x-[-50%]  w-full pb-8 px-4 max-w-sm mx-auto justify-center">
-              <TabBar />
-            </div>
+              <div className="fixed bottom-0 left-[50%] translate-x-[-50%]  w-full pb-8 px-4 max-w-sm mx-auto justify-center">
+                <TabBar />
+              </div>
+            </BgWhiteBlurA>
           </BgGraWrapperA>
           {showMenu ? (
             <HomeMenu
@@ -135,5 +135,15 @@ const BgGraWrapper = styled.div`
   );
 `;
 
+const BgWhiteBlur = styled.div`
+  background-image: url('/assets/pattern/WhiteCenterBlur.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 30;
+`;
+
 const BgGraWrapperA = tw(BgGraWrapper)`
-w-full h-screen flex flex-col mx-auto max-w-md pt-11`;
+w-full h-screen flex flex-col mx-auto max-w-md`;
+
+const BgWhiteBlurA = tw(BgWhiteBlur)`
+w-full h-screen absolute max-w-md`;
