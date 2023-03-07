@@ -152,7 +152,7 @@ export const Chat = () => {
   return (
     <div>
       <div className="hidden">{updatedAt}</div>
-      <div className="max-h-screen w-full max-w-md mx-auto relative flex flex-col">
+      <div className="max-h-screen h-screen w-full max-w-md mx-auto relative flex flex-col">
         <Link to="/messenger">
           <button className="absolute px-2 pt-8 z-50">
             <BsChevronLeft />
