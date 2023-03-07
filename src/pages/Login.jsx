@@ -41,9 +41,9 @@ function Login() {
                 <BtnSNS onClick={naver}>
                   <img src="/assets/BTN/Btn_Naver.png" alt="" />
                 </BtnSNS>
-                <BtnSNS>
+                {/* <BtnSNS>
                   <img src="/assets/BTN/Btn_Apple.png" alt="" />
-                </BtnSNS>
+                </BtnSNS> */}
                 <BtnSNS onClick={google}>
                   <img src="/assets/BTN/Btn_Google.png" alt="" />
                 </BtnSNS>

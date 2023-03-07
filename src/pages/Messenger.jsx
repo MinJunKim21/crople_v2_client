@@ -143,9 +143,11 @@ export default function Messenger() {
         `${process.env.REACT_APP_API_ROOT}/api/messages/${conversation._id}`
       );
       const lastMessageIndex = res.data.length - 1;
-      const lastMessage = res.data[lastMessageIndex].updatedAt;
-
-      return lastMessage;
+      const lastMessage = res.data[lastMessageIndex];
+      if (!lastMessage) {
+        return null;
+      }
+      return lastMessage.updatedAt;
     } catch (err) {
       console.log(err);
       return null;
@@ -283,7 +285,18 @@ export default function Messenger() {
           }`}
         >
           {allConversations
-            .sort((a, b) => moment(b.lastMessage) - moment(a.lastMessage)) // sort the array based on lastMessage in descending order
+            .sort((a, b) => {
+              // If a's last message is null and b's last message is not null, move a to the front
+              if (a.lastMessage === null && b.lastMessage !== null) {
+                return -1;
+              }
+              // If b's last message is null and a's last message is not null, move b to the front
+              if (b.lastMessage === null && a.lastMessage !== null) {
+                return 1;
+              }
+              // Sort by last message in descending order
+              return moment(b.lastMessage) - moment(a.lastMessage);
+            })
             .map((conversation, index) => {
               const user = conversation;
               const lastCheckedTime =
@@ -348,7 +361,9 @@ export default function Messenger() {
                               {user.nickName}
                             </span>
                             <span className="text-[#A5A5A5] text-xs">
-                              {moment(conversation.lastMessage).fromNow()}
+                              {conversation.lastMessage === null
+                                ? ''
+                                : moment(conversation.lastMessage).fromNow()}
                             </span>
                           </div>
                           <div className="flex">
