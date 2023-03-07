@@ -185,25 +185,26 @@ export default function Messenger() {
     // Loop through each friend and create/update conversations
     (async function () {
       for (const user of friendEachother) {
-        let conversationsWithUser = conversation
-          .filter((conversation) => conversation?.members.includes(user._id))
-          .map(async (conversation) => ({
-            conversationId: conversation._id,
-            userId: conversation.members.find(
-              (memberId) => memberId === user._id
-            ),
-            createdAt: conversation.createdAt,
-            updatedAt: conversation.updatedAt,
-            membersUpdatedTime: conversation.membersUpdatedTime,
-            ...user,
-            lastMessage: await getLastMessage(conversation), // call modified function and assign returned timestamp
-          }));
+        let conversationsWithUser = [];
+        for (const conv of conversation) {
+          if (conv.members.includes(user._id)) {
+            const lastMessage = await getLastMessage(conv);
+            const conversationWithUser = {
+              conversationId: conv._id,
+              userId: conv.members.find((memberId) => memberId === user._id),
+              createdAt: conv.createdAt,
+              updatedAt: conv.updatedAt,
+              membersUpdatedTime: conv.membersUpdatedTime,
+              ...user,
+              lastMessage: lastMessage,
+            };
+            conversationsWithUser.push(conversationWithUser);
+          }
+        }
 
-        // If the user has no conversations, create a new one
-        conversationsWithUser = conversationsWithUser || [];
         if (conversationsWithUser.length === 0) {
           const newConversation = await createConversation(user);
-          conversationsWithUser.push({
+          const conversationWithUser = {
             conversationId: newConversation._id,
             userId: user._id,
             createdAt: newConversation.createdAt,
@@ -211,12 +212,14 @@ export default function Messenger() {
             membersUpdatedTime: newConversation.membersUpdatedTime,
             ...user,
             lastMessage: null,
-          });
+          };
+          conversationsWithUser.push(conversationWithUser);
         }
+
         newConversations.push(...conversationsWithUser);
       }
 
-      Promise.all(newConversations.flat())
+      Promise.all(newConversations)
         .then((updatedConversations) => {
           setAllConversations(
             updatedConversations.filter((conv) => conv.conversationId !== null)
@@ -301,7 +304,6 @@ export default function Messenger() {
               const user = conversation;
               const lastCheckedTime =
                 conversation.membersUpdatedTime[userObject._id];
-
               return (
                 <div
                   key={user._id}
