@@ -153,15 +153,20 @@ export const Chat = () => {
     <div>
       <div className="hidden">{updatedAt}</div>
       <div className="max-h-screen h-screen w-full max-w-md mx-auto relative flex flex-col">
-        <Link to="/messenger">
-          <button className="absolute px-2 pt-8 z-50">
+        <div className="flex items-center justify-between pb-2 pt-8 border-b-4 border-[#F5F5F5]">
+          <Link to="/messenger">
+            <button className="px-2 z-50">
+              <BsChevronLeft />
+            </button>
+          </Link>
+          <div className="flex flex-col">
+            <h3 className="flex justify-center text-xl font-bold text-[#555555] text-center w-full">
+              {user.nickName}
+            </h3>
+          </div>
+          <button className="px-2 z-50 invisible">
             <BsChevronLeft />
           </button>
-        </Link>
-        <div className="flex flex-col pt-8 border-b-4 border-[#F5F5F5]">
-          <h3 className="flex justify-center text-xl font-bold text-[#555555] text-center w-full">
-            {user.nickName}
-          </h3>
         </div>
         <div className="flex flex-col h-full overflow-y-scroll pt-8 text-center pb-4">
           <p className="text-xs text-[#555555]">
