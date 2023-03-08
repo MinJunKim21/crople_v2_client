@@ -10,6 +10,8 @@ import { ChatTab } from '../components/btn&tab&bar/ChatTab';
 import styled from 'styled-components';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { UnfollowCheck } from '../components/messenger/UnfollowCheck';
+import { MessengerHeader } from '../components/messenger/MessengerHeader';
+import { ConvListDefault } from '../components/messenger/ConvListDefault';
 
 moment.locale('ko');
 
@@ -233,30 +235,12 @@ export default function Messenger() {
   return (
     <div className="flex flex-col justify-cente max-w-md mx-auto">
       <div className="h-screen flex flex-col">
-        <div className="flex text-center justify-between px-4 text-xl text-[#555555] pt-8 pb-2  border-b-4 border-[#F5F5F5] w-full relative items-center">
-          <div className="text-sm invisible">편집</div>
-          <h3 className="font-bold text-xl">채팅 목록</h3>
-          <div
-            onClick={() => {
-              setShowUnfollow((prev) => !prev);
-            }}
-            className="text-sm cursor-pointer z-10"
-          >
-            {showUnfollow ? '완료' : '편집'}
-          </div>
-        </div>
-        {allConversations.length === 0 && (
-          <div className="text-[#555555] absolute left-[50%] top-[35%] translate-x-[-50%] text-center">
-            <p>현재 채팅방이 없습니다.</p>
-            <p>새로운 메이트를 찾아보세요.</p>
-            <img
-              src="/assets/BTN/Btn_GotLiked.png"
-              alt=""
-              className="absolute w-12 h-12 bottom-[35%] left-[95%]"
-            />
-          </div>
-        )}
-        <BgGra className="w-full h-full"> </BgGra>
+        <MessengerHeader
+          showUnfollow={showUnfollow}
+          setShowUnfollow={setShowUnfollow}
+        />
+        <ConvListDefault allConversations={allConversations} />
+        <BgGra className="w-full h-full" />
       </div>
       <div className="absolute top-0 max-w-md ">
         <div
