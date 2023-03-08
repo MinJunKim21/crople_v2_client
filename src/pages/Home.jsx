@@ -8,7 +8,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import NeedProfile from '../components/home/NeedProfile/NeedProfile';
 import TabBar from '../components/btn&tab&bar/MainTabBar';
-import { ProfileCard } from '../components/ProfileCard';
+import { ProfileCard } from '../components/home/ProfileCard';
 import { Link } from 'react-router-dom';
 import { FiMenu } from 'react-icons/fi';
 import { AiOutlineClose } from 'react-icons/ai';

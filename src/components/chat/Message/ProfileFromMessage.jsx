@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 
 import { HiLocationMarker } from 'react-icons/hi';
-import { Carousel } from './carousel/Carousel';
-import { LineShadowBtn } from './btn&tab&bar/LineShadowBtn';
+import { Carousel } from '../../carousel/Carousel';
+import { LineShadowBtn } from '../../btn&tab&bar/LineShadowBtn';
 
 export const ProfileFromMessage = ({ user, onClose }) => {
   return (

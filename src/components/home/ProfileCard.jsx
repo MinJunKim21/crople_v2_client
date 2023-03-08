@@ -5,12 +5,12 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 import { BsChevronLeft } from 'react-icons/bs';
 import { HiLocationMarker } from 'react-icons/hi';
-import { Carousel } from './carousel/Carousel';
-import { ProfileCardTab } from './btn&tab&bar/ProfileCardTab';
+import { Carousel } from '../carousel/Carousel';
+import { ProfileCardTab } from '../btn&tab&bar/ProfileCardTab';
 
 export const ProfileCard = ({ user, onClose }) => {
   const userObject = useContext(AuthContext);
