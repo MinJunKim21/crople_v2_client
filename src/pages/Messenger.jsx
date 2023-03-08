@@ -63,21 +63,6 @@ export default function Messenger() {
     });
   }, [userObject]);
 
-  // useEffect(() => {
-  //   const getMessages = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         `${process.env.REACT_APP_API_ROOT}/api/messages/` + currentChat?._id
-  //       );
-  //       setMessages(res.data);
-  //       console.log(res.data, 'getMessages');
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getMessages();
-  // }, [currentChat, convExist]);
-
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
@@ -98,14 +83,6 @@ export default function Messenger() {
       const res = await axios.get(
         `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
       );
-      // if (res.data === null) {
-      //   // const conversation = await createConversation(user);
-      //   // setCurrentChat(conversation);
-      //   navigate(`/chat/${res.data._id}`); // navigate to chat page with conversation ID
-      // } else {
-      //   // setCurrentChat(convExist);
-      //   navigate(`/chat/${res.data._id}`); // navigate to chat page with existing conversation ID
-      // }
       window.location.href = `/chat/${res.data._id}`;
     } catch (err) {
       console.log(err);
@@ -289,15 +266,9 @@ export default function Messenger() {
         >
           {allConversations
             .sort((a, b) => {
-              // If a's last message is null and b's last message is not null, move a to the front
-              if (a.lastMessage === null && b.lastMessage !== null) {
+              if (a.lastMessage === null || b.lastMessage === null) {
                 return -1;
               }
-              // If b's last message is null and a's last message is not null, move b to the front
-              if (b.lastMessage === null && a.lastMessage !== null) {
-                return 1;
-              }
-              // Sort by last message in descending order
               return moment(b.lastMessage) - moment(a.lastMessage);
             })
             .map((conversation, index) => {
