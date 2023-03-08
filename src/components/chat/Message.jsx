@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import moment from 'moment-with-locales-es6';
 import moment from 'moment';
 import 'moment/locale/ko';
-import { ProfileFromMessage } from '../components/ProfileFromMessage';
+import { ProfileFromMessage } from '../ProfileFromMessage';
 
 moment.locale('ko');
 // import { format } from 'timeago.js';

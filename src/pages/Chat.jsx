@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import Message from '../components/Message';
+import Message from '../components/chat/Message';
 import io from 'socket.io-client';
 import { BsChevronLeft } from 'react-icons/bs';
 import moment from 'moment';

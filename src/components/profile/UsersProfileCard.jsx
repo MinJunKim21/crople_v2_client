@@ -1,26 +1,24 @@
-import tw from 'twin.macro';
 import styled from 'styled-components';
-
-// import Topbar from '../components/Topbar';
-// import Sidebar from '../components/Sidebar';
-// import Rightbar from '../components/Rightbar';
+import tw from 'twin.macro';
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
-// import { useRef } from 'react';
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
-import { HiLocationMarker } from 'react-icons/hi';
 import { BsChevronLeft } from 'react-icons/bs';
-import { LineBtn } from './btn&tab&bar/LineBtn';
-import { Carousel } from './carousel/Carousel';
+import { HiLocationMarker } from 'react-icons/hi';
+import { LineBtn } from '../btn&tab&bar/LineBtn';
 
-export const MyProfileCard = () => {
+export const UsersProfileCard = () => {
   const userObject = useContext(AuthContext);
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState(userObject);
   const _id = useParams()._id;
+  const [followed, setFollowed] = useState(
+    userObject.followings.includes(user?._id)
+  );
+
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
@@ -29,44 +27,77 @@ export const MyProfileCard = () => {
       setUser(res.data);
     };
     fetchUser();
+    setFollowed(userObject.followings.includes(user?._id));
   }, [_id, user?._id, userObject.followings]);
 
+  const handleClick = async () => {
+    try {
+      if (followed) {
+        await axios.put(
+          `${process.env.REACT_APP_API_ROOT}/api/users/` +
+            user._id +
+            '/unfollow',
+          {
+            userId: userObject._id,
+          }
+        );
+      } else {
+        await axios.put(
+          `${process.env.REACT_APP_API_ROOT}/api/users/` + user._id + '/follow',
+          {
+            userId: userObject._id,
+          }
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setFollowed(!followed);
+    // window.location.reload(); // 원인 알게되면 이거 바꾸기...
+  };
+
   return (
-    <div className="max-w-md mx-auto">
+    <div>
       <div>
         <BgGraWrapperA>
-          <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center">
-            <img src="/assets/croXple.png" className="h-6" alt="" />
-          </div>
           <div>
-            <button className="px-4">
+            <button className="px-4 pb-2">
               <Link to={'/'}>
                 <BsChevronLeft />
               </Link>
             </button>
           </div>
-          <div className="h-full mt-2">
+          <div className="h-full">
             <CardWhiteBg className="bg-white w-full h-full backdrop-blur-[2px]	 opacity-95 flex-col">
               <div className="flex py-4 w-full">
-                <h4 className="w-full text-center text-[#8B8B8B]">내 프로필</h4>
+                <h4 className="w-full text-center text-[#8B8B8B]">프로필</h4>
               </div>
               <div className="px-4">
                 <hr className="w-full bg-gradient-to-r to-[#F79D00] via-[#CABE40] from-[#9AE286] h-[2px] px-4" />
               </div>
-              <Carousel images={userObject.profilePicture} />
+              <div className="w-[9.5rem] h-[9.5rem] bg-gradient-to-b to-[#F79D00] via-[#CABE40] from-[#9AE286] p-[2px] rounded-full justify-center mx-auto mt-6 ">
+                <div className="justify-center flex items-center h-full w-full">
+                  <img
+                    src={user.profilePicture[0]}
+                    alt=""
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                </div>
+              </div>
+              <div className="mt-4 mb-[1.125rem] w-full flex justify-center ">
+                <div className="bg-[#C1C1C1] w-1.5 h-1.5 rounded-full" />
+              </div>
 
               <div className="px-6 flex flex-col  w-full">
                 <div className="flex w-full items-center justify-between mb-8 ">
                   <div>
-                    <h4 className="text-[#8B8B8B] text-2xl">
-                      {userObject.nickName}
-                    </h4>
+                    <h4 className="text-[#8B8B8B] text-2xl">{user.nickName}</h4>
                   </div>
                   <div className="flex items-center space-x-1">
                     <span className="text-lg text-[#DFDFDF]">
                       <HiLocationMarker />
                     </span>
-                    {userObject.locations.map((location) => {
+                    {user.locations.map((location) => {
                       return (
                         <h4 key={location} className="text-[#A5A5A5] text-lg ">
                           {location}
@@ -76,7 +107,7 @@ export const MyProfileCard = () => {
                   </div>
                 </div>
                 <div className="flex flex-wrap w-[75%]  ">
-                  {userObject.likeSports.map((likeSports, index) => {
+                  {user.likeSports.map((likeSports, index) => {
                     return (
                       <h4
                         key={index}
@@ -92,7 +123,7 @@ export const MyProfileCard = () => {
               <div className="border-1 border-[#DFDFDF] w-full border-t mt-4"></div>
               <div className="mt-4">
                 <div className="w-full h-40 px-6 text-[#6F6F6F] whitespace-pre-wrap">
-                  <span>{userObject.desc}</span>
+                  <span>{user.desc}</span>
                 </div>
               </div>
             </CardWhiteBg>
@@ -102,10 +133,15 @@ export const MyProfileCard = () => {
       <div>
         <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
           <button className="w-full">
-            <Link to={`/profileedit/${userObject._id}`} key={userObject._id}>
-              <LineBtn text={'수정하기'} />
-            </Link>
+            <LineBtn text={'바'} />
           </button>
+          <div>
+            {user.username !== userObject.username && (
+              <button onClick={handleClick}>
+                {followed ? 'Unfollow' : 'Follow'}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
