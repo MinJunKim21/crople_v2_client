@@ -76,8 +76,8 @@ export const PlayGround = () => {
           ))}
         </div>
       </div>
-      <div className="px-4">
-        <div className="text-[#8B8B8B] text-center border-t-[1px] border-[#DDD9D9] mt-4 py-4">
+      <div className="px-4 pt-4">
+        <div className="text-[#8B8B8B] text-center border-t-[1px] border-[#DDD9D9] mt-4 py-6 pb-40">
           운동장의 지속적인 업데이트를 기대해주세요!
         </div>
       </div>
