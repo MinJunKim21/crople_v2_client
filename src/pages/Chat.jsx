@@ -4,12 +4,12 @@ import { useState, useEffect, useRef, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import Message from '../components/chat/Message/Message';
 import io from 'socket.io-client';
-import { BsChevronLeft } from 'react-icons/bs';
 import moment from 'moment';
 import 'moment/locale/ko';
-import tw from 'twin.macro';
 
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { ChatHeader } from '../components/chat/ChatHeader';
+import { MessageInput } from '../components/chat/MessageInput';
 
 moment.locale('ko');
 
@@ -153,21 +153,7 @@ export const Chat = () => {
     <div>
       <div className="hidden">{updatedAt}</div>
       <div className="max-h-screen h-screen w-full max-w-md mx-auto relative flex flex-col">
-        <div className="flex items-center justify-between pb-2 pt-8 border-b-4 border-[#F5F5F5]">
-          <Link to="/messenger">
-            <button className="px-2 z-50">
-              <BsChevronLeft />
-            </button>
-          </Link>
-          <div className="flex flex-col">
-            <h3 className="flex justify-center text-xl font-bold text-[#555555] text-center w-full">
-              {user.nickName}
-            </h3>
-          </div>
-          <button className="px-2 z-50 invisible">
-            <BsChevronLeft />
-          </button>
-        </div>
+        <ChatHeader user={user} />
         <div className="flex flex-col h-full overflow-y-scroll pt-8 text-center pb-4">
           <p className="text-xs text-[#555555]">
             메이트와 연결되었습니다.
@@ -235,37 +221,12 @@ export const Chat = () => {
             );
           })}
         </div>
-        <form onSubmit={handleSubmit} className=" px-2 pb-4 pt-4">
-          <NextBtnGraBorder>
-            <NextBtnGraBg>
-              <textarea
-                className="border-none w-full  resize-none outline-none py-3 px-2"
-                name=""
-                id=""
-                cols="30"
-                rows="1"
-                placeholder="메세지 보내기..."
-                onChange={(e) => {
-                  setNewMessage(e.target.value);
-                }}
-                value={newMessage}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    handleSubmit(e);
-                  }
-                }}
-              ></textarea>
-              <button type="submit" onClick={handleSubmit} className="w-7 h-7">
-                <img src="/assets/BTN/Btn_SendMessage.png" alt="" />
-              </button>
-            </NextBtnGraBg>
-          </NextBtnGraBorder>
-        </form>
+        <MessageInput
+          handleSubmit={handleSubmit}
+          setNewMessage={setNewMessage}
+          newMessage={newMessage}
+        />
       </div>
     </div>
   );
 };
-
-const NextBtnGraBorder = tw.div`w-full h-[5.25rem] rounded-full bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286]`;
-const NextBtnGraBg = tw.div`w-full h-full rounded-full bg-white  border-2 border-transparent [background-clip: padding-box]  text-center flex justify-center items-center px-4`;
