@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useRef } from 'react';
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../../context/AuthContext';
 import { QuestionOne } from './onboarding/QuestionOne';
 import { QuestionTwo } from './onboarding/QuestionTwo';
 import { QuestionThree } from './onboarding/QuestionThree';

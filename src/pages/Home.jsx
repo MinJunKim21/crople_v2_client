@@ -6,7 +6,7 @@ import { AuthContext } from '../context/AuthContext';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-import NeedProfile from '../components/NeedProfile';
+import NeedProfile from '../components/home/NeedProfile/NeedProfile';
 import TabBar from '../components/btn&tab&bar/MainTabBar';
 import { ProfileCard } from '../components/ProfileCard';
 import { Link } from 'react-router-dom';
