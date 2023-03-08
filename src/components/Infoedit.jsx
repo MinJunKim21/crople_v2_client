@@ -50,17 +50,6 @@ export default function Infoedit() {
     }
   };
 
-  // const updateData = (e) => {
-  //   e.preventDefault();
-  //   axios.put(`http://localhost:5001/api/users/${user._id}`, {
-  //     nickName: nickName.current.value,
-  //     likeSports: sportsCheckedList,
-  //     locations: locationsCheckedList,
-  //     showGender: showGenderChecked,
-  //     userId: user._id,
-  //   });
-  // };
-
   const updateData = async (e) => {
     e.preventDefault();
     const updatedUser = {
@@ -90,7 +79,6 @@ export default function Infoedit() {
       console.log(err);
     }
   };
-  console.log(user.profilePicture);
 
   return (
     <div>
