@@ -151,7 +151,7 @@ export const Chat = () => {
 
   return (
     <div>
-      {/* <div className="hidden">{updatedAt}</div> */}
+      <div className="hidden">{updatedAt}</div>
       <div className="max-h-screen h-screen w-full max-w-md mx-auto relative flex flex-col">
         <div className="flex items-center justify-between pb-2 pt-8 border-b-4 border-[#F5F5F5]">
           <Link to="/messenger">
