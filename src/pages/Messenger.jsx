@@ -44,9 +44,13 @@ export default function Messenger() {
   }, []);
 
   useEffect(() => {
-    arrivalMessage &&
-      currentChat?.members.includes(arrivalMessage.sender) &&
+    if (
+      arrivalMessage &&
+      currentChat &&
+      currentChat.members.includes(arrivalMessage.sender)
+    ) {
       setMessages((prev) => [...prev, arrivalMessage]);
+    }
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
@@ -139,9 +143,11 @@ export default function Messenger() {
         `${process.env.REACT_APP_API_ROOT}/api/messages/${conversation._id}`
       );
       const lastMessageIndex = res.data.length - 1;
-      const lastMessage = res.data[lastMessageIndex].updatedAt;
-
-      return lastMessage;
+      const lastMessage = res.data[lastMessageIndex];
+      if (!lastMessage) {
+        return null;
+      }
+      return lastMessage.updatedAt;
     } catch (err) {
       console.log(err);
       return null;
@@ -179,25 +185,26 @@ export default function Messenger() {
     // Loop through each friend and create/update conversations
     (async function () {
       for (const user of friendEachother) {
-        let conversationsWithUser = conversation
-          .filter((conversation) => conversation?.members.includes(user._id))
-          .map(async (conversation) => ({
-            conversationId: conversation._id,
-            userId: conversation.members.find(
-              (memberId) => memberId === user._id
-            ),
-            createdAt: conversation.createdAt,
-            updatedAt: conversation.updatedAt,
-            membersUpdatedTime: conversation.membersUpdatedTime,
-            ...user,
-            lastMessage: await getLastMessage(conversation), // call modified function and assign returned timestamp
-          }));
+        let conversationsWithUser = [];
+        for (const conv of conversation) {
+          if (conv.members.includes(user._id)) {
+            const lastMessage = await getLastMessage(conv);
+            const conversationWithUser = {
+              conversationId: conv._id,
+              userId: conv.members.find((memberId) => memberId === user._id),
+              createdAt: conv.createdAt,
+              updatedAt: conv.updatedAt,
+              membersUpdatedTime: conv.membersUpdatedTime,
+              ...user,
+              lastMessage: lastMessage,
+            };
+            conversationsWithUser.push(conversationWithUser);
+          }
+        }
 
-        // If the user has no conversations, create a new one
-        conversationsWithUser = conversationsWithUser || [];
         if (conversationsWithUser.length === 0) {
           const newConversation = await createConversation(user);
-          conversationsWithUser.push({
+          const conversationWithUser = {
             conversationId: newConversation._id,
             userId: user._id,
             createdAt: newConversation.createdAt,
@@ -205,12 +212,14 @@ export default function Messenger() {
             membersUpdatedTime: newConversation.membersUpdatedTime,
             ...user,
             lastMessage: null,
-          });
+          };
+          conversationsWithUser.push(conversationWithUser);
         }
+
         newConversations.push(...conversationsWithUser);
       }
 
-      Promise.all(newConversations.flat())
+      Promise.all(newConversations)
         .then((updatedConversations) => {
           setAllConversations(
             updatedConversations.filter((conv) => conv.conversationId !== null)
@@ -252,26 +261,65 @@ export default function Messenger() {
           <h3 className="font-bold text-xl">채팅 목록</h3>
           <div
             onClick={() => {
-              setShowUnfollow(true);
+              setShowUnfollow((prev) => !prev);
             }}
-            className="text-sm z-10"
+            className="text-sm cursor-pointer z-10"
           >
-            편집
+            {showUnfollow ? '완료' : '편집'}
           </div>
         </div>
+        {allConversations.length === 0 && (
+          <div className="text-[#555555] absolute left-[50%] top-[35%] translate-x-[-50%] text-center">
+            <p>현재 채팅방이 없습니다.</p>
+            <p>새로운 메이트를 찾아보세요.</p>
+            <img
+              src="/assets/BTN/Btn_GotLiked.png"
+              alt=""
+              className="absolute w-12 h-12 bottom-[35%] left-[95%]"
+            />
+          </div>
+        )}
         <BgGra className="w-full h-full"> </BgGra>
       </div>
       <div className="absolute top-0 max-w-md ">
-        <div className="flex flex-col mt-[100px] w-full px-2 space-y-2 z-10">
+        <div
+          className={`flex flex-col mt-[100px] w-full  space-y-2 z-10 ${
+            showUnfollow ? '' : 'px-2'
+          }`}
+        >
           {allConversations
-            .sort((a, b) => moment(b.lastMessage) - moment(a.lastMessage)) // sort the array based on lastMessage in descending order
+            .sort((a, b) => {
+              // If a's last message is null and b's last message is not null, move a to the front
+              if (a.lastMessage === null && b.lastMessage !== null) {
+                return -1;
+              }
+              // If b's last message is null and a's last message is not null, move b to the front
+              if (b.lastMessage === null && a.lastMessage !== null) {
+                return 1;
+              }
+              // Sort by last message in descending order
+              return moment(b.lastMessage) - moment(a.lastMessage);
+            })
             .map((conversation, index) => {
               const user = conversation;
               const lastCheckedTime =
                 conversation.membersUpdatedTime[userObject._id];
-
               return (
-                <div key={user._id} className="flex items-center space-x-2.5">
+                <div
+                  key={user._id}
+                  className={`flex items-center ${
+                    showUnfollow && 'space-x-2.5'
+                  }`}
+                >
+                  <div className="absolute left-0 top-0">
+                    {unfollowCheck && showUnfollow === user._id && (
+                      <UnfollowCheck
+                        setUnfollowCheck={setUnfollowCheck}
+                        handleUnfollow={handleUnfollow}
+                        user={user}
+                      />
+                    )}
+                  </div>
                   {showUnfollow && (
                     <i
                       onClick={() => {
@@ -279,15 +327,17 @@ export default function Messenger() {
                         handleShowUnfollow(user);
                       }}
                     >
-                      <IoIosCloseCircleOutline className="text-[#A5A5A5] text-lg" />
+                      <IoIosCloseCircleOutline className="text-[#A5A5A5] cursor-pointer text-lg" />
                     </i>
                   )}
-                  <div className="border px-4 py-2 rounded-2xl bg-white shadow-md w-full">
-                    {/* <div>{lastCheckedTime}</div> */}
-                    {/* <div>{conversation.lastMessage}</div> */}
+                  <div
+                    className={`border  py-2  bg-white shadow-md w-full relative ${
+                      showUnfollow ? 'pl-4 rounded-l-2xl' : 'px-4 rounded-2xl'
+                    }`}
+                  >
                     {lastCheckedTime &&
                       lastCheckedTime < conversation.lastMessage && (
-                        <p>Not read yet</p>
+                        <i className="bg-[#F79D00] h-2 w-2 absolute rounded-full top-4 left-4 "></i>
                       )}
                     <button
                       onClick={() => {
@@ -313,7 +363,9 @@ export default function Messenger() {
                               {user.nickName}
                             </span>
                             <span className="text-[#A5A5A5] text-xs">
-                              {moment(conversation.lastMessage).fromNow()}
+                              {conversation.lastMessage === null
+                                ? ''
+                                : moment(conversation.lastMessage).fromNow()}
                             </span>
                           </div>
                           <div className="flex">
@@ -349,13 +401,6 @@ export default function Messenger() {
                         </div>
                       </div>
                     </button>
-                    {unfollowCheck && showUnfollow === user._id && (
-                      <UnfollowCheck
-                        setUnfollowCheck={setUnfollowCheck}
-                        handleUnfollow={handleUnfollow}
-                        user={user}
-                      />
-                    )}
                   </div>
                 </div>
               );

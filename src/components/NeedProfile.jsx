@@ -8,6 +8,7 @@ import { QuestionTwo } from './onboarding/QuestionTwo';
 import { QuestionThree } from './onboarding/QuestionThree';
 import { PreviewCard } from './onboarding/PreviewCard';
 import { TutorialSplash } from './onboarding/TutorialSplash';
+import { GreetingSplash } from './onboarding/GreetingSplash';
 
 export default function NeedProfile() {
   const user = useContext(AuthContext);
@@ -16,7 +17,7 @@ export default function NeedProfile() {
   const [file, setFile] = useState(null);
   const [fileB, setFileB] = useState(null);
   const [fileC, setFileC] = useState(null);
-  const [question, setQuestion] = useState('one');
+  const [question, setQuestion] = useState('zero');
   const [profilePictureDB, setProfilePictureDB] = useState(['', '', '']);
   if (profilePictureDB[2] !== '' && profilePictureDB[1] === '') {
     profilePictureDB[1] = profilePictureDB[2];
@@ -103,6 +104,9 @@ export default function NeedProfile() {
   return (
     <div className="mx-auto max-w-md">
       <form onSubmit={updateData}>
+        {question === 'zero' ? (
+          <GreetingSplash setQuestion={setQuestion} />
+        ) : null}
         {question === 'one' ? (
           <QuestionOne
             sportsCheckedList={sportsCheckedList}

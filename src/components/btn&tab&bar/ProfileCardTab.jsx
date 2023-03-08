@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import { Link } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 export const ProfileCardTab = ({
   reload,
@@ -11,20 +13,32 @@ export const ProfileCardTab = ({
   followed,
   setFollowed,
 }) => {
+  const userObject = useContext(AuthContext);
+  const [matched, setMatched] = useState(false);
+
+  useEffect(() => {
+    if (user.followings.includes(userObject._id)) {
+      setMatched(true);
+    }
+  }, [user.followings, userObject._id]);
+
   return (
     <BgWhiteShadow>
       <BgWhiteBlur>
         <div className="flex max-w-sm p-2  justify-between space-x-8">
-          <NextBtnGraBorder>
-            <NextBtnGraBg>
-              <img
-                src="assets/BTN/Btn_PlayGround.png"
-                className="h-8 w-8 mb-[2px]"
-                alt=""
-              />
-              <NextBtnGraText>운동장</NextBtnGraText>
-            </NextBtnGraBg>
-          </NextBtnGraBorder>
+          <Link to="/playground">
+            <NextBtnGraBorder>
+              <NextBtnGraBg>
+                <img
+                  src="assets/BTN/Btn_PlayGround.png"
+                  className="h-8 w-8 mb-[2px]"
+                  alt=""
+                />
+                <NextBtnGraText>운동장</NextBtnGraText>
+              </NextBtnGraBg>
+            </NextBtnGraBorder>
+          </Link>
+
           <Link to="/">
             <div className="h-[4.25rem]  text-center justify-center items-center flex flex-col">
               <i onClick={onClose}>
@@ -43,12 +57,16 @@ export const ProfileCardTab = ({
                 <NextBtnGraBorder>
                   <div className="flex flex-col justify-center items-center w-full h-full">
                     <img
-                      src="assets/BTN/Btn_MatchLiked.png"
+                      src={
+                        matched
+                          ? 'assets/BTN/Btn_Matched.png'
+                          : 'assets/BTN/Btn_MatchLiked.png'
+                      }
                       className="h-8 w-8 mb-[2px]"
                       alt=""
                     />
                     <div className="text-white text-sm font-semibold">
-                      신청완료
+                      {matched ? '매칭완료' : '신청완료'}
                     </div>
                   </div>
                 </NextBtnGraBorder>
