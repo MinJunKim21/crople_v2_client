@@ -10,10 +10,9 @@ import NeedProfile from '../components/home/NeedProfile/NeedProfile';
 import TabBar from '../components/btn&tab&bar/MainTabBar';
 import { ProfileCard } from '../components/home/ProfileCard';
 import { Link } from 'react-router-dom';
-import { FiMenu } from 'react-icons/fi';
-import { AiOutlineClose } from 'react-icons/ai';
 import { RecommendPic } from '../components/home/RecommendPic';
-import HomeMenu from '../components/home/HomeMenu';
+import HomeMenu from '../components/home/HomeMenu/HomeMenu';
+import { Header } from '../components/home/Header';
 
 function Home() {
   const [recommendUsers, setRecommendUsers] = useState([]);
@@ -57,31 +56,7 @@ function Home() {
         <div>
           <BgGraWrapperA>
             <BgWhiteBlurA>
-              <div className="flex justify-between z-50 pt-11 ">
-                <i className="z-30 text-[#9AE286] text-2xl ml-4 cursor-pointer invisible">
-                  <FiMenu />
-                </i>
-                <img src="/assets/croXple.png" className="h-6" alt="" />
-                {!showMenu ? (
-                  <i
-                    onClick={handleShowMenu}
-                    className={`z-30 text-[#9AE286] text-2xl mr-4 cursor-pointer ${
-                      showMenu && 'invisible'
-                    }`}
-                  >
-                    <FiMenu />
-                  </i>
-                ) : (
-                  <i
-                    onClick={handleShowMenu}
-                    className={`z-30 text-[#555555] text-2xl mr-4 cursor-pointer ${
-                      !showMenu && 'invisible'
-                    }`}
-                  >
-                    <AiOutlineClose />
-                  </i>
-                )}
-              </div>
+              <Header showMenu={showMenu} handleShowMenu={handleShowMenu} />
               <div className="absolute left-[50%] translate-x-[-50%] bottom-5">
                 <img
                   src="assets/pattern/LineCenterCircle.png"
@@ -109,7 +84,7 @@ function Home() {
               </div>
             </BgWhiteBlurA>
           </BgGraWrapperA>
-          {showMenu ? (
+          {showMenu && (
             <HomeMenu
               showMenu={showMenu}
               setKakaoCheck={setKakaoCheck}
@@ -118,7 +93,7 @@ function Home() {
               logoutCheck={logoutCheck}
               handleShowMenu={handleShowMenu}
             />
-          ) : null}
+          )}
         </div>
       )}
     </div>
