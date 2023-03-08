@@ -8,9 +8,12 @@ import { AuthContext } from '../context/AuthContext';
 
 import { HiLocationMarker } from 'react-icons/hi';
 import { AiOutlineDown } from 'react-icons/ai';
-import { BsChevronLeft } from 'react-icons/bs';
 import { LineBtn } from '../components/btn&tab&bar/LineBtn';
 import { LoadingBtn } from '../components/btn&tab&bar/LoadingBtn';
+import { ProfileEditHeader } from '../components/profileEdit/ProfileEditHeader';
+import { ProfilePicOne } from '../components/profileEdit/ProfilePicOne';
+import { ProfilePicTwo } from '../components/profileEdit/ProfilePicTwo';
+import { ProfilePicThree } from '../components/profileEdit/ProfilePicThree';
 
 const LOCATION_LIST = [
   { id: 0, data: '마포구' },
@@ -146,21 +149,9 @@ export const ProfileEdit = () => {
     <form onSubmit={updateData}>
       <div className="mx-auto max-w-md">
         <BgGraWrapperA>
-          <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center">
-            <img src="/assets/croXple.png" className="h-6" alt="" />
-          </div>
-          <div className="px-4 pb-2">
-            <i
-              onClick={() => {
-                setCancelEdit(true);
-              }}
-              className="cursor-pointer"
-            >
-              <BsChevronLeft />
-            </i>
-          </div>
+          <ProfileEditHeader setCancelEdit={setCancelEdit} />
           <div className="h-full mt-2">
-            <CardWhiteBg className="bg-white w-full h-full backdrop-blur-[2px]	 opacity-95 flex-col">
+            <CardWhiteBgA>
               <div className="flex py-4 w-full">
                 <h4 className="w-full text-center text-[#8B8B8B]">
                   프로필 수정
@@ -171,138 +162,24 @@ export const ProfileEdit = () => {
               </div>
 
               <div className="flex justify-center space-x-4">
-                <div className="inline-block">
-                  <div className="relative inline-block ">
-                    <div className="bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
-                      {file ? (
-                        <img
-                          src={file ? URL.createObjectURL(file) : null}
-                          alt=""
-                          className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
-                        />
-                      ) : (
-                        <div className="bg-white w-full h-full  rounded-full"></div>
-                      )}
-                    </div>
-                    <label
-                      htmlFor="fileInputA"
-                      className={`absolute cursor-pointer  left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
-                        file ? 'text-transparent' : 'text-[#C1C1C1]'
-                      }`}
-                    >
-                      {userObject.profilePicture[0] && !file ? (
-                        <img
-                          className="object-cover rounded-full w-full h-full"
-                          src={userObject.profilePicture[0]}
-                          alt=""
-                        />
-                      ) : (
-                        '프로필 사진'
-                      )}
-                    </label>
-                  </div>
-                  <SmGraText>필수</SmGraText>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    id="fileInputA"
-                    onChange={(e) => {
-                      setFile(e.target.files[0]);
-                      fileChange(e, 0);
-                    }}
-                    className="opacity-0 w-[1px] peer"
-                  />
-                </div>
-
-                <div className="inline-block">
-                  <div className="relative inline-block">
-                    <div className="bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
-                      {fileB ? (
-                        <img
-                          src={fileB ? URL.createObjectURL(fileB) : null}
-                          alt=""
-                          className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
-                        />
-                      ) : (
-                        <div className="bg-white w-full h-full  rounded-full"></div>
-                      )}
-                    </div>
-                    <label
-                      htmlFor="fileInputB"
-                      className={`absolute cursor-pointer left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
-                        fileB ? 'text-transparent' : 'text-[#C1C1C1]'
-                      }`}
-                    >
-                      {userObject.profilePicture[1] && !fileB ? (
-                        <img
-                          className="object-cover rounded-full w-full h-full"
-                          src={userObject.profilePicture[1]}
-                          alt=""
-                        />
-                      ) : (
-                        <span className="flex w-full h-full justify-center items-center">
-                          +
-                        </span>
-                      )}
-                    </label>
-                  </div>
-                  <h6 className="text-xs text-[#8B8B8B] text-center">선택</h6>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    id="fileInputB"
-                    onChange={(e) => {
-                      setFileB(e.target.files[0]);
-                      fileChange(e, 1);
-                    }}
-                    className="opacity-0 w-[1px] peer"
-                  />
-                </div>
-
-                <div className="inline-block">
-                  <div className="relative inline-block">
-                    <div className="bg-gradient-to-t from-[#F79D00] via-[#CABE40] to-[#9AE286] w-[6.75rem] h-[6.75rem] relative p-[2px] rounded-full">
-                      {fileC ? (
-                        <img
-                          src={fileC ? URL.createObjectURL(fileC) : null}
-                          alt=""
-                          className="w-[6.75rem] h-[6.75rem] object-cover rounded-full absolute left-0 top-0"
-                        />
-                      ) : (
-                        <div className="bg-white w-full h-full  rounded-full"></div>
-                      )}
-                    </div>
-                    <label
-                      htmlFor="fileInputC"
-                      className={`absolute cursor-pointer left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-xs w-full h-full text-center ${
-                        fileC ? 'text-transparent' : 'text-[#C1C1C1]'
-                      }`}
-                    >
-                      {userObject.profilePicture[2] && !fileC ? (
-                        <img
-                          className="object-cover rounded-full w-full h-full"
-                          src={userObject.profilePicture[2]}
-                          alt=""
-                        />
-                      ) : (
-                        <span className="flex w-full h-full justify-center items-center">
-                          +
-                        </span>
-                      )}
-                    </label>
-                  </div>
-                  <h6 className="text-xs text-[#8B8B8B] text-center">선택</h6>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    id="fileInputC"
-                    onChange={(e) => {
-                      setFileC(e.target.files[0]);
-                      fileChange(e, 2);
-                    }}
-                    className="opacity-0 w-[1px] peer"
-                  />
-                </div>
+                <ProfilePicOne
+                  file={file}
+                  userObject={userObject}
+                  setFile={setFile}
+                  fileChange={fileChange}
+                />
+                <ProfilePicTwo
+                  fileB={fileB}
+                  userObject={userObject}
+                  setFileB={setFileB}
+                  fileChange={fileChange}
+                />
+                <ProfilePicThree
+                  fileC={fileC}
+                  userObject={userObject}
+                  setFileC={setFileC}
+                  fileChange={fileChange}
+                />
               </div>
 
               <div className="px-6 flex flex-col  w-full">
@@ -397,7 +274,7 @@ export const ProfileEdit = () => {
                   {byteCounter(descDB)}/240 byte
                 </div>
               </div>
-            </CardWhiteBg>
+            </CardWhiteBgA>
           </div>
         </BgGraWrapperA>
       </div>
@@ -547,7 +424,7 @@ export const ProfileEdit = () => {
         </div>
       )}
       {cancelEdit && (
-        <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-0 top-0 ">
+        <div className="bg-black bg-opacity-20 w-screen h-screen absolute left-[50%] top-0 max-w-md  translate-x-[-50%]  ">
           <div className="absolute max-w-[21.5rem] w-full top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] bg-white rounded-[2.5rem] p-4">
             <MainQuestion>작성을 취소할까요?</MainQuestion>
             <SubInstruction>저장되지 않은 내용은 삭제됩니다</SubInstruction>
@@ -598,7 +475,8 @@ const CardWhiteBg = styled.div`
   border-radius: 2rem 2rem 0px 0px;
 `;
 
-const SmGraText = tw.div`text-xs text-center text-[#F79D00] font-bold`;
+const CardWhiteBgA = tw(CardWhiteBg)`
+bg-white w-full h-full backdrop-blur-[2px] opacity-95 flex-col `;
 
 const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-[#F79D00] font-semibold w-36 h-12 flex text-center justify-center text-[#A5A5A5] items-center z-10 cursor-pointer`;
 
