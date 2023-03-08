@@ -3,11 +3,9 @@ import styled from 'styled-components';
 
 import { useState, useEffect, useRef, useContext } from 'react';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
-import { HiLocationMarker } from 'react-icons/hi';
-import { AiOutlineDown } from 'react-icons/ai';
 import { LineBtn } from '../components/btn&tab&bar/LineBtn';
 import { LoadingBtn } from '../components/btn&tab&bar/LoadingBtn';
 import { ProfileEditHeader } from '../components/profileEdit/ProfileEditHeader';
@@ -17,6 +15,9 @@ import { ProfilePicThree } from '../components/profileEdit/ProfilePicThree';
 import { EditCancelCheck } from '../components/profileEdit/EditCancelCheck';
 import { SportsCheck } from '../components/profileEdit/SportsCheck';
 import { LocationsCheck } from '../components/profileEdit/LocationsCheck';
+import { LocationSelect } from '../components/profileEdit/LocationSelect';
+import { SportsSelect } from '../components/profileEdit/SportsSelect';
+import { TextareaEdit } from '../components/profileEdit/TextareaEdit';
 
 const LOCATION_LIST = [
   { id: 0, data: '마포구' },
@@ -192,91 +193,27 @@ export const ProfileEdit = () => {
                       {userObject.nickName}
                     </h4>
                   </div>
-                  <div className="flex items-center space-x-1">
-                    <span className="text-lg text-[#DFDFDF]">
-                      <HiLocationMarker />
-                    </span>
-                    {tempLocation
-                      ? locationsCheckedList.map((location) => {
-                          return (
-                            <h4
-                              key={location}
-                              className="text-[#A5A5A5] text-lg "
-                            >
-                              {location}
-                            </h4>
-                          );
-                        })
-                      : userObject.locations.map((location) => {
-                          return (
-                            <h4
-                              key={location}
-                              className="text-[#A5A5A5] text-lg "
-                            >
-                              {location}
-                            </h4>
-                          );
-                        })}
-                    <i
-                      onClick={() => {
-                        setLocationQuestion(true);
-                      }}
-                      className="text-2xl text-[#DFDFDF] cursor-pointer"
-                    >
-                      <AiOutlineDown />
-                    </i>
-                  </div>
+                  <LocationSelect
+                    tempLocation={tempLocation}
+                    locationsCheckedList={locationsCheckedList}
+                    userObject={userObject}
+                    setLocationQuestion={setLocationQuestion}
+                  />
                 </div>
-                <div className="flex justify-between items-center">
-                  <div className="flex flex-wrap w-[75%] mb-2 ">
-                    {tempSports
-                      ? sportsCheckedList.map((likeSports, index) => (
-                          <h4
-                            key={index}
-                            className="border px-4 py-2 border-[#A5A5A5] text-center rounded-full text-[#A5A5A5] text-sm mr-2 mb-2"
-                          >
-                            {likeSports}
-                          </h4>
-                        ))
-                      : userObject.likeSports.map((likeSports, index) => (
-                          <h4
-                            key={index}
-                            className="border px-4 py-2 border-[#A5A5A5] text-center mb-2 rounded-full text-[#A5A5A5] text-sm mr-2"
-                          >
-                            {likeSports}
-                          </h4>
-                        ))}
-                  </div>
-                  <i
-                    onClick={() => {
-                      setSportsQuestion(true);
-                    }}
-                    className="text-2xl text-[#DFDFDF] cursor-pointer"
-                  >
-                    <AiOutlineDown />
-                  </i>
-                </div>
-              </div>
-
-              <div className="px-4">
-                <textarea
-                  ref={selfIntroduction}
-                  type="text"
-                  value={descDB}
-                  placeholder={userObject.desc}
-                  className="w-full border-2 rounded-lg h-[11.75rem] px-2 py-3 resize-none outline-none"
-                  onChange={() => {
-                    if (byteCounter(selfIntroduction.current.value) > 240) {
-                      selfIntroduction.current.value =
-                        selfIntroduction.current.value.slice(0, -1);
-                    }
-                    setDescDB(selfIntroduction.current.value);
-                  }}
+                <SportsSelect
+                  tempSports={tempSports}
+                  sportsCheckedList={sportsCheckedList}
+                  userObject={userObject}
+                  setSportsQuestion={setSportsQuestion}
                 />
-                <div className="text-[#A5A5A5] text-xs text-right">
-                  {byteCounter(descDB)}/240 byte
-                </div>
               </div>
+              <TextareaEdit
+                selfIntroduction={selfIntroduction}
+                descDB={descDB}
+                userObject={userObject}
+                byteCounter={byteCounter}
+                setDescDB={setDescDB}
+              />
             </CardWhiteBgA>
           </div>
         </BgGraWrapperA>
@@ -349,10 +286,3 @@ const CardWhiteBg = styled.div`
 
 const CardWhiteBgA = tw(CardWhiteBg)`
 bg-white w-full h-full backdrop-blur-[2px] opacity-95 flex-col `;
-
-const OptionBtn = tw.label`border-2 rounded-full peer-checked:border-[#F79D00] font-semibold w-36 h-12 flex text-center justify-center text-[#A5A5A5] items-center z-10 cursor-pointer`;
-
-const MainQuestion = tw.h3`
-flex justify-center text-[#242424] font-semibold text-xl`;
-
-const SubInstruction = tw.h6`flex justify-center text-[#555555] mt-2 font-medium text-sm `;
