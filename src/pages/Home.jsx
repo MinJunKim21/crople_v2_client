@@ -6,14 +6,12 @@ import { AuthContext } from '../context/AuthContext';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-import NeedProfile from '../components/NeedProfile';
+import NeedProfile from '../components/home/NeedProfile/NeedProfile';
 import TabBar from '../components/btn&tab&bar/MainTabBar';
-import { ProfileCard } from '../components/ProfileCard';
-import { Link } from 'react-router-dom';
-import { FiMenu } from 'react-icons/fi';
-import { AiOutlineClose } from 'react-icons/ai';
-import { RecommendPic } from '../components/home/RecommendPic';
-import HomeMenu from '../components/home/HomeMenu';
+import { ProfileCard } from '../components/home/ProfileCard';
+import HomeMenu from '../components/home/HomeMenu/HomeMenu';
+import { Header } from '../components/home/Header';
+import { ProfilePics } from '../components/home/ProfilePics/ProfilePics';
 
 function Home() {
   const [recommendUsers, setRecommendUsers] = useState([]);
@@ -57,59 +55,27 @@ function Home() {
         <div>
           <BgGraWrapperA>
             <BgWhiteBlurA>
-              <div className="flex justify-between z-50 pt-11 ">
-                <i className="z-30 text-[#9AE286] text-2xl ml-4 cursor-pointer invisible">
-                  <FiMenu />
-                </i>
-                <img src="/assets/croXple.png" className="h-6" alt="" />
-                {!showMenu ? (
-                  <i
-                    onClick={handleShowMenu}
-                    className={`z-30 text-[#9AE286] text-2xl mr-4 cursor-pointer ${
-                      showMenu && 'invisible'
-                    }`}
-                  >
-                    <FiMenu />
-                  </i>
-                ) : (
-                  <i
-                    onClick={handleShowMenu}
-                    className={`z-30 text-[#555555] text-2xl mr-4 cursor-pointer ${
-                      !showMenu && 'invisible'
-                    }`}
-                  >
-                    <AiOutlineClose />
-                  </i>
-                )}
-              </div>
-              <div className="absolute left-[50%] translate-x-[-50%] bottom-5">
-                <img
-                  src="assets/pattern/LineCenterCircle.png"
-                  className="h-full w-full object-contain absolute"
-                  alt=""
-                />
-                <div className="relative h-screen w-screen max-w-md">
-                  <Link to={`/profile/${userObject._id}`}>
-                    <div className="w-[5.375rem] h-[5.375rem] object-cover rounded-full absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] bg-gradient-to-b to-[#F79D00] via-[#CABE40] from-[#9AE286]">
-                      <img
-                        src={userObject.profilePicture[0]}
-                        alt=""
-                        className="w-[5.25rem] h-[5.25rem] object-cover rounded-full absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
-                      />
-                    </div>
-                  </Link>
-                  <RecommendPic
-                    recommendUsers={recommendUsers}
-                    handleUserClick={handleUserClick}
-                  />
-                </div>
-              </div>
-              <div className="fixed bottom-0 left-[50%] translate-x-[-50%]  w-full pb-8 px-4 max-w-sm mx-auto justify-center">
+              <img
+                src="assets/pattern/LineCenterCircle.png"
+                className="h-full w-full object-contain absolute bottom-5"
+                alt=""
+              />
+              <Header
+                showMenu={showMenu}
+                handleShowMenu={handleShowMenu}
+                handleUserClick={handleUserClick}
+              />
+              <ProfilePics
+                userObject={userObject}
+                recommendUsers={recommendUsers}
+                handleUserClick={handleUserClick}
+              />
+              <TabBarLayout>
                 <TabBar />
-              </div>
+              </TabBarLayout>
             </BgWhiteBlurA>
           </BgGraWrapperA>
-          {showMenu ? (
+          {showMenu && (
             <HomeMenu
               showMenu={showMenu}
               setKakaoCheck={setKakaoCheck}
@@ -118,7 +84,7 @@ function Home() {
               logoutCheck={logoutCheck}
               handleShowMenu={handleShowMenu}
             />
-          ) : null}
+          )}
         </div>
       )}
     </div>
@@ -147,3 +113,5 @@ w-full h-screen flex flex-col mx-auto max-w-md`;
 
 const BgWhiteBlurA = tw(BgWhiteBlur)`
 w-full h-screen absolute max-w-md`;
+
+const TabBarLayout = tw.div`fixed bottom-0 left-[50%] translate-x-[-50%]  w-full pb-8 px-4 max-w-sm mx-auto justify-center`;

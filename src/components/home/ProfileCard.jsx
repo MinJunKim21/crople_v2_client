@@ -3,34 +3,44 @@ import tw from 'twin.macro';
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 import { BsChevronLeft } from 'react-icons/bs';
 import { HiLocationMarker } from 'react-icons/hi';
-import { LineBtn } from './btn&tab&bar/LineBtn';
+import { Carousel } from '../carousel/Carousel';
+import { ProfileCardTab } from '../btn&tab&bar/ProfileCardTab';
 
-export const UsersProfileCard = () => {
+export const ProfileCard = ({ user, onClose }) => {
   const userObject = useContext(AuthContext);
-  const [user, setUser] = useState(userObject);
-  const _id = useParams()._id;
+  const _id = user._id;
   const [followed, setFollowed] = useState(
     userObject.followings.includes(user?._id)
   );
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_ROOT}/api/users?userId=` + _id
-      );
-      setUser(res.data);
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_ROOT}/api/users?userId=` + _id
+        );
+        const updatedUser = response.data;
+        const isFollowed = updatedUser.followers.includes(userObject._id);
+        setFollowed(isFollowed);
+      } catch (error) {
+        console.error(error);
+      }
     };
-    fetchUser();
-    setFollowed(userObject.followings.includes(user?._id));
-  }, [_id, user?._id, userObject.followings]);
+
+    if (user) {
+      fetchUser();
+    }
+  }, [_id, user, userObject._id]);
 
   const handleClick = async () => {
+    setFollowed(!followed);
+
     try {
       if (followed) {
         await axios.put(
@@ -52,41 +62,30 @@ export const UsersProfileCard = () => {
     } catch (err) {
       console.log(err);
     }
-    setFollowed(!followed);
-    // window.location.reload(); // 원인 알게되면 이거 바꾸기...
   };
 
   return (
-    <div>
+    <div className="mx-auto max-w-md">
       <div>
         <BgGraWrapperA>
+          <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center">
+            <img src="/assets/croXple.png" className="h-6" alt="" />
+          </div>
           <div>
-            <button className="px-4 pb-2">
-              <Link to={'/'}>
-                <BsChevronLeft />
-              </Link>
+            <button onClick={onClose} className="px-4">
+              <BsChevronLeft />
             </button>
           </div>
-          <div className="h-full">
-            <CardWhiteBg className="bg-white w-full h-full backdrop-blur-[2px]	 opacity-95 flex-col">
+          <div className="h-full mt-2">
+            <CardWhiteBg className="bg-white w-full h-full backdrop-blur-[2px] flex-col">
               <div className="flex py-4 w-full">
                 <h4 className="w-full text-center text-[#8B8B8B]">프로필</h4>
               </div>
               <div className="px-4">
                 <hr className="w-full bg-gradient-to-r to-[#F79D00] via-[#CABE40] from-[#9AE286] h-[2px] px-4" />
               </div>
-              <div className="w-[9.5rem] h-[9.5rem] bg-gradient-to-b to-[#F79D00] via-[#CABE40] from-[#9AE286] p-[2px] rounded-full justify-center mx-auto mt-6 ">
-                <div className="justify-center flex items-center h-full w-full">
-                  <img
-                    src={user.profilePicture[0]}
-                    alt=""
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                </div>
-              </div>
-              <div className="mt-4 mb-[1.125rem] w-full flex justify-center ">
-                <div className="bg-[#C1C1C1] w-1.5 h-1.5 rounded-full" />
-              </div>
+
+              <Carousel images={user.profilePicture} />
 
               <div className="px-6 flex flex-col  w-full">
                 <div className="flex w-full items-center justify-between mb-8 ">
@@ -132,16 +131,13 @@ export const UsersProfileCard = () => {
       </div>
       <div>
         <div className="fixed bottom-0 left-[50%] w-full pb-8 px-4 max-w-sm mx-auto justify-center translate-x-[-50%]">
-          <button className="w-full">
-            <LineBtn text={'바'} />
-          </button>
-          <div>
-            {user.username !== userObject.username && (
-              <button onClick={handleClick}>
-                {followed ? 'Unfollow' : 'Follow'}
-              </button>
-            )}
-          </div>
+          <ProfileCardTab
+            user={user}
+            handleClick={() => handleClick(user)}
+            onClose={onClose}
+            followed={followed}
+            setFollowed={setFollowed}
+          />
         </div>
       </div>
     </div>

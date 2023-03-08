@@ -1,9 +1,9 @@
 import tw from 'twin.macro';
 import { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../../../context/AuthContext';
 import { KakaoCheck } from './KakaoCheck';
 import { LogoutCheck } from './LogoutCheck';
-import { LineShadowBtn } from '../../components/btn&tab&bar/LineShadowBtn';
+import { LineShadowBtn } from '../../btn&tab&bar/LineShadowBtn';
 
 const HomeMenu = ({
   showMenu,

@@ -9,8 +9,8 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 // import Infoedit from '../components/Infoedit';
 
-import { MyProfileCard } from '../components/MyProfileCard';
-import { UsersProfileCard } from '../components/UsersProfileCard';
+import { MyProfileCard } from '../components/profile/MyProfileCard';
+import { UsersProfileCard } from '../components/profile/UsersProfileCard';
 
 export default function Profile() {
   const userObject = useContext(AuthContext);

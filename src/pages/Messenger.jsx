@@ -10,6 +10,8 @@ import { ChatTab } from '../components/btn&tab&bar/ChatTab';
 import styled from 'styled-components';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { UnfollowCheck } from '../components/messenger/UnfollowCheck';
+import { MessengerHeader } from '../components/messenger/MessengerHeader';
+import { ConvListDefault } from '../components/messenger/ConvListDefault';
 
 moment.locale('ko');
 
@@ -63,21 +65,6 @@ export default function Messenger() {
     });
   }, [userObject]);
 
-  // useEffect(() => {
-  //   const getMessages = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         `${process.env.REACT_APP_API_ROOT}/api/messages/` + currentChat?._id
-  //       );
-  //       setMessages(res.data);
-  //       console.log(res.data, 'getMessages');
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getMessages();
-  // }, [currentChat, convExist]);
-
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
@@ -98,14 +85,6 @@ export default function Messenger() {
       const res = await axios.get(
         `${process.env.REACT_APP_API_ROOT}/api/conversations/find/${userObject._id}/${user._id}`
       );
-      // if (res.data === null) {
-      //   // const conversation = await createConversation(user);
-      //   // setCurrentChat(conversation);
-      //   navigate(`/chat/${res.data._id}`); // navigate to chat page with conversation ID
-      // } else {
-      //   // setCurrentChat(convExist);
-      //   navigate(`/chat/${res.data._id}`); // navigate to chat page with existing conversation ID
-      // }
       window.location.href = `/chat/${res.data._id}`;
     } catch (err) {
       console.log(err);
@@ -256,30 +235,12 @@ export default function Messenger() {
   return (
     <div className="flex flex-col justify-cente max-w-md mx-auto">
       <div className="h-screen flex flex-col">
-        <div className="flex text-center justify-between px-4 text-xl text-[#555555] pt-8 pb-2  border-b-4 border-[#F5F5F5] w-full relative">
-          <div className="text-sm invisible">편집</div>
-          <h3 className="font-bold text-xl">채팅 목록</h3>
-          <div
-            onClick={() => {
-              setShowUnfollow((prev) => !prev);
-            }}
-            className="text-sm cursor-pointer z-10"
-          >
-            {showUnfollow ? '완료' : '편집'}
-          </div>
-        </div>
-        {allConversations.length === 0 && (
-          <div className="text-[#555555] absolute left-[50%] top-[35%] translate-x-[-50%] text-center">
-            <p>현재 채팅방이 없습니다.</p>
-            <p>새로운 메이트를 찾아보세요.</p>
-            <img
-              src="/assets/BTN/Btn_GotLiked.png"
-              alt=""
-              className="absolute w-12 h-12 bottom-[35%] left-[95%]"
-            />
-          </div>
-        )}
-        <BgGra className="w-full h-full"> </BgGra>
+        <MessengerHeader
+          showUnfollow={showUnfollow}
+          setShowUnfollow={setShowUnfollow}
+        />
+        <ConvListDefault allConversations={allConversations} />
+        <BgGra className="w-full h-full" />
       </div>
       <div className="absolute top-0 max-w-md ">
         <div
@@ -289,15 +250,9 @@ export default function Messenger() {
         >
           {allConversations
             .sort((a, b) => {
-              // If a's last message is null and b's last message is not null, move a to the front
-              if (a.lastMessage === null && b.lastMessage !== null) {
+              if (a.lastMessage === null || b.lastMessage === null) {
                 return -1;
               }
-              // If b's last message is null and a's last message is not null, move b to the front
-              if (b.lastMessage === null && a.lastMessage !== null) {
-                return 1;
-              }
-              // Sort by last message in descending order
               return moment(b.lastMessage) - moment(a.lastMessage);
             })
             .map((conversation, index) => {
