@@ -242,7 +242,7 @@ export default function Messenger() {
         <ConvListDefault allConversations={allConversations} />
         <BgGra className="w-full h-full" />
       </div>
-      <div className="absolute top-0 max-w-md ">
+      <div className="absolute top-0 max-w-md w-full ">
         <div
           className={`flex flex-col mt-[100px] w-full  space-y-2 z-10 ${
             showUnfollow ? '' : 'px-2'
