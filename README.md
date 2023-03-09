@@ -1,12 +1,12 @@
-# croXple [크로플](mobile ver.)
+# croXple [크로플]
 
-### [Link to Croxple](https://www.croxple.com/)
+### 크로플 배포 : [https://www.croxple.com](https://www.croxple.com/)
 
 # ✨ 서비스 소개
 
-- 관심 운동과 지역을 등록하여 관심이 겹치는 친구를 찾는 **운동인 메이팅 플랫폼** 입니다.
-- 상대방의 프로필카드를 구경하여 매칭 신청을 하고, **매칭이 되면 챗을 나눌** 수 있습니다.
-- 친구를 찾으면 함께 운동할 **시설을 추천해주고 예약**을 도와줍니다.(준비 진행 중)
+- 관심 운동과 지역을 등록하여 관심이 겹치는 친구를 찾는 **운동인 메이팅 플랫폼**
+- 상대방의 프로필카드를 구경하여 매칭 신청을 하고, **매칭이 되면 실시간 챗**
+- 친구를 찾으면 함께 운동할 **시설을 추천**
 
 # 👨‍👨‍👦‍👦 팀원 구성
 
@@ -53,26 +53,18 @@
    croxple ver.1 에서는 웹 링크를 통해서 사람들에게 매칭 조건에 따라 선호도 조사를 하여 운동친구를 찾아주었습니다. 사용방법 공지page, 매칭조건 선택page, 관리자page(조건에 맞추어 최다 팀 탄생 경우의 수 보여주기, 사용자들 데이터 리스트업 등)으로 이루어졌었고, hotjar을 통해서 관찰하였습니다. 이를 통해 회색 비활성화 버튼이 공지를 슬라이드로 다 보아야 활성화 버튼으로 바뀌는 플로우가 ux면에서 당황스러움을 발견 / 어느 문항에서 가장 고민하는지 비교 / pc(macOS, Window), mobile(ios, android), 태블릿 등등 다양한 환경에서 접속됨 / 어느 경로로 유입이 많이 되는가 / 등등을 알아보았습니다.
 
 # ⚒️ 기술 스택
-
-언어 : HTML CSS JavaScript
-
-프레임워크 : React
-
-스타일 : Tailwind CSS Styled-Components
-
-상태 관리 : Context API
-
-VCS : GitHub
-
-코딩 스타일 : ESlint Prettier
-
-배포 : Netlify Render
-
-백엔드 : Node.js Express
-
-DB : MongoDB Cloudinary
-
-etc : Figma Socket io Hotjar
+<p align='center'>
+    <img src="https://img.shields.io/badge/React-v18.2.0-blue?logo=React"/>
+    <img src="https://img.shields.io/badge/node.js-v16.15.0-green?logo=Node.js"/>
+    <img src="https://img.shields.io/badge/mongodb-v4.0.10-critical?logo=mongodb"/>
+    <img src="https://img.shields.io/badge/mongoose-v6.7.5-critical?logo=mongodb"/>
+    <img src="https://img.shields.io/badge/express-v4.18.2-ff69b4?logo=express"/>
+    <img src="https://img.shields.io/badge/Socket.io-v4.6.0-aaa?logo=socket.io"/>
+    <img src="https://img.shields.io/badge/prettier-^2.2.0-yellow?logo=prettier" />
+    <img src="https://img.shields.io/badge/eslint-^7.11.0-yellow?logo=eslint">
+    <img src="https://img.shields.io/badge/styled--components-v4.4.1-orange?logo=styled-components"/>
+    <img src="https://img.shields.io/badge/tailwindcss-v26.6.3-orange?logo=tailwind-css"/>
+</p>
 
 # 🧑‍💻 협업 파트
 
@@ -87,14 +79,3 @@ etc : Figma Socket io Hotjar
 - 최대 입력 byte 설정 후 넘을 경우 타이핑 안되게 하기 / 이미지가 cloudinary에 업로드되는 중에는 페이지 전환 없도록 ux 설정하기 / 어느 부분에 loading page가 노출되는지 / 다양한 모바일에서 레이아웃이 이상한 부분이 있는지 / 등등 빠지거나 개발 지식이 필요한 부분은 구현하면서 꼼꼼하게 체크하여 기획자와 논의하였습니다.
 - 최소 인원으로 프로젝트를 진행하다보니 단순히 서비스를 그대로 구현하기 보다, 유의미한 ux와 구현 방법들을 같이 고민하며 진행하였습니다.
 - 개발 파트 진행이 가장 오래 걸려서 PM 역할을 병행하여 업무와 시간 조율을 진행하였습니다. 구현 단계에서는 사전에 논의하지 못한 디테일한 사항들이 발견되는 경우가 많았기에, 매주 진행을 하면서 준비 사항을 다시 체크해주며 기획, 디자인, 개발의 진행이 매끄럽게 진행되도록 노력하였습니다.
-
-# 🌸 로드맵
-
-### [3/1 기준 미완성 부분, 데모버전 85% 진행]
-
-- 홈, 프로필카드, 챗 : 디테일한 업데이트 사항 반영
-- 운동시설 추천 파트 : 콘텐츠 준비되면 반영
-- 전체적으로 코드 리팩토링
-- 3월 초 완성 후 ver.1 처럼 유저들이 사용하도록 같은 방식과 같은 범위에 홍보 예정
-- 사용자 데이터 분석 후 수정 사항 반영, 더 재밌는 서비스 콘텐츠 기획
-- hybrid web view app 제작
