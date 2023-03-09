@@ -31,7 +31,7 @@
 <span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224068783-c7a384f5-7c06-4435-82b7-416457e20392.png"></span>
 <span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224068808-b1a87d91-ed7b-4859-ad40-23dccafbc791.png"></span>
 
-1. **관심 운동 / 지역 선택**
+2. **관심 운동 / 지역 선택**
     - 최대, 최소 선택 개수를 만족하면 다음 문항 버튼 활성화
     - 이전 문항으로 돌아가도 선택한 사항이 그대로 체크 유지
 <br />
@@ -42,7 +42,7 @@
 <span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224069646-a32521d5-22fc-4284-b214-edd5a34a83a3.png"></span>
 <span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224069825-e5d7fb20-f108-4207-94d9-e4b47d2870fd.png"></span>
 
-1. **관프로필 사진 / 닉네임 / 자기 소개 등록 - 이미지 데이터 관리 : Cloudinary 이용**
+3. **관프로필 사진 / 닉네임 / 자기 소개 등록 - 이미지 데이터 관리 : Cloudinary 이용**
     - 필수 입력 사항을 모두 기입해야 확인 버튼 활성화
     - 닉네임과 자기소개는 byte를 계산하여 초과하여 작성 안되도록 제한
     - 이미지 등록시 cloudinary에 등록되며, 해당 url이 해당 유저의 db에 저장됨
@@ -56,7 +56,7 @@
 <span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224070424-b5a22d13-e2d1-4158-974e-81963cab2b29.png"></span>
 <span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224070445-130c0348-a2e6-4abb-a662-ff7969d47c77.png"></span>
 
-1. **프리뷰 카드로 입력사항을 확인 후 유저 정보 db에 업데이트**
+4. **프리뷰 카드로 입력사항을 확인 후 유저 정보 db에 업데이트**
     - 다수의 이미지 등록시 개수에 맞는 이미지 슬라이드로 시각화
     - 등록 절차를 완료하면 스플래시로 서비스 사용 방법 튜토리얼을 제공
     - 본인의 프사를 클릭하여 정보 수정 가능, 자신에게 매칭 신청한 타유저들은 스마일 이모티콘으로 표시
@@ -66,7 +66,7 @@
 
 <span><img width = "20%" alt="onboardstart"  src="https://user-images.githubusercontent.com/101058125/224071985-e507257d-62ed-4dfa-b951-d8aa33138d51.png"></span>
 
-1. **홈화면 - 함께 운동할 타유저들 추천**
+5. **홈화면 - 함께 운동할 타유저들 추천**
     - 본인에게 매칭 신청을 한 유저가 있는 경우 스마일 이모티콘으로 표시
     - 9명의 유저는 전체 가입자들 중에서 랜덤하게 추천
     - 홈화면에 유저들 배치를 불규칙적이게 하여 다른 디자인들과 차별화
@@ -80,7 +80,7 @@
 <span><img width = "19%" alt="onboardstart"  src="https://user-images.githubusercontent.com/101058125/224072837-22b66e89-5eee-457d-886f-b34d42ca8f1a.png"></span>
 <span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224071454-b7203f82-f080-474f-839b-8fe6c6bacade.png"></span>
 
-1. **홈화면 메뉴 - 로그아웃 / 1:1 문의**
+5. **홈화면 메뉴 - 로그아웃 / 1:1 문의**
     - 로그아웃 확인 시 로그아웃 완료
     - 1:1 문의는 관리자와의 카톡으로 연결
 <br />
@@ -93,7 +93,7 @@
 <span><img width = "17%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224073842-75f17e77-0c2d-474c-b720-53785d228a14.png"></span>
 <span><img width = "17%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224073985-3d99e1db-07b5-40ac-9678-5274b30fc41b.png"></span>
 
-1. **유저 정보 수정 (프로필사진, 운동, 지역, 자기소개 변경)**
+6. **유저 정보 수정 (프로필사진, 운동, 지역, 자기소개 변경)**
     - 변경된 선택들의 상태가 보여지며, 최종 수정 확인 버튼 클릭시 정보 업데이트
     - 변경 도중 취소할 경우 이전의 정보로 되돌아감
 <br />
@@ -104,7 +104,7 @@
 <span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224074549-3d907493-7e62-47a1-bedf-4d8bc789ed6c.png"></span> 
 <span><img width = "20%" alt="onboardstart"  src="https://user-images.githubusercontent.com/101058125/224074631-ef1afd23-d142-45fc-848a-3a18ffeb80d5.png"></span>
 
-1. **타유저들의 프로필카드 구경과 매칭 신청 / 서로 매칭 성공 시 채팅 리스트에 상대방 프로필카드 생성됨**
+7. **타유저들의 프로필카드 구경과 매칭 신청 / 서로 매칭 성공 시 채팅 리스트에 상대방 프로필카드 생성됨**
     - 매칭 미신청, 신청, 매칭된 유저의 상태에 맞추어 버튼의 아이콘이 시각화
     - user의 데이터에 follower, following 카테고리를 구성하여 매칭 신청시 데이터 업데이트
     - 다른 유저의 프로필카드를 클릭해서 열람한 후 되돌아올때 페이지가 reload되지 않도록 컴포넌트로 구성
@@ -117,7 +117,7 @@
 <span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224075395-d8aee880-0cb1-4b55-aa7b-86e690df4824.png"></span>
 <span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224075427-0bdcab76-7250-4982-ae71-9f7ee00594b8.png"></span>
 
-1. **messenger page : 매칭 성공된 유저들 리스트 / 프로필 클릭 시 대화창으로 연결 / 편집 메뉴로 삭제 가능**
+8. **messenger page : 매칭 성공된 유저들 리스트 / 프로필 클릭 시 대화창으로 연결 / 편집 메뉴로 삭제 가능**
     - 매칭된 리스트 없을 시 프로필들 대신 기본 안내 문구 제공
     - 편집 메뉴로 대화 목록에서 대화 리스트 삭제 가능
     - 안읽은 메세지가 와있는 경우 프로필 좌상단에 주황색 알림 마킹
@@ -129,7 +129,7 @@
 <span><img width = "20%" alt="onboardstart"  src="https://user-images.githubusercontent.com/101058125/224075656-9ca8a21c-a045-427c-8aa8-c56b94114d40.png"></span>
 <span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224075675-67ce7a2d-1b0d-4de9-ba65-0b8e3e66c424.png"></span>
 
-1. **Socket io 를 사용하여 채팅 기능 구현(websocket)**
+9. **Socket io 를 사용하여 채팅 기능 구현(websocket)**
     - model을 conversation과 message로 나누어, 각 대화에 해당하는 유저들 간의 메세지를 나우어 저장
     - sender, receiver, lastMessage 등등의 정보들을 다루어 마지막 메세지가 얼마나 전인지 시간 표기
     - 상대방이 연속적으로 여러 메세지 보낼 경우 프로필사진 하나만 표시
@@ -144,7 +144,7 @@
 <span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224076109-30c9f42c-9824-4a5b-8dd9-27ff30deaf9c.png"></span>
 <span><img width = "20%" alt="onboardstart"  src="https://user-images.githubusercontent.com/101058125/224076132-b13be72d-d618-446a-80f6-1006746b6f0b.png"></span>
 
-1. **운동장 페이지 - 시설 추천 / 시설 정보 제공**
+10. **운동장 페이지 - 시설 추천 / 시설 정보 제공**
     - 시설들의 썸네일 순서는 랜덤하게 제공
     - 각 콘텐츠에 해당되는 정보와 태그들 구성
     - 시설 이미지들은 슬라이드로 시각화
