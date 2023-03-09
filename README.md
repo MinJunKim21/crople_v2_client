@@ -153,26 +153,13 @@
 <br />
 
 # ⚒️ 기술 스택
-
-언어 : HTML  CSS  JavaScript
-
-프레임워크 : React  
-
-스타일 : Tailwind CSS  Styled-Components
-
-상태 관리 : Context API
-
-VCS : GitHub  
-
-코딩 스타일 : ESlint  Prettier
-
-배포 : Netlify  Render
-
-백엔드 :   Node.js  Express 
-
-DB :  MongoDB  Cloudinary
-
-etc : Figma Socket io Hotjar
+| | |
+|:--|:--|
+|언어 : HTML  CSS  JavaScript|코딩 스타일 : ESlint  Prettier|
+|프레임워크 : React|  배포 : Netlify  Render|
+|스타일 : Tailwind CSS  Styled-Components|백엔드 :   Node.js  Express |
+|상태 관리 : Context API|DB :  MongoDB  Cloudinary|
+|VCS : GitHub  |etc : Figma Socket io Hotjar|
 
 1. **Styled-Components와 Tailwind CSS를 상황에 맞추어 섞어 활용**
     - 레이아웃 배치 : Tailwind의 직관적으로 수정을 할 수 있는 장점을 활용
@@ -189,6 +176,9 @@ etc : Figma Socket io Hotjar
 4. **사용자 데이터 분석 Hotjar**
     - ver1 의 경험 : croxple ver.1 에서는 웹 링크를 통해서 사람들에게 매칭 조건에 따라 선호도 조사를 하여 운동친구를 찾아주었습니다. 당시에 hotjar을 통해서 실사용자들을 관찰하였습니다.
     - hotjar을 통해서 사용자 경험을 관찰 - 이를 통해 회색 비활성화 버튼이 공지를 슬라이드로 다 보아야 활성화 버튼으로 바뀌는 플로우가 ux면에서 당황스러움을 발견 / 어느 문항에서 가장 고민하는지 비교 / pc(macOS, Window), mobile(ios, android), 태블릿 등등 다양한 환경에서 접속됨 / 어느 경로로 유입이 많이 되는가 / 등등을 알아봄
+<br />
+<br />
+<br />
 
 # 🧑‍💻 협업 파트
 
