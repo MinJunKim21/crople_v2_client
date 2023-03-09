@@ -53,27 +53,18 @@
    croxple ver.1 에서는 웹 링크를 통해서 사람들에게 매칭 조건에 따라 선호도 조사를 하여 운동친구를 찾아주었습니다. 사용방법 공지page, 매칭조건 선택page, 관리자page(조건에 맞추어 최다 팀 탄생 경우의 수 보여주기, 사용자들 데이터 리스트업 등)으로 이루어졌었고, hotjar을 통해서 관찰하였습니다. 이를 통해 회색 비활성화 버튼이 공지를 슬라이드로 다 보아야 활성화 버튼으로 바뀌는 플로우가 ux면에서 당황스러움을 발견 / 어느 문항에서 가장 고민하는지 비교 / pc(macOS, Window), mobile(ios, android), 태블릿 등등 다양한 환경에서 접속됨 / 어느 경로로 유입이 많이 되는가 / 등등을 알아보았습니다.
 
 # ⚒️ 기술 스택
-
-언어 : HTML CSS JavaScript
-
-프레임워크 : React
-
-스타일 : Tailwind CSS Styled-Components
-
-상태 관리 : Context API
-
-VCS : GitHub
-
-코딩 스타일 : ESlint Prettier
-
-배포 : Netlify Render
-
-백엔드 : Node.js Express
-
-DB : MongoDB Cloudinary
-
-etc : Figma Socket io Hotjar
-
+<p align='center'>
+    <img src="https://img.shields.io/badge/React-v18.2.0-blue?logo=React"/>
+    <img src="https://img.shields.io/badge/node.js-v16.15.0-green?logo=Node.js"/>
+    <img src="https://img.shields.io/badge/mongodb-v4.0.10-critical?logo=mongodb"/>
+    <img src="https://img.shields.io/badge/mongoose-v6.7.5-critical?logo=mongodb"/>
+    <img src="https://img.shields.io/badge/express-v4.18.2-ff69b4?logo=express"/>
+    <img src="https://img.shields.io/badge/Socket.io-v4.6.0-aaa?logo=socket.io"/>
+    <img src="https://img.shields.io/badge/prettier-^2.2.0-yellow?logo=prettier" />
+    <img src="https://img.shields.io/badge/eslint-^7.11.0-yellow?logo=eslint">
+    <img src="https://img.shields.io/badge/styled--components-v4.4.1-orange?logo=styled-components"/>
+    <img src="https://img.shields.io/badge/tailwindcss-v26.6.3-orange?logo=tailwind-css"/>
+</p>
 # 🧑‍💻 협업 파트
 
 ### [디자인 파트]
