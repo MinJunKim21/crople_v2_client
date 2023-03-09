@@ -34,11 +34,9 @@
     - 최대, 최소 선택 개수를 만족하면 다음 문항 버튼 활성화
     - 이전 문항으로 돌아가도 선택한 사항이 그대로 체크 유지
 
-![nickname.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/nickname.png)
-
-![imagewait.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/imagewait.png)
-
-![스크린샷 2023-03-09 오후 2.37.37.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA_2023-03-09_%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE_2.37.37.png)
+<span><img width = "20%" alt="onboardstart"  src="https://user-images.githubusercontent.com/101058125/224069620-8c0e4501-8e0a-4d1f-8f8f-aee8048914f7.png"></span>
+<span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224069646-a32521d5-22fc-4284-b214-edd5a34a83a3.png"></span>
+<span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224069825-e5d7fb20-f108-4207-94d9-e4b47d2870fd.png"></span>
 
 1. **관프로필 사진 / 닉네임 / 자기 소개 등록 - 이미지 데이터 관리 : Cloudinary 이용**
     - 필수 입력 사항을 모두 기입해야 확인 버튼 활성화
@@ -46,20 +44,20 @@
     - 이미지 등록시 cloudinary에 등록되며, 해당 url이 해당 유저의 db에 저장됨
     - cloudinary에 이미지가 등록되는 중에는 버튼 비활성화, 등록 완료 후 버튼 활성화
 
-![previewcard.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/previewcard.png)
 
-![tutorial1.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/tutorial1.png)
+<span><img width = "20%" alt="onboardstart"   src="https://user-images.githubusercontent.com/101058125/224070365-a02c77ec-e3c2-4b29-a480-6f2d793d0344.png"></span>
+<span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224070400-cb9d8576-6105-4964-b794-e8d6554a95e8.png"></span>
+<span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224070424-b5a22d13-e2d1-4158-974e-81963cab2b29.png"></span>
+<span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224070445-130c0348-a2e6-4abb-a662-ff7969d47c77.png"></span>
 
-![tutorial2.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/tutorial2.png)
-
-![turtorial3.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/turtorial3.png)
 
 1. **프리뷰 카드로 입력사항을 확인 후 유저 정보 db에 업데이트**
     - 다수의 이미지 등록시 개수에 맞는 이미지 슬라이드로 시각화
     - 등록 절차를 완료하면 스플래시로 서비스 사용 방법 튜토리얼을 제공
     - 본인의 프사를 클릭하여 정보 수정 가능, 자신에게 매칭 신청한 타유저들은 스마일 이모티콘으로 표시
 
-![메인페이지.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/%25E1%2584%2586%25E1%2585%25A6%25E1%2584%258B%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2591%25E1%2585%25A6%25E1%2584%258B%25E1%2585%25B5%25E1%2584%258C%25E1%2585%25B5.png)
+
+<span><img width = "20%" alt="onboardstart"  src="https://user-images.githubusercontent.com/101058125/224071985-e507257d-62ed-4dfa-b951-d8aa33138d51.png"></span>
 
 1. **홈화면 - 함께 운동할 타유저들 추천**
     - 본인에게 매칭 신청을 한 유저가 있는 경우 스마일 이모티콘으로 표시
@@ -67,13 +65,10 @@
     - 홈화면에 유저들 배치를 불규칙적이게 하여 다른 디자인들과 차별화
     - 중앙의 본인 프로필과 가까울수록 공통 관심분야가 많은 유저들을 추천(개발 진행중)
 
-![mainpage.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/mainpage.png)
-
-![homemenu.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/homemenu.png)
-
-![askcroxple.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/askcroxple.png)
-
-![logoutcheck.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/logoutcheck.png)
+<span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224071030-907e9252-922f-429f-9c38-f52a581c8ead.png"></span>
+<span><img width = "20%" alt="onboardstart"  src="https://user-images.githubusercontent.com/101058125/224071402-797d2616-6dbd-4964-bf2a-ebe77d90fbc4.png"></span>
+<span><img width = "18%" alt="onboardstart"  src="https://user-images.githubusercontent.com/101058125/224072837-22b66e89-5eee-457d-886f-b34d42ca8f1a.png"></span>
+<span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224071454-b7203f82-f080-474f-839b-8fe6c6bacade.png"></span>
 
 1. **홈화면 메뉴 - 로그아웃 / 1:1 문의**
     - 로그아웃 확인 시 로그아웃 완료
