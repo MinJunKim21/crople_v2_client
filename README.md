@@ -73,26 +73,21 @@
 1. **홈화면 메뉴 - 로그아웃 / 1:1 문의**
     - 로그아웃 확인 시 로그아웃 완료
     - 1:1 문의는 관리자와의 카톡으로 연결
-
-![ownprofile.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/ownprofile.png)
-
-![profileedit.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/profileedit.png)
-
-![locationcheck.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/locationcheck.png)
-
-![sportscheck.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/sportscheck.png)
-
-![profileeditcancel.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/profileeditcancel.png)
+    - 
+<span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224073552-a09ebe5b-278c-4204-ace5-525ea3cc4a70.png"></span>
+<span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224073657-4079c9ea-94b8-4a5b-96d4-aec514e2354c.png"></span>
+<span><img width = "20%" alt="onboardstart"  src="https://user-images.githubusercontent.com/101058125/224073758-a3405d52-e6af-4b35-96b4-5a936f214548.png"></span>
+<span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224073842-75f17e77-0c2d-474c-b720-53785d228a14.png"></span>
+<span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224073985-3d99e1db-07b5-40ac-9678-5274b30fc41b.png"></span>
 
 1. **유저 정보 수정 (프로필사진, 운동, 지역, 자기소개 변경)**
     - 변경된 선택들의 상태가 보여지며, 최종 수정 확인 버튼 클릭시 정보 업데이트
     - 변경 도중 취소할 경우 이전의 정보로 되돌아감
 
-![타유저프로필카드.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/%25E1%2584%2590%25E1%2585%25A1%25E1%2584%258B%25E1%2585%25B2%25E1%2584%258C%25E1%2585%25A5%25E1%2584%2591%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25A9%25E1%2584%2591%25E1%2585%25B5%25E1%2586%25AF%25E1%2584%258F%25E1%2585%25A1%25E1%2584%2583%25E1%2585%25B3.png)
 
-![매칭신청완료.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/%25E1%2584%2586%25E1%2585%25A2%25E1%2584%258E%25E1%2585%25B5%25E1%2586%25BC%25E1%2584%2589%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%258E%25E1%2585%25A5%25E1%2586%25BC%25E1%2584%258B%25E1%2585%25AA%25E1%2586%25AB%25E1%2584%2585%25E1%2585%25AD.png)
-
-![매칭된유저카드.png](croXple%20%5B%E1%84%8F%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AF%5D%20cd5cc2d3319f498db318758a1248d72a/%25E1%2584%2586%25E1%2585%25A2%25E1%2584%258E%25E1%2585%25B5%25E1%2586%25BC%25E1%2584%2583%25E1%2585%25AC%25E1%2586%25AB%25E1%2584%258B%25E1%2585%25B2%25E1%2584%258C%25E1%2585%25A5%25E1%2584%258F%25E1%2585%25A1%25E1%2584%2583%25E1%2585%25B3.png)
+<span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224074375-96cb770b-7939-4487-a348-440469f69936.png"></span>
+<span><img width = "20%" alt="onboardstart" src="https://user-images.githubusercontent.com/101058125/224074549-3d907493-7e62-47a1-bedf-4d8bc789ed6c.png"></span>
+<span><img width = "18%" alt="onboardstart"  src="https://user-images.githubusercontent.com/101058125/224074631-ef1afd23-d142-45fc-848a-3a18ffeb80d5.png"></span>
 
 1. **타유저들의 프로필카드 구경과 매칭 신청 / 서로 매칭 성공 시 채팅 리스트에 상대방 프로필카드 생성됨**
     - 매칭 미신청, 신청, 매칭된 유저의 상태에 맞추어 버튼의 아이콘이 시각화
