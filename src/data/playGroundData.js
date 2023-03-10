@@ -4,35 +4,28 @@ export const playGroundBanner = [
     name: '코리안탑팀',
     desc: '국가대표 선출의 코칭/MMA 챔피언의 꿈 살짝 꿔볼까?',
     image:
-      'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTAyMThfNTEg%2FMDAxNTUwNDg2NDIwMjQw.5C1jbo1hbfUtplCLdoZphuEhNHRnpJomHHrHulK4i2wg.igOvzVY3jxEAzRIaVk21Da5A8WK0dDzc9RPps2604jcg.JPEG.23gkrsus%2FKakaoTalk_20190218_192801909_05.jpg',
+      'https://user-images.githubusercontent.com/101058125/224294243-719c278d-94b6-43d8-8733-aa40ef45289b.png',
   },
   {
     id: 1,
     name: '휘트니스피플 우먼 홍대점',
     desc: '편안하게 운동하는/여성전문 휘트니스 센터',
     image:
-      'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20221114_212%2F1668425278629GicR3_JPEG%2FKakaoTalk_20221110_130133939_07.jpg',
+      'https://user-images.githubusercontent.com/101058125/224294577-287a824f-3cf4-4e63-9059-26afe168917c.png',
   },
   {
     id: 2,
-    name: '골드존파크 합정',
-    desc: '도시의 중심에서/필드의 공치다',
-    image:
-      'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEwMTZfMjg5%2FMDAxNjY1OTAxODA0ODEw.Nib4ab87A2tRYKny4qXf4aImj8xmHr7f7azT57InbKog.hFzYD8Cb1Gp8KpkZaHSfu_8xdT3rJjvM_JRd8v0wfYUg.JPEG.aklop23%2FIMG_5486.jpg',
-  },
-  {
-    id: 3,
     name: '락테니스 연희점',
     desc: '깔끔하고 모던한/테니스 연습장',
     image:
-      'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA3MjNfMjQx%2FMDAxNjU4NTcyNjMxOTYx.yPnSj6By2JxK9AsaGRrdnKIg1CMCohFf9s2x6R27Gmog.qMXUVXkcdHWTmpe89S7Xkz0Vg6FP_gXQC6KzXH5iIUkg.JPEG.damtheka%2FIMG_7544.jpg',
+      'https://user-images.githubusercontent.com/101058125/224294682-5a445529-c623-429c-88de-9d3ae526625f.png',
   },
   {
-    id: 4,
+    id: 3,
     name: '볼더프렌즈 클라이밍',
     desc: '내가 이걸 다 오를거면/스파이더맨을 할 걸 그랬어',
     image:
-      'https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMjExMTVfMTE5%2FMDAxNjY4NDg0OTUyOTI5.zWcmPGg7atQqBvkIR6XoroBmhnhVLbVTMDyoxm4X7qwg.cAdkSvUYhej2nLP_Fh6aXG18ccZM5nJbqn4Md4cRA-0g.JPEG%2F1703C30C-EE60-4475-91AE-2EBF90977B5A.jpeg',
+      'https://user-images.githubusercontent.com/101058125/224294798-519adcb0-4258-4b4e-8d3b-bc57e01ed93d.png',
   },
 ];
 

@@ -80,7 +80,7 @@ export const SportsFacility = () => {
           <BsFillCreditCardFill className="text-[#DFDFDF] text-lg" />
           <p className="text-[#3D3D3D] text-lg">{facility.price}</p>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 pb-[20rem]">
           <FaTag className="text-[#DFDFDF] text-lg" />
           <p className="text-[#3D3D3D] text-lg">{facility.subFacility}</p>
         </div>
