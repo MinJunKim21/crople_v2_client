@@ -109,7 +109,7 @@ const BgWhiteBlur = styled.div`
 `;
 
 const BgGraWrapperA = tw(BgGraWrapper)`
-w-full h-screen flex flex-col mx-auto max-w-md`;
+w-full h-screen flex flex-col mx-auto max-w-md bg-white`;
 
 const BgWhiteBlurA = tw(BgWhiteBlur)`
 w-full h-screen absolute max-w-md`;
