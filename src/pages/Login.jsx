@@ -24,7 +24,7 @@ function Login() {
 
   return (
     <div>
-      <div className="bg-[url('../public/assets/pattern/LoginBgPattern.png')] bg-contain bg-no-repeat bg-center">
+      <div className="bg-[url('../public/assets/pattern/LoginBgPattern.png')] bg-contain bg-no-repeat bg-center bg-white">
         <BgWhiteBlur>
           <BgWrapper>
             <div className="flex flex-col justify-center items-center min-h-screen">
@@ -74,6 +74,7 @@ const BgWhiteBlur = styled.div`
     rgba(255, 255, 255, 0) 0%,
     #ffffff 100%
   );
+  background: white;
 `;
 
 const BtnSNS = tw.button`
