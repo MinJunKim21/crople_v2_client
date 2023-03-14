@@ -12,7 +12,7 @@ export const GreetingSplash = ({ setQuestion }) => {
   }, [setQuestion]);
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto bg-white">
       <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center pt-11">
         <img src="/assets/croXple.png" className="h-6 " alt="" />
       </div>
@@ -46,4 +46,4 @@ const BgGraWrapper = styled.div`
 `;
 
 const BgGraWrapperA = tw(BgGraWrapper)`
-w-full h-screen flex flex-col mx-auto max-w-md`;
+w-full h-screen flex flex-col mx-auto max-w-md bg-white`;
