@@ -64,7 +64,7 @@ const BgGraWrapper = styled.div`
 `;
 
 const BgGraWrapperA = tw(BgGraWrapper)`
-w-full h-screen  flex flex-col mx-auto max-w-md`;
+w-full h-screen  flex flex-col mx-auto max-w-md bg-white`;
 
 const WhiteNote = styled.div`
   filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.16))

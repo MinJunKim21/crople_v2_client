@@ -55,4 +55,4 @@ const WhiteNote = styled.div`
 `;
 
 const WhiteNoteA = tw(WhiteNote)`
-absolute left-[50%] top-[40%] translate-x-[-50%] translate-y-[-50%] text-xs text-center bg-white py-3 px-3 rounded-full text-[#555555]`;
+absolute left-[50%] top-[40%] translate-x-[-50%] translate-y-[-50%] text-xs text-center bg-white py-3 px-3 rounded-full text-[#555555] bg-white`;

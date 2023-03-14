@@ -106,7 +106,7 @@ const BgGraWrapper = styled.div`
 `;
 
 const BgGraWrapperA = tw(BgGraWrapper)`
-w-full h-screen pt-12 flex flex-col mx-auto`;
+w-full h-screen pt-12 flex flex-col mx-auto bg-white`;
 
 const CardWhiteBg = styled.div`
   background: #ffffff;
