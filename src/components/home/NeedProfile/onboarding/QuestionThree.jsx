@@ -263,4 +263,4 @@ const NextBtnGrayText = tw.div`text-xl font-bold text-[#C1C1C1]`;
 
 const SmGraText = tw.div`text-xs text-center text-[#F79D00] font-bold`;
 
-const BgWrapper = tw.div`bg-white w-screen h-screen  pt-12 max-w-sm mx-auto px-4`;
+const BgWrapper = tw.div`bg-white w-screen h-screen  pt-12 max-w-sm mx-auto px-4 bg-white`;

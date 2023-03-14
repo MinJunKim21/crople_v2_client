@@ -65,7 +65,7 @@ export const ProfileCard = ({ user, onClose }) => {
   };
 
   return (
-    <div className="mx-auto max-w-md">
+    <div className="mx-auto max-w-md bg-white">
       <div>
         <BgGraWrapperA>
           <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center">

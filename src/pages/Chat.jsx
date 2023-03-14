@@ -152,7 +152,7 @@ export const Chat = () => {
   return (
     <div>
       <div className="hidden">{updatedAt}</div>
-      <div className="max-h-screen h-screen w-full max-w-md mx-auto relative flex flex-col">
+      <div className="max-h-screen h-screen w-full max-w-md mx-auto relative flex flex-col bg-white">
         <ChatHeader user={user} />
         <div className="flex flex-col h-full overflow-y-scroll pt-8 text-center pb-4">
           <p className="text-xs text-[#555555]">

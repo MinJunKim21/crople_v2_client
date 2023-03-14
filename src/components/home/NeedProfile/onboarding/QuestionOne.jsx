@@ -88,4 +88,4 @@ const NextBtnGraText = tw.div`text-xl font-bold bg-gradient-to-t from-[#F79D00] 
 const NextBtnGrayBg = tw.div`w-full h-[5.25rem]  rounded-full bg-[#F5F5F5]   text-center flex justify-center items-center`;
 const NextBtnGrayText = tw.div`text-xl font-bold text-[#C1C1C1]`;
 
-const BgWrapper = tw.div`bg-white w-screen h-screen  pt-12 max-w-sm mx-auto px-4`;
+const BgWrapper = tw.div`bg-white w-screen h-screen  pt-12 max-w-sm mx-auto px-4 bg-white`;

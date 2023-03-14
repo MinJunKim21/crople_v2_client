@@ -22,7 +22,7 @@ export const SportsFacility = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto bg-white">
       <Swiper
         style={{
           '--swiper-pagination-color': '#ffffff',

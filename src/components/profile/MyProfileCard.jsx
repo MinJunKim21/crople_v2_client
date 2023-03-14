@@ -32,7 +32,7 @@ export const MyProfileCard = () => {
   }, [_id, user?._id, userObject.followings]);
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto bg-white">
       <div>
         <BgGraWrapperA>
           <div className="absolute left-[50%] translate-x-[-50%] z-50 justify-center">

@@ -233,7 +233,7 @@ export default function Messenger() {
   };
 
   return (
-    <div className="flex flex-col justify-cente max-w-md mx-auto">
+    <div className="flex flex-col justify-cente max-w-md mx-auto bg-white">
       <div className="h-screen flex flex-col">
         <MessengerHeader
           showUnfollow={showUnfollow}

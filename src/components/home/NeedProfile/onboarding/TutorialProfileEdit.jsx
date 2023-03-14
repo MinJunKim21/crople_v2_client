@@ -11,7 +11,7 @@ export const TutorialProfileEdit = ({ file }) => {
         <div className="absolute bottom-10  left-[50%] translate-x-[-50%]">
           <img
             src="assets/pattern/WhiteCenterBlur.png"
-            className="h-full w-full absolute"
+            className="h-full w-full absolute object-contain"
             alt=""
           />
           <img
@@ -47,7 +47,7 @@ const BgGraWrapper = styled.div`
 `;
 
 const BgGraWrapperA = tw(BgGraWrapper)`
-w-full h-screen  flex flex-col mx-auto max-w-md`;
+w-full h-screen  flex flex-col mx-auto max-w-md bg-white`;
 
 const WhiteNote = styled.div`
   filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.16))
