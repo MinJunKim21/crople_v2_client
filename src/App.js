@@ -19,7 +19,7 @@ function App() {
       {/* <Navbar /> */}
       <Routes>
         <Route
-          path="/"
+          path="/beta"
           element={userObject._id ? <Home /> : <Navigate to="/login" />}
         />
         <Route
