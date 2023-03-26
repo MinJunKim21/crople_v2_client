@@ -20,7 +20,7 @@ export const PlayGroundBar = () => {
           </NextBtnGraBorder>
         </Link>
 
-        <Link to="/">
+        <Link to="/beta">
           <div className="h-[4.25rem] text-center justify-center items-center flex flex-col">
             <i>
               <img src="/assets/BTN/Btn_Home.png" className="h-9 " alt="" />

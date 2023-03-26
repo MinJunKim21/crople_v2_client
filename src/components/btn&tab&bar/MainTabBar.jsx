@@ -21,7 +21,7 @@ function MainTabBar({ reload }) {
             </NextBtnGraBorder>
           </Link>
 
-          <Link to="/">
+          <Link to="/beta">
             <div className="h-[4.25rem]  text-center justify-center items-center flex flex-col">
               <i
                 onClick={() => {
